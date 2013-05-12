@@ -16,14 +16,18 @@
 
 
 
-namespace starling {
-namespace errors {
-    class/** A MissingContextError is thrown when a Context3D object is required but not (yet) 
-     *  available. */MissingContextError: public Error{
-        /** Creates a new MissingContextError object. */
-        public:          MissingContextError(void* message="", void* id=0);
-    };
-}
+namespace starling
+{
+    namespace errors
+    {
+        class/** A MissingContextError is thrown when a Context3D object is required but not (yet)
+     *  available. */MissingContextError: public Error
+        {
+            /** Creates a new MissingContextError object. */
+        public:
+            MissingContextError(void *message="", void *id=0);
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_ERRORS_MISSINGCONTEXTERROR_AS

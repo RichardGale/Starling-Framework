@@ -21,46 +21,78 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace starling { namespace display { class Sprite; } }
-namespace starling { namespace events { class Event; } }
-namespace starling { namespace events { class EventDispatcher; } }
+namespace starling
+{
+    namespace display
+    {
+        class Sprite;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class Event;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class EventDispatcher;
+    }
+}
 
 using namespace flexunit::framework;
 using namespace starling::display;
 using namespace starling::events;
 using namespace starling::events;
 
-namespace tests {
+namespace tests
+{
     class EventTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testBubbling();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testStopPropagation();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRemoveEventListeners();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testBlankEventDispatcher();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testDuplicateEventHandler();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testBubbleWithModifiedChain();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRedispatch();
     };
 }

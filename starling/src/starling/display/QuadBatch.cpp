@@ -37,34 +37,34 @@
 #include "starling/utils/MatrixUtil.h"
 #include "starling/utils/VertexData.h"
 
-    //use starling_internal        ;
+//use starling_internal        ;
 
-    /** Optimizes rendering of a number of quads with an identical state.
-     * 
-     *  <p>The majority of all rendered objects in Starling are quads. In fact, all the default
-     *  leaf nodes of Starling are quads (the Image and Quad classes). The rendering of those 
-     *  quads can be accelerated by a big factor if all quads with an identical state are sent 
-     *  to the GPU in just one call. That's what the QuadBatch class can do.</p>
-     *  
-     *  <p>The 'flatten' method of the Sprite class uses this class internally to optimize its 
-     *  rendering performance. In most situations, it is recommended to stick with flattened
-     *  sprites, because they are easier to use. Sometimes, however, it makes sense
-     *  to use the QuadBatch class directly: e.g. you can add one quad multiple times to 
-     *  a quad batch, whereas you can only add it once to a sprite. Furthermore, this class
-     *  does not dispatch <code>ADDED</code> or <code>ADDED_TO_STAGE</code> events when a quad
-     *  is added, which makes it more lightweight.</p>
-     *  
-     *  <p>One QuadBatch object is bound to a specific render state. The first object you add to a 
-     *  batch will decide on the QuadBatch's state, that is: its texture, its settings for 
-     *  smoothing and blending, and if it's tinted (colored vertices and/or transparency). 
-     *  When you reset the batch, it will accept a new state on the next added quad.</p> 
-     *  
-     *  <p>The class extends DisplayObject, but you can use it even without adding it to the
-     *  display tree. Just call the 'renderCustom' method from within another render method,
-     *  and pass appropriate values for transformation matrix, alpha and blend mode.</p>
-     *
-     *  @see Sprite  
-     */
+/** Optimizes rendering of a number of quads with an identical state.
+ *
+ *  <p>The majority of all rendered objects in Starling are quads. In fact, all the default
+ *  leaf nodes of Starling are quads (the Image and Quad classes). The rendering of those
+ *  quads can be accelerated by a big factor if all quads with an identical state are sent
+ *  to the GPU in just one call. That's what the QuadBatch class can do.</p>
+ *
+ *  <p>The 'flatten' method of the Sprite class uses this class internally to optimize its
+ *  rendering performance. In most situations, it is recommended to stick with flattened
+ *  sprites, because they are easier to use. Sometimes, however, it makes sense
+ *  to use the QuadBatch class directly: e.g. you can add one quad multiple times to
+ *  a quad batch, whereas you can only add it once to a sprite. Furthermore, this class
+ *  does not dispatch <code>ADDED</code> or <code>ADDED_TO_STAGE</code> events when a quad
+ *  is added, which makes it more lightweight.</p>
+ *
+ *  <p>One QuadBatch object is bound to a specific render state. The first object you add to a
+ *  batch will decide on the QuadBatch's state, that is: its texture, its settings for
+ *  smoothing and blending, and if it's tinted (colored vertices and/or transparency).
+ *  When you reset the batch, it will accept a new state on the next added quad.</p>
+ *
+ *  <p>The class extends DisplayObject, but you can use it even without adding it to the
+ *  display tree. Just call the 'renderCustom' method from within another render method,
+ *  and pass appropriate values for transformation matrix, alpha and blend mode.</p>
+ *
+ *  @see Sprite
+ */
 using namespace com::adobe::utils;
 using namespace flash::display3D;
 using namespace flash::display3D;
@@ -89,17 +89,19 @@ using namespace starling::textures;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace display {
+namespace starling
+{
+    namespace display
+    {
 
 
         const std::string QuadBatch::QUAD_PROGRAM_NAME="QB_q";
 
         /** Helper objects. */
-         Matrix* QuadBatch::sHelperMatrix=newMatrix();
-         std::vector<float>* QuadBatch::sRenderAlpha=new<float>[1.0,1.0,1.0,1.0];
-         Matrix3D* QuadBatch::sRenderMatrix=newMatrix3D();
-         std::map<std::string, void*> QuadBatch::sProgramNameCache=newDictionary();
+        Matrix *QuadBatch::sHelperMatrix=newMatrix();
+        std::vector<float> *QuadBatch::sRenderAlpha=new<float>[1.0,1.0,1.0,1.0];
+        Matrix3D *QuadBatch::sRenderMatrix=newMatrix3D();
+        std::map<std::string, void *> QuadBatch::sProgramNameCache=newDictionary();
 
         /** Creates a new QuadBatch instance with empty batch data. */
         QuadBatch::QuadBatch()
@@ -111,10 +113,10 @@ namespace display {
             mSyncRequired = false;
 
             // Handle lost context. We use the conventional event here (not the one from Starling)
-            // so we're able to create a weak event listener; this avoids memory leaks when people 
+            // so we're able to create a weak event listener; this avoids memory leaks when people
             // forget to call "dispose" on the QuadBatch.
             Starling::current->stage3D->addEventListener(Event::CONTEXT3D_CREATE,
-                                                      onContextCreated, false, 0, true);
+                    onContextCreated, false, 0, true);
         }
 
         /** Disposes vertex- and index-buffer. */
@@ -128,16 +130,16 @@ namespace display {
             super->dispose();
         }
 
-        void QuadBatch::onContextCreated(Object* event)
+        void QuadBatch::onContextCreated(Object *event)
         {
             createBuffers();
             registerPrograms();
         }
 
         /** Creates a duplicate of the QuadBatch object. */
-        QuadBatch* QuadBatch::clone()
+        QuadBatch *QuadBatch::clone()
         {
-             QuadBatch* clone=new QuadBatch();
+            QuadBatch *clone=new QuadBatch();
             clone->mVertexData= mVertexData->clone(0,mNumQuads * 4);
             clone->mIndexData= mIndexData.slice(0, mNumQuads * 6);
             clone->mNumQuads= mNumQuads;
@@ -152,7 +154,7 @@ namespace display {
 
         void QuadBatch::expand(int newCapacity)
         {
-             int oldCapacity= capacity;
+            int oldCapacity= capacity;
 
             if (newCapacity <  0) newCapacity = oldCapacity * 2;
             if (newCapacity == 0) newCapacity = 16;
@@ -160,7 +162,7 @@ namespace display {
 
             mVertexData->numVertices= newCapacity * 4;
 
-            for ( int i=oldCapacity;i<newCapacity; ++i)
+            for ( int i=oldCapacity; i<newCapacity; ++i)
             {
                 mIndexData[int(i*6  )] = i*4;
                 mIndexData[int(i*6+1)] = i*4 + 1;
@@ -176,9 +178,9 @@ namespace display {
 
         void QuadBatch::createBuffers()
         {
-             int numVertices= mVertexData->numVertices;
-             int numIndices= mIndexData.length;
-             Context3D* context=Starling::context;
+            int numVertices= mVertexData->numVertices;
+            int numIndices= mIndexData.length;
+            Context3D *context=Starling::context;
 
             if (mVertexBuffer)    mVertexBuffer->dispose();
             if (mIndexBuffer)     mIndexBuffer->dispose();
@@ -209,21 +211,21 @@ namespace display {
             }
         }
 
-        /** Renders the current batch with custom settings for model-view-projection matrix, alpha 
-         *  and blend mode. This makes it possible to render batches that are not part of the 
+        /** Renders the current batch with custom settings for model-view-projection matrix, alpha
+         *  and blend mode. This makes it possible to render batches that are not part of the
          *  display list. */
-        void QuadBatch::renderCustom(Matrix* mvpMatrix, float parentAlpha,
+        void QuadBatch::renderCustom(Matrix *mvpMatrix, float parentAlpha,
                                      std::string blendMode)
         {
             if (mNumQuads == 0) return;
             if (mSyncRequired) syncBuffers();
 
-             bool pma   = mVertexData->premultipliedAlpha;
-             Context3D* context=Starling::context;
-             bool tinted   = mTinted || (parentAlpha != 1.0);
-             std::string programName=mTexture?
-                getImageProgramName(tinted, mTexture->mipMapping,mTexture->repeat,mTexture->format,mSmoothing) :
-                QUAD_PROGRAM_NAME;
+            bool pma   = mVertexData->premultipliedAlpha;
+            Context3D *context=Starling::context;
+            bool tinted   = mTinted || (parentAlpha != 1.0);
+            std::string programName=mTexture?
+                                    getImageProgramName(tinted, mTexture->mipMapping,mTexture->repeat,mTexture->format,mSmoothing) :
+                                    QUAD_PROGRAM_NAME;
 
             sRenderAlpha[0] = sRenderAlpha[1] = sRenderAlpha[2] = pma ? parentAlpha : 1.0;
             sRenderAlpha[3] = parentAlpha;
@@ -235,17 +237,17 @@ namespace display {
             context->setProgramConstantsFromVector(Context3DProgramType::VERTEX,0,sRenderAlpha, 1);
             context->setProgramConstantsFromMatrix(Context3DProgramType::VERTEX,1,sRenderMatrix, true);
             context->setVertexBufferAt(0,mVertexBuffer, VertexData::POSITION_OFFSET,
-                                      Context3DVertexBufferFormat::FLOAT_2);
+                                       Context3DVertexBufferFormat::FLOAT_2);
 
             if (mTexture == NULL || tinted)
                 context->setVertexBufferAt(1,mVertexBuffer, VertexData::COLOR_OFFSET,
-                                          Context3DVertexBufferFormat::FLOAT_4);
+                                           Context3DVertexBufferFormat::FLOAT_4);
 
             if (mTexture)
             {
                 context->setTextureAt(0,mTexture->base);
                 context->setVertexBufferAt(2,mVertexBuffer, VertexData::TEXCOORD_OFFSET,
-                                          Context3DVertexBufferFormat::FLOAT_2);
+                                           Context3DVertexBufferFormat::FLOAT_2);
             }
 
             context->drawTriangles(mIndexBuffer,0, mNumQuads * 2);
@@ -272,25 +274,25 @@ namespace display {
 
         /** Adds an image to the batch. This method internally calls 'addQuad' with the correct
          *  parameters for 'texture' and 'smoothing'. */
-        void QuadBatch::addImage(Image* image, float parentAlpha, Matrix* modelViewMatrix,
+        void QuadBatch::addImage(Image *image, float parentAlpha, Matrix *modelViewMatrix,
                                  std::string blendMode)
         {
             addQuad(image, parentAlpha, image->texture,image->smoothing,modelViewMatrix, blendMode);
         }
 
         /** Adds a quad to the batch. The first quad determines the state of the batch,
-         *  i.e. the values for texture, smoothing and blendmode. When you add additional quads,  
+         *  i.e. the values for texture, smoothing and blendmode. When you add additional quads,
          *  make sure they share that state (e.g. with the 'isStageChange' method), or reset
          *  the batch. */
-        void QuadBatch::addQuad(Quad* quad, float parentAlpha, Texture* texture,
-                                std::string smoothing, Matrix* modelViewMatrix,
+        void QuadBatch::addQuad(Quad *quad, float parentAlpha, Texture *texture,
+                                std::string smoothing, Matrix *modelViewMatrix,
                                 std::string blendMode)
         {
             if (modelViewMatrix == NULL)
                 modelViewMatrix = quad->transformationMatrix;
 
-             float alpha = parentAlpha * quad->alpha;
-             int vertexID= mNumQuads * 4;
+            float alpha = parentAlpha * quad->alpha;
+            int vertexID= mNumQuads * 4;
 
             if (mNumQuads + 1 > mVertexData->numVertices/ 4) expand();
             if (mNumQuads == 0)
@@ -314,16 +316,16 @@ namespace display {
 
         /** Adds another QuadBatch to this batch. Just like the 'addQuad' method, you have to
          *  make sure that you only add batches with an equal state. */
-        void QuadBatch::addQuadBatch(QuadBatch* quadBatch, float parentAlpha,
-                                     Matrix* modelViewMatrix, std::string blendMode)
+        void QuadBatch::addQuadBatch(QuadBatch *quadBatch, float parentAlpha,
+                                     Matrix *modelViewMatrix, std::string blendMode)
         {
             if (modelViewMatrix == NULL)
                 modelViewMatrix = quadBatch->transformationMatrix;
 
-             bool tinted   = quadBatch->mTinted|| parentAlpha != 1.0;
-             float alpha = parentAlpha * quadBatch->alpha;
-             int vertexID= mNumQuads * 4;
-             int numQuads= quadBatch->numQuads;
+            bool tinted   = quadBatch->mTinted|| parentAlpha != 1.0;
+            float alpha = parentAlpha * quadBatch->alpha;
+            int vertexID= mNumQuads * 4;
+            int numQuads= quadBatch->numQuads;
 
             if (mNumQuads + numQuads > capacity) expand(mNumQuads + numQuads);
             if (mNumQuads == 0)
@@ -345,11 +347,11 @@ namespace display {
             mNumQuads += numQuads;
         }
 
-        /** Indicates if specific quads can be added to the batch without causing a state change. 
-         *  A state change occurs if the quad uses a different base texture, has a different 
+        /** Indicates if specific quads can be added to the batch without causing a state change.
+         *  A state change occurs if the quad uses a different base texture, has a different
          *  'tinted', 'smoothing', 'repeat' or 'blendMode' setting, or if the batch is full
          *  (one batch can contain up to 8192 quads). */
-        bool QuadBatch::isStateChange(bool tinted, float parentAlpha, Texture* texture,
+        bool QuadBatch::isStateChange(bool tinted, float parentAlpha, Texture *texture,
                                       std::string smoothing, std::string blendMode, int numQuads)
         {
             if (mNumQuads == 0) return false;
@@ -368,18 +370,18 @@ namespace display {
         // display object methods
 
         /** @inheritDoc */
-        Rectangle* QuadBatch::getBounds(DisplayObject* targetSpace, Rectangle* resultRect)
+        Rectangle *QuadBatch::getBounds(DisplayObject *targetSpace, Rectangle *resultRect)
         {
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             Matrix* transformationMatrix=targetSpace == this ?
-                NULL : getTransformationMatrix(targetSpace, sHelperMatrix);
+            Matrix *transformationMatrix=targetSpace == this ?
+                                         NULL : getTransformationMatrix(targetSpace, sHelperMatrix);
 
             return mVertexData->getBounds(transformationMatrix,0, mNumQuads*4, resultRect);
         }
 
         /** @inheritDoc */
-        void QuadBatch::render(RenderSupport* support, float parentAlpha)
+        void QuadBatch::render(RenderSupport *support, float parentAlpha)
         {
             if (mNumQuads)
             {
@@ -393,31 +395,31 @@ namespace display {
 
         /** Analyses an object that is made up exclusively of quads (or other containers)
          *  and creates a vector of QuadBatch objects representing it. This can be
-         *  used to render the container very efficiently. The 'flatten'-method of the Sprite 
+         *  used to render the container very efficiently. The 'flatten'-method of the Sprite
          *  class uses this method internally. */
-        void QuadBatch::compile(DisplayObject* object,
-                                       std::vector<QuadBatch*>* quadBatches)
+        void QuadBatch::compile(DisplayObject *object,
+                                std::vector<QuadBatch *> *quadBatches)
         {
             compileObject(object, quadBatches, -1, new Matrix());
         }
 
-        int QuadBatch::compileObject(DisplayObject* object,
-                                              std::vector<QuadBatch*>* quadBatches,
-                                              int quadBatchID,
-                                              Matrix* transformationMatrix,
-                                              float alpha,
-                                              std::string blendMode,
-                                              bool ignoreCurrentFilter)
+        int QuadBatch::compileObject(DisplayObject *object,
+                                     std::vector<QuadBatch *> *quadBatches,
+                                     int quadBatchID,
+                                     Matrix *transformationMatrix,
+                                     float alpha,
+                                     std::string blendMode,
+                                     bool ignoreCurrentFilter)
         {
-             int i;
-             QuadBatch* quadBatch;
-             bool isRootObject   = false;
-             float objectAlpha = object->alpha;
+            int i;
+            QuadBatch *quadBatch;
+            bool isRootObject   = false;
+            float objectAlpha = object->alpha;
 
-             DisplayObjectContainer* container=static_cast<DisplayObjectContainer>(object);
-             Quad* quad=static_cast<Quad>(object);
-             QuadBatch* batch=static_cast<QuadBatch>(object);
-             FragmentFilter* filter=object->filter;
+            DisplayObjectContainer *container=static_cast<DisplayObjectContainer>(object);
+            Quad *quad=static_cast<Quad>(object);
+            QuadBatch *batch=static_cast<QuadBatch>(object);
+            FragmentFilter *filter=object->filter;
 
             if (quadBatchID == -1)
             {
@@ -443,21 +445,21 @@ namespace display {
                 if (filter->mode== FragmentFilterMode::BELOW)
                 {
                     quadBatchID = compileObject(object, quadBatches, quadBatchID,
-                        transformationMatrix, alpha, blendMode, true);
+                                                transformationMatrix, alpha, blendMode, true);
                 }
             }
             else if (container)
             {
-                 int numChildren= container->numChildren;
-                 Matrix* childMatrix=new Matrix();
+                int numChildren= container->numChildren;
+                Matrix *childMatrix=new Matrix();
 
                 for (i=0; i<numChildren; ++i)
                 {
-                     DisplayObject* child=container->getChildAt(i);
+                    DisplayObject *child=container->getChildAt(i);
                     if (child->hasVisibleArea)
                     {
-                         std::string childBlendMode=child->blendMode==BlendMode->AUTO?
-                                                    blendMode : child->blendMode;
+                        std::string childBlendMode=child->blendMode==BlendMode->AUTO?
+                                                   blendMode : child->blendMode;
                         childMatrix->copyFrom(transformationMatrix);
                         RenderSupport::transformMatrixForObject(childMatrix,child);
                         quadBatchID = compileObject(child, quadBatches, quadBatchID, childMatrix,
@@ -467,14 +469,14 @@ namespace display {
             }
             else if (quad || batch)
             {
-                 Texture* texture;
-                 std::string smoothing;
-                 bool tinted;
-                 int numQuads;
+                Texture *texture;
+                std::string smoothing;
+                bool tinted;
+                int numQuads;
 
                 if (quad)
                 {
-                     Image* image=static_cast<Image>(quad);
+                    Image *image=static_cast<Image>(quad);
                     texture = image ? image->texture: NULL;
                     smoothing = image ? image->smoothing: NULL;
                     tinted = quad->tinted;
@@ -491,7 +493,7 @@ namespace display {
                 quadBatch = quadBatches[quadBatchID];
 
                 if (quadBatch->isStateChange(tinted,alpha*objectAlpha, texture,
-                                            smoothing, blendMode, numQuads))
+                                             smoothing, blendMode, numQuads))
                 {
                     quadBatchID++;
                     if (quadBatches->length<= quadBatchID) quadBatches->push(newQuadBatch());
@@ -512,7 +514,7 @@ namespace display {
             if (isRootObject)
             {
                 // remove unused batches
-                for (i=quadBatches->length-1;i>quadBatchID; --i)
+                for (i=quadBatches->length-1; i>quadBatchID; --i)
                     quadBatches->pop()->dispose();
             }
 
@@ -521,27 +523,45 @@ namespace display {
 
         // properties
 
-        int QuadBatch::numQuads()     { return mNumQuads; }
-        bool QuadBatch::tinted()         { return mTinted; }
-        Texture* QuadBatch::texture()         { return mTexture; }
-        std::string QuadBatch::smoothing()        { return mSmoothing; }
-        bool QuadBatch::premultipliedAlpha()         { return mVertexData->premultipliedAlpha;}
+        int QuadBatch::numQuads()
+        {
+            return mNumQuads;
+        }
+        bool QuadBatch::tinted()
+        {
+            return mTinted;
+        }
+        Texture *QuadBatch::texture()
+        {
+            return mTexture;
+        }
+        std::string QuadBatch::smoothing()
+        {
+            return mSmoothing;
+        }
+        bool QuadBatch::premultipliedAlpha()
+        {
+            return mVertexData->premultipliedAlpha;
+        }
 
-        int QuadBatch::capacity()     { return mVertexData->numVertices/ 4; }
+        int QuadBatch::capacity()
+        {
+            return mVertexData->numVertices/ 4;
+        }
 
         // program management
 
         void QuadBatch::registerPrograms()
         {
-             Starling* target=Starling::current;
+            Starling *target=Starling::current;
             if (target->hasProgram(QUAD_PROGRAM_NAME))return; // already registered
 
-             AGALMiniAssembler* assembler=new AGALMiniAssembler();
-             std::string vertexProgramCode;
-             std::string fragmentProgramCode;
+            AGALMiniAssembler *assembler=new AGALMiniAssembler();
+            std::string vertexProgramCode;
+            std::string fragmentProgramCode;
 
             // this is the input data we'll pass to the shaders:
-            // 
+            //
             // va0 -> position
             // va1 -> color
             // va2 -> texCoords
@@ -559,8 +579,8 @@ namespace display {
                 "mov oc, v0       \n";  // output color
 
             target->registerProgram(QUAD_PROGRAM_NAME,
-                assembler->assemble(Context3DProgramType::VERTEX,vertexProgramCode),
-                assembler->assemble(Context3DProgramType::FRAGMENT,fragmentProgramCode));
+                                    assembler->assemble(Context3DProgramType::VERTEX,vertexProgramCode),
+                                    assembler->assemble(Context3DProgramType::FRAGMENT,fragmentProgramCode));
 
             // Image:
             // Each combination of tinted/repeat/mipmap/smoothing has its own fragment shader.
@@ -568,30 +588,30 @@ namespace display {
             for each (var bool tinted    in [true, false])
             {
                 vertexProgramCode = tinted ?
-                    "m44 op, va0, vc1 \n" + // 4x4 matrix transform to output clipspace
-                    "mul v0, va1, vc0 \n" + // multiply alpha (vc0) with color (va1)
-                    "mov v1, va2      \n"   // pass texture coordinates to fragment program
-                  :
-                    "m44 op, va0, vc1 \n" + // 4x4 matrix transform to output clipspace
-                    "mov v1, va2      \n";  // pass texture coordinates to fragment program
+                                    "m44 op, va0, vc1 \n" + // 4x4 matrix transform to output clipspace
+                                    "mul v0, va1, vc0 \n" + // multiply alpha (vc0) with color (va1)
+                                    "mov v1, va2      \n"   // pass texture coordinates to fragment program
+                                    :
+                                    "m44 op, va0, vc1 \n" + // 4x4 matrix transform to output clipspace
+                                    "mov v1, va2      \n";  // pass texture coordinates to fragment program
 
                 fragmentProgramCode = tinted ?
-                    "tex ft1,  v1, fs0 <???> \n" + // sample texture 0
-                    "mul  oc, ft1,  v0       \n"   // multiply color with texel color
-                  :
-                    "tex  oc,  v1, fs0 <???> \n";  // sample texture 0
+                                      "tex ft1,  v1, fs0 <???> \n" + // sample texture 0
+                                      "mul  oc, ft1,  v0       \n"   // multiply color with texel color
+                                      :
+                                      "tex  oc,  v1, fs0 <???> \n";  // sample texture 0
 
-                 std::vector<void*> smoothingTypes=[
-                    TextureSmoothing::NONE,
-                    TextureSmoothing::BILINEAR,
-                    TextureSmoothing::TRILINEAR
-                ];
+                std::vector<void *> smoothingTypes=[
+                                                       TextureSmoothing::NONE,
+                                                       TextureSmoothing::BILINEAR,
+                                                       TextureSmoothing::TRILINEAR
+                                                   ];
 
-                 std::vector<void*> formats=[
-                    Context3DTextureFormat::BGRA,
-                    Context3DTextureFormat::COMPRESSED,
-                    "compressedAlpha"
-                ];
+                std::vector<void *> formats=[
+                                                Context3DTextureFormat::BGRA,
+                                                Context3DTextureFormat::COMPRESSED,
+                                                "compressedAlpha"
+                                            ];
 
                 for each (var bool repeat    in [true, false])
                 {
@@ -601,7 +621,7 @@ namespace display {
                         {
                             for each (var std::string formatinformats)
                             {
-                                 std::vector<void*> options=["2d",repeat?"repeat":"clamp"];
+                                std::vector<void *> options=["2d",repeat?"repeat":"clamp"];
 
                                 if (format == Context3DTextureFormat::COMPRESSED)
                                     options->push("dxt1");
@@ -619,7 +639,7 @@ namespace display {
                                     getImageProgramName(tinted, mipmap, repeat, format, smoothing),
                                     assembler->assemble(Context3DProgramType::VERTEX,vertexProgramCode),
                                     assembler->assemble(Context3DProgramType::FRAGMENT,
-                                        fragmentProgramCode->replace("???",options->join()))
+                                                        fragmentProgramCode->replace("???",options->join()))
                                 );
                             }
                         }
@@ -629,10 +649,10 @@ namespace display {
         }                             // use explicit string for compatibility
 
         std::string QuadBatch::getImageProgramName(bool tinted, bool mipMap,
-                                                    bool repeat, std::string format,
-                                                    std::string smoothing)
+                bool repeat, std::string format,
+                std::string smoothing)
         {
-             unsigned int bitField=0;
+            unsigned int bitField=0;
 
             if (tinted) bitField |= 1;
             if (mipMap) bitField |= 1 << 1;
@@ -648,7 +668,7 @@ namespace display {
             else if (format == "compressedAlpha")
                 bitField |= 1 << 6;
 
-             std::string name=sProgramNameCache[bitField];
+            std::string name=sProgramNameCache[bitField];
 
             if (name == NULL)
             {
@@ -658,6 +678,6 @@ namespace display {
 
             return name;
         }
-}
+    }
 }
 

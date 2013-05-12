@@ -21,31 +21,44 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace errors { class AbstractClassError; } }
+namespace starling
+{
+    namespace errors
+    {
+        class AbstractClassError;
+    }
+}
 
-    /** A class that provides constant values for horizontal alignment of objects. */
+/** A class that provides constant values for horizontal alignment of objects. */
 using namespace starling::errors;
 
-namespace starling {
-namespace utils {
-    class HAlign
+namespace starling
+{
+    namespace utils
     {
-        /** @private */
-        public:          HAlign();
+        class HAlign
+        {
+            /** @private */
+        public:
+            HAlign();
 
-        /** Left alignment. */
-        public: static const std::string LEFT;
+            /** Left alignment. */
+        public:
+            static const std::string LEFT;
 
-        /** Centered alignement. */
-        public: static const std::string CENTER;
+            /** Centered alignement. */
+        public:
+            static const std::string CENTER;
 
-        /** Right alignment. */
-        public: static const std::string RIGHT;
+            /** Right alignment. */
+        public:
+            static const std::string RIGHT;
 
-        /** Indicates whether the given alignment string is valid. */
-        public: static bool isValid(std::string hAlign);
-    };
-}
+            /** Indicates whether the given alignment string is valid. */
+        public:
+            static bool isValid(std::string hAlign);
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_UTILS_HALIGN_AS

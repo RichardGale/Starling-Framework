@@ -23,17 +23,20 @@
 #include "RegExp.h"
 #include "Error.h"
 
-    /** An AbstractClassError is thrown when you attempt to create an instance of an abstract 
-     *  class. */
+/** An AbstractClassError is thrown when you attempt to create an instance of an abstract
+ *  class. */
 
-namespace starling {
-namespace errors {
-    class AbstractClassError: public Error
+namespace starling
+{
+    namespace errors
     {
-        /** Creates a new AbstractClassError object. */
-        public:          AbstractClassError(std::string message="", int id=0);
-    };
-}
+        class AbstractClassError: public Error
+        {
+            /** Creates a new AbstractClassError object. */
+        public:
+            AbstractClassError(std::string message="", int id=0);
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_ERRORS_ABSTRACTCLASSERROR_AS

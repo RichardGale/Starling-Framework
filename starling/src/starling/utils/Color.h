@@ -21,57 +21,88 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace errors { class AbstractClassError; } }
+namespace starling
+{
+    namespace errors
+    {
+        class AbstractClassError;
+    }
+}
 
-    /** A utility class containing predefined colors and methods converting between different
-     *  color representations. */
+/** A utility class containing predefined colors and methods converting between different
+ *  color representations. */
 using namespace starling::errors;
 
-namespace starling {
-namespace utils {
-    class Color
+namespace starling
+{
+    namespace utils
     {
-        public: static const unsigned int WHITE;
-        public: static const unsigned int SILVER;
-        public: static const unsigned int GRAY;
-        public: static const unsigned int BLACK;
-        public: static const unsigned int RED;
-        public: static const unsigned int MAROON;
-        public: static const unsigned int YELLOW;
-        public: static const unsigned int OLIVE;
-        public: static const unsigned int LIME;
-        public: static const unsigned int GREEN;
-        public: static const unsigned int AQUA;
-        public: static const unsigned int TEAL;
-        public: static const unsigned int BLUE;
-        public: static const unsigned int NAVY;
-        public: static const unsigned int FUCHSIA;
-        public: static const unsigned int PURPLE;
+        class Color
+        {
+        public:
+            static const unsigned int WHITE;
+        public:
+            static const unsigned int SILVER;
+        public:
+            static const unsigned int GRAY;
+        public:
+            static const unsigned int BLACK;
+        public:
+            static const unsigned int RED;
+        public:
+            static const unsigned int MAROON;
+        public:
+            static const unsigned int YELLOW;
+        public:
+            static const unsigned int OLIVE;
+        public:
+            static const unsigned int LIME;
+        public:
+            static const unsigned int GREEN;
+        public:
+            static const unsigned int AQUA;
+        public:
+            static const unsigned int TEAL;
+        public:
+            static const unsigned int BLUE;
+        public:
+            static const unsigned int NAVY;
+        public:
+            static const unsigned int FUCHSIA;
+        public:
+            static const unsigned int PURPLE;
 
-        /** Returns the alpha part of an ARGB color (0 - 255). */
-        public: static int getAlpha(unsigned int color);
+            /** Returns the alpha part of an ARGB color (0 - 255). */
+        public:
+            static int getAlpha(unsigned int color);
 
-        /** Returns the red part of an (A)RGB color (0 - 255). */
-        public: static int getRed(unsigned int color);
+            /** Returns the red part of an (A)RGB color (0 - 255). */
+        public:
+            static int getRed(unsigned int color);
 
-        /** Returns the green part of an (A)RGB color (0 - 255). */
-        public: static int getGreen(unsigned int color);
+            /** Returns the green part of an (A)RGB color (0 - 255). */
+        public:
+            static int getGreen(unsigned int color);
 
-        /** Returns the blue part of an (A)RGB color (0 - 255). */
-        public: static int getBlue(unsigned int color);
+            /** Returns the blue part of an (A)RGB color (0 - 255). */
+        public:
+            static int getBlue(unsigned int color);
 
-        /** Creates an RGB color, stored in an unsigned integer. Channels are expected
-         *  in the range 0 - 255. */
-        public: static unsigned int rgb(int red, int green, int blue);
+            /** Creates an RGB color, stored in an unsigned integer. Channels are expected
+             *  in the range 0 - 255. */
+        public:
+            static unsigned int rgb(int red, int green, int blue);
 
-        /** Creates an ARGB color, stored in an unsigned integer. Channels are expected
-         *  in the range 0 - 255. */
-        public: static unsigned int argb(int alpha, int red, int green, int blue);
+            /** Creates an ARGB color, stored in an unsigned integer. Channels are expected
+             *  in the range 0 - 255. */
+        public:
+            static unsigned int argb(int alpha, int red, int green, int blue);
 
-        /** @private */
-        public:          Color();
-    };
-}
+            /** @private */
+        public:
+            Color();
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_UTILS_COLOR_AS

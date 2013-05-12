@@ -13,15 +13,20 @@
 #include "HAlign.h"
 #include "starling/errors/AbstractClassError.h"
 
-    /** A class that provides constant values for horizontal alignment of objects. */
+/** A class that provides constant values for horizontal alignment of objects. */
 using namespace starling::errors;
 
-namespace starling {
-namespace utils {
+namespace starling
+{
+    namespace utils
+    {
 
 
         /** @private */
-        HAlign::HAlign() { throw new AbstractClassError(); }
+        HAlign::HAlign()
+        {
+            throw new AbstractClassError();
+        }
 
         /** Left alignment. */
         const std::string HAlign::LEFT="left";
@@ -37,6 +42,6 @@ namespace utils {
         {
             return hAlign == LEFT || hAlign == CENTER || hAlign == RIGHT;
         }
-}
+    }
 }
 

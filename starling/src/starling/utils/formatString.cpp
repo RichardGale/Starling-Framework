@@ -10,14 +10,14 @@
 
 
 
-    // TODO: add number formatting options
+// TODO: add number formatting options
 
-    /** Formats a String in .Net-style, with curly braces ("{0}"). Does not support any 
-     *  number formatting options yet. */
-    std::string ::formatString(std::string format, ...)
-    {
-        for ( int i=0;i<args->length;++i)
-            format = format->replace(newRegExp("\\{"+i+"\\}", "g"), args[i]);
+/** Formats a String in .Net-style, with curly braces ("{0}"). Does not support any
+ *  number formatting options yet. */
+std::string ::formatString(std::string format, ...)
+{
+    for ( int i=0; i<args->length; ++i)
+        format = format->replace(newRegExp("\\{"+i+"\\}", "g"), args[i]);
 
-        return format;
-    }
+    return format;
+}

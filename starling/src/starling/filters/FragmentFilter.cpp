@@ -40,31 +40,31 @@
 #include "starling/utils/VertexData.h"
 #include "starling/utils/getNextPowerOfTwo.h"
 
-    /** The FragmentFilter class is the base class for all filter effects in Starling.
-     *  All other filters of this package extend this class. You can attach them to any display
-     *  object through the 'filter' property.
-     * 
-     *  <p>A fragment filter works in the following way:</p>
-     *  <ol>
-     *    <li>The object that is filtered is rendered into a texture (in stage coordinates).</li>
-     *    <li>That texture is passed to the first filter pass.</li>
-     *    <li>Each pass processes the texture using a fragment shader (and optionally a vertex 
-     *        shader) to achieve a certain effect.</li>
-     *    <li>The output of each pass is used as the input for the next pass; if it's the 
-     *        final pass, it will be rendered directly to the back buffer.</li>  
-     *  </ol>
-     * 
-     *  <p>All of this is set up by the abstract FragmentFilter class. Concrete subclasses
-     *  just need to override the protected methods 'createPrograms', 'activate' and 
-     *  (optionally) 'deactivate' to create and execute its custom shader code. Each filter
-     *  can be configured to either replace the original object, or be drawn below or above it.
-     *  This can be done through the 'mode' property, which accepts one of the Strings defined
-     *  in the 'FragmentFilterMode' class.</p>
-     * 
-     *  <p>Beware that each filter should be used only on one object at a time. Otherwise, it
-     *  will get slower and require more resources; and caching will lead to undefined
-     *  results.</p>
-     */
+/** The FragmentFilter class is the base class for all filter effects in Starling.
+ *  All other filters of this package extend this class. You can attach them to any display
+ *  object through the 'filter' property.
+ *
+ *  <p>A fragment filter works in the following way:</p>
+ *  <ol>
+ *    <li>The object that is filtered is rendered into a texture (in stage coordinates).</li>
+ *    <li>That texture is passed to the first filter pass.</li>
+ *    <li>Each pass processes the texture using a fragment shader (and optionally a vertex
+ *        shader) to achieve a certain effect.</li>
+ *    <li>The output of each pass is used as the input for the next pass; if it's the
+ *        final pass, it will be rendered directly to the back buffer.</li>
+ *  </ol>
+ *
+ *  <p>All of this is set up by the abstract FragmentFilter class. Concrete subclasses
+ *  just need to override the protected methods 'createPrograms', 'activate' and
+ *  (optionally) 'deactivate' to create and execute its custom shader code. Each filter
+ *  can be configured to either replace the original object, or be drawn below or above it.
+ *  This can be done through the 'mode' property, which accepts one of the Strings defined
+ *  in the 'FragmentFilterMode' class.</p>
+ *
+ *  <p>Beware that each filter should be used only on one object at a time. Otherwise, it
+ *  will get slower and require more resources; and caching will lead to undefined
+ *  results.</p>
+ */
 using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace flash::display3D;
@@ -93,8 +93,10 @@ using namespace starling::utils;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace filters {
+namespace starling
+{
+    namespace filters
+    {
 
 
         /** All filter processing is expected to be done with premultiplied alpha. */
@@ -102,22 +104,22 @@ namespace filters {
         /** The standard vertex shader code. It will be used automatically if you don't create
          *  a custom vertex shader yourself. */
 
-                                    // pass texture coordinates to fragment program
+        // pass texture coordinates to fragment program
 
         /** The standard fragment shader code. It just forwards the texture color to the output. */
-                                                            // just forward texture color
+        // just forward texture color
 
         /** helper objects. */
-         Rectangle* FragmentFilter::sBounds=newRectangle();
-         Rectangle* FragmentFilter::sStageBounds=newRectangle();
-         Matrix* FragmentFilter::sTransformationMatrix=newMatrix();
+        Rectangle *FragmentFilter::sBounds=newRectangle();
+        Rectangle *FragmentFilter::sStageBounds=newRectangle();
+        Matrix *FragmentFilter::sTransformationMatrix=newMatrix();
 
         /** Creates a new Fragment filter with the specified number of passes and resolution.
          *  This constructor may only be called by the constructor of a subclass. */
         FragmentFilter::FragmentFilter(int numPasses, float resolution)
         {
             if (Capabilities::isDebugger&&
-                getQualifiedClassName(this) == "starling.filters::FragmentFilter")
+                    getQualifiedClassName(this) == "starling.filters::FragmentFilter")
             {
                 throw new AbstractClassError();
             }
@@ -141,10 +143,10 @@ namespace filters {
 
             createPrograms();
 
-            // Handle lost context. By using the conventional event, we can make it weak; this  
+            // Handle lost context. By using the conventional event, we can make it weak; this
             // avoids memory leaks when people forget to call "dispose" on the filter.
             Starling::current->stage3D->addEventListener(Event::CONTEXT3D_CREATE,
-                onContextCreated, false, 0, true);
+                    onContextCreated, false, 0, true);
         }
 
         /** Disposes the filter (programs, buffers, textures). */
@@ -157,7 +159,7 @@ namespace filters {
             disposeCache();
         }
 
-        void FragmentFilter::onContextCreated(Object* event)
+        void FragmentFilter::onContextCreated(Object *event)
         {
             mVertexBuffer = NULL;
             mIndexBuffer  = NULL;
@@ -166,10 +168,10 @@ namespace filters {
             createPrograms();
         }
 
-        /** Applies the filter on a certain display object, rendering the output into the current 
-         *  render target. This method is called automatically by Starling's rendering system 
+        /** Applies the filter on a certain display object, rendering the output into the current
+         *  render target. This method is called automatically by Starling's rendering system
          *  for the object the filter is attached to. */
-        void FragmentFilter::render(DisplayObject* object, RenderSupport* support, float parentAlpha)
+        void FragmentFilter::render(DisplayObject *object, RenderSupport *support, float parentAlpha)
         {
             // bottom layer
 
@@ -196,18 +198,18 @@ namespace filters {
                 object->render(support,parentAlpha);
         }
 
-        QuadBatch* FragmentFilter::renderPasses(DisplayObject* object, RenderSupport* support,
-                                      float parentAlpha, bool intoCache)
+        QuadBatch *FragmentFilter::renderPasses(DisplayObject *object, RenderSupport *support,
+                                                float parentAlpha, bool intoCache)
         {
-             Texture* cacheTexture=NULL;
-             Stage* stage=object->stage;
-             Context3D* context=Starling::context;
-             float scale = Starling::current->contentScaleFactor;
+            Texture *cacheTexture=NULL;
+            Stage *stage=object->stage;
+            Context3D *context=Starling::context;
+            float scale = Starling::current->contentScaleFactor;
 
             if (stage   == NULL) throw new Error("Filtered object must be on the stage.");
             if (context == NULL) throw new MissingContextError();
 
-            // the bounds of the object in stage coordinates 
+            // the bounds of the object in stage coordinates
             calculateBounds(object, stage, !intoCache, sBounds);
 
             if (sBounds->isEmpty())
@@ -225,7 +227,7 @@ namespace filters {
 
             // save original projection matrix and render target
             mProjMatrix->copyFrom(support->projectionMatrix);
-             Texture* previousRenderTarget=support->renderTarget;
+            Texture *previousRenderTarget=support->renderTarget;
 
             if (previousRenderTarget)
                 throw new IllegalOperationError(
@@ -234,7 +236,7 @@ namespace filters {
 
             if (intoCache)
                 cacheTexture = Texture::empty(sBounds->width,sBounds->height,PMA,true,
-                                             mResolution * scale);
+                                              mResolution * scale);
 
             // draw the original object into a texture
             support->renderTarget= mPassTextures[0];
@@ -249,14 +251,14 @@ namespace filters {
             support->loadIdentity(); // now we'll draw in stage coordinates!
 
             context->setVertexBufferAt(mVertexPosAtID,mVertexBuffer, VertexData::POSITION_OFFSET,
-                                      Context3DVertexBufferFormat::FLOAT_2);
+                                       Context3DVertexBufferFormat::FLOAT_2);
             context->setVertexBufferAt(mTexCoordsAtID,mVertexBuffer, VertexData::TEXCOORD_OFFSET,
-                                      Context3DVertexBufferFormat::FLOAT_2);
+                                       Context3DVertexBufferFormat::FLOAT_2);
 
             // draw all passes
-            for ( int i=0;i<mNumPasses; ++i)
+            for ( int i=0; i<mNumPasses; ++i)
             {
-                if (i < mNumPasses - 1) // intermediate pass  
+                if (i < mNumPasses - 1) // intermediate pass
                 {
                     // draw into pass texture
                     support->renderTarget= getPassTexture(i+1);
@@ -281,10 +283,10 @@ namespace filters {
                     }
                 }
 
-                 Texture* passTexture=getPassTexture(i);
+                Texture *passTexture=getPassTexture(i);
 
                 context->setProgramConstantsFromMatrix(Context3DProgramType::VERTEX,mMvpConstantID,
-                                                      support->mvpMatrix3D,true);
+                                                       support->mvpMatrix3D,true);
                 context->setTextureAt(mBaseTextureID,passTexture->base);
 
                 activate(i, context, passTexture);
@@ -309,12 +311,12 @@ namespace filters {
                 // the filter output in object coordinates, we wrap it in a QuadBatch: that way,
                 // we can modify it with a transformation matrix.
 
-                 QuadBatch* quadBatch=new QuadBatch();
-                 Image* image=new Image(cacheTexture);
+                QuadBatch *quadBatch=new QuadBatch();
+                Image *image=new Image(cacheTexture);
 
                 stage->getTransformationMatrix(object,sTransformationMatrix);
                 MatrixUtil::prependTranslation(sTransformationMatrix,
-                                              sBounds->x+ mOffsetX, sBounds->y+ mOffsetY);
+                                               sBounds->x+ mOffsetX, sBounds->y+ mOffsetY);
                 quadBatch->addImage(image,1.0, sTransformationMatrix);
 
                 return quadBatch;
@@ -324,7 +326,7 @@ namespace filters {
 
         // helper methods// final pass
 
-        void FragmentFilter::updateBuffers(Context3D* context, Rectangle* bounds)
+        void FragmentFilter::updateBuffers(Context3D *context, Rectangle *bounds)
         {
             mVertexData->setPosition(0,bounds->x,bounds->y);
             mVertexData->setPosition(1,bounds->right,bounds->y);
@@ -343,11 +345,11 @@ namespace filters {
 
         void FragmentFilter::updatePassTextures(int width, int height, float scale)
         {
-             int numPassTextures= mNumPasses > 1 ? 2 : 1;
+            int numPassTextures= mNumPasses > 1 ? 2 : 1;
 
-             bool needsUpdate   = mPassTextures.empty() ||
-                mPassTextures.length != numPassTextures ||
-                mPassTextures[0]->width!= width || mPassTextures[0]->height!= height;
+            bool needsUpdate   = mPassTextures.empty() ||
+                                 mPassTextures.length != numPassTextures ||
+                                 mPassTextures[0]->width!= width || mPassTextures[0]->height!= height;
 
             if (needsUpdate)
             {
@@ -363,20 +365,20 @@ namespace filters {
                     mPassTextures.clear();
                 }
 
-                for ( int i=0;i<numPassTextures; ++i)
+                for ( int i=0; i<numPassTextures; ++i)
                     mPassTextures[i] = Texture::empty(width,height, PMA, true, scale);
             }
         }
 
-        Texture* FragmentFilter::getPassTexture(int pass)
+        Texture *FragmentFilter::getPassTexture(int pass)
         {
             return mPassTextures[pass % 2];
         }
 
-        /** Calculates the bounds of the filter in stage coordinates, while making sure that the 
+        /** Calculates the bounds of the filter in stage coordinates, while making sure that the
          *  according textures will have powers of two. */
-        void FragmentFilter::calculateBounds(DisplayObject* object, Stage* stage,
-                                         bool intersectWithStage, Rectangle* resultRect)
+        void FragmentFilter::calculateBounds(DisplayObject *object, Stage *stage,
+                                             bool intersectWithStage, Rectangle *resultRect)
         {
             // optimize for full-screen effects
             if (object == stage || object == Starling::current->root)
@@ -395,7 +397,7 @@ namespace filters {
                 // the bounds are a rectangle around the object, in stage coordinates,
                 // and with an optional margin. To fit into a POT-texture, it will grow towards
                 // the right and bottom.
-                 float deltaMargin = mResolution == 1.0 ? 0.0 : 1.0 / mResolution; // avoid hard edges
+                float deltaMargin = mResolution == 1.0 ? 0.0 : 1.0 / mResolution; // avoid hard edges
                 resultRect->x-= mMarginX + deltaMargin;
                 resultRect->y-= mMarginY + deltaMargin;
                 resultRect->width += 2 * (mMarginX + deltaMargin);
@@ -425,46 +427,46 @@ namespace filters {
 
         // protected methods
 
-        /** Subclasses must override this method and use it to create their 
+        /** Subclasses must override this method and use it to create their
          *  fragment- and vertex-programs. */
         void FragmentFilter::createPrograms()
         {
             throw new Error("Method has to be implemented in subclass!");
         }
 
-        /** Subclasses must override this method and use it to activate their fragment- and 
+        /** Subclasses must override this method and use it to activate their fragment- and
          *  to vertext-programs.
          *  The 'activate' call directly precedes the call to 'context.drawTriangles'. Set up
-         *  the context the way your filter needs it. The following constants and attributes 
+         *  the context the way your filter needs it. The following constants and attributes
          *  are set automatically:
-         *  
+         *
          *  <ul><li>vertex constants 0-3: mvpMatrix (3D)</li>
          *      <li>vertex attribute 0: vertex position (FLOAT_2)</li>
          *      <li>vertex attribute 1: texture coordinates (FLOAT_2)</li>
          *      <li>texture 0: input texture</li>
          *  </ul>
-         *  
+         *
          *  @param pass: the current render pass, starting with '0'. Multipass filters can
          *               provide different logic for each pass.
          *  @param context: the current context3D (the same as in Starling.context, passed
          *               just for convenience)
          *  @param texture: the input texture, which is already bound to sampler 0. */
-        void FragmentFilter::activate(int pass, Context3D* context, Texture* texture)
+        void FragmentFilter::activate(int pass, Context3D *context, Texture *texture)
         {
             throw new Error("Method has to be implemented in subclass!");
         }
 
-        /** This method is called directly after 'context.drawTriangles'. 
+        /** This method is called directly after 'context.drawTriangles'.
          *  If you need to clean up any resources, you can do so in this method. */
-        void FragmentFilter::deactivate(int pass, Context3D* context, Texture* texture)
+        void FragmentFilter::deactivate(int pass, Context3D *context, Texture *texture)
         {
             // clean up resources
         }
 
-        /** Assembles fragment- and vertex-shaders, passed as Strings, to a Program3D. 
+        /** Assembles fragment- and vertex-shaders, passed as Strings, to a Program3D.
          *  If any argument is  null, it is replaced by the class constants STD_FRAGMENT_SHADER or
          *  STD_VERTEX_SHADER, respectively. */
-        Program3D* FragmentFilter::assembleAgal(std::string fragmentShader, std::string vertexShader)
+        Program3D *FragmentFilter::assembleAgal(std::string fragmentShader, std::string vertexShader)
         {
             if (fragmentShader == NULL) fragmentShader = STD_FRAGMENT_SHADER;
             if (vertexShader   == NULL) vertexShader   = STD_VERTEX_SHADER;
@@ -494,13 +496,13 @@ namespace filters {
         // flattening
 
         /** @private */
-        QuadBatch* FragmentFilter::compile(DisplayObject* object)
+        QuadBatch *FragmentFilter::compile(DisplayObject *object)
         {
             if (mCache) return mCache;
             else
             {
-                 RenderSupport* renderSupport;
-                 Stage* stage=object->stage;
+                RenderSupport *renderSupport;
+                Stage *stage=object->stage;
 
                 if (stage == NULL)
                     throw new Error("Filtered object must be on the stage.");
@@ -514,62 +516,128 @@ namespace filters {
         // properties
 
         /** Indicates if the filter is cached (via the "cache" method). */
-        bool FragmentFilter::isCached()         { return (mCache != NULL) || mCacheRequested; }
+        bool FragmentFilter::isCached()
+        {
+            return (mCache != NULL) || mCacheRequested;
+        }
 
         /** The resolution of the filter texture. "1" means stage resolution, "0.5" half the
-         *  stage resolution. A lower resolution saves memory and execution time (depending on 
+         *  stage resolution. A lower resolution saves memory and execution time (depending on
          *  the GPU), but results in a lower output quality. Values greater than 1 are allowed;
          *  such values might make sense for a cached filter when it is scaled up. @default 1 */
-        float FragmentFilter::resolution()        { return mResolution; }
+        float FragmentFilter::resolution()
+        {
+            return mResolution;
+        }
         void FragmentFilter::resolution(float value)
         {
             if (value <= 0) throw new ArgumentError("Resolution must be > 0");
             else mResolution = value;
         }
 
-        /** The filter mode, which is one of the constants defined in the "FragmentFilterMode" 
+        /** The filter mode, which is one of the constants defined in the "FragmentFilterMode"
          *  class. @default "replace" */
-        std::string FragmentFilter::mode()        { return mMode; }
-        void FragmentFilter::mode(std::string value)      { mMode = value; }
+        std::string FragmentFilter::mode()
+        {
+            return mMode;
+        }
+        void FragmentFilter::mode(std::string value)
+        {
+            mMode = value;
+        }
 
         /** Use the x-offset to move the filter output to the right or left. */
-        float FragmentFilter::offsetX()        { return mOffsetX; }
-        void FragmentFilter::offsetX(float value)      { mOffsetX = value; }
+        float FragmentFilter::offsetX()
+        {
+            return mOffsetX;
+        }
+        void FragmentFilter::offsetX(float value)
+        {
+            mOffsetX = value;
+        }
 
         /** Use the y-offset to move the filter output to the top or bottom. */
-        float FragmentFilter::offsetY()        { return mOffsetY; }
-        void FragmentFilter::offsetY(float value)      { mOffsetY = value; }
+        float FragmentFilter::offsetY()
+        {
+            return mOffsetY;
+        }
+        void FragmentFilter::offsetY(float value)
+        {
+            mOffsetY = value;
+        }
 
         /** The x-margin will extend the size of the filter texture along the x-axis.
          *  Useful when the filter will "grow" the rendered object. */
-        float FragmentFilter::marginX()        { return mMarginX; }
-        void FragmentFilter::marginX(float value)      { mMarginX = value; }
+        float FragmentFilter::marginX()
+        {
+            return mMarginX;
+        }
+        void FragmentFilter::marginX(float value)
+        {
+            mMarginX = value;
+        }
 
         /** The y-margin will extend the size of the filter texture along the y-axis.
          *  Useful when the filter will "grow" the rendered object. */
-        float FragmentFilter::marginY()        { return mMarginY; }
-        void FragmentFilter::marginY(float value)      { mMarginY = value; }
+        float FragmentFilter::marginY()
+        {
+            return mMarginY;
+        }
+        void FragmentFilter::marginY(float value)
+        {
+            mMarginY = value;
+        }
 
         /** The number of passes the filter is applied. The "activate" and "deactivate" methods
          *  will be called that often. */
-        void FragmentFilter::numPasses(int value)      { mNumPasses = value; }
-        int FragmentFilter::numPasses()     { return mNumPasses; }
+        void FragmentFilter::numPasses(int value)
+        {
+            mNumPasses = value;
+        }
+        int FragmentFilter::numPasses()
+        {
+            return mNumPasses;
+        }
 
         /** The ID of the vertex buffer attribute that stores the vertex position. */
-                  int FragmentFilter::vertexPosAtID()     { return mVertexPosAtID; }
-                  void FragmentFilter::vertexPosAtID(int value)      { mVertexPosAtID = value; }
+        int FragmentFilter::vertexPosAtID()
+        {
+            return mVertexPosAtID;
+        }
+        void FragmentFilter::vertexPosAtID(int value)
+        {
+            mVertexPosAtID = value;
+        }
 
         /** The ID of the vertex buffer attribute that stores the texture coordinates. */
-                  int FragmentFilter::texCoordsAtID()     { return mTexCoordsAtID; }
-                  void FragmentFilter::texCoordsAtID(int value)      { mTexCoordsAtID = value; }
+        int FragmentFilter::texCoordsAtID()
+        {
+            return mTexCoordsAtID;
+        }
+        void FragmentFilter::texCoordsAtID(int value)
+        {
+            mTexCoordsAtID = value;
+        }
 
         /** The ID (sampler) of the input texture (containing the output of the previous pass). */
-                  int FragmentFilter::baseTextureID()     { return mBaseTextureID; }
-                  void FragmentFilter::baseTextureID(int value)      { mBaseTextureID = value; }
+        int FragmentFilter::baseTextureID()
+        {
+            return mBaseTextureID;
+        }
+        void FragmentFilter::baseTextureID(int value)
+        {
+            mBaseTextureID = value;
+        }
 
         /** The ID of the first register of the modelview-projection constant (a 4x4 matrix). */
-                  int FragmentFilter::mvpConstantID()     { return mMvpConstantID; }
-                  void FragmentFilter::mvpConstantID(int value)      { mMvpConstantID = value; }
-}
+        int FragmentFilter::mvpConstantID()
+        {
+            return mMvpConstantID;
+        }
+        void FragmentFilter::mvpConstantID(int value)
+        {
+            mMvpConstantID = value;
+        }
+    }
 }
 

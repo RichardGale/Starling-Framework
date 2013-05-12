@@ -14,25 +14,25 @@
 #include "flash/geom/Matrix.h"
 #include "flash/geom/Point.h"
 
-    /** Uses a matrix to transform 2D coordinates into a different space. If you pass a 
-     *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
-    Point* ::transformCoords(Matrix* matrix, float x, float y,
-                                    Point* resultPoint)
+/** Uses a matrix to transform 2D coordinates into a different space. If you pass a
+ *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
+Point *::transformCoords(Matrix *matrix, float x, float y,
+                         Point *resultPoint)
+{
+    if (!deprecationNotified)
     {
-        if (!deprecationNotified)
-        {
-            deprecationNotified = true;
-            trace("[Starling] The method 'transformCoords' is deprecated. " +
-                  "Please use 'MatrixUtil.transformCoords' instead.");
-        }
-
-        if (resultPoint == NULL) resultPoint = new Point();
-
-        resultPoint->x= matrix->a* x + matrix->c* y + matrix->tx;
-        resultPoint->y= matrix->d* y + matrix->b* x + matrix->ty;
-
-        return resultPoint;
+        deprecationNotified = true;
+        trace("[Starling] The method 'transformCoords' is deprecated. " +
+              "Please use 'MatrixUtil.transformCoords' instead.");
     }
 
+    if (resultPoint == NULL) resultPoint = new Point();
 
- bool deprecationNotified;
+    resultPoint->x= matrix->a* x + matrix->c* y + matrix->tx;
+    resultPoint->y= matrix->d* y + matrix->b* x + matrix->ty;
+
+    return resultPoint;
+}
+
+
+bool deprecationNotified;

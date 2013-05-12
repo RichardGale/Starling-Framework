@@ -18,33 +18,35 @@
 
 #include "starling/events/EventDispatcher.h"
 
-    //use starling_internal        ;
+//use starling_internal        ;
 
-    /** Event objects are passed as parameters to event listeners when an event occurs.  
-     *  This is Starling's version of the Flash Event class. 
-     *
-     *  <p>EventDispatchers create instances of this class and send them to registered listeners. 
-     *  An event object contains information that characterizes an event, most importantly the 
-     *  event type and if the event bubbles. The target of an event is the object that 
-     *  dispatched it.</p>
-     * 
-     *  <p>For some event types, this information is sufficient; other events may need additional 
-     *  information to be carried to the listener. In that case, you can subclass "Event" and add 
-     *  properties with all the information you require. The "EnterFrameEvent" is an example for 
-     *  this practice; it adds a property about the time that has passed since the last frame.</p>
-     * 
-     *  <p>Furthermore, the event class contains methods that can stop the event from being 
-     *  processed by other listeners - either completely or at the next bubble stage.</p>
-     * 
-     *  @see EventDispatcher
-     */
+/** Event objects are passed as parameters to event listeners when an event occurs.
+ *  This is Starling's version of the Flash Event class.
+ *
+ *  <p>EventDispatchers create instances of this class and send them to registered listeners.
+ *  An event object contains information that characterizes an event, most importantly the
+ *  event type and if the event bubbles. The target of an event is the object that
+ *  dispatched it.</p>
+ *
+ *  <p>For some event types, this information is sufficient; other events may need additional
+ *  information to be carried to the listener. In that case, you can subclass "Event" and add
+ *  properties with all the information you require. The "EnterFrameEvent" is an example for
+ *  this practice; it adds a property about the time that has passed since the last frame.</p>
+ *
+ *  <p>Furthermore, the event class contains methods that can stop the event from being
+ *  processed by other listeners - either completely or at the next bubble stage.</p>
+ *
+ *  @see EventDispatcher
+ */
 using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::utils;
 using namespace starling::events;
 
-namespace starling {
-namespace events {
+namespace starling
+{
+    namespace events
+    {
 
 
         /** Event type for a display object that is added to a parent. */
@@ -85,10 +87,10 @@ namespace events {
         /** An event type to be utilized in custom events. Not used by Starling right now. */
         const std::string Event::SELECT="select";
 
-         std::vector<Event*>* Event::sEventPool=new<Event*>[];
+        std::vector<Event *> *Event::sEventPool=new<Event *>[];
 
         /** Creates an event object that can be passed to listeners. */
-        Event::Event(std::string type, bool bubbles, Object* data)
+        Event::Event(std::string type, bool bubbles, Object *data)
         {
             mType = type;
             mBubbles = bubbles;
@@ -111,59 +113,89 @@ namespace events {
         std::string Event::toString()
         {
             return formatString("[{0} type=\"{1}\" bubbles={2}]",
-                getQualifiedClassName(this)->split("::")->pop(),mType,mBubbles);
+                                getQualifiedClassName(this)->split("::")->pop(),mType,mBubbles);
         }
 
         /** Indicates if event will bubble. */
-        bool Event::bubbles()         { return mBubbles; }
+        bool Event::bubbles()
+        {
+            return mBubbles;
+        }
 
         /** The object that dispatched the event. */
-        EventDispatcher* Event::target()                 { return mTarget; }
+        EventDispatcher *Event::target()
+        {
+            return mTarget;
+        }
 
         /** The object the event is currently bubbling at. */
-        EventDispatcher* Event::currentTarget()                 { return mCurrentTarget; }
+        EventDispatcher *Event::currentTarget()
+        {
+            return mCurrentTarget;
+        }
 
         /** A string that identifies the event. */
-        std::string Event::type()        { return mType; }
+        std::string Event::type()
+        {
+            return mType;
+        }
 
         /** Arbitrary data that is attached to the event. */
-        Object* Event::data()        { return mData; }
+        Object *Event::data()
+        {
+            return mData;
+        }
 
         // properties for internal use
 
         /** @private */
-        void Event::setTarget(EventDispatcher* value)      { mTarget = value; }
+        void Event::setTarget(EventDispatcher *value)
+        {
+            mTarget = value;
+        }
 
         /** @private */
-        void Event::setCurrentTarget(EventDispatcher* value)      { mCurrentTarget = value; }
+        void Event::setCurrentTarget(EventDispatcher *value)
+        {
+            mCurrentTarget = value;
+        }
 
         /** @private */
-        void Event::setData(Object* value)      { mData = value; }
+        void Event::setData(Object *value)
+        {
+            mData = value;
+        }
 
         /** @private */
-        bool Event::stopsPropagation()         { return mStopsPropagation; }
+        bool Event::stopsPropagation()
+        {
+            return mStopsPropagation;
+        }
 
         /** @private */
-        bool Event::stopsImmediatePropagation()         { return mStopsImmediatePropagation; }
+        bool Event::stopsImmediatePropagation()
+        {
+            return mStopsImmediatePropagation;
+        }
 
         // event pooling
 
         /** @private */
-        Event* Event::fromPool(std::string type, bool bubbles, Object* data)
+        Event *Event::fromPool(std::string type, bool bubbles, Object *data)
         {
             if (sEventPool.length) return sEventPool.pop()->reset(type,bubbles, data);
             else return new Event(type, bubbles, data);
         }
 
         /** @private */
-        void Event::toPool(Event* event)
+        void Event::toPool(Event *event)
         {
             event->mData= event->mTarget= event->mCurrentTarget= NULL;
             sEventPool.push_back(event);
         }
 
         /** @private */
-        Event* Event::reset(std::string type, bool bubbles, Object* data)
+        Event *Event::reset(std::string type, bool bubbles, Object *data)
         {
             mType = type;
             mBubbles = bubbles;
@@ -172,6 +204,6 @@ namespace events {
             mStopsPropagation = mStopsImmediatePropagation = false;
             return this;
         }
-}
+    }
 }
 

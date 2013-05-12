@@ -18,43 +18,45 @@
 #include "starling/core/RenderSupport.h"
 #include "starling/utils/VertexData.h"
 
-    /** A Quad represents a rectangle with a uniform color or a color gradient.
-     *  
-     *  <p>You can set one color per vertex. The colors will smoothly fade into each other over the area
-     *  of the quad. To display a simple linear color gradient, assign one color to vertices 0 and 1 and 
-     *  another color to vertices 2 and 3. </p> 
-     *
-     *  <p>The indices of the vertices are arranged like this:</p>
-     *  
-     *  <pre>
-     *  0 - 1
-     *  | / |
-     *  2 - 3
-     *  </pre>
-     * 
-     *  @see Image
-     */
+/** A Quad represents a rectangle with a uniform color or a color gradient.
+ *
+ *  <p>You can set one color per vertex. The colors will smoothly fade into each other over the area
+ *  of the quad. To display a simple linear color gradient, assign one color to vertices 0 and 1 and
+ *  another color to vertices 2 and 3. </p>
+ *
+ *  <p>The indices of the vertices are arranged like this:</p>
+ *
+ *  <pre>
+ *  0 - 1
+ *  | / |
+ *  2 - 3
+ *  </pre>
+ *
+ *  @see Image
+ */
 using namespace flash::geom;
 using namespace flash::geom;
 using namespace flash::geom;
 using namespace starling::core;
 using namespace starling::utils;
 
-namespace starling {
-namespace display {
+namespace starling
+{
+    namespace display
+    {
 
 
         /** The raw vertex data of the quad. */
 
         /** Helper objects. */
-         Point* Quad::sHelperPoint=newPoint();
-         Matrix* Quad::sHelperMatrix=newMatrix();
+        Point *Quad::sHelperPoint=newPoint();
+        Matrix *Quad::sHelperMatrix=newMatrix();
 
-        /** Creates a quad with a certain size and color. The last parameter controls if the 
+        /** Creates a quad with a certain size and color. The last parameter controls if the
          *  alpha value should be premultiplied into the color values on rendering, which can
          *  influence blending output. You can use the default value in most cases.  */
         Quad::Quad(float width, float height, unsigned int color,
-                             bool premultipliedAlpha)
+                   bool premultipliedAlpha)
         {
             mTinted = color != 0xffffff;
 
@@ -75,7 +77,7 @@ namespace display {
         }
 
         /** @inheritDoc */
-        Rectangle* Quad::getBounds(DisplayObject* targetSpace, Rectangle* resultRect)
+        Rectangle *Quad::getBounds(DisplayObject *targetSpace, Rectangle *resultRect)
         {
             if (resultRect == NULL) resultRect = new Rectangle();
 
@@ -86,13 +88,21 @@ namespace display {
             }
             else if (targetSpace == parent && rotation == 0.0)
             {
-                 float scaleX = this->scaleX;
-                 float scaleY = this->scaleY;
+                float scaleX = this->scaleX;
+                float scaleY = this->scaleY;
                 mVertexData->getPosition(3,sHelperPoint);
                 resultRect->setTo(x- pivotX * scaleX,      y - pivotY * scaleY,
-                                 sHelperPoint->x* scaleX, sHelperPoint->y* scaleY);
-                if (scaleX < 0) { resultRect->width *= -1; resultRect->x-= resultRect->width; }
-                if (scaleY < 0) { resultRect->height*= -1; resultRect->y-= resultRect->height;}
+                                  sHelperPoint->x* scaleX, sHelperPoint->y* scaleY);
+                if (scaleX < 0)
+                {
+                    resultRect->width *= -1;
+                    resultRect->x-= resultRect->width;
+                }
+                if (scaleY < 0)
+                {
+                    resultRect->height*= -1;
+                    resultRect->y-= resultRect->height;
+                }
             }
             else
             {
@@ -144,7 +154,7 @@ namespace display {
         /** Sets the colors of all vertices to a certain value. */
         void Quad::color(unsigned int value)
         {
-            for ( int i=0;i<4; ++i)
+            for ( int i=0; i<4; ++i)
                 setVertexColor(i, value);
 
             if (value != 0xffffff || alpha != 1.0) mTinted = true;
@@ -161,23 +171,29 @@ namespace display {
         }
 
         /** Copies the raw vertex data to a VertexData instance. */
-        void Quad::copyVertexDataTo(VertexData* targetData, int targetVertexID)
+        void Quad::copyVertexDataTo(VertexData *targetData, int targetVertexID)
         {
             mVertexData->copyTo(targetData,targetVertexID);
         }
 
         /** @inheritDoc */
-        void Quad::render(RenderSupport* support, float parentAlpha)
+        void Quad::render(RenderSupport *support, float parentAlpha)
         {
             support->batchQuad(this,parentAlpha);
         }
 
         /** Returns true if the quad (or any of its vertices) is non-white or non-opaque. */
-        bool Quad::tinted()         { return mTinted; }
+        bool Quad::tinted()
+        {
+            return mTinted;
+        }
 
         /** Indicates if the rgb values are stored premultiplied with the alpha value; this can
          *  affect the rendering. (Most developers don't have to care, though.) */
-        bool Quad::premultipliedAlpha()         { return mVertexData->premultipliedAlpha;}
-}
+        bool Quad::premultipliedAlpha()
+        {
+            return mVertexData->premultipliedAlpha;
+        }
+    }
 }
 

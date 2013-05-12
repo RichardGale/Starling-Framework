@@ -13,15 +13,20 @@
 #include "TextureSmoothing.h"
 #include "starling/errors/AbstractClassError.h"
 
-    /** A class that provides constant values for the possible smoothing algorithms of a texture. */
+/** A class that provides constant values for the possible smoothing algorithms of a texture. */
 using namespace starling::errors;
 
-namespace starling {
-namespace textures {
+namespace starling
+{
+    namespace textures
+    {
 
 
         /** @private */
-        TextureSmoothing::TextureSmoothing() { throw new AbstractClassError(); }
+        TextureSmoothing::TextureSmoothing()
+        {
+            throw new AbstractClassError();
+        }
 
         /** No smoothing, also called "Nearest Neighbor". Pixels will scale up as big rectangles. */
         const std::string TextureSmoothing::NONE="none";
@@ -37,6 +42,6 @@ namespace textures {
         {
             return smoothing == NONE || smoothing == BILINEAR || smoothing == TRILINEAR;
         }
-}
+    }
 }
 

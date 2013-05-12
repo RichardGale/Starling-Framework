@@ -20,49 +20,51 @@
 
 #include "starling/textures/Texture.h"
 
-    /** The ColorMatrixFilter class lets you apply a 4x5 matrix transformation on the RGBA color 
-     *  and alpha values of every pixel in the input image to produce a result with a new set 
-     *  of RGBA color and alpha values. It allows saturation changes, hue rotation, 
-     *  luminance to alpha, and various other effects.
-     * 
-     *  <p>The class contains several convenience methods for frequently used color 
-     *  adjustments. All those methods change the current matrix, which means you can easily 
-     *  combine them in one filter:</p>
-     *  
-     *  <listing>
-     *  // create an inverted filter with 50% saturation and 180   hue rotation
-     *  var filter:ColorMatrixFilter = new ColorMatrixFilter();
-     *  filter.invert();
-     *  filter.adjustSaturation(-0.5);
-     *  filter.adjustHue(1.0);</listing>
-     *  
-     *  <p>If you want to gradually animate one of the predefined color adjustments, either reset
-     *  the matrix after each step, or use an identical adjustment value for each step; the 
-     *  changes will add up.</p>
-     */
+/** The ColorMatrixFilter class lets you apply a 4x5 matrix transformation on the RGBA color
+ *  and alpha values of every pixel in the input image to produce a result with a new set
+ *  of RGBA color and alpha values. It allows saturation changes, hue rotation,
+ *  luminance to alpha, and various other effects.
+ *
+ *  <p>The class contains several convenience methods for frequently used color
+ *  adjustments. All those methods change the current matrix, which means you can easily
+ *  combine them in one filter:</p>
+ *
+ *  <listing>
+ *  // create an inverted filter with 50% saturation and 180   hue rotation
+ *  var filter:ColorMatrixFilter = new ColorMatrixFilter();
+ *  filter.invert();
+ *  filter.adjustSaturation(-0.5);
+ *  filter.adjustHue(1.0);</listing>
+ *
+ *  <p>If you want to gradually animate one of the predefined color adjustments, either reset
+ *  the matrix after each step, or use an identical adjustment value for each step; the
+ *  changes will add up.</p>
+ */
 using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace starling::textures;
 
-namespace starling {
-namespace filters {
-                                                   // offset in range 0-255                                                   // offset in range 0-1, changed order
+namespace starling
+{
+    namespace filters
+    {
+        // offset in range 0-255                                                   // offset in range 0-1, changed order
 
-        const std::vector<float>* ColorMatrixFilter::MIN_COLOR=new<float>[0,0,0,0.0001];
-        const std::vector<void*> ColorMatrixFilter::IDENTITY=[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0];
+        const std::vector<float> *ColorMatrixFilter::MIN_COLOR=new<float>[0,0,0,0.0001];
+        const std::vector<void *> ColorMatrixFilter::IDENTITY=[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0];
         const float ColorMatrixFilter::LUMA_R=0.299;
         const float ColorMatrixFilter::LUMA_G=0.587;
         const float ColorMatrixFilter::LUMA_B=0.114;
 
         /** helper objects */
-         std::vector<float>* ColorMatrixFilter::sTmpMatrix1=newstd::vector<float>(20,true);
-         std::vector<float>* ColorMatrixFilter::sTmpMatrix2=new<float>[];
+        std::vector<float> *ColorMatrixFilter::sTmpMatrix1=newstd::vector<float>(20,true);
+        std::vector<float> *ColorMatrixFilter::sTmpMatrix2=new<float>[];
 
-        /** Creates a new ColorMatrixFilter instance with the specified matrix. 
-         *  @param matrix: a vector of 20 items arranged as a 4x5 matrix.   
+        /** Creates a new ColorMatrixFilter instance with the specified matrix.
+         *  @param matrix: a vector of 20 items arranged as a 4x5 matrix.
          */
-        ColorMatrixFilter::ColorMatrixFilter(std::vector<float>* matrix)
+        ColorMatrixFilter::ColorMatrixFilter(std::vector<float> *matrix)
         {
             mUserMatrix.clear();
             mShaderMatrix.clear();
@@ -84,7 +86,7 @@ namespace filters {
             // fc4:   offset
             // fc5:   minimal allowed color value
 
-             std::string fragmentProgramCode=
+            std::string fragmentProgramCode=
                 "tex ft0, v0,  fs0 <2d, clamp, linear, mipnone>  \n" + // read texture color
                 "max ft0, ft0, fc5              \n" + // avoid division through zero in next step
                 "div ft0.xyz, ft0.xyz, ft0.www  \n" + // restore original (non-PMA) RGB values
@@ -97,7 +99,7 @@ namespace filters {
         }
 
         /** @private */                               // multiply with alpha again (PMA)
-        void ColorMatrixFilter::activate(int pass, Context3D* context, Texture* texture)
+        void ColorMatrixFilter::activate(int pass, Context3D *context, Texture *texture)
         {
             context->setProgramConstantsFromVector(Context3DProgramType::FRAGMENT,0,mShaderMatrix);
             context->setProgramConstantsFromVector(Context3DProgramType::FRAGMENT,5,MIN_COLOR);
@@ -110,9 +112,9 @@ namespace filters {
         void ColorMatrixFilter::invert()
         {
             concatValues(-1,  0,  0,  0, 255,
-                          0, -1,  0,  0, 255,
-                          0,  0, -1,  0, 255,
-                          0,  0,  0,  1,   0);
+                         0, -1,  0,  0, 255,
+                         0,  0, -1,  0, 255,
+                         0,  0,  0,  1,   0);
         }
 
         /** Changes the saturation. Typical values are in the range (-1, 1).
@@ -122,10 +124,10 @@ namespace filters {
         {
             sat += 1;
 
-             float invSat  = 1 - sat;
-             float invLumR = invSat * LUMA_R;
-             float invLumG = invSat * LUMA_G;
-             float invLumB = invSat * LUMA_B;
+            float invSat  = 1 - sat;
+            float invLumR = invSat * LUMA_R;
+            float invLumG = invSat * LUMA_G;
+            float invLumB = invSat * LUMA_B;
 
             concatValues((invLumR + sat), invLumG, invLumB, 0, 0,
                          invLumR, (invLumG + sat), invLumB, 0, 0,
@@ -137,8 +139,8 @@ namespace filters {
          *  Values above zero will raise, values below zero will reduce the contrast. */
         void ColorMatrixFilter::adjustContrast(float value)
         {
-             float s = value + 1;
-             float o = 128 * (1 - s);
+            float s = value + 1;
+            float o = 128 * (1 - s);
 
             concatValues(s, 0, 0, 0, o,
                          0, s, 0, 0, o,
@@ -163,8 +165,8 @@ namespace filters {
         {
             value *= Math::PI;
 
-             float cos = Math::cos(value);
-             float sin = Math::sin(value);
+            float cos = Math::cos(value);
+            float sin = Math::sin(value);
 
             concatValues(
                 ((LUMA_R + (cos * (1 - LUMA_R))) + (sin * -(LUMA_R))), ((LUMA_G + (cos * -(LUMA_G))) + (sin * -(LUMA_G))), ((LUMA_B + (cos * -(LUMA_B))) + (sin * (1 - LUMA_B))), 0, 0,
@@ -182,13 +184,13 @@ namespace filters {
         }
 
         /** Concatenates the current matrix with another one. */
-        void ColorMatrixFilter::concat(std::vector<float>* matrix)
+        void ColorMatrixFilter::concat(std::vector<float> *matrix)
         {
-             int i= 0;
+            int i= 0;
 
-            for ( int y=0;y<4; ++y)
+            for ( int y=0; y<4; ++y)
             {
-                for ( int x=0;x<5; ++x)
+                for ( int x=0; x<5; ++x)
                 {
                     sTmpMatrix1[int(i+x)] =
                         matrix[i]        * mUserMatrix[x]           +
@@ -207,26 +209,26 @@ namespace filters {
 
         /** Concatenates the current matrix with another one, passing its contents directly. */
         void ColorMatrixFilter::concatValues(float m0, float m1, float m2, float m3, float m4,
-                                      float m5, float m6, float m7, float m8, float m9,
-                                      float m10, float m11, float m12, float m13, float m14,
-                                      float m15, float m16, float m17, float m18, float m19)
+                                             float m5, float m6, float m7, float m8, float m9,
+                                             float m10, float m11, float m12, float m13, float m14,
+                                             float m15, float m16, float m17, float m18, float m19)
         {
             sTmpMatrix2.clear()
             sTmpMatrix2.push_back(m0,m1,m2,m3,m4,m5, m6, m7, m8, m9,
-                m10, m11, m12, m13, m14, m15, m16, m17, m18, m19);
+                                  m10, m11, m12, m13, m14, m15, m16, m17, m18, m19);
 
             concat(sTmpMatrix2);
         }
 
-        void ColorMatrixFilter::copyMatrix(std::vector<float>* from, std::vector<float>* to)
+        void ColorMatrixFilter::copyMatrix(std::vector<float> *from, std::vector<float> *to)
         {
-            for ( int i=0;i<20; ++i)
+            for ( int i=0; i<20; ++i)
                 to[i] = from[i];
         }
 
         void ColorMatrixFilter::updateShaderMatrix()
         {
-            // the shader needs the matrix components in a different order, 
+            // the shader needs the matrix components in a different order,
             // and it needs the offsets in the range 0-1.
 
             mShaderMatrix.clear()
@@ -243,8 +245,11 @@ namespace filters {
         // properties
 
         /** A vector of 20 items arranged as a 4x5 matrix. */
-        std::vector<float>* ColorMatrixFilter::matrix()                 { return mUserMatrix; }
-        void ColorMatrixFilter::matrix(std::vector<float>* value)
+        std::vector<float> *ColorMatrixFilter::matrix()
+        {
+            return mUserMatrix;
+        }
+        void ColorMatrixFilter::matrix(std::vector<float> *value)
         {
             if (value && value->length!= 20)
                 throw new ArgumentError("Invalid matrix length: must be 20");
@@ -261,6 +266,6 @@ namespace filters {
 
             updateShaderMatrix();
         }
-}
+    }
 }
 

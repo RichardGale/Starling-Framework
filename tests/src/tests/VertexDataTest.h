@@ -21,15 +21,54 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace geom { class Point; } }
-namespace flash { namespace geom { class Vector3D; } }
+namespace flash
+{
+    namespace geom
+    {
+        class Point;
+    }
+}
+namespace flash
+{
+    namespace geom
+    {
+        class Vector3D;
+    }
+}
 
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace org { namespace flexunit { class assertThat; } }
-namespace org { namespace hamcrest { namespace number { class closeTo; } } }
+namespace org
+{
+    namespace flexunit
+    {
+        class assertThat;
+    }
+}
+namespace org
+{
+    namespace hamcrest
+    {
+        namespace number
+        {
+            class closeTo;
+        }
+    }
+}
 
-namespace starling { namespace utils { class VertexData; } }
+namespace starling
+{
+    namespace utils
+    {
+        class VertexData;
+    }
+}
 
 using namespace flash::geom;
 using namespace flash::geom;
@@ -38,37 +77,46 @@ using namespace org::flexunit;
 using namespace org::hamcrest::number;
 using namespace starling::utils;
 
-namespace tests {
+namespace tests
+{
     class VertexDataTest
     {
-        private: static const float E;
+    private:
+        static const float E;
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testInit();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testGetNumVertices();
 
 
-        public: void 
+    public:
+        void
         ////[Test(expects="RangeError")]testBoundsLow();
 
 
-        public: void 
+    public:
+        void
         ////[Test(expects="RangeError")]testBoundsHigh();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testPosition();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testColor();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testTexCoords();
     };
 }

@@ -15,42 +15,44 @@
 #include "starling/events/Event.h"
 #include "starling/events/EventDispatcher.h"
 
-    /** The Juggler takes objects that implement IAnimatable (like Tweens) and executes them.
-     * 
-     *  <p>A juggler is a simple object. It does no more than saving a list of objects implementing 
-     *  "IAnimatable" and advancing their time if it is told to do so (by calling its own 
-     *  "advanceTime"-method). When an animation is completed, it throws it away.</p>
-     *  
-     *  <p>There is a default juggler available at the Starling class:</p>
-     *  
-     *  <pre>
-     *  var juggler:Juggler = Starling.juggler;
-     *  </pre>
-     *  
-     *  <p>You can create juggler objects yourself, just as well. That way, you can group 
-     *  your game into logical components that handle their animations independently. All you have
-     *  to do is call the "advanceTime" method on your custom juggler once per frame.</p>
-     *  
-     *  <p>Another handy feature of the juggler is the "delayCall"-method. Use it to 
-     *  execute a function at a later time. Different to conventional approaches, the method
-     *  will only be called when the juggler is advanced, giving you perfect control over the 
-     *  call.</p>
-     *  
-     *  <pre>
-     *  juggler.delayCall(object.removeFromParent, 1.0);
-     *  juggler.delayCall(object.addChild, 2.0, theChild);
-     *  juggler.delayCall(function():void { doSomethingFunny(); }, 3.0);
-     *  </pre>
-     * 
-     *  @see Tween
-     *  @see DelayedCall 
-     */
+/** The Juggler takes objects that implement IAnimatable (like Tweens) and executes them.
+ *
+ *  <p>A juggler is a simple object. It does no more than saving a list of objects implementing
+ *  "IAnimatable" and advancing their time if it is told to do so (by calling its own
+ *  "advanceTime"-method). When an animation is completed, it throws it away.</p>
+ *
+ *  <p>There is a default juggler available at the Starling class:</p>
+ *
+ *  <pre>
+ *  var juggler:Juggler = Starling.juggler;
+ *  </pre>
+ *
+ *  <p>You can create juggler objects yourself, just as well. That way, you can group
+ *  your game into logical components that handle their animations independently. All you have
+ *  to do is call the "advanceTime" method on your custom juggler once per frame.</p>
+ *
+ *  <p>Another handy feature of the juggler is the "delayCall"-method. Use it to
+ *  execute a function at a later time. Different to conventional approaches, the method
+ *  will only be called when the juggler is advanced, giving you perfect control over the
+ *  call.</p>
+ *
+ *  <pre>
+ *  juggler.delayCall(object.removeFromParent, 1.0);
+ *  juggler.delayCall(object.addChild, 2.0, theChild);
+ *  juggler.delayCall(function():void { doSomethingFunny(); }, 3.0);
+ *  </pre>
+ *
+ *  @see Tween
+ *  @see DelayedCall
+ */
 using namespace starling::core;
 using namespace starling::events;
 using namespace starling::events;
 
-namespace starling {
-namespace animation {
+namespace starling
+{
+    namespace animation
+    {
 
 
         /** Create an empty juggler. */
@@ -61,43 +63,43 @@ namespace animation {
         }
 
         /** Adds an object to the juggler. */
-        void Juggler::add(IAnimatable* object)
+        void Juggler::add(IAnimatable *object)
         {
             if (object && mObjects.indexOf(object) == -1)
             {
                 mObjects.push_back(object);
 
-                 EventDispatcher* dispatcher=static_cast<EventDispatcher>(object);
+                EventDispatcher *dispatcher=static_cast<EventDispatcher>(object);
                 if (dispatcher) dispatcher->addEventListener(Event::REMOVE_FROM_JUGGLER,onRemove);
             }
         }
 
         /** Determines if an object has been added to the juggler. */
-        bool Juggler::contains(IAnimatable* object)
+        bool Juggler::contains(IAnimatable *object)
         {
             return mObjects.indexOf(object) != -1;
         }
 
         /** Removes an object from the juggler. */
-        void Juggler::remove(IAnimatable* object)
+        void Juggler::remove(IAnimatable *object)
         {
             if (object == NULL) return;
 
-             EventDispatcher* dispatcher=static_cast<EventDispatcher>(object);
+            EventDispatcher *dispatcher=static_cast<EventDispatcher>(object);
             if (dispatcher) dispatcher->removeEventListener(Event::REMOVE_FROM_JUGGLER,onRemove);
 
-             int index= mObjects.indexOf(object);
+            int index= mObjects.indexOf(object);
             if (index != -1) mObjects[index] = NULL;
         }
 
         /** Removes all tweens with a certain target. */
-        void Juggler::removeTweens(Object* target)
+        void Juggler::removeTweens(Object *target)
         {
             if (target == NULL) return;
 
-            for ( int i=mObjects.length-1;i>=0; --i)
+            for ( int i=mObjects.length-1; i>=0; --i)
             {
-                 Tween* tween=static_cast<Tween>(mObjects[i]);
+                Tween *tween=static_cast<Tween>(mObjects[i]);
                 if (tween && tween->target== target)
                 {
                     tween->removeEventListener(Event::REMOVE_FROM_JUGGLER,onRemove);
@@ -107,13 +109,13 @@ namespace animation {
         }
 
         /** Figures out if the juggler contains one or more tweens with a certain target. */
-        bool Juggler::containsTweens(Object* target)
+        bool Juggler::containsTweens(Object *target)
         {
             if (target == NULL) return false;
 
-            for ( int i=mObjects.length-1;i>=0; --i)
+            for ( int i=mObjects.length-1; i>=0; --i)
             {
-                 Tween* tween=static_cast<Tween>(mObjects[i]);
+                Tween *tween=static_cast<Tween>(mObjects[i]);
                 if (tween && tween->target== target) return true;
             }
 
@@ -123,14 +125,14 @@ namespace animation {
         /** Removes all objects at once. */
         void Juggler::purge()
         {
-            // the object vector is not purged right away, because if this method is called 
+            // the object vector is not purged right away, because if this method is called
             // from an 'advanceTime' call, this would make the loop crash. Instead, the
             // vector is filled with 'null' values. They will be cleaned up on the next call
             // to 'advanceTime'.
 
-            for ( int i=mObjects.length-1;i>=0; --i)
+            for ( int i=mObjects.length-1; i>=0; --i)
             {
-                 EventDispatcher* dispatcher=static_cast<EventDispatcher>(mObjects[i]);
+                EventDispatcher *dispatcher=static_cast<EventDispatcher>(mObjects[i]);
                 if (dispatcher) dispatcher->removeEventListener(Event::REMOVE_FROM_JUGGLER,onRemove);
                 mObjects[i] = NULL;
             }
@@ -139,38 +141,38 @@ namespace animation {
         /** Delays the execution of a function until a certain time has passed. Creates an
          *  object of type 'DelayedCall' internally and returns it. Remove that object
          *  from the juggler to cancel the function call. */
-        DelayedCall* Juggler::delayCall(Function* call, float delay, ...)
+        DelayedCall *Juggler::delayCall(Function *call, float delay, ...)
         {
             if (call == NULL) return NULL;
 
-             DelayedCall* delayedCall=new DelayedCall(call, delay, args);
+            DelayedCall *delayedCall=new DelayedCall(call, delay, args);
             add(delayedCall);
             return delayedCall;
         }
 
         /** Utilizes a tween to animate the target object over a certain time. Internally, this
          *  method uses a tween instance (taken from an object pool) that is added to the
-         *  juggler right away. This method provides a convenient alternative for creating 
+         *  juggler right away. This method provides a convenient alternative for creating
          *  and adding a tween manually.
-         *  
-         *  <p>Fill 'properties' with key-value pairs that describe both the 
+         *
+         *  <p>Fill 'properties' with key-value pairs that describe both the
          *  tween and the animation target. Here is an example:</p>
-         *  
+         *
          *  <pre>
          *  juggler.tween(object, 2.0, {
          *      transition: Transitions.EASE_IN_OUT,
          *      delay: 20, // -> tween.delay = 20
          *      x: 50      // -> tween.animate("x", 50)
          *  });
-         *  </pre> 
+         *  </pre>
          */
-        void Juggler::tween(Object* target, float time, Object* properties)
+        void Juggler::tween(Object *target, float time, Object *properties)
         {
-             Tween* tween=Tween->starling_internal::fromPool(target,time);
+            Tween *tween=Tween->starling_internal::fromPool(target,time);
 
             for ( std::string propertyinproperties)
             {
-                 Object* value=properties[property];
+                Object *value=properties[property];
 
                 if (tween->hasOwnProperty(property))
                     tween[property] = value;
@@ -184,7 +186,7 @@ namespace animation {
             add(tween);
         }
 
-        void Juggler::onPooledTweenComplete(Event* event)
+        void Juggler::onPooledTweenComplete(Event *event)
         {
             Tween->starling_internal::toPool(event->static_cast<Tween>(target));
         }
@@ -192,9 +194,9 @@ namespace animation {
         /** Advances all objects by a certain time (in seconds). */
         void Juggler::advanceTime(float time)
         {
-             int numObjects= mObjects.length;
-             int currentIndex= 0;
-             int i;
+            int numObjects= mObjects.length;
+            int currentIndex= 0;
+            int i;
 
             mElapsedTime += time;
             if (numObjects == 0) return;
@@ -205,7 +207,7 @@ namespace animation {
 
             for (i=0; i<numObjects; ++i)
             {
-                 IAnimatable* object=mObjects[i];
+                IAnimatable *object=mObjects[i];
                 if (object)
                 {
                     // shift objects into empty slots along the way
@@ -229,19 +231,22 @@ namespace animation {
 
                 mObjects.length = currentIndex;
             }
-        }   // there is a high probability that the "advanceTime" function modifies the list 
+        }   // there is a high probability that the "advanceTime" function modifies the list
 
-        void Juggler::onRemove(Event* event)
+        void Juggler::onRemove(Event *event)
         {
             remove(event->static_cast<IAnimatable>(target));
 
-             Tween* tween=event->static_cast<Tween>(target);
+            Tween *tween=event->static_cast<Tween>(target);
             if (tween && tween->isComplete)
                 add(tween->nextTween);
         }
 
         /** The total life time of the juggler. */
-        float Juggler::elapsedTime()        { return mElapsedTime; }
-}
+        float Juggler::elapsedTime()
+        {
+            return mElapsedTime;
+        }
+    }
 }
 

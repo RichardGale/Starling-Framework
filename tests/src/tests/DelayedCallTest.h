@@ -21,13 +21,52 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace org { namespace flexunit { namespace asserts { class assertEquals; } } }
-namespace org { namespace flexunit { namespace asserts { class assertFalse; } } }
-namespace org { namespace flexunit { namespace asserts { class assertTrue; } } }
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertEquals;
+        }
+    }
+}
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertFalse;
+        }
+    }
+}
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertTrue;
+        }
+    }
+}
 
-namespace starling { namespace animation { class DelayedCall; } }
+namespace starling
+{
+    namespace animation
+    {
+        class DelayedCall;
+    }
+}
 
 using namespace flexunit::framework;
 using namespace org::flexunit::asserts;
@@ -35,19 +74,23 @@ using namespace org::flexunit::asserts;
 using namespace org::flexunit::asserts;
 using namespace starling::animation;
 
-namespace tests {
+namespace tests
+{
     class DelayedCallTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testSimple();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRepeated();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testIndefinitive();
     };
 }

@@ -13,8 +13,9 @@
 
 
 
-    /** Converts an angle from radions into degrees. */
-    public: float    rad2deg(float rad);
+/** Converts an angle from radions into degrees. */
+public:
+float    rad2deg(float rad);
 #endif // __STARLING_SRC_STARLING_UTILS_RAD2DEG_AS
 #endif // __cplusplus
 

@@ -26,83 +26,84 @@ using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
 
-namespace scenes {
+namespace scenes
+{
 
 
-        RenderTextureScene::RenderTextureScene()
+    RenderTextureScene::RenderTextureScene()
+    {
+        mColors.clear();
+        mRenderTexture = new RenderTexture(320, 435);
+
+        mCanvas = new Image(mRenderTexture);
+        mCanvas->addEventListener(TouchEvent::TOUCH,onTouch);
+        addChild(mCanvas);
+
+        mBrush = new Image(Game->assets->getTexture("brush"));
+        mBrush->pivotX= mBrush->width/ 2;
+        mBrush->pivotY= mBrush->height/ 2;
+        mBrush->blendMode= BlendMode::NORMAL;
+
+        TextField *infoText=new TextField(256, 128, "Touch the screen\nto draw!");
+        infoText->fontSize= 24;
+        infoText->x= Constants->CenterX- infoText->width/ 2;
+        infoText->y= Constants->CenterY- infoText->height/ 2;
+        mRenderTexture->draw(infoText);
+
+        mButton = new Button(Game->assets->getTexture("button_normal"),"Mode: Draw");
+        mButton->x= int(Constants->CenterX- mButton->width/ 2);
+        mButton->y= 15;
+        mButton->addEventListener(Event::TRIGGERED,onButtonTriggered);
+        addChild(mButton);
+    }
+
+    void RenderTextureScene::onTouch(TouchEvent *event)
+    {
+        // touching the canvas will draw a brush texture. The 'drawBundled' method is not
+        // strictly necessary, but it's faster when you are drawing with several fingers
+        // simultaneously.
+
+        mRenderTexture->drawBundled(function()void
         {
-            mColors.clear();
-            mRenderTexture = new RenderTexture(320, 435);
+            std::vector<Touch *> *touches=event->getTouches(mCanvas);
 
-            mCanvas = new Image(mRenderTexture);
-            mCanvas->addEventListener(TouchEvent::TOUCH,onTouch);
-            addChild(mCanvas);
+            for each (var Touch* touchin touches)
+            {
+                if (touch->phase== TouchPhase::BEGAN)
+                    mColors[touch->id]= Math::random()* uint->MAX_VALUE;
 
-            mBrush = new Image(Game->assets->getTexture("brush"));
-            mBrush->pivotX= mBrush->width/ 2;
-            mBrush->pivotY= mBrush->height/ 2;
+                if (touch->phase== TouchPhase::HOVER|| touch->phase== TouchPhase::ENDED)
+                    continue;
+
+                Point *location=touch->getLocation(mCanvas);
+                mBrush->x= location->x;
+                mBrush->y= location->y;
+                mBrush->color= mColors[touch->id];
+                mBrush->rotation= Math::random()* Math::PI* 2.0;
+
+                mRenderTexture->draw(mBrush);
+            }
+        });
+    }
+
+    void RenderTextureScene::onButtonTriggered()
+    {
+        if (mBrush->blendMode== BlendMode::NORMAL)
+        {
+            mBrush->blendMode= BlendMode::ERASE;
+            mButton->text= "Mode: Erase";
+        }
+        else
+        {
             mBrush->blendMode= BlendMode::NORMAL;
-
-             TextField* infoText=new TextField(256, 128, "Touch the screen\nto draw!");
-            infoText->fontSize= 24;
-            infoText->x= Constants->CenterX- infoText->width/ 2;
-            infoText->y= Constants->CenterY- infoText->height/ 2;
-            mRenderTexture->draw(infoText);
-
-            mButton = new Button(Game->assets->getTexture("button_normal"),"Mode: Draw");
-            mButton->x= int(Constants->CenterX- mButton->width/ 2);
-            mButton->y= 15;
-            mButton->addEventListener(Event::TRIGGERED,onButtonTriggered);
-            addChild(mButton);
+            mButton->text= "Mode: Draw";
         }
+    }
 
-        void RenderTextureScene::onTouch(TouchEvent* event)
-        {
-            // touching the canvas will draw a brush texture. The 'drawBundled' method is not
-            // strictly necessary, but it's faster when you are drawing with several fingers
-            // simultaneously.
-
-            mRenderTexture->drawBundled(function()void
-            {
-                 std::vector<Touch*>* touches=event->getTouches(mCanvas);
-
-                for each (var Touch* touchin touches)
-                {
-                    if (touch->phase== TouchPhase::BEGAN)
-                        mColors[touch->id]= Math::random()* uint->MAX_VALUE;
-
-                    if (touch->phase== TouchPhase::HOVER|| touch->phase== TouchPhase::ENDED)
-                        continue;
-
-                     Point* location=touch->getLocation(mCanvas);
-                    mBrush->x= location->x;
-                    mBrush->y= location->y;
-                    mBrush->color= mColors[touch->id];
-                    mBrush->rotation= Math::random()* Math::PI* 2.0;
-
-                    mRenderTexture->draw(mBrush);
-                }
-            });
-        }
-
-        void RenderTextureScene::onButtonTriggered()
-        {
-            if (mBrush->blendMode== BlendMode::NORMAL)
-            {
-                mBrush->blendMode= BlendMode::ERASE;
-                mButton->text= "Mode: Erase";
-            }
-            else
-            {
-                mBrush->blendMode= BlendMode::NORMAL;
-                mButton->text= "Mode: Draw";
-            }
-        }
-
-        void RenderTextureScene::dispose()
-        {
-            mRenderTexture->dispose();
-            super->dispose();
-        }
+    void RenderTextureScene::dispose()
+    {
+        mRenderTexture->dispose();
+        super->dispose();
+    }
 }
 

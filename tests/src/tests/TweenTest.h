@@ -21,18 +21,90 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace org { namespace flexunit { class assertThat; } }
-namespace org { namespace flexunit { namespace asserts { class assertEquals; } } }
-namespace org { namespace flexunit { namespace asserts { class assertFalse; } } }
-namespace org { namespace flexunit { namespace asserts { class assertTrue; } } }
-namespace org { namespace hamcrest { namespace number { class closeTo; } } }
+namespace org
+{
+    namespace flexunit
+    {
+        class assertThat;
+    }
+}
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertEquals;
+        }
+    }
+}
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertFalse;
+        }
+    }
+}
+namespace org
+{
+    namespace flexunit
+    {
+        namespace asserts
+        {
+            class assertTrue;
+        }
+    }
+}
+namespace org
+{
+    namespace hamcrest
+    {
+        namespace number
+        {
+            class closeTo;
+        }
+    }
+}
 
-namespace starling { namespace animation { class Juggler; } }
-namespace starling { namespace animation { class Transitions; } }
-namespace starling { namespace animation { class Tween; } }
-namespace starling { namespace display { class Quad; } }
+namespace starling
+{
+    namespace animation
+    {
+        class Juggler;
+    }
+}
+namespace starling
+{
+    namespace animation
+    {
+        class Transitions;
+    }
+}
+namespace starling
+{
+    namespace animation
+    {
+        class Tween;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Quad;
+    }
+}
 
 using namespace flexunit::framework;
 using namespace org::flexunit;
@@ -45,64 +117,80 @@ using namespace starling::animation;
 using namespace starling::animation;
 using namespace starling::display;
 
-namespace tests {
+namespace tests
+{
     class TweenTest
     {
-        private: const float E;
+    private:
+        const float E;
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testBasicTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testSequentialTweens();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testTweenFromZero();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testResetTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testResetTweenInOnComplete();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testShortTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testZeroTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testCustomTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRepeatedTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testReverseTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testInfiniteTween();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testGetEndValue();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testProgress();
 
-        private: void     executeTween(float time, float advanceTime);
+    private:
+        void     executeTween(float time, float advanceTime);
     };
 }
 

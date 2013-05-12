@@ -33,36 +33,36 @@
 #include "starling/utils/HAlign.h"
 #include "starling/utils/VAlign.h"
 
-    /** A TextField displays text, either using standard true type fonts or custom bitmap fonts.
-     *  
-     *  <p>You can set all properties you are used to, like the font name and size, a color, the 
-     *  horizontal and vertical alignment, etc. The border property is helpful during development, 
-     *  because it lets you see the bounds of the textfield.</p>
-     *  
-     *  <p>There are two types of fonts that can be displayed:</p>
-     *  
-     *  <ul>
-     *    <li>Standard true type fonts. This renders the text just like a conventional Flash
-     *        TextField. It is recommended to embed the font, since you cannot be sure which fonts
-     *        are available on the client system, and since this enhances rendering quality. 
-     *        Simply pass the font name to the corresponding property.</li>
-     *    <li>Bitmap fonts. If you need speed or fancy font effects, use a bitmap font instead. 
-     *        That is a font that has its glyphs rendered to a texture atlas. To use it, first 
-     *        register the font with the method <code>registerBitmapFont</code>, and then pass 
-     *        the font name to the corresponding property of the text field.</li>
-     *  </ul> 
-     *    
-     *  For bitmap fonts, we recommend one of the following tools:
-     * 
-     *  <ul>
-     *    <li>Windows: <a href="http://www.angelcode.com/products/bmfont">Bitmap Font Generator</a>
-     *       from Angel Code (free). Export the font data as an XML file and the texture as a png 
-     *       with white characters on a transparent background (32 bit).</li>
-     *    <li>Mac OS: <a href="http://glyphdesigner.71squared.com">Glyph Designer</a> from 
-     *        71squared or <a href="http://http://www.bmglyph.com">bmGlyph</a> (both commercial). 
-     *        They support Starling natively.</li>
-     *  </ul> 
-     */
+/** A TextField displays text, either using standard true type fonts or custom bitmap fonts.
+ *
+ *  <p>You can set all properties you are used to, like the font name and size, a color, the
+ *  horizontal and vertical alignment, etc. The border property is helpful during development,
+ *  because it lets you see the bounds of the textfield.</p>
+ *
+ *  <p>There are two types of fonts that can be displayed:</p>
+ *
+ *  <ul>
+ *    <li>Standard true type fonts. This renders the text just like a conventional Flash
+ *        TextField. It is recommended to embed the font, since you cannot be sure which fonts
+ *        are available on the client system, and since this enhances rendering quality.
+ *        Simply pass the font name to the corresponding property.</li>
+ *    <li>Bitmap fonts. If you need speed or fancy font effects, use a bitmap font instead.
+ *        That is a font that has its glyphs rendered to a texture atlas. To use it, first
+ *        register the font with the method <code>registerBitmapFont</code>, and then pass
+ *        the font name to the corresponding property of the text field.</li>
+ *  </ul>
+ *
+ *  For bitmap fonts, we recommend one of the following tools:
+ *
+ *  <ul>
+ *    <li>Windows: <a href="http://www.angelcode.com/products/bmfont">Bitmap Font Generator</a>
+ *       from Angel Code (free). Export the font data as an XML file and the texture as a png
+ *       with white characters on a transparent background (32 bit).</li>
+ *    <li>Mac OS: <a href="http://glyphdesigner.71squared.com">Glyph Designer</a> from
+ *        71squared or <a href="http://http://www.bmglyph.com">bmGlyph</a> (both commercial).
+ *        They support Starling natively.</li>
+ *  </ul>
+ */
 using namespace flash::display;
 using namespace flash::display;
 using namespace flash::geom;
@@ -84,19 +84,21 @@ using namespace starling::textures;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace text {
+namespace starling
+{
+    namespace text
+    {
 
 
         // the name container with the registered bitmap fonts
         const std::string TextField::BITMAP_FONT_DATA_NAME="starling.display.TextField.BitmapFonts";
 
         // this object will be used for text rendering
-         flash::text::TextField* TextField::sNativeTextField=newflash->text->TextField();
+        flash::text::TextField *TextField::sNativeTextField=newflash->text->TextField();
 
         /** Create a new text field with the given properties. */
         TextField::TextField(int width, int height, std::string text, std::string fontName,
-                                  float fontSize, unsigned int color, bool bold)
+                             float fontSize, unsigned int color, bool bold)
         {
             mText = text ? text : "";
             mFontSize = fontSize;
@@ -131,13 +133,13 @@ namespace text {
         }
 
         /** @inheritDoc */
-        void TextField::render(RenderSupport* support, float parentAlpha)
+        void TextField::render(RenderSupport *support, float parentAlpha)
         {
             if (mRequiresRedraw) redraw();
             super->render(support,parentAlpha);
         }
 
-        /** Forces the text field to be constructed right away. Normally, 
+        /** Forces the text field to be constructed right away. Normally,
          *  it will only do so lazily, i.e. before being rendered. */
         void TextField::redraw()
         {
@@ -159,11 +161,11 @@ namespace text {
                 mQuadBatch = NULL;
             }
 
-             float scale  = Starling::contentScaleFactor;
-             float width  = mHitArea->width * scale;
-             float height = mHitArea->height* scale;
-             std::string hAlign=mHAlign;
-             std::string vAlign=mVAlign;
+            float scale  = Starling::contentScaleFactor;
+            float width  = mHitArea->width * scale;
+            float height = mHitArea->height* scale;
+            std::string hAlign=mHAlign;
+            std::string vAlign=mVAlign;
 
             if (isHorizontalAutoSize)
             {
@@ -176,8 +178,8 @@ namespace text {
                 vAlign = VAlign::TOP;
             }
 
-             TextFormat* textFormat=new TextFormat(mFontName,
-                mFontSize * scale, mColor, mBold, mItalic, mUnderline, NULL, NULL, hAlign);
+            TextFormat *textFormat=new TextFormat(mFontName,
+                                                  mFontSize * scale, mColor, mBold, mItalic, mUnderline, NULL, NULL, hAlign);
             textFormat->kerning= mKerning;
 
             sNativeTextField->defaultTextFormat= textFormat;
@@ -200,27 +202,27 @@ namespace text {
             if (mAutoScale)
                 autoScaleNativeTextField(sNativeTextField);
 
-             float textWidth  = sNativeTextField->textWidth;
-             float textHeight = sNativeTextField->textHeight;
+            float textWidth  = sNativeTextField->textWidth;
+            float textHeight = sNativeTextField->textHeight;
 
             if (isHorizontalAutoSize)
                 sNativeTextField->width= width = Math::ceil(textWidth+ 5);
             if (isVerticalAutoSize)
                 sNativeTextField->height= height = Math::ceil(textHeight+ 4);
 
-             float xOffset = 0.0;
+            float xOffset = 0.0;
             if (hAlign == HAlign::LEFT)       xOffset = 2; // flash adds a 2 pixel offset
             else if (hAlign == HAlign::CENTER)xOffset = (width - textWidth) / 2.0;
             else if (hAlign == HAlign::RIGHT) xOffset =  width - textWidth - 2;
 
-             float yOffset = 0.0;
+            float yOffset = 0.0;
             if (vAlign == VAlign::TOP)        yOffset = 2; // flash adds a 2 pixel offset
             else if (vAlign == VAlign::CENTER)yOffset = (height - textHeight) / 2.0;
             else if (vAlign == VAlign::BOTTOM)yOffset =  height - textHeight - 2;
 
-             BitmapData* bitmapData=new BitmapData(width, height, true, 0x0);
-             Matrix* drawMatrix=new Matrix(1, 0, 0, 1, 0, int(yOffset)-2);
-             Function* drawWithQualityFunc=
+            BitmapData *bitmapData=new BitmapData(width, height, true, 0x0);
+            Matrix *drawMatrix=new Matrix(1, 0, 0, 1, 0, int(yOffset)-2);
+            Function *drawWithQualityFunc=
                 "drawWithQuality" in bitmapData ? bitmapData["drawWithQuality"] : NULL;
 
             // Beginning with AIR 3.3, we can force a drawing quality. Since "LOW" produces
@@ -228,7 +230,7 @@ namespace text {
 
             if (dynamic_cast<Function>(drawWithQualityFunc))
                 drawWithQualityFunc->call(bitmapData,sNativeTextField, drawMatrix,
-                                         NULL, NULL, NULL, false, StageQuality::MEDIUM);
+                                          NULL, NULL, NULL, false, StageQuality::MEDIUM);
             else
                 bitmapData->draw(sNativeTextField,drawMatrix);
 
@@ -237,13 +239,13 @@ namespace text {
             // update textBounds rectangle
             if (mTextBounds == NULL) mTextBounds = new Rectangle();
             mTextBounds->setTo(xOffset  / scale, yOffset    / scale,
-                              textWidth / scale, textHeight / scale);
+                               textWidth / scale, textHeight / scale);
 
             // update hit area
             mHitArea->width = width  / scale;
             mHitArea->height= height / scale;
 
-             Texture* texture=Texture::fromBitmapData(bitmapData,false, false, scale);
+            Texture *texture=Texture::fromBitmapData(bitmapData,false, false, scale);
 
             if (mImage == NULL)
             {
@@ -264,19 +266,19 @@ namespace text {
          *  <code>textField</code> is the flash.text.TextField object that you can specially format;
          *  <code>textFormat</code> is the default TextFormat for <code>textField</code>.
          */
-        void TextField::formatText(flash::text::TextField* textField, TextFormat* textFormat)      {}
+        void TextField::formatText(flash::text::TextField *textField, TextFormat *textFormat)      {}
 
-        void TextField::autoScaleNativeTextField(flash::text::TextField* textField)
+        void TextField::autoScaleNativeTextField(flash::text::TextField *textField)
         {
-             float size   = Number(textField->defaultTextFormat->size);
-             int maxHeight= textField->height- 4;
-             int maxWidth = textField->width- 4;
+            float size   = Number(textField->defaultTextFormat->size);
+            int maxHeight= textField->height- 4;
+            int maxWidth = textField->width- 4;
 
             while (textField->textWidth> maxWidth || textField->textHeight> maxHeight)
             {
                 if (size <= 4) break;
 
-                 TextFormat* format=textField->defaultTextFormat;
+                TextFormat *format=textField->defaultTextFormat;
                 format->size= size--;
                 textField->setTextFormat(format);
             }
@@ -299,13 +301,13 @@ namespace text {
             else
                 mQuadBatch->reset();
 
-             BitmapFont* bitmapFont=bitmapFonts[mFontName];
+            BitmapFont *bitmapFont=bitmapFonts[mFontName];
             if (bitmapFont == NULL) throw new Error("Bitmap font not registered: " + mFontName);
 
-             float width  = mHitArea->width;
-             float height = mHitArea->height;
-             std::string hAlign=mHAlign;
-             std::string vAlign=mVAlign;
+            float width  = mHitArea->width;
+            float height = mHitArea->height;
+            std::string hAlign=mHAlign;
+            std::string vAlign=mVAlign;
 
             if (isHorizontalAutoSize)
             {
@@ -319,7 +321,7 @@ namespace text {
             }
 
             bitmapFont->fillQuadBatch(mQuadBatch,
-                width, height, mText, mFontSize, mColor, hAlign, vAlign, mAutoScale, mKerning);
+                                      width, height, mText, mFontSize, mColor, hAlign, vAlign, mAutoScale, mKerning);
 
             if (mAutoSize != TextFieldAutoSize->NONE)
             {
@@ -341,18 +343,22 @@ namespace text {
         {
             if (mBorder == NULL) return;
 
-             float width  = mHitArea->width;
-             float height = mHitArea->height;
+            float width  = mHitArea->width;
+            float height = mHitArea->height;
 
-             Quad* topLine  = mBorder->getChildAt(0)as Quad;
-             Quad* rightLine= mBorder->getChildAt(1)as Quad;
-             Quad* bottomLine=mBorder->getChildAt(2)as Quad;
-             Quad* leftLine = mBorder->getChildAt(3)as Quad;
+            Quad *topLine  = mBorder->getChildAt(0)as Quad;
+            Quad *rightLine= mBorder->getChildAt(1)as Quad;
+            Quad *bottomLine=mBorder->getChildAt(2)as Quad;
+            Quad *leftLine = mBorder->getChildAt(3)as Quad;
 
-            topLine->width   = width; topLine->height   = 1;
-            bottomLine->width= width; bottomLine->height= 1;
-            leftLine->width  = 1;     leftLine->height  = height;
-            rightLine->width = 1;     rightLine->height = height;
+            topLine->width   = width;
+            topLine->height   = 1;
+            bottomLine->width= width;
+            bottomLine->height= 1;
+            leftLine->width  = 1;
+            leftLine->height  = height;
+            rightLine->width = 1;
+            rightLine->height = height;
             rightLine->x = width  - 1;
             bottomLine->y= height - 1;
             topLine->color= rightLine->color= bottomLine->color= leftLine->color= mColor;
@@ -371,7 +377,7 @@ namespace text {
         }
 
         /** Returns the bounds of the text within the text field. */
-        Rectangle* TextField::textBounds()
+        Rectangle *TextField::textBounds()
         {
             if (mRequiresRedraw) redraw();
             if (mTextBounds == NULL) mTextBounds = mQuadBatch->getBounds(mQuadBatch);
@@ -379,7 +385,7 @@ namespace text {
         }
 
         /** @inheritDoc */
-        Rectangle* TextField::getBounds(DisplayObject* targetSpace, Rectangle* resultRect)
+        Rectangle *TextField::getBounds(DisplayObject *targetSpace, Rectangle *resultRect)
         {
             if (mRequiresRedraw) redraw();
             return mHitArea->getBounds(targetSpace,resultRect);
@@ -388,8 +394,8 @@ namespace text {
         /** @inheritDoc */
         void TextField::width(float value)
         {
-            // different to ordinary display objects, changing the size of the text field should 
-            // not change the scaling, but make the texture bigger/smaller, while the size 
+            // different to ordinary display objects, changing the size of the text field should
+            // not change the scaling, but make the texture bigger/smaller, while the size
             // of the text/font stays the same (this applies to the height, as well).
 
             mHitArea->width= value;
@@ -404,7 +410,10 @@ namespace text {
         }
 
         /** The displayed text. */
-        std::string TextField::text()        { return mText; }
+        std::string TextField::text()
+        {
+            return mText;
+        }
         void TextField::text(std::string value)
         {
             if (value == NULL) value = "";
@@ -416,7 +425,10 @@ namespace text {
         }
 
         /** The name of the font (true type or bitmap font). */
-        std::string TextField::fontName()        { return mFontName; }
+        std::string TextField::fontName()
+        {
+            return mFontName;
+        }
         void TextField::fontName(std::string value)
         {
             if (mFontName != value)
@@ -430,9 +442,12 @@ namespace text {
             }
         }
 
-        /** The size of the font. For bitmap fonts, use <code>BitmapFont.NATIVE_SIZE</code> for 
+        /** The size of the font. For bitmap fonts, use <code>BitmapFont.NATIVE_SIZE</code> for
          *  the original size. */
-        float TextField::fontSize()        { return mFontSize; }
+        float TextField::fontSize()
+        {
+            return mFontSize;
+        }
         void TextField::fontSize(float value)
         {
             if (mFontSize != value)
@@ -444,7 +459,10 @@ namespace text {
 
         /** The color of the text. For bitmap fonts, use <code>Color.WHITE</code> to use the
          *  original, untinted color. @default black */
-        unsigned int TextField::color()      { return mColor; }
+        unsigned int TextField::color()
+        {
+            return mColor;
+        }
         void TextField::color(unsigned int value)
         {
             if (mColor != value)
@@ -455,7 +473,10 @@ namespace text {
         }
 
         /** The horizontal alignment of the text. @default center @see starling.utils.HAlign */
-        std::string TextField::hAlign()        { return mHAlign; }
+        std::string TextField::hAlign()
+        {
+            return mHAlign;
+        }
         void TextField::hAlign(std::string value)
         {
             if (!HAlign::isValid(value))
@@ -469,7 +490,10 @@ namespace text {
         }
 
         /** The vertical alignment of the text. @default center @see starling.utils.VAlign */
-        std::string TextField::vAlign()        { return mVAlign; }
+        std::string TextField::vAlign()
+        {
+            return mVAlign;
+        }
         void TextField::vAlign(std::string value)
         {
             if (!VAlign::isValid(value))
@@ -482,9 +506,12 @@ namespace text {
             }
         }
 
-        /** Draws a border around the edges of the text field. Useful for visual debugging. 
+        /** Draws a border around the edges of the text field. Useful for visual debugging.
          *  @default false */
-        bool TextField::border()         { return mBorder != NULL; }
+        bool TextField::border()
+        {
+            return mBorder != NULL;
+        }
         void TextField::border(bool value)
         {
             if (value && mBorder == NULL)
@@ -492,7 +519,7 @@ namespace text {
                 mBorder = new Sprite();
                 addChild(mBorder);
 
-                for ( int i=0;i<4; ++i)
+                for ( int i=0; i<4; ++i)
                     mBorder->addChild(newQuad(1.0, 1.0));
 
                 updateBorder();
@@ -505,7 +532,10 @@ namespace text {
         }
 
         /** Indicates whether the text is bold. @default false */
-        bool TextField::bold()         { return mBold; }
+        bool TextField::bold()
+        {
+            return mBold;
+        }
         void TextField::bold(bool value)
         {
             if (mBold != value)
@@ -516,7 +546,10 @@ namespace text {
         }
 
         /** Indicates whether the text is italicized. @default false */
-        bool TextField::italic()         { return mItalic; }
+        bool TextField::italic()
+        {
+            return mItalic;
+        }
         void TextField::italic(bool value)
         {
             if (mItalic != value)
@@ -527,7 +560,10 @@ namespace text {
         }
 
         /** Indicates whether the text is underlined. @default false */
-        bool TextField::underline()         { return mUnderline; }
+        bool TextField::underline()
+        {
+            return mUnderline;
+        }
         void TextField::underline(bool value)
         {
             if (mUnderline != value)
@@ -538,7 +574,10 @@ namespace text {
         }
 
         /** Indicates whether kerning is enabled. @default true */
-        bool TextField::kerning()         { return mKerning; }
+        bool TextField::kerning()
+        {
+            return mKerning;
+        }
         void TextField::kerning(bool value)
         {
             if (mKerning != value)
@@ -550,7 +589,10 @@ namespace text {
 
         /** Indicates whether the font size is scaled down so that the complete text fits
          *  into the text field. @default false */
-        bool TextField::autoScale()         { return mAutoScale; }
+        bool TextField::autoScale()
+        {
+            return mAutoScale;
+        }
         void TextField::autoScale(bool value)
         {
             if (mAutoScale != value)
@@ -561,10 +603,13 @@ namespace text {
         }
 
         /** Specifies the type of auto-sizing the TextField will do.
-         *  Note that any auto-sizing will make auto-scaling useless. Furthermore, it has 
-         *  implications on alignment: horizontally auto-sized text will always be left-, 
+         *  Note that any auto-sizing will make auto-scaling useless. Furthermore, it has
+         *  implications on alignment: horizontally auto-sized text will always be left-,
          *  vertically auto-sized text will always be top-aligned. @default "none" */
-        std::string TextField::autoSize()        { return mAutoSize; }
+        std::string TextField::autoSize()
+        {
+            return mAutoSize;
+        }
         void TextField::autoSize(std::string value)
         {
             if (mAutoSize != value)
@@ -574,10 +619,13 @@ namespace text {
             }
         }
 
-        /** The native Flash BitmapFilters to apply to this TextField. 
+        /** The native Flash BitmapFilters to apply to this TextField.
          *  Only available when using standard (TrueType) fonts! */
-        std::vector<void*> TextField::nativeFilters()       { return mNativeFilters; }
-        void TextField::nativeFilters(std::vector<void*> value)
+        std::vector<void *> TextField::nativeFilters()
+        {
+            return mNativeFilters;
+        }
+        void TextField::nativeFilters(std::vector<void *> value)
         {
             if (!mIsRenderedText)
                 throw(new Error("The TextField.nativeFilters property cannot be used on Bitmap fonts."));
@@ -588,9 +636,9 @@ namespace text {
 
         /** Makes a bitmap font available at any TextField in the current stage3D context.
          *  The font is identified by its <code>name</code>.
-         *  Per default, the <code>name</code> property of the bitmap font will be used, but you 
+         *  Per default, the <code>name</code> property of the bitmap font will be used, but you
          *  can pass a custom name, as well. @returns the name of the font. */
-        std::string TextField::registerBitmapFont(BitmapFont* bitmapFont, std::string name)
+        std::string TextField::registerBitmapFont(BitmapFont *bitmapFont, std::string name)
         {
             if (name == NULL) name = bitmapFont->name;
             bitmapFonts[name] = bitmapFont;
@@ -607,16 +655,16 @@ namespace text {
         }
 
         /** Returns a registered bitmap font (or null, if the font has not been registered). */
-        BitmapFont* TextField::getBitmapFont(std::string name)
+        BitmapFont *TextField::getBitmapFont(std::string name)
         {
             return bitmapFonts[name];
         }
 
         /** Stores the currently available bitmap fonts. Since a bitmap font will only work
          *  in one Stage3D context, they are saved in Starling's 'contextData' property. */
-        std::map<std::string, void*> TextField::bitmapFonts()
+        std::map<std::string, void *> TextField::bitmapFonts()
         {
-             std::map<std::string, void*> fonts=Starling::current->static_cast<std::map<std::string, void*>>(contextData[BITMAP_FONT_DATA_NAME]);
+            std::map<std::string, void *> fonts=Starling::current->static_cast<std::map<std::string, void *>>(contextData[BITMAP_FONT_DATA_NAME]);
 
             if (fonts.empty())
             {
@@ -626,6 +674,6 @@ namespace text {
 
             return fonts;
         }
-}
+    }
 }
 

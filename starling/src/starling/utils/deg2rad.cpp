@@ -10,8 +10,8 @@
 
 
 
-    /** Converts an angle from degrees into radians. */
-    float ::deg2rad(float deg)
-    {
-        return deg / 180.0 * Math::PI;
-    }
+/** Converts an angle from degrees into radians. */
+float ::deg2rad(float deg)
+{
+    return deg / 180.0 * Math::PI;
+}

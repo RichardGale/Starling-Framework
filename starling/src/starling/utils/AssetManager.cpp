@@ -28,14 +28,14 @@
 #include "starling/textures/Texture.h"
 #include "starling/textures/TextureAtlas.h"
 
-    /** The AssetManager handles loading and accessing a variety of asset types. You can 
-     *  add assets directly (via the 'add...' methods) or asynchronously via a queue. This allows
-     *  you to deal with assets in a unified way, no matter if they are loaded from a file, 
-     *  directory, URL, or from an embedded object.
-     *  
-     *  <p>If you load files from disk, the following types are supported:
-     *  <code>png, jpg, atf, mp3, xml, fnt</code></p>
-     */
+/** The AssetManager handles loading and accessing a variety of asset types. You can
+ *  add assets directly (via the 'add...' methods) or asynchronously via a queue. This allows
+ *  you to deal with assets in a unified way, no matter if they are loaded from a file,
+ *  directory, URL, or from an embedded object.
+ *
+ *  <p>If you load files from disk, the following types are supported:
+ *  <code>png, jpg, atf, mp3, xml, fnt</code></p>
+ */
 using namespace flash::display;
 using namespace flash::display;
 using namespace flash::events;
@@ -62,8 +62,10 @@ using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::textures;
 
-namespace starling {
-namespace utils {
+namespace starling
+{
+    namespace utils
+    {
 
 
         /** helper objects */
@@ -95,16 +97,16 @@ namespace utils {
         // retrieving
 
         /** Returns a texture with a certain name. The method first looks through the directly
-         *  added textures; if no texture with that name is found, it scans through all 
+         *  added textures; if no texture with that name is found, it scans through all
          *  texture atlases. */
-        Texture* AssetManager::getTexture(std::string name)
+        Texture *AssetManager::getTexture(std::string name)
         {
             if (name in mTextures) return mTextures[name];
             else
             {
                 for each (var TextureAtlas* atlasin mAtlases)
                 {
-                     Texture* texture=atlas->getTexture(name);
+                    Texture *texture=atlas->getTexture(name);
                     if (texture) return texture;
                 }
                 return NULL;
@@ -113,9 +115,9 @@ namespace utils {
 
         /** Returns all textures that start with a certain string, sorted alphabetically
          *  (especially useful for "MovieClip"). */
-        std::vector<Texture*>* AssetManager::getTextures(std::string prefix, std::vector<Texture*>* result)
+        std::vector<Texture *> *AssetManager::getTextures(std::string prefix, std::vector<Texture *> *result)
         {
-            if (result == NULL) result = new <Texture*>[];
+            if (result == NULL) result = new <Texture *>[];
 
             for each (var std::string nameingetTextureNames(prefix,sNames))
                 result->push(getTexture(name));
@@ -125,7 +127,7 @@ namespace utils {
         }
 
         /** Returns all texture names that start with a certain string, sorted alphabetically. */
-        std::vector<std::string>* AssetManager::getTextureNames(std::string prefix, std::vector<std::string>* result)
+        std::vector<std::string> *AssetManager::getTextureNames(std::string prefix, std::vector<std::string> *result)
         {
             if (result == NULL) result = new <std::string>[];
 
@@ -141,21 +143,21 @@ namespace utils {
         }
 
         /** Returns a texture atlas with a certain name, or null if it's not found. */
-        TextureAtlas* AssetManager::getTextureAtlas(std::string name)
+        TextureAtlas *AssetManager::getTextureAtlas(std::string name)
         {
             return static_cast<TextureAtlas>(mAtlases[name]);
         }
 
         /** Returns a sound with a certain name. */
-        Sound* AssetManager::getSound(std::string name)
+        Sound *AssetManager::getSound(std::string name)
         {
             return mSounds[name];
         }
 
         /** Returns all sound names that start with a certain string, sorted alphabetically. */
-        std::vector<std::string>* AssetManager::getSoundNames(std::string prefix)
+        std::vector<std::string> *AssetManager::getSoundNames(std::string prefix)
         {
-             std::vector<std::string>* names=new<std::string>[];
+            std::vector<std::string> *names=new<std::string>[];
 
             for ( std::string nameinmSounds)
                 if (name->indexOf(prefix)== 0)
@@ -164,10 +166,10 @@ namespace utils {
             return names.sort(Array->CASEINSENSITIVE);
         }
 
-        /** Generates a new SoundChannel object to play back the sound. This method returns a 
+        /** Generates a new SoundChannel object to play back the sound. This method returns a
          *  SoundChannel object, which you can access to stop the sound and to control volume. */
-        SoundChannel* AssetManager::playSound(std::string name, float startTime, int loops,
-                                  SoundTransform* transform)
+        SoundChannel *AssetManager::playSound(std::string name, float startTime, int loops,
+                                              SoundTransform *transform)
         {
             if (name in mSounds)
                 return getSound(name)->play(startTime,loops, transform);
@@ -178,7 +180,7 @@ namespace utils {
         // direct adding
 
         /** Register a texture under a certain name. It will be available right away. */
-        void AssetManager::addTexture(std::string name, Texture* texture)
+        void AssetManager::addTexture(std::string name, Texture *texture)
         {
             log("Adding texture '" + name + "'");
 
@@ -189,7 +191,7 @@ namespace utils {
         }
 
         /** Register a texture atlas under a certain name. It will be available right away. */
-        void AssetManager::addTextureAtlas(std::string name, TextureAtlas* atlas)
+        void AssetManager::addTextureAtlas(std::string name, TextureAtlas *atlas)
         {
             log("Adding texture atlas '" + name + "'");
 
@@ -200,7 +202,7 @@ namespace utils {
         }
 
         /** Register a sound under a certain name. It will be available right away. */
-        void AssetManager::addSound(std::string name, Sound* sound)
+        void AssetManager::addSound(std::string name, Sound *sound)
         {
             log("Adding sound '" + name + "'");
 
@@ -253,9 +255,9 @@ namespace utils {
 
         // queued adding
 
-        /** Enqueues one or more raw assets; they will only be available after successfully 
+        /** Enqueues one or more raw assets; they will only be available after successfully
          *  executing the "loadQueue" method. This method accepts a variety of different objects:
-         *  
+         *
          *  <ul>
          *    <li>Strings containing an URL to a local or remote resource. Supported types:
          *        <code>png, jpg, atf, mp3, fnt, xml</code> (texture atlas).</li>
@@ -263,9 +265,9 @@ namespace utils {
          *        Directories will be scanned recursively for all supported types.</li>
          *    <li>Classes that contain <code>static</code> embedded assets.</li>
          *  </ul>
-         *  
+         *
          *  Suitable object names are extracted automatically: A file named "image.png" will be
-         *  accessible under the name "image". When enqueuing embedded assets via a class, 
+         *  accessible under the name "image". When enqueuing embedded assets via a class,
          *  the variable name of the embedded object will be used as its name. An exception
          *  are texture atlases: they will have the same name as the actual texture they are
          *  referencing.
@@ -274,14 +276,14 @@ namespace utils {
         {
             for each (var Object* rawAssetin rawAssets)
             {
-                if (dynamic_cast<std::vector<void*>>(rawAsset))
+                if (dynamic_cast<std::vector<void *>>(rawAsset))
                 {
                     enqueue->apply(this,rawAsset);
                 }
                 else if (dynamic_cast<Class>(rawAsset))
                 {
-                     XML* typeXml=describeType(rawAsset);
-                     XML* childNode;
+                    XML *typeXml=describeType(rawAsset);
+                    XML *childNode;
 
                     if (mVerbose)
                         log("Looking for static embedded assets in '" +
@@ -305,7 +307,7 @@ namespace utils {
                             enqueue->apply(this,rawAsset["getDirectoryListing"]());
                         else
                         {
-                             std::string extension=rawAsset["extension"]->toLowerCase();
+                            std::string extension=rawAsset["extension"]->toLowerCase();
                             if (SUPPORTED_EXTENSIONS.indexOf(extension) != -1)
                                 enqueueWithName(rawAsset["url"]);
                             else
@@ -324,17 +326,18 @@ namespace utils {
             }
         }
 
-        /** Enqueues a single asset with a custom name that can be used to access it later. 
+        /** Enqueues a single asset with a custom name that can be used to access it later.
          *  If you don't pass a name, it's attempted to generate it automatically.
          *  @returns the name under which the asset was registered. */
-        std::string AssetManager::enqueueWithName(Object* asset, std::string name)
+        std::string AssetManager::enqueueWithName(Object *asset, std::string name)
         {
             if (name == NULL) name = getName(asset);
             log("Enqueuing '" + name + "'");
 
-            mRawAssets->push({
-                name: name,
-                asset: asset
+            mRawAssets->push(
+            {
+name: name,
+asset: asset
             });
 
             return name;
@@ -343,17 +346,17 @@ namespace utils {
         /** Loads all enqueued assets asynchronously. The 'onProgress' function will be called
          *  with a 'ratio' between '0.0' and '1.0', with '1.0' meaning that it's complete.
          *
-         *  @param onProgress: <code>function(ratio:Number):void;</code> 
+         *  @param onProgress: <code>function(ratio:Number):void;</code>
          */
-        void AssetManager::loadQueue(Function* onProgress)
+        void AssetManager::loadQueue(Function *onProgress)
         {
             if (Starling::context== NULL)
                 throw new Error("The Starling instance needs to be ready before textures can be loaded.");
 
-             std::vector<XML*>* xmls=new<XML*>[];
-             int numElements= mRawAssets->length;
-             float currentRatio = 0.0;
-             unsigned int timeoutID;
+            std::vector<XML *> *xmls=new<XML *>[];
+            int numElements= mRawAssets->length;
+            float currentRatio = 0.0;
+            unsigned int timeoutID;
 
             resume();
 
@@ -372,7 +375,7 @@ namespace utils {
 
             void AssetManager::()
             {
-                 Object* assetInfo=mRawAssets->pop();
+                Object *assetInfo=mRawAssets->pop();
                 clearTimeout(timeoutID);
                 loadRawAsset(assetInfo->name,assetInfo->asset,xmls, progress, resume);
             }
@@ -383,20 +386,21 @@ namespace utils {
                 // have to be available for other XMLs. Texture atlases are processed first:
                 // that way, their textures can be referenced, too.
 
-                xmls.sort(function(XML* a, XML* b)int  {
+                xmls.sort(function(XML* a, XML* b)int
+                {
                     return a->localName()== "TextureAtlas" ? -1 : 1;
                 });
 
                 for each (var XML* xmlin xmls)
                 {
-                     std::string name;
-                     std::string rootNode=xml->localName();
+                    std::string name;
+                    std::string rootNode=xml->localName();
 
                     if (rootNode == "TextureAtlas")
                     {
                         name = getName(xml->@imagePath->toString());
 
-                         Texture* atlasTexture=getTexture(name);
+                        Texture *atlasTexture=getTexture(name);
                         addTextureAtlas(name, new TextureAtlas(atlasTexture, xml));
                         removeTexture(name, false);
                     }
@@ -404,7 +408,7 @@ namespace utils {
                     {
                         name = getName(xml->pages->page->@file->toString());
 
-                         Texture* fontTexture=getTexture(name);
+                        Texture *fontTexture=getTexture(name);
                         TextField::registerBitmapFont(newBitmapFont(fontTexture, xml));
                         removeTexture(name, false);
                     }
@@ -419,14 +423,14 @@ namespace utils {
             }
         }
 
-        void AssetManager::loadRawAsset(std::string name, Object* rawAsset, std::vector<XML*>* xmls,
-                                      Function* onProgress, Function* onComplete)
+        void AssetManager::loadRawAsset(std::string name, Object *rawAsset, std::vector<XML *> *xmls,
+                                        Function *onProgress, Function *onComplete)
         {
-             std::string extension=NULL;
+            std::string extension=NULL;
 
             if (dynamic_cast<Class>(rawAsset))
             {
-                 Object* asset=new rawAsset();
+                Object *asset=new rawAsset();
 
                 if (dynamic_cast<Sound>(asset))
                 {
@@ -440,13 +444,13 @@ namespace utils {
                 }
                 else if (dynamic_cast<ByteArray>(asset))
                 {
-                     ByteArray* bytes=static_cast<ByteArray>(asset);
-                     std::string signature=String->fromCharCode(bytes[0],bytes[1],bytes[2]);
+                    ByteArray *bytes=static_cast<ByteArray>(asset);
+                    std::string signature=String->fromCharCode(bytes[0],bytes[1],bytes[2]);
 
                     if (signature == "ATF")
                     {
                         addTexture(name, Texture::fromAtfData(static_cast<ByteArray>(asset), mScaleFactor,
-                            mUseMipMaps, onComplete));
+                                                              mUseMipMaps, onComplete));
                     }
                     else
                     {
@@ -462,10 +466,10 @@ namespace utils {
             }
             else if (dynamic_cast<std::string>(rawAsset))
             {
-                 std::string url=static_cast<std::string>(rawAsset);
+                std::string url=static_cast<std::string>(rawAsset);
                 extension = url->split(".")->pop()->toLowerCase()->split("?")[0];
 
-                 URLLoader* urlLoader=new URLLoader();
+                URLLoader *urlLoader=new URLLoader();
                 urlLoader->dataFormat= URLLoaderDataFormat::BINARY;
                 urlLoader->addEventListener(IOErrorEvent::IO_ERROR,onIoError);
                 urlLoader->addEventListener(ProgressEvent::PROGRESS,onLoadProgress);
@@ -486,9 +490,9 @@ namespace utils {
 
             void AssetManager::(Event* event)
             {
-                 URLLoader* urlLoader=event->static_cast<URLLoader>(target);
-                 ByteArray* bytes=urlLoader->static_cast<ByteArray>(data);
-                 Sound* sound;
+                URLLoader *urlLoader=event->static_cast<URLLoader>(target);
+                ByteArray *bytes=urlLoader->static_cast<ByteArray>(data);
+                Sound *sound;
 
                 urlLoader->removeEventListener(IOErrorEvent::IO_ERROR,onIoError);
                 urlLoader->removeEventListener(ProgressEvent::PROGRESS,onProgress);
@@ -511,8 +515,8 @@ namespace utils {
                         onComplete();
                         break;
                     default:
-                         LoaderContext* loaderContext=new LoaderContext(mCheckPolicyFile);
-                         Loader* loader=new Loader();
+                        LoaderContext *loaderContext=new LoaderContext(mCheckPolicyFile);
+                        Loader *loader=new Loader();
                         loaderContext->imageDecodingPolicy= ImageDecodingPolicy::ON_LOAD;
                         loader->contentLoaderInfo->addEventListener(Event::COMPLETE,onLoaderComplete);
                         loader->loadBytes(urlLoader->static_cast<ByteArray>(data), loaderContext);
@@ -523,7 +527,7 @@ namespace utils {
             void AssetManager::(Event* event)
             {
                 event->target->removeEventListener(Event::COMPLETE,onLoaderComplete);
-                 Object* content=event->target->content;
+                Object *content=event->target->content;
 
                 if (dynamic_cast<Bitmap>(content))
                     addBitmapTexture(name, static_cast<Bitmap>(content));
@@ -537,19 +541,19 @@ namespace utils {
         // helpers
 
         /** This method is called by 'enqueue' to determine the name under which an asset will be
-         *  accessible; override it if you need a custom naming scheme. Typically, 'rawAsset' is 
+         *  accessible; override it if you need a custom naming scheme. Typically, 'rawAsset' is
          *  either a String or a FileReference. Note that this method won't be called for embedded
          *  assets. */
-        std::string AssetManager::getName(Object* rawAsset)
+        std::string AssetManager::getName(Object *rawAsset)
         {
-             std::vector<void*> matches;
-             std::string name;
+            std::vector<void *> matches;
+            std::string name;
 
             if (dynamic_cast<std::string>(rawAsset) || dynamic_cast<FileReference>(rawAsset))
             {
                 name = dynamic_cast<std::string>(rawAsset) ? static_cast<std::string>(rawAsset) : (static_cast<FileReference>(rawAsset))->name;
                 name = name->replace(/%20/g," "); // URLs use '%20' for spaces
-                matches = /(.*[\\\/])?(.+)(\.[\w]{1,4})/->exec(name);
+                matches = /(.*[\\\/])?(.+)(\.[\w] {1,4})/->exec(name);
 
                 if (matches && matches->length== 4) return matches[2];
                 else throw new ArgumentError("Could not extract name from String '" + rawAsset + "'");
@@ -568,9 +572,9 @@ namespace utils {
             if (mVerbose) trace("[AssetManager]", message);
         }
 
-        /** This method is called during loading of assets when a bitmap texture is processed. 
+        /** This method is called during loading of assets when a bitmap texture is processed.
          *  Override it if you want to preprocess the bitmap in some way. */
-        void AssetManager::addBitmapTexture(std::string name, Bitmap* bitmap)
+        void AssetManager::addBitmapTexture(std::string name, Bitmap *bitmap)
         {
             addTexture(name, Texture::fromBitmap(bitmap,mUseMipMaps, false, mScaleFactor));
         }
@@ -578,25 +582,49 @@ namespace utils {
         // properties
 
         /** When activated, the class will trace information about added/enqueued assets. */
-        bool AssetManager::verbose()         { return mVerbose; }
-        void AssetManager::verbose(bool value)      { mVerbose = value; }
+        bool AssetManager::verbose()
+        {
+            return mVerbose;
+        }
+        void AssetManager::verbose(bool value)
+        {
+            mVerbose = value;
+        }
 
-        /** For bitmap textures, this flag indicates if mip maps should be generated when they 
+        /** For bitmap textures, this flag indicates if mip maps should be generated when they
          *  are loaded; for ATF textures, it indicates if mip maps are valid and should be
          *  used. */
-        bool AssetManager::useMipMaps()         { return mUseMipMaps; }
-        void AssetManager::useMipMaps(bool value)      { mUseMipMaps = value; }
+        bool AssetManager::useMipMaps()
+        {
+            return mUseMipMaps;
+        }
+        void AssetManager::useMipMaps(bool value)
+        {
+            mUseMipMaps = value;
+        }
 
-        /** Textures that are created from Bitmaps or ATF files will have the scale factor 
+        /** Textures that are created from Bitmaps or ATF files will have the scale factor
          *  assigned here. */
-        float AssetManager::scaleFactor()        { return mScaleFactor; }
-        void AssetManager::scaleFactor(float value)      { mScaleFactor = value; }
+        float AssetManager::scaleFactor()
+        {
+            return mScaleFactor;
+        }
+        void AssetManager::scaleFactor(float value)
+        {
+            mScaleFactor = value;
+        }
 
         /** Specifies whether a check should be made for the existence of a URL policy file before
-         *  loading an object from a remote server. More information about this topic can be found 
+         *  loading an object from a remote server. More information about this topic can be found
          *  in the 'flash.system.LoaderContext' documentation. */
-        bool AssetManager::checkPolicyFile()         { return mCheckPolicyFile; }
-        void AssetManager::checkPolicyFile(bool value)      { mCheckPolicyFile = value; }
-}
+        bool AssetManager::checkPolicyFile()
+        {
+            return mCheckPolicyFile;
+        }
+        void AssetManager::checkPolicyFile(bool value)
+        {
+            mCheckPolicyFile = value;
+        }
+    }
 }
 

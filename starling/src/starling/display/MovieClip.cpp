@@ -18,7 +18,7 @@
 #include "starling/events/Event.h"
 #include "starling/textures/Texture.h"
 
-    /** Dispatched whenever the movie has displayed its last frame. */
+/** Dispatched whenever the movie has displayed its last frame. */
 
 
 
@@ -48,33 +48,35 @@ using namespace starling::animation;
 using namespace starling::events;
 using namespace starling::textures;
 
-namespace starling {
-namespace display {
-    /** A MovieClip is a simple way to display an animation depicted by a list of textures.
-     *  
-     *  <p>Pass the frames of the movie in a vector of textures to the constructor. The movie clip 
-     *  will have the width and height of the first frame. If you group your frames with the help 
-     *  of a texture atlas (which is recommended), use the <code>getTextures</code>-method of the 
-     *  atlas to receive the textures in the correct (alphabetic) order.</p> 
-     *  
-     *  <p>You can specify the desired framerate via the constructor. You can, however, manually 
-     *  give each frame a custom duration. You can also play a sound whenever a certain frame 
-     *  appears.</p>
-     *  
-     *  <p>The methods <code>play</code> and <code>pause</code> control playback of the movie. You
-     *  will receive an event of type <code>Event.MovieCompleted</code> when the movie finished
-     *  playback. If the movie is looping, the event is dispatched once per loop.</p>
-     *  
-     *  <p>As any animated object, a movie clip has to be added to a juggler (or have its 
-     *  <code>advanceTime</code> method called regularly) to run. The movie will dispatch 
-     *  an event of type "Event.COMPLETE" whenever it has displayed its last frame.</p>
-     *  
-     *  @see starling.textures.TextureAtlas
-     */
+namespace starling
+{
+    namespace display
+    {
+        /** A MovieClip is a simple way to display an animation depicted by a list of textures.
+         *
+         *  <p>Pass the frames of the movie in a vector of textures to the constructor. The movie clip
+         *  will have the width and height of the first frame. If you group your frames with the help
+         *  of a texture atlas (which is recommended), use the <code>getTextures</code>-method of the
+         *  atlas to receive the textures in the correct (alphabetic) order.</p>
+         *
+         *  <p>You can specify the desired framerate via the constructor. You can, however, manually
+         *  give each frame a custom duration. You can also play a sound whenever a certain frame
+         *  appears.</p>
+         *
+         *  <p>The methods <code>play</code> and <code>pause</code> control playback of the movie. You
+         *  will receive an event of type <code>Event.MovieCompleted</code> when the movie finished
+         *  playback. If the movie is looping, the event is dispatched once per loop.</p>
+         *
+         *  <p>As any animated object, a movie clip has to be added to a juggler (or have its
+         *  <code>advanceTime</code> method called regularly) to run. The movie will dispatch
+         *  an event of type "Event.COMPLETE" whenever it has displayed its last frame.</p>
+         *
+         *  @see starling.textures.TextureAtlas
+         */
 
         /** Creates a movie clip from the provided textures and with the specified default framerate.
          *  The movie will have the size of the first frame. */
-        MovieClip::MovieClip(std::vector<Texture*>* textures, float fps)
+        MovieClip::MovieClip(std::vector<Texture *> *textures, float fps)
         {
             if (textures->length> 0)
             {
@@ -87,10 +89,10 @@ namespace display {
             }
         }
 
-        void MovieClip::init(std::vector<Texture*>* textures, float fps)
+        void MovieClip::init(std::vector<Texture *> *textures, float fps)
         {
             if (fps <= 0) throw new ArgumentError("Invalid fps: " + fps);
-             int numFrames= textures->length;
+            int numFrames= textures->length;
 
             mDefaultFrameDuration = 1.0 / fps;
             mLoop = true;
@@ -102,7 +104,7 @@ namespace display {
             mDurations.clear();
             mStartTimes.clear();
 
-            for ( int i=0;i<numFrames; ++i)
+            for ( int i=0; i<numFrames; ++i)
             {
                 mDurations[i] = mDefaultFrameDuration;
                 mStartTimes[i] = i * mDefaultFrameDuration;
@@ -111,15 +113,15 @@ namespace display {
 
         // frame manipulation
 
-        /** Adds an additional frame, optionally with a sound and a custom duration. If the 
+        /** Adds an additional frame, optionally with a sound and a custom duration. If the
          *  duration is omitted, the default framerate is used (as specified in the constructor). */
-        void MovieClip::addFrame(Texture* texture, Sound* sound, float duration)
+        void MovieClip::addFrame(Texture *texture, Sound *sound, float duration)
         {
             addFrameAt(numFrames, texture, sound, duration);
         }
 
         /** Adds a frame at a certain index, optionally with a sound and a custom duration. */
-        void MovieClip::addFrameAt(int frameID, Texture* texture, Sound* sound,
+        void MovieClip::addFrameAt(int frameID, Texture *texture, Sound *sound,
                                    float duration)
         {
             if (frameID < 0 || frameID > numFrames) throw new ArgumentError("Invalid frame id");
@@ -149,29 +151,29 @@ namespace display {
         }
 
         /** Returns the texture of a certain frame. */
-        Texture* MovieClip::getFrameTexture(int frameID)
+        Texture *MovieClip::getFrameTexture(int frameID)
         {
             if (frameID < 0 || frameID >= numFrames) throw new ArgumentError("Invalid frame id");
             return mTextures[frameID];
         }
 
         /** Sets the texture of a certain frame. */
-        void MovieClip::setFrameTexture(int frameID, Texture* texture)
+        void MovieClip::setFrameTexture(int frameID, Texture *texture)
         {
             if (frameID < 0 || frameID >= numFrames) throw new ArgumentError("Invalid frame id");
             mTextures[frameID] = texture;
         }
 
         /** Returns the sound of a certain frame. */
-        Sound* MovieClip::getFrameSound(int frameID)
+        Sound *MovieClip::getFrameSound(int frameID)
         {
             if (frameID < 0 || frameID >= numFrames) throw new ArgumentError("Invalid frame id");
             return mSounds[frameID];
         }
 
-        /** Sets the sound of a certain frame. The sound will be played whenever the frame 
+        /** Sets the sound of a certain frame. The sound will be played whenever the frame
          *  is displayed. */
-        void MovieClip::setFrameSound(int frameID, Sound* sound)
+        void MovieClip::setFrameSound(int frameID, Sound *sound)
         {
             if (frameID < 0 || frameID >= numFrames) throw new ArgumentError("Invalid frame id");
             mSounds[frameID] = sound;
@@ -217,12 +219,12 @@ namespace display {
 
         void MovieClip::updateStartTimes()
         {
-             int numFrames= this->numFrames;
+            int numFrames= this->numFrames;
 
             mStartTimes.clear()
             mStartTimes[0] = 0;
 
-            for ( int i=1;i<numFrames; ++i)
+            for ( int i=1; i<numFrames; ++i)
                 mStartTimes[i] = mStartTimes[int(i-1)] + mDurations[int(i-1)];
         }
 
@@ -233,13 +235,13 @@ namespace display {
         {
             if (!mPlaying || passedTime <= 0.0) return;
 
-             int finalFrame;
-             int previousFrame= mCurrentFrame;
-             float restTime = 0.0;
-             bool breakAfterFrame   = false;
-             bool hasCompleteListener   = hasEventListener(Event::COMPLETE);
-             bool dispatchCompleteEvent   = false;
-             float totalTime = this->totalTime;
+            int finalFrame;
+            int previousFrame= mCurrentFrame;
+            float restTime = 0.0;
+            bool breakAfterFrame   = false;
+            bool hasCompleteListener   = hasEventListener(Event::COMPLETE);
+            bool dispatchCompleteEvent   = false;
+            float totalTime = this->totalTime;
 
             if (mLoop && mCurrentTime >= totalTime)
             {
@@ -275,7 +277,7 @@ namespace display {
                         mCurrentFrame++;
                     }
 
-                     Sound* sound=mSounds[mCurrentFrame];
+                    Sound *sound=mSounds[mCurrentFrame];
                     if (sound) sound->play();
                     if (breakAfterFrame) break;
                 }
@@ -301,62 +303,80 @@ namespace display {
             return !mLoop && mCurrentTime >= totalTime;
         }
 
-        // properties  
+        // properties
 
         /** The total duration of the clip in seconds. */
         float MovieClip::totalTime()
         {
-             int numFrames= mTextures.length;
+            int numFrames= mTextures.length;
             return mStartTimes[int(numFrames-1)] + mDurations[int(numFrames-1)];
         }
 
         /** The time that has passed since the clip was started (each loop starts at zero). */
-        float MovieClip::currentTime()        { return mCurrentTime; }
+        float MovieClip::currentTime()
+        {
+            return mCurrentTime;
+        }
 
         /** The total number of frames. */
-        int MovieClip::numFrames()     { return mTextures.length; }
+        int MovieClip::numFrames()
+        {
+            return mTextures.length;
+        }
 
         /** Indicates if the clip should loop. */
-        bool MovieClip::loop()         { return mLoop; }
-        void MovieClip::loop(bool value)      { mLoop = value; }
+        bool MovieClip::loop()
+        {
+            return mLoop;
+        }
+        void MovieClip::loop(bool value)
+        {
+            mLoop = value;
+        }
 
         /** The index of the frame that is currently displayed. */
-        int MovieClip::currentFrame()     { return mCurrentFrame; }
+        int MovieClip::currentFrame()
+        {
+            return mCurrentFrame;
+        }
         void MovieClip::currentFrame(int value)
         {
             mCurrentFrame = value;
             mCurrentTime = 0.0;
 
-            for ( int i=0;i<value; ++i)
+            for ( int i=0; i<value; ++i)
                 mCurrentTime += getFrameDuration(i);
 
             texture = mTextures[mCurrentFrame];
             if (mSounds[mCurrentFrame]) mSounds[mCurrentFrame]->play();
         }
 
-        /** The default number of frames per second. Individual frames can have different 
-         *  durations. If you change the fps, the durations of all frames will be scaled 
+        /** The default number of frames per second. Individual frames can have different
+         *  durations. If you change the fps, the durations of all frames will be scaled
          *  relatively to the previous value. */
-        float MovieClip::fps()        { return 1.0 / mDefaultFrameDuration; }
+        float MovieClip::fps()
+        {
+            return 1.0 / mDefaultFrameDuration;
+        }
         void MovieClip::fps(float value)
         {
             if (value <= 0) throw new ArgumentError("Invalid fps: " + value);
 
-             float newFrameDuration = 1.0 / value;
-             float acceleration = newFrameDuration / mDefaultFrameDuration;
+            float newFrameDuration = 1.0 / value;
+            float acceleration = newFrameDuration / mDefaultFrameDuration;
             mCurrentTime *= acceleration;
             mDefaultFrameDuration = newFrameDuration;
 
-            for ( int i=0;i<numFrames; ++i)
+            for ( int i=0; i<numFrames; ++i)
             {
-                 float duration = mDurations[i] * acceleration;
+                float duration = mDurations[i] * acceleration;
                 mDurations[i] = duration;
             }
 
             updateStartTimes();
         }
 
-        /** Indicates if the clip is still playing. Returns <code>false</code> when the end 
+        /** Indicates if the clip is still playing. Returns <code>false</code> when the end
          *  is reached. */
         bool MovieClip::isPlaying()
         {
@@ -365,6 +385,6 @@ namespace display {
             else
                 return false;
         }
-}
+    }
 }
 

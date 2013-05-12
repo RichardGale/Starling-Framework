@@ -11,18 +11,38 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace display { class Image; } }
-namespace starling { namespace text { class TextField; } }
-namespace starling { namespace textures { class Texture; } }
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
+namespace starling
+{
+    namespace text
+    {
+        class TextField;
+    }
+}
+namespace starling
+{
+    namespace textures
+    {
+        class Texture;
+    }
+}
 
 using namespace starling::display;
 using namespace starling::text;
 using namespace starling::textures;
 
-namespace scenes {
+namespace scenes
+{
     class TextureScene: public Scene
     {
-        public:          TextureScene();
+    public:
+        TextureScene();
     };
 }
 

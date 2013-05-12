@@ -19,26 +19,26 @@
 #include "starling/utils/MatrixUtil.h"
 #include "starling/utils/formatString.h"
 
-    //use starling_internal        ;
+//use starling_internal        ;
 
-    /** A Touch object contains information about the presence or movement of a finger 
-     *  or the mouse on the screen.
-     *  
-     *  <p>You receive objects of this type from a TouchEvent. When such an event is triggered, you can 
-     *  query it for all touches that are currently present on the screen. One Touch object contains
-     *  information about a single touch. A touch object always moves through a series of
-     *  TouchPhases. Have a look at the TouchPhase class for more information.</p>
-     *  
-     *  <strong>The position of a touch</strong>
-     *  
-     *  <p>You can get the current and previous position in stage coordinates with the corresponding 
-     *  properties. However, you'll want to have the position in a different coordinate system 
-     *  most of the time. For this reason, there are methods that convert the current and previous 
-     *  touches into the local coordinate system of any object.</p>
-     * 
-     *  @see TouchEvent
-     *  @see TouchPhase
-     */
+/** A Touch object contains information about the presence or movement of a finger
+ *  or the mouse on the screen.
+ *
+ *  <p>You receive objects of this type from a TouchEvent. When such an event is triggered, you can
+ *  query it for all touches that are currently present on the screen. One Touch object contains
+ *  information about a single touch. A touch object always moves through a series of
+ *  TouchPhases. Have a look at the TouchPhase class for more information.</p>
+ *
+ *  <strong>The position of a touch</strong>
+ *
+ *  <p>You can get the current and previous position in stage coordinates with the corresponding
+ *  properties. However, you'll want to have the position in a different coordinate system
+ *  most of the time. For this reason, there are methods that convert the current and previous
+ *  touches into the local coordinate system of any object.</p>
+ *
+ *  @see TouchEvent
+ *  @see TouchPhase
+ */
 using namespace flash::geom;
 using namespace flash::geom;
 using namespace starling::core;
@@ -46,15 +46,17 @@ using namespace starling::display;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace events {
+namespace starling
+{
+    namespace events
+    {
 
 
         /** Helper object. */
-         Matrix* Touch::sHelperMatrix=newMatrix();
+        Matrix *Touch::sHelperMatrix=newMatrix();
 
         /** Creates a new Touch object. */
-        Touch::Touch(int id, float globalX, float globalY, std::string phase, DisplayObject* target)
+        Touch::Touch(int id, float globalX, float globalY, std::string phase, DisplayObject *target)
         {
             mID = id;
             mGlobalX = mPreviousGlobalX = globalX;
@@ -67,42 +69,42 @@ namespace events {
             updateBubbleChain();
         }
 
-        /** Converts the current location of a touch to the local coordinate system of a display 
-         *  object. If you pass a 'resultPoint', the result will be stored in this point instead 
+        /** Converts the current location of a touch to the local coordinate system of a display
+         *  object. If you pass a 'resultPoint', the result will be stored in this point instead
          *  of creating a new object.*/
-        Point* Touch::getLocation(DisplayObject* space, Point* resultPoint)
+        Point *Touch::getLocation(DisplayObject *space, Point *resultPoint)
         {
             if (resultPoint == NULL) resultPoint = new Point();
             space->base->getTransformationMatrix(space,sHelperMatrix);
             return MatrixUtil::transformCoords(sHelperMatrix,mGlobalX, mGlobalY, resultPoint);
         }
 
-        /** Converts the previous location of a touch to the local coordinate system of a display 
-         *  object. If you pass a 'resultPoint', the result will be stored in this point instead 
+        /** Converts the previous location of a touch to the local coordinate system of a display
+         *  object. If you pass a 'resultPoint', the result will be stored in this point instead
          *  of creating a new object.*/
-        Point* Touch::getPreviousLocation(DisplayObject* space, Point* resultPoint)
+        Point *Touch::getPreviousLocation(DisplayObject *space, Point *resultPoint)
         {
             if (resultPoint == NULL) resultPoint = new Point();
             space->base->getTransformationMatrix(space,sHelperMatrix);
             return MatrixUtil::transformCoords(sHelperMatrix,mPreviousGlobalX, mPreviousGlobalY, resultPoint);
         }
 
-        /** Returns the movement of the touch between the current and previous location. 
-         *  If you pass a 'resultPoint', the result will be stored in this point instead 
+        /** Returns the movement of the touch between the current and previous location.
+         *  If you pass a 'resultPoint', the result will be stored in this point instead
          *  of creating a new object. */
-        Point* Touch::getMovement(DisplayObject* space, Point* resultPoint)
+        Point *Touch::getMovement(DisplayObject *space, Point *resultPoint)
         {
             if (resultPoint == NULL) resultPoint = new Point();
             getLocation(space, resultPoint);
-             float x = resultPoint->x;
-             float y = resultPoint->y;
+            float x = resultPoint->x;
+            float y = resultPoint->y;
             getPreviousLocation(space, resultPoint);
             resultPoint->setTo(x- resultPoint->x,y - resultPoint->y);
             return resultPoint;
         }
 
         /** Indicates if the target or one of its children is touched. */
-        bool Touch::isTouching(DisplayObject* target)
+        bool Touch::isTouching(DisplayObject *target)
         {
             return mBubbleChain.indexOf(target) != -1;
         }
@@ -115,9 +117,9 @@ namespace events {
         }
 
         /** Creates a clone of the Touch object. */
-        Touch* Touch::clone()
+        Touch *Touch::clone()
         {
-             Touch* clone=new Touch(mID, mGlobalX, mGlobalY, mPhase, mTarget);
+            Touch *clone=new Touch(mID, mGlobalX, mGlobalY, mPhase, mTarget);
             clone->mPreviousGlobalX= mPreviousGlobalX;
             clone->mPreviousGlobalY= mPreviousGlobalY;
             clone->mTapCount= mTapCount;
@@ -134,8 +136,8 @@ namespace events {
         {
             if (mTarget)
             {
-                 int length= 1;
-                 DisplayObject* element=mTarget;
+                int length= 1;
+                DisplayObject *element=mTarget;
 
                 mBubbleChain.length = 1;
                 mBubbleChain[0] = element;
@@ -152,63 +154,99 @@ namespace events {
         // properties
 
         /** The identifier of a touch. '0' for mouse events, an increasing number for touches. */
-        int Touch::id()     { return mID; }
+        int Touch::id()
+        {
+            return mID;
+        }
 
         /** The x-position of the touch in stage coordinates. */
-        float Touch::globalX()        { return mGlobalX; }
+        float Touch::globalX()
+        {
+            return mGlobalX;
+        }
 
         /** The y-position of the touch in stage coordinates. */
-        float Touch::globalY()        { return mGlobalY; }
+        float Touch::globalY()
+        {
+            return mGlobalY;
+        }
 
         /** The previous x-position of the touch in stage coordinates. */
-        float Touch::previousGlobalX()        { return mPreviousGlobalX; }
+        float Touch::previousGlobalX()
+        {
+            return mPreviousGlobalX;
+        }
 
         /** The previous y-position of the touch in stage coordinates. */
-        float Touch::previousGlobalY()        { return mPreviousGlobalY; }
+        float Touch::previousGlobalY()
+        {
+            return mPreviousGlobalY;
+        }
 
-        /** The number of taps the finger made in a short amount of time. Use this to detect 
+        /** The number of taps the finger made in a short amount of time. Use this to detect
          *  double-taps / double-clicks, etc. */
-        int Touch::tapCount()     { return mTapCount; }
+        int Touch::tapCount()
+        {
+            return mTapCount;
+        }
 
         /** The current phase the touch is in. @see TouchPhase */
-        std::string Touch::phase()        { return mPhase; }
+        std::string Touch::phase()
+        {
+            return mPhase;
+        }
 
         /** The display object at which the touch occurred. */
-        DisplayObject* Touch::target()               { return mTarget; }
+        DisplayObject *Touch::target()
+        {
+            return mTarget;
+        }
 
         /** The moment the touch occurred (in seconds since application start). */
-        float Touch::timestamp()        { return mTimestamp; }
+        float Touch::timestamp()
+        {
+            return mTimestamp;
+        }
 
-        /** A value between 0.0 and 1.0 indicating force of the contact with the device. 
+        /** A value between 0.0 and 1.0 indicating force of the contact with the device.
          *  If the device does not support detecting the pressure, the value is 1.0. */
-        float Touch::pressure()        { return mPressure; }
+        float Touch::pressure()
+        {
+            return mPressure;
+        }
 
-        /** Width of the contact area. 
+        /** Width of the contact area.
          *  If the device does not support detecting the pressure, the value is 1.0. */
-        float Touch::width()        { return mWidth; }
+        float Touch::width()
+        {
+            return mWidth;
+        }
 
-        /** Height of the contact area. 
+        /** Height of the contact area.
          *  If the device does not support detecting the pressure, the value is 1.0. */
-        float Touch::height()        { return mHeight; }
+        float Touch::height()
+        {
+            return mHeight;
+        }
 
         // internal methods
 
-        /** @private 
+        /** @private
          *  Dispatches a touch event along the current bubble chain (which is updated each time
          *  a target is set). */
-        void Touch::dispatchEvent(TouchEvent* event)
+        void Touch::dispatchEvent(TouchEvent *event)
         {
             if (mTarget) event->dispatch(mBubbleChain);
         }
 
         /** @private */
-        std::vector<EventDispatcher*>* Touch::bubbleChain()
+        std::vector<EventDispatcher *> *Touch::bubbleChain()
         {
             return mBubbleChain.concat();
         }
 
         /** @private */
-        void Touch::setTarget(DisplayObject* value)
+        void Touch::setTarget(DisplayObject *value)
         {
             mTarget = value;
             updateBubbleChain();
@@ -231,16 +269,28 @@ namespace events {
         }
 
         /** @private */
-        void Touch::setPhase(std::string value)      { mPhase = value; }
+        void Touch::setPhase(std::string value)
+        {
+            mPhase = value;
+        }
 
         /** @private */
-        void Touch::setTapCount(int value)      { mTapCount = value; }
+        void Touch::setTapCount(int value)
+        {
+            mTapCount = value;
+        }
 
         /** @private */
-        void Touch::setTimestamp(float value)      { mTimestamp = value; }
+        void Touch::setTimestamp(float value)
+        {
+            mTimestamp = value;
+        }
 
         /** @private */
-        void Touch::setPressure(float value)      { mPressure = value; }
-}
+        void Touch::setPressure(float value)
+        {
+            mPressure = value;
+        }
+    }
 }
 

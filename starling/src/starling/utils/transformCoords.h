@@ -21,16 +21,29 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace geom { class Matrix; } }
-namespace flash { namespace geom { class Point; } }
+namespace flash
+{
+    namespace geom
+    {
+        class Matrix;
+    }
+}
+namespace flash
+{
+    namespace geom
+    {
+        class Point;
+    }
+}
 
-    /** Uses a matrix to transform 2D coordinates into a different space. If you pass a 
-     *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
-    public: Point*   transformCoords(Matrix* matrix, float x, float y,
-                                    Point* resultPoint=NULL);
+/** Uses a matrix to transform 2D coordinates into a different space. If you pass a
+ *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
+public:
+Point   *transformCoords(Matrix *matrix, float x, float y,
+                         Point *resultPoint=NULL);
 
 
- bool deprecationNotified;
+bool deprecationNotified;
 #endif // __STARLING_SRC_STARLING_UTILS_TRANSFORMCOORDS_AS
 #endif // __cplusplus
 

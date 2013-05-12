@@ -43,37 +43,37 @@ using namespace tests;
 
 
 
-        FlexUnitApplication::FlexUnitApplication()
-        {
-            onCreationComplete();
-        }
+FlexUnitApplication::FlexUnitApplication()
+{
+    onCreationComplete();
+}
 
-        void FlexUnitApplication::onCreationComplete()
-        {
-             FlexUnitTestRunnerUIAS* testRunner=newFlexUnitTestRunnerUIAS();
-            testRunner->portNumber=8765;
-            this->addChild(testRunner);
-            testRunner->runWithFlexUnit4Runner(currentRunTestSuite(),"Starling-Tests");
-        }
+void FlexUnitApplication::onCreationComplete()
+{
+    FlexUnitTestRunnerUIAS *testRunner=newFlexUnitTestRunnerUIAS();
+    testRunner->portNumber=8765;
+    this->addChild(testRunner);
+    testRunner->runWithFlexUnit4Runner(currentRunTestSuite(),"Starling-Tests");
+}
 
-        std::vector<void*> FlexUnitApplication::currentRunTestSuite()
-        {
-             std::vector<void*> testsToRun=newArray();
-            testsToRun->push(tests->ColorTest);
-            testsToRun->push(tests->TextureAtlasTest);
-            testsToRun->push(tests->JugglerTest);
-            testsToRun->push(tests->QuadTest);
-            testsToRun->push(tests->DisplayObjectContainerTest);
-            testsToRun->push(tests->UtilsTest);
-            testsToRun->push(tests->DisplayObjectTest);
-            testsToRun->push(tests->BlendModeTest);
-            testsToRun->push(tests->MovieClipTest);
-            testsToRun->push(tests->RectangleUtilTest);
-            testsToRun->push(tests->VertexDataTest);
-            testsToRun->push(tests->EventTest);
-            testsToRun->push(tests->DelayedCallTest);
-            testsToRun->push(tests->TweenTest);
-            testsToRun->push(tests->TextureTest);
-            return testsToRun;
-        }
+std::vector<void *> FlexUnitApplication::currentRunTestSuite()
+{
+    std::vector<void *> testsToRun=newArray();
+    testsToRun->push(tests->ColorTest);
+    testsToRun->push(tests->TextureAtlasTest);
+    testsToRun->push(tests->JugglerTest);
+    testsToRun->push(tests->QuadTest);
+    testsToRun->push(tests->DisplayObjectContainerTest);
+    testsToRun->push(tests->UtilsTest);
+    testsToRun->push(tests->DisplayObjectTest);
+    testsToRun->push(tests->BlendModeTest);
+    testsToRun->push(tests->MovieClipTest);
+    testsToRun->push(tests->RectangleUtilTest);
+    testsToRun->push(tests->VertexDataTest);
+    testsToRun->push(tests->EventTest);
+    testsToRun->push(tests->DelayedCallTest);
+    testsToRun->push(tests->TweenTest);
+    testsToRun->push(tests->TextureTest);
+    return testsToRun;
+}
 

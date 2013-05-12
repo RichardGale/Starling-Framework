@@ -11,11 +11,41 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace display { class BlendMode; } }
-namespace starling { namespace display { class Button; } }
-namespace starling { namespace display { class Image; } }
-namespace starling { namespace events { class Event; } }
-namespace starling { namespace text { class TextField; } }
+namespace starling
+{
+    namespace display
+    {
+        class BlendMode;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Button;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class Event;
+    }
+}
+namespace starling
+{
+    namespace text
+    {
+        class TextField;
+    }
+}
 
 using namespace starling::display;
 using namespace starling::display;
@@ -23,18 +53,25 @@ using namespace starling::display;
 using namespace starling::events;
 using namespace starling::text;
 
-namespace scenes {
+namespace scenes
+{
     class BlendModeScene: public Scene
     {
-        private:  Button* mButton;
-        private:  Image* mImage;
-        private:  TextField* mInfoText;
+    private:
+        Button *mButton;
+    private:
+        Image *mImage;
+    private:
+        TextField *mInfoText;
 
-        private:  std::vector<void*> mBlendModes;
+    private:
+        std::vector<void *> mBlendModes;
 
-        public:          BlendModeScene();
+    public:
+        BlendModeScene();
 
-        private: void     onButtonTriggered();
+    private:
+        void     onButtonTriggered();
     };
 }
 

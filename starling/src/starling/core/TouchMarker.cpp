@@ -19,7 +19,7 @@
 #include "starling/display/Sprite.h"
 #include "starling/textures/Texture.h"
 
-    /** The TouchMarker is used internally to mark touches created through "simulateMultitouch". */
+/** The TouchMarker is used internally to mark touches created through "simulateMultitouch". */
 using namespace flash::display;
 using namespace flash::display;
 using namespace flash::geom;
@@ -27,8 +27,10 @@ using namespace starling::display;
 using namespace starling::display;
 using namespace starling::textures;
 
-namespace starling {
-namespace core {
+namespace starling
+{
+    namespace core
+    {
 
 
         TouchMarker::TouchMarker()
@@ -36,9 +38,9 @@ namespace core {
             mCenter = new Point();
             mTexture = createTexture();
 
-            for ( int i=0;i<2; ++i)
+            for ( int i=0; i<2; ++i)
             {
-                 Image* marker=new Image(mTexture);
+                Image *marker=new Image(mTexture);
                 marker->pivotX= mTexture->width/ 2;
                 marker->pivotY= mTexture->height/ 2;
                 marker->touchable= false;
@@ -73,14 +75,14 @@ namespace core {
             moveMarker(realX, realY); // reset mock position
         }
 
-        Texture* TouchMarker::createTexture()
+        Texture *TouchMarker::createTexture()
         {
-             float scale = Starling->contentScaleFactor;
-             float radius = 12 * scale;
-             int width= 32 * scale;
-             int height= 32 * scale;
-             float thickness = 1.5 * scale;
-             Shape* shape=new Shape();
+            float scale = Starling->contentScaleFactor;
+            float radius = 12 * scale;
+            int width= 32 * scale;
+            int height= 32 * scale;
+            float thickness = 1.5 * scale;
+            Shape *shape=new Shape();
 
             // draw dark outline
             shape->graphics->lineStyle(thickness,0x0,0.3);
@@ -92,20 +94,38 @@ namespace core {
             shape->graphics->drawCircle(width/2,height/2,radius);
             shape->graphics->endFill();
 
-             BitmapData* bmpData=new BitmapData(width, height, true, 0x0);
+            BitmapData *bmpData=new BitmapData(width, height, true, 0x0);
             bmpData->draw(shape);
 
             return Texture::fromBitmapData(bmpData,false, false, scale);
         }
 
-        Image* TouchMarker::realMarker()       { return getChildAt(0) as Image; }
-        Image* TouchMarker::mockMarker()       { return getChildAt(1) as Image; }
+        Image *TouchMarker::realMarker()
+        {
+            return getChildAt(0) as Image;
+        }
+        Image *TouchMarker::mockMarker()
+        {
+            return getChildAt(1) as Image;
+        }
 
-        float TouchMarker::realX()        { return realMarker->x;}
-        float TouchMarker::realY()        { return realMarker->y;}
+        float TouchMarker::realX()
+        {
+            return realMarker->x;
+        }
+        float TouchMarker::realY()
+        {
+            return realMarker->y;
+        }
 
-        float TouchMarker::mockX()        { return mockMarker->x;}
-        float TouchMarker::mockY()        { return mockMarker->y;}
-}
+        float TouchMarker::mockX()
+        {
+            return mockMarker->x;
+        }
+        float TouchMarker::mockY()
+        {
+            return mockMarker->y;
+        }
+    }
 }
 

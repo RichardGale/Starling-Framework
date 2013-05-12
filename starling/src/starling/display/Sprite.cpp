@@ -20,7 +20,7 @@
 #include "starling/utils/MatrixUtil.h"
 #include "starling/utils/RectangleUtil.h"
 
-    /** Dispatched on all children when the object is flattened. */
+/** Dispatched on all children when the object is flattened. */
 
 
 
@@ -58,40 +58,42 @@ using namespace starling::events;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace display {
-    /** A Sprite is the most lightweight, non-abstract container class.
-     *  <p>Use it as a simple means of grouping objects together in one coordinate system, or
-     *  as the base class for custom display objects.</p>
-     *
-     *  <strong>Flattened Sprites</strong>
-     * 
-     *  <p>The <code>flatten</code>-method allows you to optimize the rendering of static parts of 
-     *  your display list.</p>
-     *
-     *  <p>It analyzes the tree of children attached to the sprite and optimizes the rendering calls 
-     *  in a way that makes rendering extremely fast. The speed-up comes at a price, though: you 
-     *  will no longer see any changes in the properties of the children (position, rotation, 
-     *  alpha, etc.). To update the object after changes have happened, simply call 
-     *  <code>flatten</code> again, or <code>unflatten</code> the object.</p>
-     *  
-     *  <strong>Clipping Rectangle</strong>
-     * 
-     *  <p>The <code>clipRect</code> property allows you to clip the visible area of the sprite
-     *  to a rectangular region. Only pixels inside the rectangle will be displayed. This is a very
-     *  fast way to mask objects. However, there is one limitation: the <code>clipRect</code>
-     *  only works with stage-aligned rectangles, i.e. you cannot rotate or skew the rectangle.
-     *  This limitation is inherited from the underlying "scissoring" technique that is used
-     *  internally.</p>
-     *  
-     *  @see DisplayObject
-     *  @see DisplayObjectContainer
-     */
+namespace starling
+{
+    namespace display
+    {
+        /** A Sprite is the most lightweight, non-abstract container class.
+         *  <p>Use it as a simple means of grouping objects together in one coordinate system, or
+         *  as the base class for custom display objects.</p>
+         *
+         *  <strong>Flattened Sprites</strong>
+         *
+         *  <p>The <code>flatten</code>-method allows you to optimize the rendering of static parts of
+         *  your display list.</p>
+         *
+         *  <p>It analyzes the tree of children attached to the sprite and optimizes the rendering calls
+         *  in a way that makes rendering extremely fast. The speed-up comes at a price, though: you
+         *  will no longer see any changes in the properties of the children (position, rotation,
+         *  alpha, etc.). To update the object after changes have happened, simply call
+         *  <code>flatten</code> again, or <code>unflatten</code> the object.</p>
+         *
+         *  <strong>Clipping Rectangle</strong>
+         *
+         *  <p>The <code>clipRect</code> property allows you to clip the visible area of the sprite
+         *  to a rectangular region. Only pixels inside the rectangle will be displayed. This is a very
+         *  fast way to mask objects. However, there is one limitation: the <code>clipRect</code>
+         *  only works with stage-aligned rectangles, i.e. you cannot rotate or skew the rectangle.
+         *  This limitation is inherited from the underlying "scissoring" technique that is used
+         *  internally.</p>
+         *
+         *  @see DisplayObject
+         *  @see DisplayObjectContainer
+         */
 
         /** Helper objects. */
-         Matrix* Sprite::sHelperMatrix=newMatrix();
-         Point* Sprite::sHelperPoint=newPoint();
-         Rectangle* Sprite::sHelperRect=newRectangle();
+        Matrix *Sprite::sHelperMatrix=newMatrix();
+        Point *Sprite::sHelperPoint=newPoint();
+        Rectangle *Sprite::sHelperRect=newRectangle();
 
         /** Creates an empty sprite. */
         Sprite::Sprite()
@@ -119,17 +121,17 @@ namespace display {
 
         /** Optimizes the sprite for optimal rendering performance. Changes in the
          *  children of a flattened sprite will not be displayed any longer. For this to happen,
-         *  either call <code>flatten</code> again, or <code>unflatten</code> the sprite. 
+         *  either call <code>flatten</code> again, or <code>unflatten</code> the sprite.
          *  Beware that the actual flattening will not happen right away, but right before the
-         *  next rendering. 
-         * 
+         *  next rendering.
+         *
          *  <p>When you flatten a sprite, the result of all matrix operations that are otherwise
          *  executed during rendering are cached. For this reason, a flattened sprite can be
          *  rendered with much less strain on the CPU. However, a flattened sprite will always
          *  produce at least one draw call; if it were merged together with other objects, this
          *  would cause additional matrix operations, and the optimization would have been in vain.
          *  Thus, don't just blindly flatten all your sprites, but reserve flattening for sprites
-         *  with a big number of children.</p> 
+         *  with a big number of children.</p>
          */
         void Sprite::flatten()
         {
@@ -152,11 +154,14 @@ namespace display {
         }
 
         /** The object's clipping rectangle in its local coordinate system.
-         *  Only pixels within that rectangle will be drawn. 
+         *  Only pixels within that rectangle will be drawn.
          *  <strong>Note:</strong> clip rects are axis aligned with the screen, so they
          *  will not be rotated or skewed if the Sprite is. */
-        Rectangle* Sprite::clipRect()           { return mClipRect; }
-        void Sprite::clipRect(Rectangle* value)
+        Rectangle *Sprite::clipRect()
+        {
+            return mClipRect;
+        }
+        void Sprite::clipRect(Rectangle *value)
         {
             if (mClipRect && value) mClipRect->copyFrom(value);
             else mClipRect = (value ? value->clone(): NULL);
@@ -164,29 +169,41 @@ namespace display {
 
         /** Returns the bounds of the container's clipRect in the given coordinate space, or
          *  null if the sprite doens't have a clipRect. */
-        Rectangle* Sprite::getClipRect(DisplayObject* targetSpace, Rectangle* resultRect)
+        Rectangle *Sprite::getClipRect(DisplayObject *targetSpace, Rectangle *resultRect)
         {
             if (mClipRect == NULL) return NULL;
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             float minX =  Number::MAX_VALUE;
-             float maxX = -Number::MAX_VALUE;
-             float minY =  Number::MAX_VALUE;
-             float maxY = -Number::MAX_VALUE;
+            float minX =  Number::MAX_VALUE;
+            float maxX = -Number::MAX_VALUE;
+            float minY =  Number::MAX_VALUE;
+            float maxY = -Number::MAX_VALUE;
 
-             Matrix* transMatrix=getTransformationMatrix(targetSpace, sHelperMatrix);
-             float x = 0;
-             float y = 0;
-            for ( int i=0;i<4; ++i)
+            Matrix *transMatrix=getTransformationMatrix(targetSpace, sHelperMatrix);
+            float x = 0;
+            float y = 0;
+            for ( int i=0; i<4; ++i)
             {
                 switch(i)
                 {
-                    case 0: x = mClipRect->left; y = mClipRect->top;   break;
-                    case 1: x = mClipRect->left; y = mClipRect->bottom;break;
-                    case 2: x = mClipRect->right;y = mClipRect->top;   break;
-                    case 3: x = mClipRect->right;y = mClipRect->bottom;break;
+                    case 0:
+                        x = mClipRect->left;
+                        y = mClipRect->top;
+                        break;
+                    case 1:
+                        x = mClipRect->left;
+                        y = mClipRect->bottom;
+                        break;
+                    case 2:
+                        x = mClipRect->right;
+                        y = mClipRect->top;
+                        break;
+                    case 3:
+                        x = mClipRect->right;
+                        y = mClipRect->bottom;
+                        break;
                 }
-                 Point* transformedPoint=MatrixUtil::transformCoords(transMatrix,x, y, sHelperPoint);
+                Point *transformedPoint=MatrixUtil::transformCoords(transMatrix,x, y, sHelperPoint);
                 minX = Math::min(minX,transformedPoint->x);
                 maxX = Math::max(maxX,transformedPoint->x);
                 minY = Math::min(minY,transformedPoint->y);
@@ -198,20 +215,20 @@ namespace display {
         }
 
         /** @inheritDoc */
-        Rectangle* Sprite::getBounds(DisplayObject* targetSpace, Rectangle* resultRect)
+        Rectangle *Sprite::getBounds(DisplayObject *targetSpace, Rectangle *resultRect)
         {
-             Rectangle* bounds=super->getBounds(targetSpace,resultRect);
+            Rectangle *bounds=super->getBounds(targetSpace,resultRect);
 
             // if we have a scissor rect, intersect it with our bounds
             if (mClipRect)
                 RectangleUtil::intersect(bounds,getClipRect(targetSpace, sHelperRect),
-                                        bounds);
+                                         bounds);
 
             return bounds;
         }
 
         /** @inheritDoc */
-        DisplayObject* Sprite::hitTest(Point* localPoint, bool forTouch)
+        DisplayObject *Sprite::hitTest(Point *localPoint, bool forTouch)
         {
             if (mClipRect != NULL && !mClipRect->containsPoint(localPoint))
                 return NULL;
@@ -220,11 +237,11 @@ namespace display {
         }
 
         /** @inheritDoc */
-        void Sprite::render(RenderSupport* support, float parentAlpha)
+        void Sprite::render(RenderSupport *support, float parentAlpha)
         {
             if (mClipRect)
             {
-                 Rectangle* clipRect=support->pushClipRect(getClipRect(stage,sHelperRect));
+                Rectangle *clipRect=support->pushClipRect(getClipRect(stage,sHelperRect));
                 if (clipRect->isEmpty())
                 {
                     // empty clipping bounds - no need to render children.
@@ -245,18 +262,18 @@ namespace display {
                     mFlattenRequested = false;
                 }
 
-                 float alpha = parentAlpha * this->alpha;
-                 int numBatches= mFlattenedContents.length;
-                 Matrix* mvpMatrix=support->mvpMatrix;
+                float alpha = parentAlpha * this->alpha;
+                int numBatches= mFlattenedContents.length;
+                Matrix *mvpMatrix=support->mvpMatrix;
 
                 support->finishQuadBatch();
                 support->raiseDrawCount(numBatches);
 
-                for ( int i=0;i<numBatches; ++i)
+                for ( int i=0; i<numBatches; ++i)
                 {
-                     QuadBatch* quadBatch=mFlattenedContents[i];
-                     std::string blendMode=quadBatch->blendMode==BlendMode->AUTO?
-                        support->blendMode: quadBatch->blendMode;
+                    QuadBatch *quadBatch=mFlattenedContents[i];
+                    std::string blendMode=quadBatch->blendMode==BlendMode->AUTO?
+                                          support->blendMode: quadBatch->blendMode;
                     quadBatch->renderCustom(mvpMatrix,alpha, blendMode);
                 }
             }
@@ -265,6 +282,6 @@ namespace display {
             if (mClipRect)
                 support->popClipRect();
         }
-}
+    }
 }
 

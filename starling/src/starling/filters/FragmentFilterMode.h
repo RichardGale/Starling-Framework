@@ -21,30 +21,42 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace errors { class AbstractClassError; } }
+namespace starling
+{
+    namespace errors
+    {
+        class AbstractClassError;
+    }
+}
 
-    /** A class that provides constant values for filter modes. The values are used in the
-     *  FragmentFilter.mode property and define how a filter result is combined with the 
-     *  original object. */
+/** A class that provides constant values for filter modes. The values are used in the
+ *  FragmentFilter.mode property and define how a filter result is combined with the
+ *  original object. */
 using namespace starling::errors;
 
-namespace starling {
-namespace filters {
-    class FragmentFilterMode
+namespace starling
+{
+    namespace filters
     {
-        /** @private */
-        public:          FragmentFilterMode();
+        class FragmentFilterMode
+        {
+            /** @private */
+        public:
+            FragmentFilterMode();
 
-        /** The filter is displayed below the filtered object. */
-        public: static const std::string BELOW;
+            /** The filter is displayed below the filtered object. */
+        public:
+            static const std::string BELOW;
 
-        /** The filter is replacing the filtered object. */
-        public: static const std::string REPLACE;
+            /** The filter is replacing the filtered object. */
+        public:
+            static const std::string REPLACE;
 
-        /** The filter is displayed above the filtered object. */
-        public: static const std::string ABOVE;
-    };
-}
+            /** The filter is displayed above the filtered object. */
+        public:
+            static const std::string ABOVE;
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_FILTERS_FRAGMENTFILTERMODE_AS

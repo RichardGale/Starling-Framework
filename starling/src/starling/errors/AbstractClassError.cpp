@@ -13,11 +13,13 @@
 #include "AbstractClassError.h"
 #include "Error.h"
 
-    /** An AbstractClassError is thrown when you attempt to create an instance of an abstract 
-     *  class. */
+/** An AbstractClassError is thrown when you attempt to create an instance of an abstract
+ *  class. */
 
-namespace starling {
-namespace errors {
+namespace starling
+{
+    namespace errors
+    {
 
 
         /** Creates a new AbstractClassError object. */
@@ -25,6 +27,6 @@ namespace errors {
         {
             super(message, id);
         }
-}
+    }
 }
 

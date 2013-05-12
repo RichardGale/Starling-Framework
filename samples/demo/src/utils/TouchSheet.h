@@ -11,13 +11,43 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace geom { class Point; } }
+namespace flash
+{
+    namespace geom
+    {
+        class Point;
+    }
+}
 
-namespace starling { namespace display { class DisplayObject; } }
+namespace starling
+{
+    namespace display
+    {
+        class DisplayObject;
+    }
+}
 #include "starling/display/Sprite.h"
-namespace starling { namespace events { class Touch; } }
-namespace starling { namespace events { class TouchEvent; } }
-namespace starling { namespace events { class TouchPhase; } }
+namespace starling
+{
+    namespace events
+    {
+        class Touch;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class TouchEvent;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class TouchPhase;
+    }
+}
 
 using namespace flash::geom;
 using namespace starling::display;
@@ -26,14 +56,18 @@ using namespace starling::events;
 using namespace starling::events;
 using namespace starling::events;
 
-namespace utils {
+namespace utils
+{
     class TouchSheet: public Sprite
     {
-        public:          TouchSheet(DisplayObject* contents=NULL);
+    public:
+        TouchSheet(DisplayObject *contents=NULL);
 
-        private: void     onTouch(TouchEvent* event);
+    private:
+        void     onTouch(TouchEvent *event);
 
-        public: virtual void     dispose();
+    public:
+        virtual void     dispose();
     };
 }
 

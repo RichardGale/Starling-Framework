@@ -21,33 +21,63 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace display { class BitmapData; } }
-namespace flash { namespace geom { class Rectangle; } }
-namespace flash { namespace utils { class ByteArray; } }
+namespace flash
+{
+    namespace display
+    {
+        class BitmapData;
+    }
+}
+namespace flash
+{
+    namespace geom
+    {
+        class Rectangle;
+    }
+}
+namespace flash
+{
+    namespace utils
+    {
+        class ByteArray;
+    }
+}
 
-namespace starling { namespace textures { class Texture; } }
+namespace starling
+{
+    namespace textures
+    {
+        class Texture;
+    }
+}
 
-    /** @private
-     *  This class contains constants for the 'MINI' bitmap font. It's done that way to avoid
-     *  a dependency on the 'mx.core' library (which is required for the 'Embed' statement).
-     * 
-     *  <p>The font is based on "uni05_53.ttf" from Craig Kroeger (http://www.miniml.com) and was
-     *  converted to a Bitmap Font with "GlyphDesigner" from 71squared (http://www.71squared.com).
-     *  </p> */
+/** @private
+ *  This class contains constants for the 'MINI' bitmap font. It's done that way to avoid
+ *  a dependency on the 'mx.core' library (which is required for the 'Embed' statement).
+ *
+ *  <p>The font is based on "uni05_53.ttf" from Craig Kroeger (http://www.miniml.com) and was
+ *  converted to a Bitmap Font with "GlyphDesigner" from 71squared (http://www.71squared.com).
+ *  </p> */
 using namespace flash::display;
 using namespace flash::geom;
 using namespace flash::utils;
 using namespace starling::textures;
 
-namespace starling {
-namespace text {
-    class MiniBitmapFont
+namespace starling
+{
+    namespace text
     {
-        private: static const int BITMAP_WIDTH;
-        private: static const int BITMAP_HEIGHT;
-        private: static const std::vector<void*> BITMAP_DATA;
+        class MiniBitmapFont
+        {
+        private:
+            static const int BITMAP_WIDTH;
+        private:
+            static const int BITMAP_HEIGHT;
+        private:
+            static const std::vector<void *> BITMAP_DATA;
 
-        private: static const XML* XML_DATA
+        private:
+            static const XML *XML_DATA
 
 
 
@@ -245,11 +275,13 @@ namespace text {
 
 
 
-        public: static Texture* texture();
+        public:
+            static Texture *texture();
 
-        public: static XML*  xml();
-    };
-}
+        public:
+            static XML  *xml();
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_TEXT_MINIBITMAPFONT_AS

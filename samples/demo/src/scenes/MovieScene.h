@@ -11,12 +11,42 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace media { class Sound; } }
+namespace flash
+{
+    namespace media
+    {
+        class Sound;
+    }
+}
 
-namespace starling { namespace core { class Starling; } }
-namespace starling { namespace display { class MovieClip; } }
-namespace starling { namespace events { class Event; } }
-namespace starling { namespace textures { class Texture; } }
+namespace starling
+{
+    namespace core
+    {
+        class Starling;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class MovieClip;
+    }
+}
+namespace starling
+{
+    namespace events
+    {
+        class Event;
+    }
+}
+namespace starling
+{
+    namespace textures
+    {
+        class Texture;
+    }
+}
 
 using namespace flash::media;
 using namespace starling::core;
@@ -24,18 +54,24 @@ using namespace starling::display;
 using namespace starling::events;
 using namespace starling::textures;
 
-namespace scenes {
+namespace scenes
+{
     class MovieScene: public Scene
     {
-        private:  MovieClip* mMovie;
+    private:
+        MovieClip *mMovie;
 
-        public:          MovieScene();
+    public:
+        MovieScene();
 
-        private: void     onAddedToStage();
+    private:
+        void     onAddedToStage();
 
-        private: void     onRemovedFromStage();
+    private:
+        void     onRemovedFromStage();
 
-        public: virtual void     dispose();
+    public:
+        virtual void     dispose();
     };
 }
 

@@ -21,12 +21,42 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace starling { namespace utils { class deg2rad; } }
-namespace starling { namespace utils { class formatString; } }
-namespace starling { namespace utils { class getNextPowerOfTwo; } }
-namespace starling { namespace utils { class rad2deg; } }
+namespace starling
+{
+    namespace utils
+    {
+        class deg2rad;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class formatString;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class getNextPowerOfTwo;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class rad2deg;
+    }
+}
 
 using namespace flexunit::framework;
 using namespace starling::utils;
@@ -34,23 +64,28 @@ using namespace starling::utils;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace tests {
+namespace tests
+{
     class UtilsTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testFormatString();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testGetNextPowerOfTwo();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRad2Deg();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testDeg2Rad();
     };
 }

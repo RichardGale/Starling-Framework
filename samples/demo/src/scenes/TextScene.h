@@ -11,11 +11,41 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace text { class BitmapFont; } }
-namespace starling { namespace text { class TextField; } }
-namespace starling { namespace utils { class Color; } }
-namespace starling { namespace utils { class HAlign; } }
-namespace starling { namespace utils { class VAlign; } }
+namespace starling
+{
+    namespace text
+    {
+        class BitmapFont;
+    }
+}
+namespace starling
+{
+    namespace text
+    {
+        class TextField;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class Color;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class HAlign;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class VAlign;
+    }
+}
 
 using namespace starling::text;
 using namespace starling::text;
@@ -23,12 +53,15 @@ using namespace starling::utils;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace scenes {
+namespace scenes
+{
     class TextScene: public Scene
     {
-        public:          TextScene();
+    public:
+        TextScene();
 
-        private: void     init();
+    private:
+        void     init();
     };
 }
 

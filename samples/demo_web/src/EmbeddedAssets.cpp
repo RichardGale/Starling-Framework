@@ -3,40 +3,40 @@
 
 
 
-        /** ATTENTION: Naming conventions!
-         *  
-         *  - Classes for embedded IMAGES should have the exact same name as the file,
-         *    without extension. This is required so that references from XMLs (atlas, bitmap font)
-         *    won't break.
-         *    
-         *  - Atlas and Font XML files can have an arbitrary name, since they are never
-         *    referenced by file name.
-         * 
-         */
+/** ATTENTION: Naming conventions!
+ *
+ *  - Classes for embedded IMAGES should have the exact same name as the file,
+ *    without extension. This is required so that references from XMLs (atlas, bitmap font)
+ *    won't break.
+ *
+ *  - Atlas and Font XML files can have an arbitrary name, since they are never
+ *    referenced by file name.
+ *
+ */
 
-        // Texture Atlas
-
-
-        const      Class* EmbeddedAssets::atlas_xml;
+// Texture Atlas
 
 
-        const      Class* EmbeddedAssets::atlas;
-
-        // Compressed textures
+const      Class *EmbeddedAssets::atlas_xml;
 
 
-        const      Class* EmbeddedAssets::compressed_texture;
+const      Class *EmbeddedAssets::atlas;
 
-        // Bitmap Fonts
-
-
-        const      Class* EmbeddedAssets::desyrel_fnt;
+// Compressed textures
 
 
-        const      Class* EmbeddedAssets::desyrel;
+const      Class *EmbeddedAssets::compressed_texture;
 
-        // Sounds
+// Bitmap Fonts
 
 
-        const      Class* EmbeddedAssets::wing_flap;
+const      Class *EmbeddedAssets::desyrel_fnt;
+
+
+const      Class *EmbeddedAssets::desyrel;
+
+// Sounds
+
+
+const      Class *EmbeddedAssets::wing_flap;
 

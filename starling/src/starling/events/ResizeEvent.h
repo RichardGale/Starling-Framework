@@ -21,39 +21,51 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace geom { class Point; } }
+namespace flash
+{
+    namespace geom
+    {
+        class Point;
+    }
+}
 
-    /** A ResizeEvent is dispatched by the stage when the size of the Flash container changes.
-     *  Use it to update the Starling viewport and the stage size.
-     *  
-     *  <p>The event contains properties containing the updated width and height of the Flash 
-     *  player. If you want to scale the contents of your stage to fill the screen, update the 
-     *  <code>Starling.current.viewPort</code> rectangle accordingly. If you want to make use of
-     *  the additional screen estate, update the values of <code>stage.stageWidth</code> and 
-     *  <code>stage.stageHeight</code> as well.</p>
-     *  
-     *  @see starling.display.Stage
-     *  @see starling.core.Starling
-     */
+/** A ResizeEvent is dispatched by the stage when the size of the Flash container changes.
+ *  Use it to update the Starling viewport and the stage size.
+ *
+ *  <p>The event contains properties containing the updated width and height of the Flash
+ *  player. If you want to scale the contents of your stage to fill the screen, update the
+ *  <code>Starling.current.viewPort</code> rectangle accordingly. If you want to make use of
+ *  the additional screen estate, update the values of <code>stage.stageWidth</code> and
+ *  <code>stage.stageHeight</code> as well.</p>
+ *
+ *  @see starling.display.Stage
+ *  @see starling.core.Starling
+ */
 using namespace flash::geom;
 
-namespace starling {
-namespace events {
-    class ResizeEvent: public Event
+namespace starling
+{
+    namespace events
     {
-        /** Event type for a resized Flash player. */
-        public: static const std::string RESIZE;
+        class ResizeEvent: public Event
+        {
+            /** Event type for a resized Flash player. */
+        public:
+            static const std::string RESIZE;
 
-        /** Creates a new ResizeEvent. */
-        public:          ResizeEvent(std::string type, int width, int height, bool bubbles   =false);
+            /** Creates a new ResizeEvent. */
+        public:
+            ResizeEvent(std::string type, int width, int height, bool bubbles   =false);
 
-        /** The updated width of the player. */
-        public: int          width();
+            /** The updated width of the player. */
+        public:
+            int          width();
 
-        /** The updated height of the player. */
-        public: int          height();
-    };
-}
+            /** The updated height of the player. */
+        public:
+            int          height();
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_EVENTS_RESIZEEVENT_AS

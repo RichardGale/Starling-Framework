@@ -21,21 +21,41 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace display3D { class Context3DBlendFactor; } }
+namespace flash
+{
+    namespace display3D
+    {
+        class Context3DBlendFactor;
+    }
+}
 
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace starling { namespace display { class BlendMode; } }
+namespace starling
+{
+    namespace display
+    {
+        class BlendMode;
+    }
+}
 
 using namespace flash::display3D;
 using namespace flexunit::framework;
 using namespace starling::display;
 
-namespace tests {
+namespace tests
+{
     class BlendModeTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testRegisterBlendMode();
     };
 }

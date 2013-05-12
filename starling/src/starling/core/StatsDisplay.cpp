@@ -23,8 +23,8 @@
 #include "starling/utils/HAlign.h"
 #include "starling/utils/VAlign.h"
 
-    /** A small, lightweight box that displays the current framerate, memory consumption and
-     *  the number of draw calls per frame. The display is updated automatically once per frame. */
+/** A small, lightweight box that displays the current framerate, memory consumption and
+ *  the number of draw calls per frame. The display is updated automatically once per frame. */
 using namespace flash::system;
 using namespace starling::display;
 using namespace starling::display;
@@ -36,8 +36,10 @@ using namespace starling::text;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace starling {
-namespace core {
+namespace starling
+{
+    namespace core
+    {
 
 
         /** Creates a new Statistics Box. */
@@ -70,7 +72,7 @@ namespace core {
             removeEventListener(Event::ENTER_FRAME,onEnterFrame);
         }
 
-        void StatsDisplay::onEnterFrame(EnterFrameEvent* event)
+        void StatsDisplay::onEnterFrame(EnterFrameEvent *event)
         {
             mTotalTime += event->passedTime;
             mFrameCount++;
@@ -89,21 +91,39 @@ namespace core {
             mMemory = System::totalMemory* 0.000000954; // 1.0 / (1024*1024) to convert to MB
 
             mTextField->text= "FPS: " + mFps->toFixed(mFps< 100 ? 1 : 0) +
-                            "\nMEM: " + mMemory->toFixed(mMemory< 100 ? 1 : 0) +
-                            "\nDRW: " + Math::max(0,mDrawCount - 2); // ignore self 
+                              "\nMEM: " + mMemory->toFixed(mMemory< 100 ? 1 : 0) +
+                              "\nDRW: " + Math::max(0,mDrawCount - 2); // ignore self
         }
 
         /** The number of Stage3D draw calls per second. */
-        int StatsDisplay::drawCount()     { return mDrawCount; }
-        void StatsDisplay::drawCount(int value)      { mDrawCount = value; }
+        int StatsDisplay::drawCount()
+        {
+            return mDrawCount;
+        }
+        void StatsDisplay::drawCount(int value)
+        {
+            mDrawCount = value;
+        }
 
         /** The current frames per second (updated once per second). */
-        float StatsDisplay::fps()        { return mFps; }
-        void StatsDisplay::fps(float value)      { mFps = value; }
+        float StatsDisplay::fps()
+        {
+            return mFps;
+        }
+        void StatsDisplay::fps(float value)
+        {
+            mFps = value;
+        }
 
         /** The currently required system memory in MB. */
-        float StatsDisplay::memory()        { return mMemory; }
-        void StatsDisplay::memory(float value)      { mMemory = value; }
-}
+        float StatsDisplay::memory()
+        {
+            return mMemory;
+        }
+        void StatsDisplay::memory(float value)
+        {
+            mMemory = value;
+        }
+    }
 }
 

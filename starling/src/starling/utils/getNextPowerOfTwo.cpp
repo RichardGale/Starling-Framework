@@ -10,15 +10,15 @@
 
 
 
-    /** Returns the next power of two that is equal to or bigger than the specified number. */
-    int ::getNextPowerOfTwo(int number)
+/** Returns the next power of two that is equal to or bigger than the specified number. */
+int ::getNextPowerOfTwo(int number)
+{
+    if (number > 0 && (number & (number - 1)) == 0) // see: http://goo.gl/D9kPj
+        return number;
+    else
     {
-        if (number > 0 && (number & (number - 1)) == 0) // see: http://goo.gl/D9kPj
-            return number;
-        else
-        {
-             int result= 1;
-            while (result < number) result <<= 1;
-            return result;
-        }
+        int result= 1;
+        while (result < number) result <<= 1;
+        return result;
     }
+}

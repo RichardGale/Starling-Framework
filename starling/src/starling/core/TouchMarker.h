@@ -21,15 +21,45 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace display { class BitmapData; } }
-namespace flash { namespace display { class Shape; } }
-namespace flash { namespace geom { class Point; } }
+namespace flash
+{
+    namespace display
+    {
+        class BitmapData;
+    }
+}
+namespace flash
+{
+    namespace display
+    {
+        class Shape;
+    }
+}
+namespace flash
+{
+    namespace geom
+    {
+        class Point;
+    }
+}
 
-namespace starling { namespace display { class Image; } }
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
 #include "starling/display/Sprite.h"
-namespace starling { namespace textures { class Texture; } }
+namespace starling
+{
+    namespace textures
+    {
+        class Texture;
+    }
+}
 
-    /** The TouchMarker is used internally to mark touches created through "simulateMultitouch". */
+/** The TouchMarker is used internally to mark touches created through "simulateMultitouch". */
 using namespace flash::display;
 using namespace flash::display;
 using namespace flash::geom;
@@ -37,33 +67,48 @@ using namespace starling::display;
 using namespace starling::display;
 using namespace starling::textures;
 
-namespace starling {
-namespace core {
-    class TouchMarker: public Sprite
+namespace starling
+{
+    namespace core
     {
-        private:  Point* mCenter;
-        private:  Texture* mTexture;
+        class TouchMarker: public Sprite
+        {
+        private:
+            Point *mCenter;
+        private:
+            Texture *mTexture;
 
-        public:          TouchMarker();
+        public:
+            TouchMarker();
 
-        public: virtual void     dispose();
+        public:
+            virtual void     dispose();
 
-        public: void     moveMarker(float x, float y, bool withCenter   =false);
+        public:
+            void     moveMarker(float x, float y, bool withCenter   =false);
 
-        public: void     moveCenter(float x, float y);
+        public:
+            void     moveCenter(float x, float y);
 
-        private: Texture* createTexture();
+        private:
+            Texture *createTexture();
 
-        private: Image*       realMarker();
-        private: Image*       mockMarker();
+        private:
+            Image       *realMarker();
+        private:
+            Image       *mockMarker();
 
-        public: float        realX();
-        public: float        realY();
+        public:
+            float        realX();
+        public:
+            float        realY();
 
-        public: float        mockX();
-        public: float        mockY();
-    };
-}
+        public:
+            float        mockX();
+        public:
+            float        mockY();
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_CORE_TOUCHMARKER_AS

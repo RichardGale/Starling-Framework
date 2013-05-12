@@ -21,65 +21,102 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace utils { class Dictionary; } }
+namespace flash
+{
+    namespace utils
+    {
+        class Dictionary;
+    }
+}
 
-namespace starling { namespace display { class Image; } }
-namespace starling { namespace textures { class Texture; } }
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
+namespace starling
+{
+    namespace textures
+    {
+        class Texture;
+    }
+}
 
-    /** A BitmapChar contains the information about one char of a bitmap font.  
-     *  <em>You don't have to use this class directly in most cases. 
-     *  The TextField class contains methods that handle bitmap fonts for you.</em>    
-     */
+/** A BitmapChar contains the information about one char of a bitmap font.
+ *  <em>You don't have to use this class directly in most cases.
+ *  The TextField class contains methods that handle bitmap fonts for you.</em>
+ */
 using namespace flash::utils;
 using namespace starling::display;
 using namespace starling::textures;
 
-namespace starling {
-namespace text {
-    class BitmapChar
+namespace starling
+{
+    namespace text
     {
-        private:  Texture* mTexture;
-        private:  int mCharID;
-        private:  float mXOffset;
-        private:  float mYOffset;
-        private:  float mXAdvance;
-        private:  std::map<std::string, void*> mKernings;
+        class BitmapChar
+        {
+        private:
+            Texture *mTexture;
+        private:
+            int mCharID;
+        private:
+            float mXOffset;
+        private:
+            float mYOffset;
+        private:
+            float mXAdvance;
+        private:
+            std::map<std::string, void *> mKernings;
 
-        /** Creates a char with a texture and its properties. */
-        public:          BitmapChar(int id, Texture* texture,
-                                   float xOffset, float yOffset, float xAdvance);
+            /** Creates a char with a texture and its properties. */
+        public:
+            BitmapChar(int id, Texture *texture,
+                       float xOffset, float yOffset, float xAdvance);
 
-        /** Adds kerning information relative to a specific other character ID. */
-        public: void     addKerning(int charID, float amount);
+            /** Adds kerning information relative to a specific other character ID. */
+        public:
+            void     addKerning(int charID, float amount);
 
-        /** Retrieve kerning information relative to the given character ID. */
-        public: float    getKerning(int charID);
+            /** Retrieve kerning information relative to the given character ID. */
+        public:
+            float    getKerning(int charID);
 
-        /** Creates an image of the char. */
-        public: Image*   createImage();
+            /** Creates an image of the char. */
+        public:
+            Image   *createImage();
 
-        /** The unicode ID of the char. */
-        public: int          charID();
+            /** The unicode ID of the char. */
+        public:
+            int          charID();
 
-        /** The number of points to move the char in x direction on character arrangement. */
-        public: float        xOffset();
+            /** The number of points to move the char in x direction on character arrangement. */
+        public:
+            float        xOffset();
 
-        /** The number of points to move the char in y direction on character arrangement. */
-        public: float        yOffset();
+            /** The number of points to move the char in y direction on character arrangement. */
+        public:
+            float        yOffset();
 
-        /** The number of points the cursor has to be moved to the right for the next char. */
-        public: float        xAdvance();
+            /** The number of points the cursor has to be moved to the right for the next char. */
+        public:
+            float        xAdvance();
 
-        /** The texture of the character. */
-        public: Texture*     texture();
+            /** The texture of the character. */
+        public:
+            Texture     *texture();
 
-        /** The width of the character in points. */
-        public: float        width();
+            /** The width of the character in points. */
+        public:
+            float        width();
 
-        /** The height of the character in points. */
-        public: float        height();
-    };
-}
+            /** The height of the character in points. */
+        public:
+            float        height();
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_TEXT_BITMAPCHAR_AS

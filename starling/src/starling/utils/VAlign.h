@@ -21,31 +21,44 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace errors { class AbstractClassError; } }
+namespace starling
+{
+    namespace errors
+    {
+        class AbstractClassError;
+    }
+}
 
-    /** A class that provides constant values for vertical alignment of objects. */
+/** A class that provides constant values for vertical alignment of objects. */
 using namespace starling::errors;
 
-namespace starling {
-namespace utils {
-    class VAlign
+namespace starling
+{
+    namespace utils
     {
-        /** @private */
-        public:          VAlign();
+        class VAlign
+        {
+            /** @private */
+        public:
+            VAlign();
 
-        /** Top alignment. */
-        public: static const std::string TOP;
+            /** Top alignment. */
+        public:
+            static const std::string TOP;
 
-        /** Centered alignment. */
-        public: static const std::string CENTER;
+            /** Centered alignment. */
+        public:
+            static const std::string CENTER;
 
-        /** Bottom alignment. */
-        public: static const std::string BOTTOM;
+            /** Bottom alignment. */
+        public:
+            static const std::string BOTTOM;
 
-        /** Indicates whether the given alignment string is valid. */
-        public: static bool isValid(std::string vAlign);
-    };
-}
+            /** Indicates whether the given alignment string is valid. */
+        public:
+            static bool isValid(std::string vAlign);
+        };
+    }
 }
 
 #endif // __STARLING_SRC_STARLING_UTILS_VALIGN_AS

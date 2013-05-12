@@ -11,18 +11,27 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace starling { namespace display { class Button; } }
+namespace starling
+{
+    namespace display
+    {
+        class Button;
+    }
+}
 #include "starling/display/Sprite.h"
 
 using namespace starling::display;
 using namespace starling::display;
 
-namespace scenes {
+namespace scenes
+{
     class Scene: public Sprite
     {
-        private:  Button* mBackButton;
+    private:
+        Button *mBackButton;
 
-        public:          Scene();
+    public:
+        Scene();
     };
 }
 

@@ -21,26 +21,42 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace starling { namespace utils { class Color; } }
+namespace starling
+{
+    namespace utils
+    {
+        class Color;
+    }
+}
 
 using namespace flexunit::framework;
 using namespace starling::utils;
 
-namespace tests {
+namespace tests
+{
     class ColorTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testGetElement();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testRgb();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testArgb();
     };
 }

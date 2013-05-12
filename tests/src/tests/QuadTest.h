@@ -21,16 +21,52 @@
 #include "Math.h"
 #include "Class.h"
 #include "RegExp.h"
-namespace flash { namespace geom { class Rectangle; } }
+namespace flash
+{
+    namespace geom
+    {
+        class Rectangle;
+    }
+}
 
-namespace flexunit { namespace framework { class Assert; } }
+namespace flexunit
+{
+    namespace framework
+    {
+        class Assert;
+    }
+}
 
-namespace starling { namespace core { class starling_internal; } }
-namespace starling { namespace display { class Quad; } }
-namespace starling { namespace display { class Sprite; } }
-namespace starling { namespace utils { class Color; } }
+namespace starling
+{
+    namespace core
+    {
+        class starling_internal;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Quad;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Sprite;
+    }
+}
+namespace starling
+{
+    namespace utils
+    {
+        class Color;
+    }
+}
 
-    //use starling_internal        ;
+//use starling_internal        ;
 
 using namespace flash::geom;
 using namespace flexunit::framework;
@@ -39,31 +75,38 @@ using namespace starling::display;
 using namespace starling::display;
 using namespace starling::utils;
 
-namespace tests {
+namespace tests
+{
     class QuadTest
     {
 
-        public: void 
+    public:
+        void
         ////[Test]      testQuad();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testColors();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testTinted();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testTinted2();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testBounds();
 
 
-        public: void 
+    public:
+        void
         ////[Test]      testWidthAndHeight();
     };
 }
