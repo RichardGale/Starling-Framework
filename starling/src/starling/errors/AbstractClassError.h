@@ -13,20 +13,27 @@
 
 
 
-/** An AbstractClassError is thrown when you attempt to create an instance of an abstract
- *  class. */
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+#include "Error.h"
 
-namespace starling
-{
-    namespace errors
+    /** An AbstractClassError is thrown when you attempt to create an instance of an abstract 
+     *  class. */
+
+namespace starling {
+namespace errors {
+    class AbstractClassError: public Error
     {
-        class AbstractClassError: public Error
-        {
-            /** Creates a new AbstractClassError object. */
-        public:
-            AbstractClassError(void *message, void *id);
-        };
-    }
+        /** Creates a new AbstractClassError object. */
+        public:          AbstractClassError(std::string message="", int id=0);
+    };
+}
 }
 
 #endif // __STARLING_SRC_STARLING_ERRORS_ABSTRACTCLASSERROR_AS

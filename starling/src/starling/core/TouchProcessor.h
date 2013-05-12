@@ -13,62 +13,28 @@
 
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Point;
-    }
-}
-namespace flash
-{
-    namespace utils
-    {
-        class getDefinitionByName;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Point; } }
+namespace flash { namespace utils { class getDefinitionByName; } }
 
-namespace starling
-{
-    namespace display
-    {
-        class Stage;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class KeyboardEvent;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Touch;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchEvent;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchPhase;
-    }
-}
+namespace starling { namespace display { class Stage; } }
+namespace starling { namespace events { class KeyboardEvent; } }
+namespace starling { namespace events { class Touch; } }
+namespace starling { namespace events { class TouchEvent; } }
+namespace starling { namespace events { class TouchPhase; } }
 
-//use starling_internal        ;
+    //use starling_internal        ;
 
-/** @private
- *  The TouchProcessor is used internally to convert mouse and touch events of the conventional
- *  Flash stage to Starling's TouchEvents. */
+    /** @private
+     *  The TouchProcessor is used internally to convert mouse and touch events of the conventional
+     *  Flash stage to Starling's TouchEvents. */
 using namespace flash::geom;
 using namespace flash::utils;
 using namespace starling::display;
@@ -77,88 +43,60 @@ using namespace starling::events;
 using namespace starling::events;
 using namespace starling::events;
 
-namespace starling
-{
-    namespace core
+namespace starling {
+namespace core {
+    class TouchProcessor
     {
-        class TouchProcessor
-        {
-        private:
-            static const float MULTITAP_TIME;
-        private:
-            static const float MULTITAP_DISTANCE;
+        private: static const float MULTITAP_TIME;
+        private: static const float MULTITAP_DISTANCE;
 
-        private:
-            Stage *mStage;
-        private:
-            float mElapsedTime;
-        private:
-            TouchMarker *mTouchMarker;
+        private:  Stage* mStage;
+        private:  float mElapsedTime;
+        private:  TouchMarker* mTouchMarker;
 
-        private:
-            std::vector<Touch *> *mCurrentTouches;
-        private:
-            std::vector<std::vector<void *>> *mQueue;
-        private:
-            std::vector<Touch *> *mLastTaps;
+        private:  std::vector<Touch*>* mCurrentTouches;
+        private:  std::vector<std::vector<void*>>* mQueue;
+        private:  std::vector<Touch*>* mLastTaps;
 
-        private:
-            bool mShiftDown;
-        private:
-            bool mCtrlDown;
+        private:  bool mShiftDown;
+        private:  bool mCtrlDown;
 
-            /** Helper objects. */
-        private:
-            static std::vector<int> *sProcessedTouchIDs;
-        private:
-            static std::vector<Object *> *sHoveringTouchData;
+        /** Helper objects. */
+        private: static  std::vector<int>* sProcessedTouchIDs;
+        private: static  std::vector<Object*>* sHoveringTouchData;
 
-        public:
-            TouchProcessor(Stage *stage);
+        public:          TouchProcessor(Stage* stage);
 
-        public:
-            void     dispose();
+        public: void     dispose();
 
-        public:
-            void     advanceTime(float passedTime);
+        public: void     advanceTime(float passedTime);
 
-        public:
-            void     enqueue(int touchID, std::string phase, float globalX, float globalY,
-                             float pressure, float width, float height);
+        public: void     enqueue(int touchID, std::string phase, float globalX, float globalY,
+                                float pressure =1.0, float width =1.0, float height =1.0);
 
-        public:
-            void     enqueueMouseLeftStage();    // That way, objects listening for HOVERs over them will get notified everywhere.
+        public: void     enqueueMouseLeftStage();    // On OS X, we get mouse events from outside the stage; on Windows, we do not.
 
-        private:
-            void     processTouch(int touchID, std::string phase, float globalX, float globalY,
-                                  float pressure, float width, float height);
+        private: void     processTouch(int touchID, std::string phase, float globalX, float globalY,
+                                      float pressure =1.0, float width =1.0, float height =1.0);
 
-        private:
-            void     onKey(KeyboardEvent *event);                                  // shift key
+        private: void     onKey(KeyboardEvent* event);                                  // shift key 
 
-        private:
-            void     processTap(Touch *touch);
+        private: void     processTap(Touch* touch);
 
-        private:
-            void     addCurrentTouch(Touch *touch);
+        private: void     addCurrentTouch(Touch* touch);
 
-        private:
-            Touch   *getCurrentTouch(int touchID);
+        private: Touch*   getCurrentTouch(int touchID);
 
-        public:
-            bool         simulateMultitouch();
-        public:
-            void         simulateMultitouch(bool value);
+        public: bool         simulateMultitouch();
+        public: void         simulateMultitouch(bool value);
 
-            // interruption handling                     // no change
+        // interruption handling                     // no change
 
-        private:
-            void     monitorInterruptions(bool enable);
+        private: void     monitorInterruptions(bool enable);
 
-        private:
-            void     onInterruption(Object *event);
-        };
-    }
+        private: void     onInterruption(Object* event);
+    };
+}
 }
 
 #endif // __STARLING_SRC_STARLING_CORE_TOUCHPROCESSOR_AS

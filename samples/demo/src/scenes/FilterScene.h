@@ -3,48 +3,20 @@
 #if defined(__cplusplus)
 
 
-namespace starling
-{
-    namespace display
-    {
-        class Button;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Image;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Event;
-    }
-}
-namespace starling
-{
-    namespace filters
-    {
-        class BlurFilter;
-    }
-}
-namespace starling
-{
-    namespace filters
-    {
-        class ColorMatrixFilter;
-    }
-}
-namespace starling
-{
-    namespace text
-    {
-        class TextField;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace starling { namespace display { class Button; } }
+namespace starling { namespace display { class Image; } }
+namespace starling { namespace events { class Event; } }
+namespace starling { namespace filters { class BlurFilter; } }
+namespace starling { namespace filters { class ColorMatrixFilter; } }
+namespace starling { namespace text { class TextField; } }
 
 using namespace starling::display;
 using namespace starling::display;
@@ -53,27 +25,19 @@ using namespace starling::filters;
 using namespace starling::filters;
 using namespace starling::text;
 
-namespace scenes
-{
+namespace scenes {
     class FilterScene: public Scene
     {
-    private:
-        Button *mButton;
-    private:
-        Image *mImage;
-    private:
-        TextField *mInfoText;
-    private:
-        std::vector<void *> mFilterInfos;
+        private:  Button* mButton;
+        private:  Image* mImage;
+        private:  TextField* mInfoText;
+        private:  std::vector<void*> mFilterInfos;
 
-    public:
-        FilterScene();
+        public:          FilterScene();
 
-    private:
-        void     onButtonTriggered();
+        private: void     onButtonTriggered();
 
-    private:
-        void     initFilters();
+        private: void     initFilters();
     };
 }
 

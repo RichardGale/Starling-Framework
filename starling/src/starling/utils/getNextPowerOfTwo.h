@@ -13,9 +13,8 @@
 
 
 
-/** Returns the next power of two that is equal to or bigger than the specified number. */
-public:
-int      getNextPowerOfTwo(int number);
+    /** Returns the next power of two that is equal to or bigger than the specified number. */
+    public: int      getNextPowerOfTwo(int number);
 #endif // __STARLING_SRC_STARLING_UTILS_GETNEXTPOWEROFTWO_AS
 #endif // __cplusplus
 

@@ -13,77 +13,67 @@
 
 
 
-namespace starling
-{
-    namespace events
-    {
-        class Event;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace starling { namespace events { class Event; } }
 #include "starling/events/EventDispatcher.h"
 
-/** A DelayedCall allows you to execute a method after a certain time has passed. Since it
- *  implements the IAnimatable interface, it can be added to a juggler. In most cases, you
- *  do not have to use this class directly; the juggler class contains a method to delay
- *  calls directly.
- *
- *  <p>DelayedCall dispatches an Event of type 'Event.REMOVE_FROM_JUGGLER' when it is finished,
- *  so that the juggler automatically removes it when its no longer needed.</p>
- *
- *  @see Juggler
- */
-using namespace starling::events;
-using namespace starling::events;
+#include "starling/animation/IAnimatable.h"
 
-namespace starling
-{
-    namespace animation
+    /** A DelayedCall allows you to execute a method after a certain time has passed. Since it 
+     *  implements the IAnimatable interface, it can be added to a juggler. In most cases, you 
+     *  do not have to use this class directly; the juggler class contains a method to delay
+     *  calls directly. 
+     * 
+     *  <p>DelayedCall dispatches an Event of type 'Event.REMOVE_FROM_JUGGLER' when it is finished,
+     *  so that the juggler automatically removes it when its no longer needed.</p>
+     * 
+     *  @see Juggler
+     */
+using namespace starling::events;
+using namespace starling::events;
+using namespace starling::animation;
+
+namespace starling {
+namespace animation {
+    class DelayedCall: public EventDispatcher, public IAnimatable
     {
-        class DelayedCall: public EventDispatcher, public IAnimatable
-        {
-        private:
-            float mCurrentTime;
-        private:
-            float mTotalTime;
-        private:
-            Function *mCall;
-        private:
-            std::vector<void *> mArgs;
-        private:
-            int mRepeatCount;
+        private:  float mCurrentTime;
+        private:  float mTotalTime;
+        private:  Function* mCall;
+        private:  std::vector<void*> mArgs;
+        private:  int mRepeatCount;
 
-            /** Creates a delayed call. */
-        public:
-            DelayedCall(Function *call, float delay, std::vector<void *> args);
+        /** Creates a delayed call. */
+        public:          DelayedCall(Function* call, float delay, std::vector<void*> args=NULL);
 
-            /** Resets the delayed call to its default values, which is useful for pooling. */
-        public:
-            DelayedCall *reset(Function *call, float delay, std::vector<void *> args);
+        /** Resets the delayed call to its default values, which is useful for pooling. */
+        public: DelayedCall* reset(Function* call, float delay, std::vector<void*> args=NULL);
 
-            /** @inheritDoc */
-        public:
-            void     advanceTime(float time);
+        /** @inheritDoc */
+        public: void     advanceTime(float time);
 
-            /** Indicates if enough time has passed, and the call has already been executed. */
-        public:
-            bool         isComplete();
+        /** Indicates if enough time has passed, and the call has already been executed. */
+        public: bool         isComplete();
 
-            /** The time for which calls will be delayed (in seconds). */
-        public:
-            float        totalTime();
+        /** The time for which calls will be delayed (in seconds). */
+        public: float        totalTime();
 
-            /** The time that has already passed (in seconds). */
-        public:
-            float        currentTime();
+        /** The time that has already passed (in seconds). */
+        public: float        currentTime();
 
-            /** The number of times the call will be repeated.
-             *  Set to '0' to repeat indefinitely. @default 1 */
-        public:
-            int          repeatCount();
-        public:
-            void         repeatCount(int value);
-        };
-    }
+        /** The number of times the call will be repeated. 
+         *  Set to '0' to repeat indefinitely. @default 1 */
+        public: int          repeatCount();
+        public: void         repeatCount(int value);
+    };
+}
 }
 
 #endif // __STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS

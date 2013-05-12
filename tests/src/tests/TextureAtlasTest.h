@@ -13,57 +13,23 @@
 
 
 
-namespace flash
-{
-    namespace display3D
-    {
-        class Context3DTextureFormat;
-    }
-}
-namespace flash
-{
-    namespace geom
-    {
-        class Rectangle;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace display3D { class Context3DTextureFormat; } }
+namespace flash { namespace geom { class Rectangle; } }
 
-namespace flexunit
-{
-    namespace framework
-    {
-        class Assert;
-    }
-}
+namespace flexunit { namespace framework { class Assert; } }
 
-namespace starling
-{
-    namespace textures
-    {
-        class ConcreteTexture;
-    }
-}
-namespace starling
-{
-    namespace textures
-    {
-        class SubTexture;
-    }
-}
-namespace starling
-{
-    namespace textures
-    {
-        class Texture;
-    }
-}
-namespace starling
-{
-    namespace textures
-    {
-        class TextureAtlas;
-    }
-}
+namespace starling { namespace textures { class ConcreteTexture; } }
+namespace starling { namespace textures { class SubTexture; } }
+namespace starling { namespace textures { class Texture; } }
+namespace starling { namespace textures { class TextureAtlas; } }
 
 using namespace flash::display3D;
 using namespace flash::geom;
@@ -73,23 +39,19 @@ using namespace starling::textures;
 using namespace starling::textures;
 using namespace starling::textures;
 
-namespace tests
-{
+namespace tests {
     class TextureAtlasTest
     {
 
-    public:
-        void
+        public: void 
         ////[Test]      testXmlParsing();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testManualCreation();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testGetTextures();
     };
 }

@@ -3,84 +3,26 @@
 #if defined(__cplusplus)
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Point;
-    }
-}
-namespace flash
-{
-    namespace geom
-    {
-        class Rectangle;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Point; } }
+namespace flash { namespace geom { class Rectangle; } }
 
-namespace starling
-{
-    namespace core
-    {
-        class Starling;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Image;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Quad;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Sprite;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Touch;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchEvent;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchPhase;
-    }
-}
-namespace starling
-{
-    namespace filters
-    {
-        class ColorMatrixFilter;
-    }
-}
-namespace starling
-{
-    namespace text
-    {
-        class TextField;
-    }
-}
+namespace starling { namespace core { class Starling; } }
+namespace starling { namespace display { class Image; } }
+namespace starling { namespace display { class Quad; } }
+namespace starling { namespace display { class Sprite; } }
+namespace starling { namespace events { class Touch; } }
+namespace starling { namespace events { class TouchEvent; } }
+namespace starling { namespace events { class TouchPhase; } }
+namespace starling { namespace filters { class ColorMatrixFilter; } }
+namespace starling { namespace text { class TextField; } }
 
 using namespace flash::geom;
 using namespace flash::geom;
@@ -94,20 +36,15 @@ using namespace starling::events;
 using namespace starling::filters;
 using namespace starling::text;
 
-namespace scenes
-{
+namespace scenes {
     class MaskScene: public Scene
     {
-    private:
-        Sprite *mContents;
-    private:
-        Quad *mClipQuad;
+        private:  Sprite* mContents;
+        private:  Quad* mClipQuad;
 
-    public:
-        MaskScene();
+        public:          MaskScene();
 
-    private:
-        void     onTouch(TouchEvent *event);
+        private: void     onTouch(TouchEvent* event);
     };
 }
 

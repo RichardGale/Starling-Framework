@@ -13,69 +13,23 @@
 
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Matrix;
-    }
-}
-namespace flash
-{
-    namespace geom
-    {
-        class Point;
-    }
-}
-namespace flash
-{
-    namespace geom
-    {
-        class Rectangle;
-    }
-}
-namespace flash
-{
-    namespace geom
-    {
-        class Vector3D;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Matrix; } }
+namespace flash { namespace geom { class Point; } }
+namespace flash { namespace geom { class Rectangle; } }
+namespace flash { namespace geom { class Vector3D; } }
 
-namespace org
-{
-    namespace flexunit
-    {
-        class Assert;
-    }
-}
-namespace org
-{
-    namespace flexunit
-    {
-        class assertThat;
-    }
-}
-namespace org
-{
-    namespace flexunit
-    {
-        namespace asserts
-        {
-            class assertEquals;
-        }
-    }
-}
-namespace org
-{
-    namespace hamcrest
-    {
-        namespace number
-        {
-            class closeTo;
-        }
-    }
-}
+namespace org { namespace flexunit { class Assert; } }
+namespace org { namespace flexunit { class assertThat; } }
+namespace org { namespace flexunit { namespace asserts { class assertEquals; } } }
+namespace org { namespace hamcrest { namespace number { class closeTo; } } }
 
 using namespace flash::geom;
 using namespace flash::geom;
@@ -86,29 +40,22 @@ using namespace org::flexunit;
 using namespace org::flexunit::asserts;
 using namespace org::hamcrest::number;
 
-namespace tests
-{
+namespace tests {
     class Helpers
     {
-    public:
-        static void     compareRectangles(Rectangle *rect1, Rectangle *rect2,
-                                          float e);
+        public: static void compareRectangles(Rectangle* rect1, Rectangle* rect2,
+                                                 float e =0.0001);
 
-    public:
-        static void     comparePoints(Point *point1, Point *point2, float e);
+        public: static void comparePoints(Point* point1, Point* point2, float e =0.0001);
 
-    public:
-        static void     compareVector3Ds(Vector3D *v1, Vector3D *v2, float e);
+        public: static void compareVector3Ds(Vector3D* v1, Vector3D* v2, float e =0.0001);
 
-    public:
-        static void     compareVectors(std::vector<float> *vector1, std::vector<float> *vector2,
-                                       float e);
+        public: static void compareVectors(std::vector<float>* vector1, std::vector<float>* vector2,
+                                              float e =0.0001);
 
-    public:
-        static void     compareMatrices(Matrix *matrix1, Matrix *matrix2, float e);
+        public: static void compareMatrices(Matrix* matrix1, Matrix* matrix2, float e =0.0001);
 
-    public:
-        static void     assertDoesNotThrow(Function *block);
+        public: static void assertDoesNotThrow(Function* block);
     };
 }
 

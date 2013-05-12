@@ -13,45 +13,32 @@
 
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Rectangle;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Rectangle; } }
 
-namespace starling
-{
-    namespace utils
-    {
-        class RectangleUtil;
-    }
-}
-namespace starling
-{
-    namespace utils
-    {
-        class ScaleMode;
-    }
-}
+namespace starling { namespace utils { class RectangleUtil; } }
+namespace starling { namespace utils { class ScaleMode; } }
 
 using namespace flash::geom;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace tests
-{
+namespace tests {
     class RectangleUtilTest
     {
 
-    public:
-        void
+        public: void 
         ////[Test]      testIntersection();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testFit();
     };
 }

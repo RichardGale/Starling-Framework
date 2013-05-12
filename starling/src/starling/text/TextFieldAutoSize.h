@@ -13,47 +13,42 @@
 
 
 
-namespace starling
-{
-    namespace errors
-    {
-        class AbstractClassError;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace starling { namespace errors { class AbstractClassError; } }
 
-/** This class is an enumeration of constant values used in setting the
- *  autoSize property of the TextField class. */
+    /** This class is an enumeration of constant values used in setting the 
+     *  autoSize property of the TextField class. */
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace text
+namespace starling {
+namespace text {
+    class TextFieldAutoSize
     {
-        class TextFieldAutoSize
-        {
-            /** @private */
-        public:
-            TextFieldAutoSize();
+        /** @private */
+        public:          TextFieldAutoSize();
 
-            /** No auto-sizing will happen. */
-        public:
-            static const std::string NONE;
+        /** No auto-sizing will happen. */
+        public: static const std::string NONE;
 
-            /** The text field will grow to the right; no line-breaks will be added.
-             *  The height of the text field remains unchanged. */
-        public:
-            static const std::string HORIZONTAL;
+        /** The text field will grow to the right; no line-breaks will be added.
+         *  The height of the text field remains unchanged. */
+        public: static const std::string HORIZONTAL;
 
-            /** The text field will grow to the bottom, adding line-breaks when necessary.
-              * The width of the text field remains unchanged. */
-        public:
-            static const std::string VERTICAL;
+        /** The text field will grow to the bottom, adding line-breaks when necessary.
+          * The width of the text field remains unchanged. */
+        public: static const std::string VERTICAL;
 
-            /** The text field will grow to the right and bottom; no line-breaks will be added. */
-        public:
-            static const std::string BOTH_DIRECTIONS;
-        };
-    }
+        /** The text field will grow to the right and bottom; no line-breaks will be added. */
+        public: static const std::string BOTH_DIRECTIONS;
+    };
+}
 }
 
 #endif // __STARLING_SRC_STARLING_TEXT_TEXTFIELDAUTOSIZE_AS

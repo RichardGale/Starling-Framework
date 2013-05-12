@@ -3,84 +3,26 @@
 #if defined(__cplusplus)
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Point;
-    }
-}
-namespace flash
-{
-    namespace utils
-    {
-        class Dictionary;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Point; } }
+namespace flash { namespace utils { class Dictionary; } }
 
-namespace starling
-{
-    namespace display
-    {
-        class BlendMode;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Button;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Image;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Event;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Touch;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchEvent;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class TouchPhase;
-    }
-}
-namespace starling
-{
-    namespace text
-    {
-        class TextField;
-    }
-}
-namespace starling
-{
-    namespace textures
-    {
-        class RenderTexture;
-    }
-}
+namespace starling { namespace display { class BlendMode; } }
+namespace starling { namespace display { class Button; } }
+namespace starling { namespace display { class Image; } }
+namespace starling { namespace events { class Event; } }
+namespace starling { namespace events { class Touch; } }
+namespace starling { namespace events { class TouchEvent; } }
+namespace starling { namespace events { class TouchPhase; } }
+namespace starling { namespace text { class TextField; } }
+namespace starling { namespace textures { class RenderTexture; } }
 
 using namespace flash::geom;
 using namespace flash::utils;
@@ -94,32 +36,22 @@ using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
 
-namespace scenes
-{
+namespace scenes {
     class RenderTextureScene: public Scene
     {
-    private:
-        RenderTexture *mRenderTexture;
-    private:
-        Image *mCanvas;
-    private:
-        Image *mBrush;
-    private:
-        Button *mButton;
-    private:
-        std::map<void *, void *> mColors;
+        private:  RenderTexture* mRenderTexture;
+        private:  Image* mCanvas;
+        private:  Image* mBrush;
+        private:  Button* mButton;
+        private:  std::map<std::string, void*> mColors;
 
-    public:
-        RenderTextureScene();
+        public:          RenderTextureScene();
 
-    private:
-        void     onTouch(TouchEvent *event);
+        private: void     onTouch(TouchEvent* event);
 
-    private:
-        void     onButtonTriggered();
+        private: void     onButtonTriggered();
 
-    public:
-        virtual void     dispose();
+        public: virtual void     dispose();
     };
 }
 

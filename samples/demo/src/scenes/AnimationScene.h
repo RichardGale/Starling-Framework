@@ -3,76 +3,24 @@
 #if defined(__cplusplus)
 
 
-namespace starling
-{
-    namespace animation
-    {
-        class Transitions;
-    }
-}
-namespace starling
-{
-    namespace animation
-    {
-        class Tween;
-    }
-}
-namespace starling
-{
-    namespace core
-    {
-        class Starling;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Button;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Image;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Event;
-    }
-}
-namespace starling
-{
-    namespace text
-    {
-        class TextField;
-    }
-}
-namespace starling
-{
-    namespace textures
-    {
-        class Texture;
-    }
-}
-namespace starling
-{
-    namespace utils
-    {
-        class Color;
-    }
-}
-namespace starling
-{
-    namespace utils
-    {
-        class deg2rad;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace starling { namespace animation { class Transitions; } }
+namespace starling { namespace animation { class Tween; } }
+namespace starling { namespace core { class Starling; } }
+namespace starling { namespace display { class Button; } }
+namespace starling { namespace display { class Image; } }
+namespace starling { namespace events { class Event; } }
+namespace starling { namespace text { class TextField; } }
+namespace starling { namespace textures { class Texture; } }
+namespace starling { namespace utils { class Color; } }
+namespace starling { namespace utils { class deg2rad; } }
 
 using namespace starling::animation;
 using namespace starling::animation;
@@ -85,38 +33,26 @@ using namespace starling::textures;
 using namespace starling::utils;
 using namespace starling::utils;
 
-namespace scenes
-{
+namespace scenes {
     class AnimationScene: public Scene
     {
-    private:
-        Button *mStartButton;
-    private:
-        Button *mDelayButton;
-    private:
-        Image *mEgg;
-    private:
-        TextField *mTransitionLabel;
-    private:
-        std::vector<void *> mTransitions;
+        private:  Button* mStartButton;
+        private:  Button* mDelayButton;
+        private:  Image* mEgg;
+        private:  TextField* mTransitionLabel;
+        private:  std::vector<void*> mTransitions;
 
-    public:
-        AnimationScene();
+        public:          AnimationScene();
 
-    private:
-        void     resetEgg();
+        private: void     resetEgg();
 
-    private:
-        void     onStartButtonTriggered();
+        private: void     onStartButtonTriggered();
 
-    private:
-        void     onDelayButtonTriggered();
+        private: void     onDelayButtonTriggered();
 
-    private:
-        void     colorizeEgg(bool colorize);
+        private: void     colorizeEgg(bool colorize);
 
-    public:
-        virtual void     dispose();
+        public: virtual void     dispose();
     };
 }
 

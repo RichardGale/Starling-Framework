@@ -13,75 +13,26 @@
 
 
 
-namespace flash
-{
-    namespace geom
-    {
-        class Rectangle;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash { namespace geom { class Rectangle; } }
 
-namespace flexunit
-{
-    namespace framework
-    {
-        class Assert;
-    }
-}
+namespace flexunit { namespace framework { class Assert; } }
 
-namespace org
-{
-    namespace flexunit
-    {
-        class assertThat;
-    }
-}
-namespace org
-{
-    namespace hamcrest
-    {
-        namespace number
-        {
-            class closeTo;
-        }
-    }
-}
+namespace org { namespace flexunit { class assertThat; } }
+namespace org { namespace hamcrest { namespace number { class closeTo; } } }
 
-namespace starling
-{
-    namespace display
-    {
-        class DisplayObject;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Quad;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Sprite;
-    }
-}
-namespace starling
-{
-    namespace display
-    {
-        class Stage;
-    }
-}
-namespace starling
-{
-    namespace events
-    {
-        class Event;
-    }
-}
+namespace starling { namespace display { class DisplayObject; } }
+namespace starling { namespace display { class Quad; } }
+namespace starling { namespace display { class Sprite; } }
+namespace starling { namespace display { class Stage; } }
+namespace starling { namespace events { class Event; } }
 
 using namespace flash::geom;
 using namespace flexunit::framework;
@@ -93,133 +44,100 @@ using namespace starling::display;
 using namespace starling::display;
 using namespace starling::events;
 
-namespace tests
-{
+namespace tests {
     class DisplayObjectContainerTest
     {
-    private:
-        static const float E;
+        private: static const float E;
 
-    private:
-        int mAdded;
-    private:
-        int mAddedToStage;
-    private:
-        int mAddedChild;
-    private:
-        int mRemoved;
-    private:
-        int mRemovedFromStage;
-    private:
-        int mRemovedChild;
+        private:  int mAdded;
+        private:  int mAddedToStage;
+        private:  int mAddedChild;
+        private:  int mRemoved;
+        private:  int mRemovedFromStage;
+        private:  int mRemovedChild;
 
 
-    public:
-        void
+        public: void 
         ////[Before]    setUp();
 
 
-    public:
-        void                     ////[After]tearDown();
+        public: void                     ////[After]tearDown();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testChildParentHandling();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testRemoveChildren();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testGetChildByName();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testSetChildIndex();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testSwapChildren();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testWidthAndHeight();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testBounds();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testBoundsInSpace();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testBoundsOfEmptyContainer();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testSize();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testSort();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testAddExistingChild();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testRemoveWithEventHandler();
 
 
-    public:
-        void
+        public: void 
         ////[Test(expects="ArgumentError")]testIllegalRecursion();
 
 
-    public:
-        void
+        public: void 
         ////[Test(expects="ArgumentError")]testAddAsChildToSelf();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testDisplayListEvents();
 
 
-    public:
-        void
+        public: void 
         ////[Test]      testRemovedFromStage();
 
-    private:
-        void     onAdded(Event *event);
-    private:
-        void     onAddedToStage(Event *event);
-    private:
-        void     onAddedChild(Event *event);
+        private: void     onAdded(Event* event);
+        private: void     onAddedToStage(Event* event);
+        private: void     onAddedChild(Event* event);
 
-    private:
-        void     onRemoved(Event *event);
-    private:
-        void     onRemovedFromStage(Event *event);
-    private:
-        void     onRemovedChild(Event *event);
+        private: void     onRemoved(Event* event);
+        private: void     onRemovedFromStage(Event* event);
+        private: void     onRemovedChild(Event* event);
     };
 }
 

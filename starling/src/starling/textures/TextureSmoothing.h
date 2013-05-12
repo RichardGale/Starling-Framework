@@ -13,44 +13,39 @@
 
 
 
-namespace starling
-{
-    namespace errors
-    {
-        class AbstractClassError;
-    }
-}
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace starling { namespace errors { class AbstractClassError; } }
 
-/** A class that provides constant values for the possible smoothing algorithms of a texture. */
+    /** A class that provides constant values for the possible smoothing algorithms of a texture. */
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace textures
+namespace starling {
+namespace textures {
+    class TextureSmoothing
     {
-        class TextureSmoothing
-        {
-            /** @private */
-        public:
-            TextureSmoothing();
+        /** @private */
+        public:          TextureSmoothing();
 
-            /** No smoothing, also called "Nearest Neighbor". Pixels will scale up as big rectangles. */
-        public:
-            static const std::string NONE;
+        /** No smoothing, also called "Nearest Neighbor". Pixels will scale up as big rectangles. */
+        public: static const std::string NONE;
 
-            /** Bilinear filtering. Creates smooth transitions between pixels. */
-        public:
-            static const std::string BILINEAR;
+        /** Bilinear filtering. Creates smooth transitions between pixels. */
+        public: static const std::string BILINEAR;
 
-            /** Trilinear filtering. Highest quality by taking the next mip map level into account. */
-        public:
-            static const std::string TRILINEAR;
+        /** Trilinear filtering. Highest quality by taking the next mip map level into account. */
+        public: static const std::string TRILINEAR;
 
-            /** Determines whether a smoothing value is valid. */
-        public:
-            static bool     isValid(std::string smoothing);
-        };
-    }
+        /** Determines whether a smoothing value is valid. */
+        public: static bool isValid(std::string smoothing);
+    };
+}
 }
 
 #endif // __STARLING_SRC_STARLING_TEXTURES_TEXTURESMOOTHING_AS
