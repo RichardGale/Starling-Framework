@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -47,7 +55,7 @@ namespace starling
              *  this method returns an empty Rectangle object with its properties set to 0. */
         public:
             static Rectangle *intersect(Rectangle *rect1, Rectangle *rect2,
-                                        Rectangle *resultRect);
+                                        Rectangle *resultRect=NULL);
 
             /** Calculates a rectangle with the same aspect ratio as the given 'rectangle',
              *  centered within 'into'.
@@ -61,12 +69,12 @@ namespace starling
              */
         public:
             static Rectangle *fit(Rectangle *rectangle, Rectangle *into,
-                                  std::string scaleMode, bool pixelPerfect,
-                                  Rectangle *resultRect);
+                                  std::string scaleMode="showAll", bool pixelPerfect   =false,
+                                  Rectangle *resultRect=NULL);
 
             /** Calculates the next whole-number multiplier or divisor, moving either up or down. */
         private:
-            static float    nextSuitableScaleFactor(float factor, bool up);
+            static float nextSuitableScaleFactor(float factor, bool up);
         };
     }
 }

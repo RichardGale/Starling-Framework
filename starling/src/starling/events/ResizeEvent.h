@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -47,7 +55,7 @@ namespace starling
 
             /** Creates a new ResizeEvent. */
         public:
-            ResizeEvent(std::string type, int width, int height, bool bubbles);
+            ResizeEvent(std::string type, int width, int height, bool bubbles   =false);
 
             /** The updated width of the player. */
         public:

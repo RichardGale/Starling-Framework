@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -108,18 +116,18 @@ namespace starling
              *  cost.</p>
              */
         public:
-            BlurFilter(float blurX, float blurY, float resolution);
+            BlurFilter(float blurX =1, float blurY =1, float resolution =1);
 
             /** Creates a blur filter that is set up for a drop shadow effect. */
         public:
-            static BlurFilter *createDropShadow(float distance, float angle,
-                                                unsigned int color, float alpha, float blur,
-                                                float resolution);
+            static BlurFilter *createDropShadow(float distance =4.0, float angle =0.785,
+                                                unsigned int color=0x0, float alpha =0.5, float blur =1.0,
+                                                float resolution =0.5);
 
             /** Creates a blur filter that is set up for a glow effect. */
         public:
-            static BlurFilter *createGlow(unsigned int color, float alpha, float blur,
-                                          float resolution);
+            static BlurFilter *createGlow(unsigned int color=0xffff00, float alpha =1.0, float blur =1.0,
+                                          float resolution =0.5);
 
             /** @inheritDoc */
         public:
@@ -146,7 +154,7 @@ namespace starling
              *  value will be multiplied with the given factor. Pass <code>false</code> as the
              *  first parameter to deactivate the uniform color. */
         public:
-            void     setUniformColor(bool enable, unsigned int color, float alpha);
+            void     setUniformColor(bool enable, unsigned int color=0x0, float alpha =1.0);
 
             /** The blur factor in x-direction (stage coordinates).
              *  The number of required passes will be <code>Math.ceil(value)</code>. */

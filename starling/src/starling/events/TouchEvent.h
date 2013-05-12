@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace starling
 {
     namespace core
@@ -92,23 +100,23 @@ namespace starling
 
             /** Helper object. */
         private:
-            static std::vector<Touch *> *sTouches;
+            static  std::vector<Touch *> *sTouches;
 
             /** Creates a new TouchEvent instance. */
         public:
-            TouchEvent(std::string type, std::vector<Touch *> *touches, bool shiftKey,
-                       bool ctrlKey, bool bubbles);
+            TouchEvent(std::string type, std::vector<Touch *> *touches, bool shiftKey   =false,
+                       bool ctrlKey   =false, bool bubbles   =true);
 
             /** Returns a list of touches that originated over a certain target. If you pass a
              *  'result' vector, the touches will be added to this vector instead of creating a new
              *  object. */
         public:
-            std::vector<Touch *> *getTouches(DisplayObject *target, std::string phase,
-                                             std::vector<Touch *> *result);
+            std::vector<Touch *> *getTouches(DisplayObject *target, std::string phase=NULL,
+                                             std::vector<Touch *> *result=NULL);
 
             /** Returns a touch that originated over a certain target. */
         public:
-            Touch   *getTouch(DisplayObject *target, std::string phase);
+            Touch   *getTouch(DisplayObject *target, std::string phase=NULL);
 
             /** Indicates if a target is currently being touched or hovered over. */
         public:
@@ -119,7 +127,7 @@ namespace starling
             /** @private
              *  Dispatches the event along a custom bubble chain. During the lifetime of the event,
              *  each object is visited only once. */
-            starling_internal void     dispatch(std::vector<EventDispatcher *> *chain);
+            void dispatch(std::vector<EventDispatcher *> *chain);
 
             // properties
 

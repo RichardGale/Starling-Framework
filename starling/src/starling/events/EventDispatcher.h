@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace utils
@@ -67,11 +75,11 @@ namespace starling
         class EventDispatcher
         {
         private:
-            std::map<void *, void *> mEventListeners;
+            std::map<std::string, void *> mEventListeners;
 
             /** Helper object. */
         private:
-            static std::vector<void *> sBubbleChains;
+            static  std::vector<void *> sBubbleChains;
 
             /** Creates an EventDispatcher. */
         public:
@@ -88,7 +96,7 @@ namespace starling
             /** Removes all event listeners with a certain type, or all of them if type is null.
              *  Be careful when removing all event listeners: you never know who else was listening. */
         public:
-            void     removeEventListeners(std::string type);
+            void     removeEventListeners(std::string type=NULL);
 
             /** Dispatches an event to all objects that have registered listeners for its type.
              *  If an event with enabled 'bubble' property is dispatched to a display object, it will
@@ -100,17 +108,17 @@ namespace starling
             /** @private
              *  Invokes an event on the current object. This method does not do any bubbling, nor
              *  does it back-up and restore the previous target on the event. The 'dispatchEvent'
-             *  method uses this method internally. */// this allows users to re-dispatch events without creating a clone.
-            friend bool     invokeEvent(Event *event);
+             *  method uses this method internally. */// no need to do anything
+            bool invokeEvent(Event *event);
 
             /** @private */
-            friend void     bubbleEvent(Event *event);
+            void bubbleEvent(Event *event);
 
             /** Dispatches an event with the given parameters to all objects that have registered
              *  listeners for the given type. The method uses an internal pool of event objects to
              *  avoid allocations. */
         public:
-            void     dispatchEventWith(std::string type, bool bubbles, Object *data);
+            void     dispatchEventWith(std::string type, bool bubbles   =false, Object *data=NULL);
 
             /** Returns if there are listeners registered for a certain event type. */
         public:

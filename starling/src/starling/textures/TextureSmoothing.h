@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace starling
 {
     namespace errors
@@ -48,7 +56,7 @@ namespace starling
 
             /** Determines whether a smoothing value is valid. */
         public:
-            static bool     isValid(std::string smoothing);
+            static bool isValid(std::string smoothing);
         };
     }
 }

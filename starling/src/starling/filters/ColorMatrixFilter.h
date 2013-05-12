@@ -16,6 +16,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -98,15 +106,15 @@ namespace starling
 
             /** helper objects */
         private:
-            static std::vector<float> *sTmpMatrix1;
+            static  std::vector<float> *sTmpMatrix1;
         private:
-            static std::vector<float> *sTmpMatrix2;
+            static  std::vector<float> *sTmpMatrix2;
 
             /** Creates a new ColorMatrixFilter instance with the specified matrix.
              *  @param matrix: a vector of 20 items arranged as a 4x5 matrix.
              */
         public:
-            ColorMatrixFilter(std::vector<float> *matrix);
+            ColorMatrixFilter(std::vector<float> *matrix=NULL);
 
             /** @inheritDoc */
         public:

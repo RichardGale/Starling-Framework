@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -321,16 +329,16 @@ namespace starling
         private:
             Matrix *mProjMatrix;
         private:
-            static Rectangle *sBounds;
+            static  Rectangle *sBounds;
         private:
-            static Rectangle *sStageBounds;
+            static  Rectangle *sStageBounds;
         private:
-            static Matrix *sTransformationMatrix;
+            static  Matrix *sTransformationMatrix;
 
             /** Creates a new Fragment filter with the specified number of passes and resolution.
              *  This constructor may only be called by the constructor of a subclass. */
         public:
-            FragmentFilter(int numPasses, float resolution);
+            FragmentFilter(int numPasses=1, float resolution =1.0);
 
             /** Disposes the filter (programs, buffers, textures). */
         public:
@@ -347,7 +355,7 @@ namespace starling
 
         private:
             QuadBatch *renderPasses(DisplayObject *object, RenderSupport *support,
-                                    float parentAlpha, bool intoCache);
+                                    float parentAlpha, bool intoCache   =false);
 
             // helper methods// final pass
 
@@ -408,7 +416,7 @@ namespace starling
              *  If any argument is  null, it is replaced by the class constants STD_FRAGMENT_SHADER or
              *  STD_VERTEX_SHADER, respectively. */
         protected:
-            Program3D *assembleAgal(std::string fragmentShader, std::string vertexShader);
+            Program3D *assembleAgal(std::string fragmentShader=NULL, std::string vertexShader=NULL);
 
             // cache
 
@@ -426,7 +434,7 @@ namespace starling
             // flattening
 
             /** @private */
-            starling_internal QuadBatch *compile(DisplayObject *object);
+            QuadBatch *compile(DisplayObject *object);
 
             // properties
 
@@ -485,27 +493,27 @@ namespace starling
 
             /** The ID of the vertex buffer attribute that stores the vertex position. */
         protected:
-            int          vertexPosAtID();
+            int vertexPosAtID();
         protected:
-            void         vertexPosAtID(int value);
+            void vertexPosAtID(int value);
 
             /** The ID of the vertex buffer attribute that stores the texture coordinates. */
         protected:
-            int          texCoordsAtID();
+            int texCoordsAtID();
         protected:
-            void         texCoordsAtID(int value);
+            void texCoordsAtID(int value);
 
             /** The ID (sampler) of the input texture (containing the output of the previous pass). */
         protected:
-            int          baseTextureID();
+            int baseTextureID();
         protected:
-            void         baseTextureID(int value);
+            void baseTextureID(int value);
 
             /** The ID of the first register of the modelview-projection constant (a 4x4 matrix). */
         protected:
-            int          mvpConstantID();
+            int mvpConstantID();
         protected:
-            void         mvpConstantID(int value);
+            void mvpConstantID(int value);
         };
     }
 }

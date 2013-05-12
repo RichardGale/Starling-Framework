@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace starling
 {
     namespace core
@@ -138,7 +146,7 @@ namespace starling
 
             /** Advances all objects by a certain time (in seconds). */
         public:
-            void     advanceTime(float time);    // in the next frame), and we need to clean up any empty slots in the list.
+            void     advanceTime(float time);    // there is a high probability that the "advanceTime" function modifies the list
 
         private:
             void     onRemove(Event *event);

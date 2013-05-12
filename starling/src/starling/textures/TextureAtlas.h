@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -79,9 +87,9 @@ namespace starling
         private:
             Texture *mAtlasTexture;
         private:
-            std::map<void *, void *> mTextureRegions;
+            std::map<std::string, void *> mTextureRegions;
         private:
-            std::map<void *, void *> mTextureFrames;
+            std::map<std::string, void *> mTextureFrames;
 
             /** helper objects */
         private:
@@ -89,7 +97,7 @@ namespace starling
 
             /** Create a texture atlas from a texture by parsing the regions from an XML file. */
         public:
-            TextureAtlas(Texture *texture, XML *atlasXml);
+            TextureAtlas(Texture *texture, XML *atlasXml=NULL);
 
             /** Disposes the atlas texture. */
         public:
@@ -108,11 +116,11 @@ namespace starling
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
         public:
-            std::vector<Texture *> *getTextures(std::string prefix, std::vector<Texture *> *result);
+            std::vector<Texture *> *getTextures(std::string prefix="", std::vector<Texture *> *result=NULL);
 
             /** Returns all texture names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getNames(std::string prefix, std::vector<std::string> *result);
+            std::vector<std::string> *getNames(std::string prefix="", std::vector<std::string> *result=NULL);
 
             /** Returns the region rectangle associated with a specific name. */
         public:
@@ -126,7 +134,7 @@ namespace starling
             /** Adds a named region for a subtexture (described by rectangle with coordinates in
              *  pixels) with an optional frame. */
         public:
-            void     addRegion(std::string name, Rectangle *region, Rectangle *frame);
+            void     addRegion(std::string name, Rectangle *region, Rectangle *frame=NULL);
 
             /** Removes a region with a certain name. */
         public:

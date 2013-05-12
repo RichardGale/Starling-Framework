@@ -14,6 +14,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace starling
 {
     namespace core
@@ -29,6 +37,7 @@ namespace starling
     }
 }
 #include "starling/events/EventDispatcher.h"
+class Transitions;
 
 /** A Tween animates numeric properties of objects. It uses different transition functions
  *  to give the animations various styles.
@@ -125,11 +134,11 @@ namespace starling
              *         Transitions class) or a function. Look up the 'Transitions' class for a
              *         documentation about the required function signature. */
         public:
-            Tween(Object *target, float time, Object *transition);
+            Tween(Object *target, float time, Object *transition="linear");
 
             /** Resets the tween to its default values. Useful for pooling tweens. */
         public:
-            Tween   *reset(Object *target, float time, Object *transition);
+            Tween   *reset(Object *target, float time, Object *transition="linear");
 
             /** Animates the property of the target to a certain value. You can call this method multiple
              *  times on one tween. */
@@ -280,14 +289,14 @@ namespace starling
             // tween pooling
 
         private:
-            static std::vector<Tween *> *sTweenPool;
+            static  std::vector<Tween *> *sTweenPool;
 
             /** @private */
-            starling_internal static Tween   *fromPool(Object *target, float time,
-                    Object *transition);
+            static Tween   *fromPool(Object *target, float time,
+                                     Object *transition="linear");
 
             /** @private */
-            starling_internal static void     toPool(Tween *tween);
+            static void     toPool(Tween *tween);
         };
     }
 }

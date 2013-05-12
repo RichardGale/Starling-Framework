@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -67,33 +75,33 @@ namespace starling
 /** Dispatched on all children when the object is flattened. */
 //[Event(name="flatten",type="starling.events.Event")]
 
-/** A Sprite is the most lightweight, non-abstract container class.
- *  <p>Use it as a simple means of grouping objects together in one coordinate system, or
- *  as the base class for custom display objects.</p>
- *
- *  <strong>Flattened Sprites</strong>
- *
- *  <p>The <code>flatten</code>-method allows you to optimize the rendering of static parts of
- *  your display list.</p>
- *
- *  <p>It analyzes the tree of children attached to the sprite and optimizes the rendering calls
- *  in a way that makes rendering extremely fast. The speed-up comes at a price, though: you
- *  will no longer see any changes in the properties of the children (position, rotation,
- *  alpha, etc.). To update the object after changes have happened, simply call
- *  <code>flatten</code> again, or <code>unflatten</code> the object.</p>
- *
- *  <strong>Clipping Rectangle</strong>
- *
- *  <p>The <code>clipRect</code> property allows you to clip the visible area of the sprite
- *  to a rectangular region. Only pixels inside the rectangle will be displayed. This is a very
- *  fast way to mask objects. However, there is one limitation: the <code>clipRect</code>
- *  only works with stage-aligned rectangles, i.e. you cannot rotate or skew the rectangle.
- *  This limitation is inherited from the underlying "scissoring" technique that is used
- *  internally.</p>
- *
- *  @see DisplayObject
- *  @see DisplayObjectContainer
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using namespace flash::geom;
 using namespace flash::geom;
 using namespace flash::geom;
@@ -106,7 +114,33 @@ namespace starling
 {
     namespace display
     {
-        class Sprite: public DisplayObjectContainer
+        class/** A Sprite is the most lightweight, non-abstract container class.
+     *  <p>Use it as a simple means of grouping objects together in one coordinate system, or
+     *  as the base class for custom display objects.</p>
+     *
+     *  <strong>Flattened Sprites</strong>
+     *
+     *  <p>The <code>flatten</code>-method allows you to optimize the rendering of static parts of
+     *  your display list.</p>
+     *
+     *  <p>It analyzes the tree of children attached to the sprite and optimizes the rendering calls
+     *  in a way that makes rendering extremely fast. The speed-up comes at a price, though: you
+     *  will no longer see any changes in the properties of the children (position, rotation,
+     *  alpha, etc.). To update the object after changes have happened, simply call
+     *  <code>flatten</code> again, or <code>unflatten</code> the object.</p>
+     *
+     *  <strong>Clipping Rectangle</strong>
+     *
+     *  <p>The <code>clipRect</code> property allows you to clip the visible area of the sprite
+     *  to a rectangular region. Only pixels inside the rectangle will be displayed. This is a very
+     *  fast way to mask objects. However, there is one limitation: the <code>clipRect</code>
+     *  only works with stage-aligned rectangles, i.e. you cannot rotate or skew the rectangle.
+     *  This limitation is inherited from the underlying "scissoring" technique that is used
+     *  internally.</p>
+     *
+     *  @see DisplayObject
+     *  @see DisplayObjectContainer
+     */          Sprite: public DisplayObjectContainer
         {
         private:
             std::vector<QuadBatch *> *mFlattenedContents;
@@ -117,11 +151,11 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static Matrix *sHelperMatrix;
+            static  Matrix *sHelperMatrix;
         private:
-            static Point *sHelperPoint;
+            static  Point *sHelperPoint;
         private:
-            static Rectangle *sHelperRect;
+            static  Rectangle *sHelperRect;
 
             /** Creates an empty sprite. */
         public:
@@ -172,15 +206,15 @@ namespace starling
             /** Returns the bounds of the container's clipRect in the given coordinate space, or
              *  null if the sprite doens't have a clipRect. */
         public:
-            Rectangle *getClipRect(DisplayObject *targetSpace, Rectangle *resultRect);
+            Rectangle *getClipRect(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** @inheritDoc */
         public:
-            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect);
+            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** @inheritDoc */
         public:
-            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch);
+            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
 
             /** @inheritDoc */
         public:

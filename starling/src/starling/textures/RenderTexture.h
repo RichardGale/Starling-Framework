@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -155,7 +163,7 @@ namespace starling
 
             /** helper object */
         private:
-            static Rectangle *sClipRect;
+            static  Rectangle *sClipRect;
 
             /** Creates a new RenderTexture with a certain size. If the texture is persistent, the
              *  contents of the texture remains intact after each draw call, allowing you to use the
@@ -163,7 +171,7 @@ namespace starling
              *  Persistancy doubles the required graphics memory! Thus, if you need the texture only
              *  for one draw (or drawBundled) call, you should deactivate it. */
         public:
-            RenderTexture(int width, int height, bool persistent, float scale);
+            RenderTexture(int width, int height, bool persistent   =true, float scale =-1);
 
             /** @inheritDoc */
         public:
@@ -180,13 +188,13 @@ namespace starling
              *  @param antiAliasing This parameter is currently ignored by Stage3D.
              */
         public:
-            void     draw(DisplayObject *object, Matrix *matrix, float alpha,
-                          int antiAliasing);
+            void     draw(DisplayObject *object, Matrix *matrix=NULL, float alpha =1.0,
+                          int antiAliasing=0);
 
             /** Bundles several calls to <code>draw</code> together in a block. This avoids buffer
              *  switches and allows you to draw multiple objects into a non-persistent texture. */
         public:
-            void     drawBundled(Function *drawingBlock, int antiAliasing);
+            void     drawBundled(Function *drawingBlock, int antiAliasing=0);
 
             /** Clears the texture (restoring full transparency). */
         public:

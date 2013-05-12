@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace utils
@@ -33,6 +41,14 @@ namespace starling
     namespace utils
     {
         class formatString;
+    }
+}
+
+namespace starling
+{
+    namespace events
+    {
+        class EventDispatcher;
     }
 }
 
@@ -59,6 +75,7 @@ namespace starling
 using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::utils;
+using namespace starling::events;
 
 namespace starling
 {
@@ -123,7 +140,7 @@ namespace starling
             static const std::string SELECT;
 
         private:
-            static std::vector<Event *> *sEventPool;
+            static  std::vector<Event *> *sEventPool;
 
         private:
             EventDispatcher *mTarget;
@@ -142,7 +159,7 @@ namespace starling
 
             /** Creates an event object that can be passed to listeners. */
         public:
-            Event(std::string type, bool bubbles, Object *data);
+            Event(std::string type, bool bubbles   =false, Object *data=NULL);
 
             /** Prevents listeners at the next bubble stage from receiving the event. */
         public:
@@ -179,30 +196,30 @@ namespace starling
             // properties for internal use
 
             /** @private */
-            friend void     setTarget(EventDispatcher *value);
+            void setTarget(EventDispatcher *value);
 
             /** @private */
-            friend void     setCurrentTarget(EventDispatcher *value);
+            void setCurrentTarget(EventDispatcher *value);
 
             /** @private */
-            friend void     setData(Object *value);
+            void setData(Object *value);
 
             /** @private */
-            friend bool         stopsPropagation();
+            bool stopsPropagation();
 
             /** @private */
-            friend bool         stopsImmediatePropagation();
+            bool stopsImmediatePropagation();
 
             // event pooling
 
             /** @private */
-            starling_internal static Event   *fromPool(std::string type, bool bubbles, Object *data);
+            static Event   *fromPool(std::string type, bool bubbles   =false, Object *data=NULL);
 
             /** @private */
-            starling_internal static void     toPool(Event *event);
+            static void     toPool(Event *event);
 
             /** @private */
-            starling_internal Event   *reset(std::string type, bool bubbles, Object *data);
+            Event *reset(std::string type, bool bubbles   =false, Object *data=NULL);
         };
     }
 }

@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -235,11 +243,11 @@ namespace starling
         private:
             std::vector<void *> mRawAssets;
         private:
-            std::map<void *, void *> mTextures;
+            std::map<std::string, void *> mTextures;
         private:
-            std::map<void *, void *> mAtlases;
+            std::map<std::string, void *> mAtlases;
         private:
-            std::map<void *, void *> mSounds;
+            std::map<std::string, void *> mSounds;
 
             /** helper objects */
         private:
@@ -248,7 +256,7 @@ namespace starling
             /** Create a new AssetManager. The 'scaleFactor' and 'useMipmaps' parameters define
              *  how enqueued bitmaps will be converted to textures. */
         public:
-            AssetManager(float scaleFactor, bool useMipmaps);
+            AssetManager(float scaleFactor =1, bool useMipmaps   =false);
 
             /** Disposes all contained textures. */
         public:
@@ -265,11 +273,11 @@ namespace starling
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
         public:
-            std::vector<Texture *> *getTextures(std::string prefix, std::vector<Texture *> *result);
+            std::vector<Texture *> *getTextures(std::string prefix="", std::vector<Texture *> *result=NULL);
 
             /** Returns all texture names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getTextureNames(std::string prefix, std::vector<std::string> *result);
+            std::vector<std::string> *getTextureNames(std::string prefix="", std::vector<std::string> *result=NULL);
 
             /** Returns a texture atlas with a certain name, or null if it's not found. */
         public:
@@ -281,13 +289,13 @@ namespace starling
 
             /** Returns all sound names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getSoundNames(std::string prefix);
+            std::vector<std::string> *getSoundNames(std::string prefix="");
 
             /** Generates a new SoundChannel object to play back the sound. This method returns a
              *  SoundChannel object, which you can access to stop the sound and to control volume. */
         public:
-            SoundChannel *playSound(std::string name, float startTime, int loops,
-                                    SoundTransform *transform);
+            SoundChannel *playSound(std::string name, float startTime =0, int loops=0,
+                                    SoundTransform *transform=NULL);
 
             // direct adding
 
@@ -307,11 +315,11 @@ namespace starling
 
             /** Removes a certain texture, optionally disposing it. */
         public:
-            void     removeTexture(std::string name, bool dispose);
+            void     removeTexture(std::string name, bool dispose   =true);
 
             /** Removes a certain texture atlas, optionally disposing it. */
         public:
-            void     removeTextureAtlas(std::string name, bool dispose);
+            void     removeTextureAtlas(std::string name, bool dispose   =true);
 
             /** Removes a certain sound. */
         public:
@@ -347,7 +355,7 @@ namespace starling
              *  If you don't pass a name, it's attempted to generate it automatically.
              *  @returns the name under which the asset was registered. */
         public:
-            std::string enqueueWithName(Object *asset, std::string name);
+            std::string enqueueWithName(Object *asset, std::string name=NULL);
 
             /** Loads all enqueued assets asynchronously. The 'onProgress' function will be called
              *  with a 'ratio' between '0.0' and '1.0', with '1.0' meaning that it's complete.

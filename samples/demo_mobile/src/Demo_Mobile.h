@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace desktop
@@ -118,12 +126,12 @@ class Demo_Mobile: public Sprite
     // Startup image for SD screens
 
 private:
-    static ////[Embed(source="../../demo/system/startup.jpg")]Class* Background;
+    static  ////[Embed(source="../../demo/system/startup.jpg")]Class* Background;
 
     // Startup image for HD screens
 
 private:
-    static ////[Embed(source="../../demo/system/startupHD.jpg")]Class* BackgroundHD;
+    static  ////[Embed(source="../../demo/system/startupHD.jpg")]Class* BackgroundHD;
 
 private:
     Starling *mStarling;

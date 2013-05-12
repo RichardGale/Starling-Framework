@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -255,12 +263,12 @@ namespace starling
 
             // this object will be used for text rendering
         private:
-            static flash::text::TextField *sNativeTextField;
+            static  flash::text::TextField *sNativeTextField;
 
             /** Create a new text field with the given properties. */
         public:
-            TextField(int width, int height, std::string text, std::string fontName,
-                      float fontSize, unsigned int color, bool bold);
+            TextField(int width, int height, std::string text, std::string fontName="Verdana",
+                      float fontSize =12, unsigned int color=0x0, bool bold   =false);
 
             /** Disposes the underlying texture data. */
         public:
@@ -310,7 +318,7 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect);
+            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** @inheritDoc */
         public:
@@ -417,11 +425,11 @@ namespace starling
              *  Per default, the <code>name</code> property of the bitmap font will be used, but you
              *  can pass a custom name, as well. @returns the name of the font. */
         public:
-            static std::string registerBitmapFont(BitmapFont *bitmapFont, std::string name);
+            static std::string registerBitmapFont(BitmapFont *bitmapFont, std::string name=NULL);
 
             /** Unregisters the bitmap font and, optionally, disposes it. */
         public:
-            static void     unregisterBitmapFont(std::string name, bool dispose);
+            static void unregisterBitmapFont(std::string name, bool dispose   =true);
 
             /** Returns a registered bitmap font (or null, if the font has not been registered). */
         public:
@@ -430,7 +438,7 @@ namespace starling
             /** Stores the currently available bitmap fonts. Since a bitmap font will only work
              *  in one Stage3D context, they are saved in Starling's 'contextData' property. */
         private:
-            static std::map<void *, void *> bitmapFonts();
+            static std::map<std::string, void *> bitmapFonts();
         };
     }
 }

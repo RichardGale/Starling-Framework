@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -98,8 +106,8 @@ namespace starling
         public:
             ConcreteTexture(TextureBase *base, std::string format, int width, int height,
                             bool mipMapping, bool premultipliedAlpha,
-                            bool optimizedForRenderTexture,
-                            float scale);
+                            bool optimizedForRenderTexture   =false,
+                            float scale =1);
 
             /** Disposes the TextureBase object. */
         public:

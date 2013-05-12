@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -32,7 +40,7 @@ namespace flash
  *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
 public:
 Point   *transformCoords(Matrix *matrix, float x, float y,
-                         Point *resultPoint);
+                         Point *resultPoint=NULL);
 
 
 bool deprecationNotified;
