@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -73,14 +81,14 @@ namespace starling
 
             /** Helper object. */
         private:
-            static Point *sTexCoords;
+            static  Point *sTexCoords;
 
             /** Creates a new subtexture containing the specified region (in points) of a parent
              *  texture. If 'ownsParent' is true, the parent texture will be disposed automatically
              *  when the subtexture is disposed. */
         public:
             SubTexture(Texture *parentTexture, Rectangle *region,
-                       bool ownsParent);
+                       bool ownsParent   =false);
 
             /** Disposes the parent texture if this texture owns it. */
         public:

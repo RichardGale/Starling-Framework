@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -155,11 +163,11 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static Matrix *sHelperMatrix;
+            static  Matrix *sHelperMatrix;
         private:
-            static Point *sHelperPoint;
+            static  Point *sHelperPoint;
         private:
-            static std::vector<DisplayObject *> *sBroadcastListeners;
+            static  std::vector<DisplayObject *> *sBroadcastListeners;
 
             // construction
 
@@ -184,17 +192,17 @@ namespace starling
             /** Removes a child from the container. If the object is not a child, nothing happens.
              *  If requested, the child will be disposed right away. */
         public:
-            DisplayObject *removeChild(DisplayObject *child, bool dispose);
+            DisplayObject *removeChild(DisplayObject *child, bool dispose   =false);
 
             /** Removes a child at a certain index. Children above the child will move down. If
              *  requested, the child will be disposed right away. */
         public:
-            DisplayObject *removeChildAt(int index, bool dispose);
+            DisplayObject *removeChildAt(int index, bool dispose   =false);
 
             /** Removes a range of children from the container (endIndex included).
              *  If no arguments are given, all children will be removed. */
         public:
-            void     removeChildren(int beginIndex, int endIndex, bool dispose);
+            void     removeChildren(int beginIndex=0, int endIndex=-1, bool dispose   =false);
 
             /** Returns a child object at a certain index. */
         public:
@@ -231,11 +239,11 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect);
+            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** @inheritDoc */
         public:
-            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch);
+            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
 
             /** @inheritDoc */                           // front to back!
         public:
@@ -248,7 +256,7 @@ namespace starling
             /** Dispatches an event with the given parameters on all children (recursively).
              *  The method uses an internal pool of event objects to avoid allocations. */
         public:
-            void     broadcastEventWith(std::string type, Object *data);
+            void     broadcastEventWith(std::string type, Object *data=NULL);
 
         private:
             void     getChildEventListeners(DisplayObject *object, std::string eventType,

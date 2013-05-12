@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace com
 {
     namespace adobe
@@ -207,11 +215,11 @@ namespace starling
 
             /** helper objects */
         private:
-            static Point *sPoint;
+            static  Point *sPoint;
         private:
-            static Rectangle *sRectangle;
+            static  Rectangle *sRectangle;
         private:
-            static AGALMiniAssembler *sAssembler;
+            static  AGALMiniAssembler *sAssembler;
 
             // construction
 
@@ -267,7 +275,7 @@ namespace starling
 
             /** Prepends translation, scale and rotation of an object to a custom matrix. */
         public:
-            static void     transformMatrixForObject(Matrix *matrix, DisplayObject *object);
+            static void transformMatrixForObject(Matrix *matrix, DisplayObject *object);
 
             /** Calculates the product of modelview and projection matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
@@ -320,7 +328,7 @@ namespace starling
         public:
             void     configureBackBuffer(int width, int height, int antiAlias,
                                          bool enableDepthAndStencil,
-                                         bool wantsBestResolution);
+                                         bool wantsBestResolution   =false);
 
             /** The width of the back buffer, as it was configured in the last call to
              *  'RenderSupport.configureBackBuffer()'. Beware: changing this value does not actually
@@ -368,7 +376,7 @@ namespace starling
              *  all previous quads are rendered at once, and the batch is reset. */
         public:
             void     batchQuad(Quad *quad, float parentAlpha,
-                               Texture *texture, std::string smoothing);
+                               Texture *texture=NULL, std::string smoothing=NULL);
 
             /** Renders the current quad batch and resets it. */
         public:
@@ -382,33 +390,33 @@ namespace starling
 
             /** Deprecated. Call 'setBlendFactors' instead. */
         public:
-            static void     setDefaultBlendFactors(bool premultipliedAlpha);
+            static void setDefaultBlendFactors(bool premultipliedAlpha);
 
             /** Sets up the blending factors that correspond with a certain blend mode. */
         public:
-            static void     setBlendFactors(bool premultipliedAlpha, std::string blendMode);
+            static void setBlendFactors(bool premultipliedAlpha, std::string blendMode="normal");
 
             /** Clears the render context with a certain color and alpha value. */
         public:
-            static void     clear(unsigned int rgb, float alpha);
+            static void clear(unsigned int rgb=0, float alpha =0.0);
 
             /** Clears the render context with a certain color and alpha value. */
         public:
-            void     clear(unsigned int rgb, float alpha);
+            void     clear(unsigned int rgb=0, float alpha =0.0);
 
             /** Assembles fragment- and vertex-shaders, passed as Strings, to a Program3D. If you
              *  pass a 'resultProgram', it will be uploaded to that program; otherwise, a new program
              *  will be created on the current Stage3D context. */
         public:
             static Program3D *assembleAgal(std::string vertexShader, std::string fragmentShader,
-                                           Program3D *resultProgram);
+                                           Program3D *resultProgram=NULL);
 
             // statistics
 
             /** Raises the draw count by a specific value. Call this method in custom render methods
              *  to keep the statistics display in sync. */
         public:
-            void     raiseDrawCount(unsigned int value);
+            void     raiseDrawCount(unsigned int value=1);
 
             /** Indicates the number of stage3D draw calls. */
         public:

@@ -17,6 +17,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace utils
@@ -90,7 +98,7 @@ namespace starling
             static const std::string EASE_OUT_IN_BOUNCE;
 
         private:
-            static std::map<void *, void *> sTransitions;
+            static  std::map<std::string, void *> sTransitions;
 
             /** @private */
         public:
@@ -102,66 +110,66 @@ namespace starling
 
             /** Registers a new transition function under a certain name. */
         public:
-            static void     REGISTER(std::string name, Function *func);
+            static void REGISTER(std::string name, Function *func);
 
         private:
-            static void     registerDefaults();
+            static void registerDefaults();
 
             // transition functions
 
         protected:
-            static float    linear(float ratio);
+            static float linear(float ratio);
 
         protected:
-            static float    easeIn(float ratio);
+            static float easeIn(float ratio);
 
         protected:
-            static float    easeOut(float ratio);
+            static float easeOut(float ratio);
 
         protected:
-            static float    easeInOut(float ratio);
+            static float easeInOut(float ratio);
 
         protected:
-            static float    easeOutIn(float ratio);
+            static float easeOutIn(float ratio);
 
         protected:
-            static float    easeInBack(float ratio);
+            static float easeInBack(float ratio);
 
         protected:
-            static float    easeOutBack(float ratio);
+            static float easeOutBack(float ratio);
 
         protected:
-            static float    easeInOutBack(float ratio);
+            static float easeInOutBack(float ratio);
 
         protected:
-            static float    easeOutInBack(float ratio);
+            static float easeOutInBack(float ratio);
 
         protected:
-            static float    easeInElastic(float ratio);
+            static float easeInElastic(float ratio);
 
         protected:
-            static float    easeOutElastic(float ratio);
+            static float easeOutElastic(float ratio);
 
         protected:
-            static float    easeInOutElastic(float ratio);
+            static float easeInOutElastic(float ratio);
 
         protected:
-            static float    easeOutInElastic(float ratio);
+            static float easeOutInElastic(float ratio);
 
         protected:
-            static float    easeInBounce(float ratio);
+            static float easeInBounce(float ratio);
 
         protected:
-            static float    easeOutBounce(float ratio);
+            static float easeOutBounce(float ratio);
 
         protected:
-            static float    easeInOutBounce(float ratio);
+            static float easeInOutBounce(float ratio);
 
         protected:
-            static float    easeOutInBounce(float ratio);
+            static float easeOutInBounce(float ratio);
 
         protected:
-            static float    easeCombined(Function *startFunc, Function *endFunc, float ratio);
+            static float easeCombined(Function *startFunc, Function *endFunc, float ratio);
         };
     }
 }

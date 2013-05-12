@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 #include "flash/display/Sprite.h"
 namespace flash
 {
@@ -55,7 +63,7 @@ using namespace starling::utils;
 class Demo_Web: public Sprite
 {
 
-private: ////[Embed(source="/startup.jpg")]Class* Background;
+private:  ////[Embed(source="/startup.jpg")]Class* Background;
 
 private:
     Starling *mStarling;

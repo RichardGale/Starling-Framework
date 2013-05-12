@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -95,18 +103,18 @@ namespace starling
 /** Dispatched when the user triggers the button. Bubbles. */
 //[Event(name="triggered",type="starling.events.Event")]
 
-/** A simple button composed of an image and, optionally, text.
- *
- *  <p>You can pass a texture for up- and downstate of the button. If you do not provide a down
- *  state, the button is simply scaled a little when it is touched.
- *  In addition, you can overlay a text on the button. To customize the text, almost the
- *  same options as those of text fields are provided. In addition, you can move the text to a
- *  certain position with the help of the <code>textBounds</code> property.</p>
- *
- *  <p>To react on touches on a button, there is special <code>triggered</code>-event type. Use
- *  this event instead of normal touch events - that way, users can cancel button activation
- *  by moving the mouse/finger away from the button before releasing.</p>
- */
+
+
+
+
+
+
+
+
+
+
+
+
 using namespace flash::geom;
 using namespace flash::ui;
 using namespace flash::ui;
@@ -123,7 +131,18 @@ namespace starling
 {
     namespace display
     {
-        class Button: public DisplayObjectContainer
+        class/** A simple button composed of an image and, optionally, text.
+     *
+     *  <p>You can pass a texture for up- and downstate of the button. If you do not provide a down
+     *  state, the button is simply scaled a little when it is touched.
+     *  In addition, you can overlay a text on the button. To customize the text, almost the
+     *  same options as those of text fields are provided. In addition, you can move the text to a
+     *  certain position with the help of the <code>textBounds</code> property.</p>
+     *
+     *  <p>To react on touches on a button, there is special <code>triggered</code>-event type. Use
+     *  this event instead of normal touch events - that way, users can cancel button activation
+     *  by moving the mouse/finger away from the button before releasing.</p>
+     */          Button: public DisplayObjectContainer
         {
         private:
             static const float MAX_DRAG_DIST;
@@ -155,7 +174,7 @@ namespace starling
 
             /** Creates a button with textures for up- and down-state or text. */
         public:
-            Button(Texture *upState, std::string text, Texture *downState);
+            Button(Texture *upState, std::string text="", Texture *downState=NULL);
 
         private:
             void     resetContents();

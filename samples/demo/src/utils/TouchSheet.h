@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -53,7 +61,7 @@ namespace utils
     class TouchSheet: public Sprite
     {
     public:
-        TouchSheet(DisplayObject *contents);
+        TouchSheet(DisplayObject *contents=NULL);
 
     private:
         void     onTouch(TouchEvent *event);

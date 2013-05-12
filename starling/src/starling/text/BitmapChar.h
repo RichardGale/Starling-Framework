@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace utils
@@ -61,7 +69,7 @@ namespace starling
         private:
             float mXAdvance;
         private:
-            std::map<void *, void *> mKernings;
+            std::map<std::string, void *> mKernings;
 
             /** Creates a char with a texture and its properties. */
         public:

@@ -36,13 +36,41 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // ===========================================================================
 //  Imports
-
-// WILDCARD INCLUDE namespace flash { namespace display3D { class *; } }
-// WILDCARD INCLUDE namespace flash { namespace utils { class *; } }
+// ---------------------------------------------------------------------------
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+namespace flash
+{
+    namespace display3D
+    {
+        class Context3D;
+    }
+}
+namespace flash
+{
+    namespace display3D
+    {
+        class Program3D;
+    }
+}
+namespace flash
+{
+    namespace utils
+    {
+        class ByteArray;
+    }
+}
 
 // ===========================================================================
 //  Class
-// ---------------------------------------------------------------------------// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace flash::utils;
 
@@ -57,15 +85,12 @@ namespace com
                 // ======================================================================
                 //  Constants
                 // ----------------------------------------------------------------------
-
+            protected:
+                static const RegExp *REGEXP_OUTER_SPACES;
 
                 // ======================================================================
                 //  Properties
-                // ----------------------------------------------------------------------protected: static const RegExp* REGEXP_OUTER_SPACES;
-
-
-
-
+                // ----------------------------------------------------------------------
                 // AGAL bytes and error buffer
             private:
                 ByteArray *_agalcode;
@@ -76,15 +101,13 @@ namespace com
                 bool debugEnabled;
 
             private:
-                static bool initialized;
-
+                static  bool initialized;
+            public:
+                bool verbose;
 
                 // ======================================================================
-                //  Getterspublic: bool verbose;
 
 
-
-                // ----------------------------------------------------------------------
             public:
                 std::string  error();
             public:
@@ -94,7 +117,7 @@ namespace com
                 //  Constructor
                 // ----------------------------------------------------------------------
             public:
-                AGALMiniAssembler( bool debugging);
+                AGALMiniAssembler( bool debugging    = false);
                 // ======================================================================
                 //  Methods
                 // ----------------------------------------------------------------------
@@ -103,23 +126,23 @@ namespace com
                 Program3D *assemble2( Context3D *ctx3d, unsigned int version, std::string vertexsrc, std::string fragmentsrc);
 
             public:
-                ByteArray *assemble( std::string mode, std::string source, unsigned int version, bool ignorelimits);
+                ByteArray *assemble( std::string mode, std::string source, unsigned int version=1, bool ignorelimits   =false);
 
             private:
                 void     initregmap( unsigned int version, bool ignorelimits);
 
             private:
-                staticvoid init();
+                static void init();
 
                 // ======================================================================
                 //  Constants
                 // ----------------------------------------------------------------------
             private:
-                static const std::map<void *, void *> OPMAP;
+                static const std::map<std::string, void *> OPMAP;
             private:
-                static const std::map<void *, void *> REGMAP;
+                static const std::map<std::string, void *> REGMAP;
             private:
-                static const std::map<void *, void *> SAMPLEMAP;
+                static const std::map<std::string, void *> SAMPLEMAP;
 
             private:
                 static const int MAX_NESTING;
@@ -329,10 +352,10 @@ namespace com
 // ================================================================================//  Helper Classes
 // --------------------------------------------------------------------------------
 {
-    // ===========================================================================
-    //  Class
-    // ---------------------------------------------------------------------------
-    class OpCode
+
+
+
+    class// ===========================================================================//  Class// ---------------------------------------------------------------------------OpCode
     {
         // ======================================================================
         //  Properties
@@ -343,14 +366,12 @@ namespace com
         unsigned int _flags;
     private:
         std::string _name;
-
+    private:
+        unsigned int _numRegister;
 
         // ======================================================================
-        //  Gettersprivate: unsigned int _numRegister;
 
 
-
-        // ----------------------------------------------------------------------
     public:
         unsigned int emitCode();
     public:
@@ -389,14 +410,12 @@ namespace com
         std::string _longName;
     private:
         unsigned int _flags;
-
+    private:
+        unsigned int _range;
 
         // ======================================================================
-        //  Gettersprivate: unsigned int _range;
 
 
-
-        // ----------------------------------------------------------------------
     public:
         unsigned int emitCode();
     public:
@@ -433,14 +452,12 @@ namespace com
         unsigned int _flag;
     private:
         unsigned int _mask;
-
+    private:
+        std::string _name;
 
         // ======================================================================
-        //  Gettersprivate: std::string _name;
 
 
-
-        // ----------------------------------------------------------------------
     public:
         unsigned int flag();
     public:

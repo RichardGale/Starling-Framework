@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -120,74 +128,74 @@ namespace starling
 /** Dispatched when an object is touched. Bubbles. */
 //[Event(name="touch",type="starling.events.TouchEvent")]
 
-/**
- *  The DisplayObject class is the base class for all objects that are rendered on the
- *  screen.
- *
- *  <p><strong>The Display Tree</strong></p>
- *
- *  <p>In Starling, all displayable objects are organized in a display tree. Only objects that
- *  are part of the display tree will be displayed (rendered).</p>
- *
- *  <p>The display tree consists of leaf nodes (Image, Quad) that will be rendered directly to
- *  the screen, and of container nodes (subclasses of "DisplayObjectContainer", like "Sprite").
- *  A container is simply a display object that has child nodes - which can, again, be either
- *  leaf nodes or other containers.</p>
- *
- *  <p>At the base of the display tree, there is the Stage, which is a container, too. To create
- *  a Starling application, you create a custom Sprite subclass, and Starling will add an
- *  instance of this class to the stage.</p>
- *
- *  <p>A display object has properties that define its position in relation to its parent
- *  (x, y), as well as its rotation and scaling factors (scaleX, scaleY). Use the
- *  <code>alpha</code> and <code>visible</code> properties to make an object translucent or
- *  invisible.</p>
- *
- *  <p>Every display object may be the target of touch events. If you don't want an object to be
- *  touchable, you can disable the "touchable" property. When it's disabled, neither the object
- *  nor its children will receive any more touch events.</p>
- *
- *  <strong>Transforming coordinates</strong>
- *
- *  <p>Within the display tree, each object has its own local coordinate system. If you rotate
- *  a container, you rotate that coordinate system - and thus all the children of the
- *  container.</p>
- *
- *  <p>Sometimes you need to know where a certain point lies relative to another coordinate
- *  system. That's the purpose of the method <code>getTransformationMatrix</code>. It will
- *  create a matrix that represents the transformation of a point in one coordinate system to
- *  another.</p>
- *
- *  <strong>Subclassing</strong>
- *
- *  <p>Since DisplayObject is an abstract class, you cannot instantiate it directly, but have
- *  to use one of its subclasses instead. There are already a lot of them available, and most
- *  of the time they will suffice.</p>
- *
- *  <p>However, you can create custom subclasses as well. That way, you can create an object
- *  with a custom render function. You will need to implement the following methods when you
- *  subclass DisplayObject:</p>
- *
- *  <ul>
- *    <li><code>function render(support:RenderSupport, parentAlpha:Number):void</code></li>
- *    <li><code>function getBounds(targetSpace:DisplayObject,
- *                                 resultRect:Rectangle=null):Rectangle</code></li>
- *  </ul>
- *
- *  <p>Have a look at the Quad class for a sample implementation of the 'getBounds' method.
- *  For a sample on how to write a custom render function, you can have a look at this
- *  <a href="http://wiki.starling-framework.org/manual/custom_display_objects">article</a>
- *  in the Starling Wiki.</p>
- *
- *  <p>When you override the render method, it is important that you call the method
- *  'finishQuadBatch' of the support object. This forces Starling to render all quads that
- *  were accumulated before by different render methods (for performance reasons). Otherwise,
- *  the z-ordering will be incorrect.</p>
- *
- *  @see DisplayObjectContainer
- *  @see Sprite
- *  @see Stage
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using namespace flash::geom;
 using namespace flash::geom;
 using namespace flash::geom;
@@ -207,12 +215,75 @@ namespace starling
 {
     namespace display
     {
-        class DisplayObject: public EventDispatcher
+        class/**
+     *  The DisplayObject class is the base class for all objects that are rendered on the
+     *  screen.
+     *
+     *  <p><strong>The Display Tree</strong></p>
+     *
+     *  <p>In Starling, all displayable objects are organized in a display tree. Only objects that
+     *  are part of the display tree will be displayed (rendered).</p>
+     *
+     *  <p>The display tree consists of leaf nodes (Image, Quad) that will be rendered directly to
+     *  the screen, and of container nodes (subclasses of "DisplayObjectContainer", like "Sprite").
+     *  A container is simply a display object that has child nodes - which can, again, be either
+     *  leaf nodes or other containers.</p>
+     *
+     *  <p>At the base of the display tree, there is the Stage, which is a container, too. To create
+     *  a Starling application, you create a custom Sprite subclass, and Starling will add an
+     *  instance of this class to the stage.</p>
+     *
+     *  <p>A display object has properties that define its position in relation to its parent
+     *  (x, y), as well as its rotation and scaling factors (scaleX, scaleY). Use the
+     *  <code>alpha</code> and <code>visible</code> properties to make an object translucent or
+     *  invisible.</p>
+     *
+     *  <p>Every display object may be the target of touch events. If you don't want an object to be
+     *  touchable, you can disable the "touchable" property. When it's disabled, neither the object
+     *  nor its children will receive any more touch events.</p>
+     *
+     *  <strong>Transforming coordinates</strong>
+     *
+     *  <p>Within the display tree, each object has its own local coordinate system. If you rotate
+     *  a container, you rotate that coordinate system - and thus all the children of the
+     *  container.</p>
+     *
+     *  <p>Sometimes you need to know where a certain point lies relative to another coordinate
+     *  system. That's the purpose of the method <code>getTransformationMatrix</code>. It will
+     *  create a matrix that represents the transformation of a point in one coordinate system to
+     *  another.</p>
+     *
+     *  <strong>Subclassing</strong>
+     *
+     *  <p>Since DisplayObject is an abstract class, you cannot instantiate it directly, but have
+     *  to use one of its subclasses instead. There are already a lot of them available, and most
+     *  of the time they will suffice.</p>
+     *
+     *  <p>However, you can create custom subclasses as well. That way, you can create an object
+     *  with a custom render function. You will need to implement the following methods when you
+     *  subclass DisplayObject:</p>
+     *
+     *  <ul>
+     *    <li><code>function render(support:RenderSupport, parentAlpha:Number):void</code></li>
+     *    <li><code>function getBounds(targetSpace:DisplayObject,
+     *                                 resultRect:Rectangle=null):Rectangle</code></li>
+     *  </ul>
+     *
+     *  <p>Have a look at the Quad class for a sample implementation of the 'getBounds' method.
+     *  For a sample on how to write a custom render function, you can have a look at this
+     *  <a href="http://wiki.starling-framework.org/manual/custom_display_objects">article</a>
+     *  in the Starling Wiki.</p>
+     *
+     *  <p>When you override the render method, it is important that you call the method
+     *  'finishQuadBatch' of the support object. This forces Starling to render all quads that
+     *  were accumulated before by different render methods (for performance reasons). Otherwise,
+     *  the z-ordering will be incorrect.</p>
+     *
+     *  @see DisplayObjectContainer
+     *  @see Sprite
+     *  @see Stage
+     */          DisplayObject: public EventDispatcher // membersprivate:  float mX;
         {
-            // members
-
-        private:
-            float mX;
         private:
             float mY;
         private:
@@ -252,11 +323,11 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static std::vector<DisplayObject *> *sAncestors;
+            static  std::vector<DisplayObject *> *sAncestors;
         private:
-            static Rectangle *sHelperRect;
+            static  Rectangle *sHelperRect;
         private:
-            static Matrix *sHelperMatrix;
+            static  Matrix *sHelperMatrix;
 
             /** @private */
         public:
@@ -269,38 +340,38 @@ namespace starling
 
             /** Removes the object from its parent, if it has one. */
         public:
-            void     removeFromParent(bool dispose);
+            void     removeFromParent(bool dispose   =false);
 
             /** Creates a matrix that represents the transformation from the local coordinate system
              *  to another. If you pass a 'resultMatrix', the result will be stored in this matrix
              *  instead of creating a new object. */
         public:
             Matrix  *getTransformationMatrix(DisplayObject *targetSpace,
-                                             Matrix *resultMatrix);
+                                             Matrix *resultMatrix=NULL);
 
             /** Returns a rectangle that completely encloses the object as it appears in another
              *  coordinate system. If you pass a 'resultRectangle', the result will be stored in this
              *  rectangle instead of creating a new object. */// optimization
         public:
-            Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect);
+            Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** Returns the object that is found topmost beneath a point in local coordinates, or nil if
              *  the test fails. If "forTouch" is true, untouchable and invisible objects will cause
              *  the test to fail. */
         public:
-            DisplayObject *hitTest(Point *localPoint, bool forTouch);
+            DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
 
             /** Transforms a point from the local coordinate system to global (stage) coordinates.
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object. */
         public:
-            Point   *localToGlobal(Point *localPoint, Point *resultPoint);
+            Point   *localToGlobal(Point *localPoint, Point *resultPoint=NULL);
 
             /** Transforms a point from global (stage) coordinates to the local coordinate system.
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object. */
         public:
-            Point   *globalToLocal(Point *globalPoint, Point *resultPoint);
+            Point   *globalToLocal(Point *globalPoint, Point *resultPoint=NULL);
 
             /** Renders the display object with the help of a support object. Never call this method
              *  directly, except from within another render method.
@@ -317,15 +388,15 @@ namespace starling
             // internal methods
 
             /** @private */
-            friend void     setParent(DisplayObjectContainer *value);
+            void setParent(DisplayObjectContainer *value);
 
             // helpers
 
         private:
-            bool     isEquivalent(float a, float b, float epsilon);
+            bool isEquivalent(float a, float b, float epsilon =0.0001);
 
         private:
-            float    normalizeAngle(float angle);
+            float normalizeAngle(float angle);
 
             // properties
 

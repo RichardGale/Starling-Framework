@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -110,8 +118,8 @@ namespace starling
 
             /** Creates an Image with a texture that is created from a bitmap object. */
         public:
-            static Image   *fromBitmap(Bitmap *bitmap, bool generateMipMaps,
-                                       float scale);
+            static Image *fromBitmap(Bitmap *bitmap, bool generateMipMaps   =true,
+                                     float scale =1);
 
             /** @inheritDoc */
         protected:
@@ -130,12 +138,12 @@ namespace starling
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object.*/
         public:
-            Point   *getTexCoords(int vertexID, Point *resultPoint);
+            Point   *getTexCoords(int vertexID, Point *resultPoint=NULL);
 
             /** Copies the raw vertex data to a VertexData instance.
              *  The texture coordinates are already in the format required for rendering. */
         public:
-            virtual void     copyVertexDataTo(VertexData *targetData, int targetVertexID);
+            virtual void     copyVertexDataTo(VertexData *targetData, int targetVertexID=0);
 
             /** The texture that is displayed on the quad. */
         public:

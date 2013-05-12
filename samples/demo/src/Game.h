@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace ui
@@ -107,7 +115,7 @@ private:
     Scene *mCurrentScene;
 
 private:
-    static AssetManager *sAssets;
+    static  AssetManager *sAssets;
 
 public:
     Game();

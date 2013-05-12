@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -221,7 +229,7 @@ namespace starling
 
             /** helper object */
         private:
-            static Point *sOrigin;
+            static  Point *sOrigin;
 
             /** @private */
         public:
@@ -237,16 +245,16 @@ namespace starling
             /** Creates a texture object from a bitmap.
              *  Beware: you must not dispose 'data' if Starling should handle a lost device context. */
         public:
-            static Texture *fromBitmap(Bitmap *data, bool generateMipMaps,
-                                       bool optimizeForRenderToTexture,
-                                       float scale);
+            static Texture *fromBitmap(Bitmap *data, bool generateMipMaps   =true,
+                                       bool optimizeForRenderToTexture   =false,
+                                       float scale =1);
 
             /** Creates a texture from bitmap data.
              *  Beware: you must not dispose 'data' if Starling should handle a lost device context. */
         public:
-            static Texture *fromBitmapData(BitmapData *data, bool generateMipMaps,
-                                           bool optimizeForRenderToTexture,
-                                           float scale);
+            static Texture *fromBitmapData(BitmapData *data, bool generateMipMaps   =true,
+                                           bool optimizeForRenderToTexture   =false,
+                                           float scale =1);
 
             /** Creates a texture from the compressed ATF format. If you don't want to use any embedded
              *  mipmaps, you can disable them by setting "useMipMaps" to <code>false</code>.
@@ -257,8 +265,8 @@ namespace starling
              *  as the callback has been executed. This is the expected function definition:
              *  <code>function(texture:Texture):void;</code></p> */
         public:
-            static Texture *fromAtfData(ByteArray *data, float scale, bool useMipMaps,
-                                        Function *loadAsync);
+            static Texture *fromAtfData(ByteArray *data, float scale =1, bool useMipMaps   =true,
+                                        Function *loadAsync=NULL);
 
             /** Creates a texture with a certain size and color.
              *
@@ -269,9 +277,9 @@ namespace starling
              *  @param scale:  if you omit this parameter, 'Starling.contentScaleFactor' will be used.
              */
         public:
-            static Texture *fromColor(int width, int height, unsigned int color,
-                                      bool optimizeForRenderToTexture,
-                                      float scale);
+            static Texture *fromColor(int width, int height, unsigned int color=0xffffffff,
+                                      bool optimizeForRenderToTexture   =false,
+                                      float scale =-1);
 
             /** Creates an empty texture of a certain size. Useful mainly for render textures.
              *  Beware that the texture can only be used after you either upload some color data or
@@ -284,14 +292,14 @@ namespace starling
              *  @param scale:  if you omit this parameter, 'Starling.contentScaleFactor' will be used.
              */
         public:
-            static Texture *empty(int width, int height, bool premultipliedAlpha,
-                                  bool optimizeForRenderToTexture,
-                                  float scale);
+            static Texture *empty(int width=64, int height=64, bool premultipliedAlpha   =false,
+                                  bool optimizeForRenderToTexture   =true,
+                                  float scale =-1);
 
             /** Creates a texture that contains a region (in pixels) of another texture. The new
              *  texture will reference the base texture; no data is duplicated. */
         public:
-            static Texture *fromTexture(Texture *texture, Rectangle *region, Rectangle *frame);
+            static Texture *fromTexture(Texture *texture, Rectangle *region=NULL, Rectangle *frame=NULL);
 
             /** Converts texture coordinates and vertex positions of raw vertex data into the format
              *  required for rendering. */
@@ -299,13 +307,13 @@ namespace starling
             void     adjustVertexData(VertexData *vertexData, int vertexID, int count);
 
             /** @private Uploads the bitmap data to the native texture, optionally creating mipmaps. */
-            friend static void     uploadBitmapData(flash::display3D::textures::Texture *nativeTexture,
-                                                    BitmapData *data, bool generateMipmaps);
+            static void     uploadBitmapData(flash::display3D::textures::Texture *nativeTexture,
+                                             BitmapData *data, bool generateMipmaps);
 
             /** @private Uploads ATF data from a ByteArray to a native texture. */
-            friend static void     uploadAtfData(flash::display3D::textures::Texture *nativeTexture,
-                                                 ByteArray *data, int offset,
-                                                 bool async);
+            static void     uploadAtfData(flash::display3D::textures::Texture *nativeTexture,
+                                          ByteArray *data, int offset=0,
+                                          bool async   =false);
 
             // properties
 

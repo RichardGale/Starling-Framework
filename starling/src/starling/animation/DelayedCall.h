@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace starling
 {
     namespace events
@@ -21,6 +29,8 @@ namespace starling
     }
 }
 #include "starling/events/EventDispatcher.h"
+
+#include "starling/animation/IAnimatable.h"
 
 /** A DelayedCall allows you to execute a method after a certain time has passed. Since it
  *  implements the IAnimatable interface, it can be added to a juggler. In most cases, you
@@ -34,6 +44,7 @@ namespace starling
  */
 using namespace starling::events;
 using namespace starling::events;
+using namespace starling::animation;
 
 namespace starling
 {
@@ -54,11 +65,11 @@ namespace starling
 
             /** Creates a delayed call. */
         public:
-            DelayedCall(Function *call, float delay, std::vector<void *> args);
+            DelayedCall(Function *call, float delay, std::vector<void *> args=NULL);
 
             /** Resets the delayed call to its default values, which is useful for pooling. */
         public:
-            DelayedCall *reset(Function *call, float delay, std::vector<void *> args);
+            DelayedCall *reset(Function *call, float delay, std::vector<void *> args=NULL);
 
             /** @inheritDoc */
         public:

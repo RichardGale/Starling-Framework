@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -45,10 +53,10 @@ namespace utils
     class RoundButton: public Button
     {
     public:
-        RoundButton(Texture *upState, std::string text, Texture *downState);
+        RoundButton(Texture *upState, std::string text="", Texture *downState=NULL);
 
     public:
-        virtual DisplayObject *hitTest(Point *localPoint, bool forTouch);
+        virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
     };
 }
 

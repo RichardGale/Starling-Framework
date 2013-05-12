@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -89,7 +97,7 @@ private:
     void     onEnterFrame(Event *event);
 
 private:
-    Shape   *createProgressIndicator(float radius, int elements);
+    Shape   *createProgressIndicator(float radius =12, int elements=8);
 
 private:
     void     dispose();

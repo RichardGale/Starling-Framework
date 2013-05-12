@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -87,16 +95,16 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static Point *sHelperPoint;
+            static  Point *sHelperPoint;
         private:
-            static Matrix *sHelperMatrix;
+            static  Matrix *sHelperMatrix;
 
             /** Creates a quad with a certain size and color. The last parameter controls if the
              *  alpha value should be premultiplied into the color values on rendering, which can
              *  influence blending output. You can use the default value in most cases.  */
         public:
-            Quad(float width, float height, unsigned int color,
-                 bool premultipliedAlpha);
+            Quad(float width, float height, unsigned int color=0xffffff,
+                 bool premultipliedAlpha   =true);
 
             /** Call this method after manually changing the contents of 'mVertexData'. */
         protected:
@@ -104,7 +112,7 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect);
+            virtual Rectangle *getBounds(DisplayObject *targetSpace, Rectangle *resultRect=NULL);
 
             /** Returns the color of a vertex at a certain index. */// optimization
         public:
@@ -136,7 +144,7 @@ namespace starling
 
             /** Copies the raw vertex data to a VertexData instance. */
         public:
-            void     copyVertexDataTo(VertexData *targetData, int targetVertexID);
+            void     copyVertexDataTo(VertexData *targetData, int targetVertexID=0);
 
             /** @inheritDoc */
         public:

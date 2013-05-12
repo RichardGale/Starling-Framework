@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -91,24 +99,24 @@ namespace tests
     class Helpers
     {
     public:
-        static void     compareRectangles(Rectangle *rect1, Rectangle *rect2,
-                                          float e);
+        static void compareRectangles(Rectangle *rect1, Rectangle *rect2,
+                                      float e =0.0001);
 
     public:
-        static void     comparePoints(Point *point1, Point *point2, float e);
+        static void comparePoints(Point *point1, Point *point2, float e =0.0001);
 
     public:
-        static void     compareVector3Ds(Vector3D *v1, Vector3D *v2, float e);
+        static void compareVector3Ds(Vector3D *v1, Vector3D *v2, float e =0.0001);
 
     public:
-        static void     compareVectors(std::vector<float> *vector1, std::vector<float> *vector2,
-                                       float e);
+        static void compareVectors(std::vector<float> *vector1, std::vector<float> *vector2,
+                                   float e =0.0001);
 
     public:
-        static void     compareMatrices(Matrix *matrix1, Matrix *matrix2, float e);
+        static void compareMatrices(Matrix *matrix1, Matrix *matrix2, float e =0.0001);
 
     public:
-        static void     assertDoesNotThrow(Function *block);
+        static void assertDoesNotThrow(Function *block);
     };
 }
 

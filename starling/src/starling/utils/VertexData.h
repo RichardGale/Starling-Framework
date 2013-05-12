@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -96,22 +104,22 @@ namespace starling
 
             /** Helper object. */
         private:
-            static Point *sHelperPoint;
+            static  Point *sHelperPoint;
 
             /** Create a new VertexData object with a specified number of vertices. */
         public:
-            VertexData(int numVertices, bool premultipliedAlpha);
+            VertexData(int numVertices, bool premultipliedAlpha   =false);
 
             /** Creates a duplicate of either the complete vertex data object, or of a subset.
              *  To clone all vertices, set 'numVertices' to '-1'. */
         public:
-            VertexData *clone(int vertexID, int numVertices);
+            VertexData *clone(int vertexID=0, int numVertices=-1);
 
             /** Copies the vertex data (or a range of it, defined by 'vertexID' and 'numVertices')
              *  of this instance to another vertex data object, starting at a certain index. */
         public:
-            void     copyTo(VertexData *targetData, int targetVertexID,
-                            int vertexID, int numVertices);
+            void     copyTo(VertexData *targetData, int targetVertexID=0,
+                            int vertexID=0, int numVertices=-1);
 
             /** Appends the vertices from another VertexData object. */
         public:
@@ -160,7 +168,7 @@ namespace starling
             /** Transforms the position of subsequent vertices by multiplication with a
              *  transformation matrix. */
         public:
-            void     transformVertex(int vertexID, Matrix *matrix, int numVertices);
+            void     transformVertex(int vertexID, Matrix *matrix, int numVertices=1);
 
             /** Sets all vertices of the object to the same color values. */
         public:
@@ -172,7 +180,7 @@ namespace starling
 
             /** Multiplies the alpha value of subsequent vertices with a certain delta. */
         public:
-            void     scaleAlpha(int vertexID, float alpha, int numVertices);
+            void     scaleAlpha(int vertexID, float alpha, int numVertices=1);
 
         private:
             int      getOffset(int vertexID);
@@ -182,9 +190,9 @@ namespace starling
              *  instead of creating a new object. To use all vertices for the calculation, set
              *  'numVertices' to '-1'. */
         public:
-            Rectangle *getBounds(Matrix *transformationMatrix,
-                                 int vertexID, int numVertices,
-                                 Rectangle *resultRect);
+            Rectangle *getBounds(Matrix *transformationMatrix=NULL,
+                                 int vertexID=0, int numVertices=-1,
+                                 Rectangle *resultRect=NULL);
 
             // properties
 
@@ -194,7 +202,7 @@ namespace starling
 
             /** Changes the way alpha and color values are stored. Updates all exisiting vertices. */
         public:
-            void     setPremultipliedAlpha(bool value, bool updateData);
+            void     setPremultipliedAlpha(bool value, bool updateData   =true);
 
             /** Indicates if the rgb values are stored premultiplied with the alpha value. */
         public:

@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -77,7 +85,7 @@ namespace starling
             virtual void     dispose();
 
         public:
-            void     moveMarker(float x, float y, bool withCenter);
+            void     moveMarker(float x, float y, bool withCenter   =false);
 
         public:
             void     moveCenter(float x, float y);

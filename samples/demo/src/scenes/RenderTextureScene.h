@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -107,7 +115,7 @@ namespace scenes
     private:
         Button *mButton;
     private:
-        std::map<void *, void *> mColors;
+        std::map<std::string, void *> mColors;
 
     public:
         RenderTextureScene();

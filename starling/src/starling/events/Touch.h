@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace geom
@@ -119,7 +127,7 @@ namespace starling
 
             /** Helper object. */
         private:
-            static Matrix *sHelperMatrix;
+            static  Matrix *sHelperMatrix;
 
             /** Creates a new Touch object. */
         public:
@@ -129,19 +137,19 @@ namespace starling
              *  object. If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object.*/
         public:
-            Point   *getLocation(DisplayObject *space, Point *resultPoint);
+            Point   *getLocation(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Converts the previous location of a touch to the local coordinate system of a display
              *  object. If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object.*/
         public:
-            Point   *getPreviousLocation(DisplayObject *space, Point *resultPoint);
+            Point   *getPreviousLocation(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Returns the movement of the touch between the current and previous location.
              *  If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object. */
         public:
-            Point   *getMovement(DisplayObject *space, Point *resultPoint);
+            Point   *getMovement(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Indicates if the target or one of its children is touched. */
         public:
@@ -219,31 +227,31 @@ namespace starling
             /** @private
              *  Dispatches a touch event along the current bubble chain (which is updated each time
              *  a target is set). */
-            starling_internal void     dispatchEvent(TouchEvent *event);
+            void dispatchEvent(TouchEvent *event);
 
             /** @private */
-            starling_internal std::vector<EventDispatcher *> *bubbleChain();
+            std::vector<EventDispatcher *> *bubbleChain();
 
             /** @private */
-            starling_internal void     setTarget(DisplayObject *value);
+            void setTarget(DisplayObject *value);
 
             /** @private */
-            starling_internal void     setPosition(float globalX, float globalY);
+            void setPosition(float globalX, float globalY);
 
             /** @private */
-            starling_internal void     setSize(float width, float height);
+            void setSize(float width, float height);
 
             /** @private */
-            starling_internal void     setPhase(std::string value);
+            void setPhase(std::string value);
 
             /** @private */
-            starling_internal void     setTapCount(int value);
+            void setTapCount(int value);
 
             /** @private */
-            starling_internal void     setTimestamp(float value);
+            void setTimestamp(float value);
 
             /** @private */
-            starling_internal void     setPressure(float value);
+            void setPressure(float value);
         };
     }
 }

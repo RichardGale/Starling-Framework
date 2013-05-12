@@ -13,6 +13,16 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
+#include "Error.h"
+
 /** An AbstractClassError is thrown when you attempt to create an instance of an abstract
  *  class. */
 
@@ -24,7 +34,7 @@ namespace starling
         {
             /** Creates a new AbstractClassError object. */
         public:
-            AbstractClassError(void *message, void *id);
+            AbstractClassError(std::string message="", int id=0);
         };
     }
 }

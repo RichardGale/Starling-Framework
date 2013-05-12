@@ -3,6 +3,14 @@
 #if defined(__cplusplus)
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 class Array;
 
 #include "flash/display/Sprite.h"
@@ -76,7 +84,6 @@ namespace tests
     class VertexDataTest;
 }
 
-using namespace ;
 using namespace flash::display;
 using namespace flexunit::flexui;
 using namespace tests;

@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display3D
@@ -59,7 +67,7 @@ namespace starling
         class BlendMode
         {
         private:
-            static std::vector<void *> sBlendFactors;
+            static  std::vector<void *> sBlendFactors;
 
             // predifined modes
 
@@ -101,14 +109,14 @@ namespace starling
             /** Returns the blend factors that correspond with a certain mode and premultiplied alpha
              *  value. Throws an ArgumentError if the mode does not exist. */
         public:
-            static std::vector<void *> getBlendFactors(std::string mode, bool premultipliedAlpha);
+            static std::vector<void *> getBlendFactors(std::string mode, bool premultipliedAlpha   =true);
 
             /** Registeres a blending mode under a certain name and for a certain premultiplied alpha
              *  (pma) value. If the mode for the other pma value was not yet registered, the factors are
              *  used for both pma settings. */
         public:
-            static void     REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
-                                     bool premultipliedAlpha);
+            static void REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
+                                 bool premultipliedAlpha   =true);
         };
     }
 }

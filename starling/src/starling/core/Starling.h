@@ -13,6 +13,14 @@
 
 
 
+#include <map>
+#include <string>
+#include <vector>
+#include "Object.h"
+#include "Function.h"
+#include "Math.h"
+#include "Class.h"
+#include "RegExp.h"
 namespace flash
 {
     namespace display
@@ -260,102 +268,102 @@ namespace starling
 /** Dispatched when the root class has been created. */
 //[Event(name="rootCreated",type="starling.events.Event")]
 
-/** The Starling class represents the core of the Starling framework.
- *
- *  <p>The Starling framework makes it possible to create 2D applications and games that make
- *  use of the Stage3D architecture introduced in Flash Player 11. It implements a display tree
- *  system that is very similar to that of conventional Flash, while leveraging modern GPUs
- *  to speed up rendering.</p>
- *
- *  <p>The Starling class represents the link between the conventional Flash display tree and
- *  the Starling display tree. To create a Starling-powered application, you have to create
- *  an instance of the Starling class:</p>
- *
- *  <pre>var starling:Starling = new Starling(Game, stage);</pre>
- *
- *  <p>The first parameter has to be a Starling display object class, e.g. a subclass of
- *  <code>starling.display.Sprite</code>. In the sample above, the class "Game" is the
- *  application root. An instance of "Game" will be created as soon as Starling is initialized.
- *  The second parameter is the conventional (Flash) stage object. Per default, Starling will
- *  display its contents directly below the stage.</p>
- *
- *  <p>It is recommended to store the Starling instance as a member variable, to make sure
- *  that the Garbage Collector does not destroy it. After creating the Starling object, you
- *  have to start it up like this:</p>
- *
- *  <pre>starling.start();</pre>
- *
- *  <p>It will now render the contents of the "Game" class in the frame rate that is set up for
- *  the application (as defined in the Flash stage).</p>
- *
- *  <strong>Accessing the Starling object</strong>
- *
- *  <p>From within your application, you can access the current Starling object anytime
- *  through the static method <code>Starling.current</code>. It will return the active Starling
- *  instance (most applications will only have one Starling object, anyway).</p>
- *
- *  <strong>Viewport</strong>
- *
- *  <p>The area the Starling content is rendered into is, per default, the complete size of the
- *  stage. You can, however, use the "viewPort" property to change it. This can be  useful
- *  when you want to render only into a part of the screen, or if the player size changes. For
- *  the latter, you can listen to the RESIZE-event dispatched by the Starling
- *  stage.</p>
- *
- *  <strong>Native overlay</strong>
- *
- *  <p>Sometimes you will want to display native Flash content on top of Starling. That's what the
- *  <code>nativeOverlay</code> property is for. It returns a Flash Sprite lying directly
- *  on top of the Starling content. You can add conventional Flash objects to that overlay.</p>
- *
- *  <p>Beware, though, that conventional Flash content on top of 3D content can lead to
- *  performance penalties on some (mobile) platforms. For that reason, always remove all child
- *  objects from the overlay when you don't need them any longer. Starling will remove the
- *  overlay from the display list when it's empty.</p>
- *
- *  <strong>Multitouch</strong>
- *
- *  <p>Starling supports multitouch input on devices that provide it. During development,
- *  where most of us are working with a conventional mouse and keyboard, Starling can simulate
- *  multitouch events with the help of the "Shift" and "Ctrl" (Mac: "Cmd") keys. Activate
- *  this feature by enabling the <code>simulateMultitouch</code> property.</p>
- *
- *  <strong>Handling a lost render context</strong>
- *
- *  <p>On some operating systems and under certain conditions (e.g. returning from system
- *  sleep), Starling's stage3D render context may be lost. Starling can recover from a lost
- *  context if the class property "handleLostContext" is set to "true". Keep in mind, however,
- *  that this comes at the price of increased memory consumption; Starling will cache textures
- *  in RAM to be able to restore them when the context is lost.</p>
- *
- *  <p>In case you want to react to a context loss, Starling dispatches an event with
- *  the type "Event.CONTEXT3D_CREATE" when the context is restored. You can recreate any
- *  invalid resources in a corresponding event listener.</p>
- *
- *  <strong>Sharing a 3D Context</strong>
- *
- *  <p>Per default, Starling handles the Stage3D context independently. If you want to combine
- *  Starling with another Stage3D engine, however, this may not be what you want. In this case,
- *  you can make use of the <code>shareContext</code> property:</p>
- *
- *  <ol>
- *    <li>Manually create and configure a context3D object that both frameworks can work with
- *        (through <code>stage3D.requestContext3D</code> and
- *        <code>context.configureBackBuffer</code>).</li>
- *    <li>Initialize Starling with the stage3D instance that contains that configured context.
- *        This will automatically enable <code>shareContext</code>.</li>
- *    <li>Call <code>start()</code> on your Starling instance (as usual). This will make
- *        Starling queue input events (keyboard/mouse/touch).</li>
- *    <li>Create a game loop (e.g. using the native <code>ENTER_FRAME</code> event) and let it
- *        call Starling's <code>nextFrame</code> as well as the equivalent method of the other
- *        Stage3D engine. Surround those calls with <code>context.clear()</code> and
- *        <code>context.present()</code>.</li>
- *  </ol>
- *
- *  <p>The Starling wiki contains a <a href="http://goo.gl/BsXzw">tutorial</a> with more
- *  information about this topic.</p>
- *
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 using namespace flash::display;
 using namespace flash::display;
 using namespace flash::display;
@@ -396,10 +404,104 @@ namespace starling
 {
     namespace core
     {
-        class Starling: public EventDispatcher
+        class/** The Starling class represents the core of the Starling framework.
+     *
+     *  <p>The Starling framework makes it possible to create 2D applications and games that make
+     *  use of the Stage3D architecture introduced in Flash Player 11. It implements a display tree
+     *  system that is very similar to that of conventional Flash, while leveraging modern GPUs
+     *  to speed up rendering.</p>
+     *
+     *  <p>The Starling class represents the link between the conventional Flash display tree and
+     *  the Starling display tree. To create a Starling-powered application, you have to create
+     *  an instance of the Starling class:</p>
+     *
+     *  <pre>var starling:Starling = new Starling(Game, stage);</pre>
+     *
+     *  <p>The first parameter has to be a Starling display object class, e.g. a subclass of
+     *  <code>starling.display.Sprite</code>. In the sample above, the class "Game" is the
+     *  application root. An instance of "Game" will be created as soon as Starling is initialized.
+     *  The second parameter is the conventional (Flash) stage object. Per default, Starling will
+     *  display its contents directly below the stage.</p>
+     *
+     *  <p>It is recommended to store the Starling instance as a member variable, to make sure
+     *  that the Garbage Collector does not destroy it. After creating the Starling object, you
+     *  have to start it up like this:</p>
+     *
+     *  <pre>starling.start();</pre>
+     *
+     *  <p>It will now render the contents of the "Game" class in the frame rate that is set up for
+     *  the application (as defined in the Flash stage).</p>
+     *
+     *  <strong>Accessing the Starling object</strong>
+     *
+     *  <p>From within your application, you can access the current Starling object anytime
+     *  through the static method <code>Starling.current</code>. It will return the active Starling
+     *  instance (most applications will only have one Starling object, anyway).</p>
+     *
+     *  <strong>Viewport</strong>
+     *
+     *  <p>The area the Starling content is rendered into is, per default, the complete size of the
+     *  stage. You can, however, use the "viewPort" property to change it. This can be  useful
+     *  when you want to render only into a part of the screen, or if the player size changes. For
+     *  the latter, you can listen to the RESIZE-event dispatched by the Starling
+     *  stage.</p>
+     *
+     *  <strong>Native overlay</strong>
+     *
+     *  <p>Sometimes you will want to display native Flash content on top of Starling. That's what the
+     *  <code>nativeOverlay</code> property is for. It returns a Flash Sprite lying directly
+     *  on top of the Starling content. You can add conventional Flash objects to that overlay.</p>
+     *
+     *  <p>Beware, though, that conventional Flash content on top of 3D content can lead to
+     *  performance penalties on some (mobile) platforms. For that reason, always remove all child
+     *  objects from the overlay when you don't need them any longer. Starling will remove the
+     *  overlay from the display list when it's empty.</p>
+     *
+     *  <strong>Multitouch</strong>
+     *
+     *  <p>Starling supports multitouch input on devices that provide it. During development,
+     *  where most of us are working with a conventional mouse and keyboard, Starling can simulate
+     *  multitouch events with the help of the "Shift" and "Ctrl" (Mac: "Cmd") keys. Activate
+     *  this feature by enabling the <code>simulateMultitouch</code> property.</p>
+     *
+     *  <strong>Handling a lost render context</strong>
+     *
+     *  <p>On some operating systems and under certain conditions (e.g. returning from system
+     *  sleep), Starling's stage3D render context may be lost. Starling can recover from a lost
+     *  context if the class property "handleLostContext" is set to "true". Keep in mind, however,
+     *  that this comes at the price of increased memory consumption; Starling will cache textures
+     *  in RAM to be able to restore them when the context is lost.</p>
+     *
+     *  <p>In case you want to react to a context loss, Starling dispatches an event with
+     *  the type "Event.CONTEXT3D_CREATE" when the context is restored. You can recreate any
+     *  invalid resources in a corresponding event listener.</p>
+     *
+     *  <strong>Sharing a 3D Context</strong>
+     *
+     *  <p>Per default, Starling handles the Stage3D context independently. If you want to combine
+     *  Starling with another Stage3D engine, however, this may not be what you want. In this case,
+     *  you can make use of the <code>shareContext</code> property:</p>
+     *
+     *  <ol>
+     *    <li>Manually create and configure a context3D object that both frameworks can work with
+     *        (through <code>stage3D.requestContext3D</code> and
+     *        <code>context.configureBackBuffer</code>).</li>
+     *    <li>Initialize Starling with the stage3D instance that contains that configured context.
+     *        This will automatically enable <code>shareContext</code>.</li>
+     *    <li>Call <code>start()</code> on your Starling instance (as usual). This will make
+     *        Starling queue input events (keyboard/mouse/touch).</li>
+     *    <li>Create a game loop (e.g. using the native <code>ENTER_FRAME</code> event) and let it
+     *        call Starling's <code>nextFrame</code> as well as the equivalent method of the other
+     *        Stage3D engine. Surround those calls with <code>context.clear()</code> and
+     *        <code>context.present()</code>.</li>
+     *  </ol>
+     *
+     *  <p>The Starling wiki contains a <a href="http://goo.gl/BsXzw">tutorial</a> with more
+     *  information about this topic.</p>
+     *
+     */          Starling: public EventDispatcher
         {
-            /** The version of the Starling framework. */
-        public:
+        /** The version of the Starling framework. */public:
             static const std::string VERSION;
 
             /** The key for the shader programs stored in 'contextData' */
@@ -460,11 +562,11 @@ namespace starling
             float mNativeStageContentScaleFactor;
 
         private:
-            static Starling *sCurrent;
+            static  Starling *sCurrent;
         private:
-            static bool sHandleLostContext;
+            static  bool sHandleLostContext;
         private:
-            static std::map<void *, void *> sContextData;
+            static  std::map<std::string, void *> sContextData;
 
             // construction
 
@@ -483,8 +585,8 @@ namespace starling
              */
         public:
             Starling(Class *rootClass, flash::display::Stage *stage,
-                     Rectangle *viewPort, Stage3D *stage3D,
-                     std::string renderMode, std::string profile);
+                     Rectangle *viewPort=NULL, Stage3D *stage3D=NULL,
+                     std::string renderMode="auto", std::string profile="baselineConstrained");
 
             /** Disposes all children of the stage and the render context; removes all registered
              *  event listeners. */
@@ -518,7 +620,7 @@ namespace starling
             void     render();
 
         private:
-            void     updateViewPort(bool forceUpdate);
+            void     updateViewPort(bool forceUpdate   =false);
 
         private:
             void     updateNativeOverlay();
@@ -590,7 +692,7 @@ namespace starling
             bool     hasProgram(std::string name);
 
         private:
-            std::map<void *, void *> programs();
+            std::map<std::string, void *> programs();
 
             // properties
 
@@ -616,7 +718,7 @@ namespace starling
              *  The Dictionary is actually bound to the stage3D instance, thus it survives a
              *  context loss. */
         public:
-            std::map<void *, void *> contextData();
+            std::map<std::string, void *> contextData();
 
             /** Indicates if multitouch simulation with "Shift" and "Ctrl"/"Cmd"-keys is enabled.
              *  @default false */
@@ -662,7 +764,7 @@ namespace starling
 
             /** Displays the statistics box at a certain position. */
         public:
-            void     showStatsAt(std::string hAlign, std::string vAlign, float scale);
+            void     showStatsAt(std::string hAlign="left", std::string vAlign="top", float scale =1);
 
             /** The Starling stage object, which is the root of the display tree that is rendered. */
         public:
@@ -706,26 +808,26 @@ namespace starling
 
             /** The currently active Starling instance. */
         public:
-            static Starling    *current();
+            static Starling *current();
 
             /** The render context of the currently active Starling instance. */
         public:
-            static Context3D   *context();
+            static Context3D *context();
 
             /** The default juggler of the currently active Starling instance. */
         public:
-            static Juggler     *juggler();
+            static Juggler *juggler();
 
             /** The contentScaleFactor of the currently active Starling instance. */
         public:
-            static float        contentScaleFactor();
+            static float contentScaleFactor();
 
             /** Indicates if multitouch input should be supported. */
         public:
-            static bool         multitouchEnabled();
+            static bool  multitouchEnabled();
 
         public:
-            static void         multitouchEnabled(bool value);
+            static void  multitouchEnabled(bool value);
 
             /** Indicates if Starling should automatically recover from a lost device context.
              *  On some systems, an upcoming screensaver or entering sleep mode may
@@ -734,9 +836,9 @@ namespace starling
              *  It is recommended to enable this setting on Android and Windows, but to deactivate it
              *  on iOS and Mac OS X. @default false */
         public:
-            static bool         handleLostContext();
+            static bool  handleLostContext();
         public:
-            static void         handleLostContext(bool value);
+            static void  handleLostContext(bool value);
         };
     }
 }
