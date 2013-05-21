@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -100,7 +93,9 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+#include "starling/display/DisplayObject.h"
+
+//use namespace starling_internal;
 
 /**
  *  A DisplayObjectContainer represents a collection of display objects.
@@ -139,13 +134,12 @@ namespace starling
  *  @see Sprite
  *  @see DisplayObject
  */
-using namespace flash::geom;
-using namespace flash::geom;
+
 using namespace flash::geom;
 using namespace flash::system;
 using namespace flash::utils;
 using namespace starling::core;
-using namespace starling::core;
+using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::events;
 using namespace starling::filters;
@@ -155,19 +149,19 @@ namespace starling
 {
     namespace display
     {
-        class DisplayObjectContainer: public DisplayObject
+        class DisplayObjectContainer : public starling::display::DisplayObject
         {
             // members
         private:
-            std::vector<DisplayObject *> *mChildren;
+            std::vector<DisplayObject *> mChildren;
 
             /** Helper objects. */
         private:
-            static  Matrix *sHelperMatrix;
+            static Matrix *sHelperMatrix;
         private:
-            static  Point *sHelperPoint;
+            static Point *sHelperPoint;
         private:
-            static  std::vector<DisplayObject *> *sBroadcastListeners;
+            static std::vector<DisplayObject *> sBroadcastListeners;
 
             // construction
 
@@ -260,7 +254,7 @@ namespace starling
 
         private:
             void     getChildEventListeners(DisplayObject *object, std::string eventType,
-                                            std::vector<DisplayObject *> *listeners);
+                                            std::vector<DisplayObject *> listeners);
 
             /** The number of children of this container. */
         public:

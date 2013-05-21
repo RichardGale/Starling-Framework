@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 class Array;
 
 #include "flash/display/Sprite.h"
@@ -87,22 +80,8 @@ namespace tests
 using namespace flash::display;
 using namespace flexunit::flexui;
 using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
 
-class FlexUnitApplication: public Sprite
+class FlexUnitApplication : public flash::display::Sprite
 {
 public:
     FlexUnitApplication();

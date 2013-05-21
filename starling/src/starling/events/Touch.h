@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -65,7 +58,7 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+//use namespace starling_internal;
 
 /** A Touch object contains information about the presence or movement of a finger
  *  or the mouse on the screen.
@@ -85,11 +78,10 @@ namespace starling
  *  @see TouchEvent
  *  @see TouchPhase
  */
-using namespace flash::geom;
+
 using namespace flash::geom;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
@@ -123,11 +115,11 @@ namespace starling
         private:
             float mHeight;
         private:
-            std::vector<EventDispatcher *> *mBubbleChain;
+            std::vector<EventDispatcher *> mBubbleChain;
 
             /** Helper object. */
         private:
-            static  Matrix *sHelperMatrix;
+            static Matrix *sHelperMatrix;
 
             /** Creates a new Touch object. */
         public:
@@ -227,31 +219,31 @@ namespace starling
             /** @private
              *  Dispatches a touch event along the current bubble chain (which is updated each time
              *  a target is set). */
-            void dispatchEvent(TouchEvent *event);
+            void     dispatchEvent(TouchEvent *event);
 
             /** @private */
-            std::vector<EventDispatcher *> *bubbleChain();
+            std::vector<EventDispatcher *> bubbleChain();
 
             /** @private */
-            void setTarget(DisplayObject *value);
+            void     setTarget(DisplayObject *value);
 
             /** @private */
-            void setPosition(float globalX, float globalY);
+            void     setPosition(float globalX, float globalY);
 
             /** @private */
-            void setSize(float width, float height);
+            void     setSize(float width, float height);
 
             /** @private */
-            void setPhase(std::string value);
+            void     setPhase(std::string value);
 
             /** @private */
-            void setTapCount(int value);
+            void     setTapCount(int value);
 
             /** @private */
-            void setTimestamp(float value);
+            void     setTimestamp(float value);
 
             /** @private */
-            void setPressure(float value);
+            void     setPressure(float value);
         };
     }
 }

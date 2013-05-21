@@ -13,21 +13,17 @@
 #include "TextFieldAutoSize.h"
 #include "starling/errors/AbstractClassError.h"
 
-/** This class is an enumeration of constant values used in setting the
- *  autoSize property of the TextField class. */
+    /** This class is an enumeration of constant values used in setting the 
+     *  autoSize property of the TextField class. */
+
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace text
-    {
+namespace starling {
+namespace text {
 
 
         /** @private */
-        TextFieldAutoSize::TextFieldAutoSize()
-        {
-            throw new AbstractClassError();
-        }
+        TextFieldAutoSize::TextFieldAutoSize() { throw new AbstractClassError(); }
 
         /** No auto-sizing will happen. */
         const std::string TextFieldAutoSize::NONE="none";
@@ -42,6 +38,6 @@ namespace starling
 
         /** The text field will grow to the right and bottom; no line-breaks will be added. */
         const std::string TextFieldAutoSize::BOTH_DIRECTIONS="bothDirections";
-    }
+}
 }
 

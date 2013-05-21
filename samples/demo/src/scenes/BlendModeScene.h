@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace display
@@ -48,14 +41,12 @@ namespace starling
 }
 
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::events;
 using namespace starling::text;
 
 namespace scenes
 {
-    class BlendModeScene: public Scene
+    class BlendModeScene : public Scene
     {
     private:
         Button *mButton;

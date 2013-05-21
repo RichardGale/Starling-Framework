@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace errors
@@ -58,7 +51,9 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+#include "starling/display/DisplayObjectContainer.h"
+
+//use namespace starling_internal;
 
 /** Dispatched when the Flash container is resized. */
 //[Event(name="resize",type="starling.events.ResizeEvent")]
@@ -69,68 +64,43 @@ namespace starling
 /** Dispatched when a key on the keyboard is pressed. */
 //[Event(name="keyDown",type="starling.events.KeyboardEvent")]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using namespace flash::errors;
 using namespace flash::geom;
 using namespace starling::core;
-using namespace starling::events;
+using namespace starling::display;
 using namespace starling::events;
 
 namespace starling
 {
     namespace display
     {
-        class/** A Stage represents the root of the display tree.
-     *  Only objects that are direct or indirect children of the stage will be rendered.
-     *
-     *  <p>This class represents the Starling version of the stage. Don't confuse it with its
-     *  Flash equivalent: while the latter contains objects of the type
-     *  <code>flash.display.DisplayObject</code>, the Starling stage contains only objects of the
-     *  type <code>starling.display.DisplayObject</code>. Those classes are not compatible, and
-     *  you cannot exchange one type with the other.</p>
-     *
-     *  <p>A stage object is created automatically by the <code>Starling</code> class. Don't
-     *  create a Stage instance manually.</p>
-     *
-     *  <strong>Keyboard Events</strong>
-     *
-     *  <p>In Starling, keyboard events are only dispatched at the stage. Add an event listener
-     *  directly to the stage to be notified of keyboard events.</p>
-     *
-     *  <strong>Resize Events</strong>
-     *
-     *  <p>When the Flash player is resized, the stage dispatches a <code>ResizeEvent</code>. The
-     *  event contains properties containing the updated width and height of the Flash player.</p>
-     *
-     *  @see starling.events.KeyboardEvent
-     *  @see starling.events.ResizeEvent
-     *
-     * */        Stage: public DisplayObjectContainer
+        /** A Stage represents the root of the display tree.
+         *  Only objects that are direct or indirect children of the stage will be rendered.
+         *
+         *  <p>This class represents the Starling version of the stage. Don't confuse it with its
+         *  Flash equivalent: while the latter contains objects of the type
+         *  <code>flash.display.DisplayObject</code>, the Starling stage contains only objects of the
+         *  type <code>starling.display.DisplayObject</code>. Those classes are not compatible, and
+         *  you cannot exchange one type with the other.</p>
+         *
+         *  <p>A stage object is created automatically by the <code>Starling</code> class. Don't
+         *  create a Stage instance manually.</p>
+         *
+         *  <strong>Keyboard Events</strong>
+         *
+         *  <p>In Starling, keyboard events are only dispatched at the stage. Add an event listener
+         *  directly to the stage to be notified of keyboard events.</p>
+         *
+         *  <strong>Resize Events</strong>
+         *
+         *  <p>When the Flash player is resized, the stage dispatches a <code>ResizeEvent</code>. The
+         *  event contains properties containing the updated width and height of the Flash player.</p>
+         *
+         *  @see starling.events.KeyboardEvent
+         *  @see starling.events.ResizeEvent
+         *
+         * */
+        class Stage : public starling::display::DisplayObjectContainer
         {
         private:
             int mWidth;

@@ -13,27 +13,27 @@
 
 
 
+#include "flex11.6.h"
+#include "starling/events/Event.h"
 
+/** An EnterFrameEvent is triggered once per frame and is dispatched to all objects in the
+ *  display tree.
+ *
+ *  It contains information about the time that has passed since the last frame. That way, you
+ *  can easily make animations that are independent of the frame rate, taking the passed time
+ *  into account.
+ */
 
-
-
-
-
-
+using namespace starling::events;
 
 namespace starling
 {
     namespace events
     {
-        class/** An EnterFrameEvent is triggered once per frame and is dispatched to all objects in the
-     *  display tree.
-     *
-     *  It contains information about the time that has passed since the last frame. That way, you
-     *  can easily make animations that are independent of the frame rate, taking the passed time
-     *  into account.
-     */          EnterFrameEvent: public Event
+        class EnterFrameEvent : public starling::events::Event
         {
-        /** Event type for a display object that is entering a new frame. */public:
+            /** Event type for a display object that is entering a new frame. */
+        public:
             static const std::string ENTER_FRAME;
 
             /** Creates an enter frame event with the passed time. */

@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flexunit
 {
     namespace framework
@@ -53,7 +46,6 @@ namespace starling
 
 using namespace flexunit::framework;
 using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 
 namespace tests

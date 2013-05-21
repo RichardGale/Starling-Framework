@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -75,6 +68,7 @@ namespace flash
  *      frameX='-10' frameY='-10' frameWidth='30' frameHeight='30'/&gt;
  *  </listing>
  */
+
 using namespace flash::geom;
 using namespace flash::utils;
 
@@ -93,7 +87,7 @@ namespace starling
 
             /** helper objects */
         private:
-            std::vector<std::string> *sNames;
+            std::vector<std::string> sNames;
 
             /** Create a texture atlas from a texture by parsing the regions from an XML file. */
         public:
@@ -116,11 +110,11 @@ namespace starling
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
         public:
-            std::vector<Texture *> *getTextures(std::string prefix="", std::vector<Texture *> *result=NULL);
+            std::vector<Texture *> getTextures(std::string prefix="", std::vector<Texture *> result=std::vector<void *>());
 
             /** Returns all texture names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getNames(std::string prefix="", std::vector<std::string> *result=NULL);
+            std::vector<std::string> getNames(std::string prefix="", std::vector<std::string> result=std::vector<std::string>());
 
             /** Returns the region rectangle associated with a specific name. */
         public:

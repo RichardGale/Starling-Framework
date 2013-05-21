@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -59,8 +52,8 @@ namespace starling
  *
  *  <p><em>Note that it is OK to create subtextures of subtextures.</em></p>
  */
+
 using namespace flash::display3D::textures;
-using namespace flash::geom;
 using namespace flash::geom;
 using namespace starling::utils;
 
@@ -68,7 +61,7 @@ namespace starling
 {
     namespace textures
     {
-        class SubTexture: public Texture
+        class SubTexture : public Texture
         {
         private:
             Texture *mParent;
@@ -81,7 +74,7 @@ namespace starling
 
             /** Helper object. */
         private:
-            static  Point *sTexCoords;
+            static Point *sTexCoords;
 
             /** Creates a new subtexture containing the specified region (in points) of a parent
              *  texture. If 'ownsParent' is true, the parent texture will be disposed automatically

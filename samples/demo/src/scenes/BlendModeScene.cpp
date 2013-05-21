@@ -8,13 +8,17 @@
 #include "starling/text/TextField.h"
 
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::events;
 using namespace starling::text;
 
-namespace scenes
-{
+namespace scenes {
+
+
+                    
+                    
+                    
+
+                    
 
 
 
@@ -23,35 +27,34 @@ namespace scenes
 
 
 
+        BlendModeScene::BlendModeScene()
+        {
+            mButton = new Button(Game()->assets()->getTexture("button_normal"), "Switch Mode");
+            mButton->x ( int(Constants()->CenterX() - mButton->width() / 2));
+            mButton->y ( 15);
+            mButton->addEventListener(Event::TRIGGERED, onButtonTriggered);
+            addChild(mButton);
 
-    BlendModeScene::BlendModeScene()
-    {
-        mButton = new Button(Game->assets->getTexture("button_normal"),"Switch Mode");
-        mButton->x= int(Constants->CenterX- mButton->width/ 2);
-        mButton->y= 15;
-        mButton->addEventListener(Event::TRIGGERED,onButtonTriggered);
-        addChild(mButton);
+            mImage = new Image(Game()->assets()->getTexture("starling_rocket"));
+            mImage->x ( int(Constants()->CenterX() - mImage->width() / 2));
+            mImage->y ( 170);
+            addChild(mImage);
 
-        mImage = new Image(Game->assets->getTexture("starling_rocket"));
-        mImage->x= int(Constants->CenterX- mImage->width/ 2);
-        mImage->y= 170;
-        addChild(mImage);
+            mInfoText = new TextField(300, 32, "", "Verdana", 19);
+            mInfoText->x ( 10);
+            mInfoText->y ( 330);
+            addChild(mInfoText);
 
-        mInfoText = new TextField(300, 32, "", "Verdana", 19);
-        mInfoText->x= 10;
-        mInfoText->y= 330;
-        addChild(mInfoText);
+            onButtonTriggered();
+        }
 
-        onButtonTriggered();
-    }
+        void BlendModeScene::onButtonTriggered()
+        {
+             std::string blendMode=mBlendModes.shift()asString;
+            mBlendModes.push(blendMode);
 
-    void BlendModeScene::onButtonTriggered()
-    {
-        std::string blendMode=mBlendModes->shift()asString;
-        mBlendModes->push(blendMode);
-
-        mInfoText->text= blendMode;
-        mImage->blendMode= blendMode;
-    }
+            mInfoText->text ( blendMode);
+            mImage->blendMode ( blendMode);
+        }
 }
 

@@ -8,14 +8,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 #include "flash/display/Sprite.h"
 
 namespace tests
@@ -81,22 +74,8 @@ namespace tests
 
 using namespace flash::display;
 using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
-using namespace tests;
 
-class FlexUnitCompilerApplication: public Sprite
+class FlexUnitCompilerApplication : public flash::display::Sprite
 {
 
 private:

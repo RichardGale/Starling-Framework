@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace utils
@@ -44,7 +37,15 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+namespace starling
+{
+    namespace events
+    {
+        class Event;
+    }
+}
+
+//use namespace starling_internal;
 
 /** The EventDispatcher class is the base class for all classes that dispatch events.
  *  This is the Starling version of the Flash class with the same name.
@@ -64,9 +65,11 @@ namespace starling
  *  @see Event
  *  @see starling.display.DisplayObject DisplayObject
  */
+
 using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::display;
+using namespace starling::events;
 
 namespace starling
 {
@@ -79,7 +82,7 @@ namespace starling
 
             /** Helper object. */
         private:
-            static  std::vector<void *> sBubbleChains;
+            static std::vector<void *> sBubbleChains;
 
             /** Creates an EventDispatcher. */
         public:
@@ -96,7 +99,7 @@ namespace starling
             /** Removes all event listeners with a certain type, or all of them if type is null.
              *  Be careful when removing all event listeners: you never know who else was listening. */
         public:
-            void     removeEventListeners(std::string type=NULL);
+            void     removeEventListeners(std::string type="");
 
             /** Dispatches an event to all objects that have registered listeners for its type.
              *  If an event with enabled 'bubble' property is dispatched to a display object, it will
@@ -108,11 +111,11 @@ namespace starling
             /** @private
              *  Invokes an event on the current object. This method does not do any bubbling, nor
              *  does it back-up and restore the previous target on the event. The 'dispatchEvent'
-             *  method uses this method internally. */// no need to do anything
-            bool invokeEvent(Event *event);
+             *  method uses this method internally. */// no need to do anything// we save the current target and restore it later;// this allows users to re-dispatch events without creating a clone.
+            bool     invokeEvent(Event *event);
 
             /** @private */
-            void bubbleEvent(Event *event);
+            void     bubbleEvent(Event *event);
 
             /** Dispatches an event with the given parameters to all objects that have registered
              *  listeners for the given type. The method uses an internal pool of event objects to

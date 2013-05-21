@@ -13,65 +13,72 @@
 #include "TouchEvent.h"
 #include "starling/core/starling_internal.h"
 #include "starling/display/DisplayObject.h"
+#include "starling/events/Event.h"
+#include "starling/events/Touch.h"
 
-//use starling_internal        ;
+    //use namespace starling_internal;
 
-/** A TouchEvent is triggered either by touch or mouse input.
- *
- *  <p>In Starling, both touch events and mouse events are handled through the same class:
- *  TouchEvent. To process user input from a touch screen or the mouse, you have to register
- *  an event listener for events of the type <code>TouchEvent.TOUCH</code>. This is the only
- *  event type you need to handle; the long list of mouse event types as they are used in
- *  conventional Flash are mapped to so-called "TouchPhases" instead.</p>
- *
- *  <p>The difference between mouse input and touch input is that</p>
- *
- *  <ul>
- *    <li>only one mouse cursor can be present at a given moment and</li>
- *    <li>only the mouse can "hover" over an object without a pressed button.</li>
- *  </ul>
- *
- *  <strong>Which objects receive touch events?</strong>
- *
- *  <p>In Starling, any display object receives touch events, as long as the
- *  <code>touchable</code> property of the object and its parents is enabled. There
- *  is no "InteractiveObject" class in Starling.</p>
- *
- *  <strong>How to work with individual touches</strong>
- *
- *  <p>The event contains a list of all touches that are currently present. Each individual
- *  touch is stored in an object of type "Touch". Since you are normally only interested in
- *  the touches that occurred on top of certain objects, you can query the event for touches
- *  with a specific target:</p>
- *
- *  <code>var touches:Vector.&lt;Touch&gt; = touchEvent.getTouches(this);</code>
- *
- *  <p>This will return all touches of "this" or one of its children. When you are not using
- *  multitouch, you can also access the touch object directly, like this:</p>
- *
- *  <code>var touch:Touch = touchEvent.getTouch(this);</code>
- *
- *  @see Touch
- *  @see TouchPhase
- */
+    /** A TouchEvent is triggered either by touch or mouse input.  
+     *  
+     *  <p>In Starling, both touch events and mouse events are handled through the same class: 
+     *  TouchEvent. To process user input from a touch screen or the mouse, you have to register
+     *  an event listener for events of the type <code>TouchEvent.TOUCH</code>. This is the only
+     *  event type you need to handle; the long list of mouse event types as they are used in
+     *  conventional Flash are mapped to so-called "TouchPhases" instead.</p> 
+     * 
+     *  <p>The difference between mouse input and touch input is that</p>
+     *  
+     *  <ul>
+     *    <li>only one mouse cursor can be present at a given moment and</li>
+     *    <li>only the mouse can "hover" over an object without a pressed button.</li>
+     *  </ul> 
+     *  
+     *  <strong>Which objects receive touch events?</strong>
+     * 
+     *  <p>In Starling, any display object receives touch events, as long as the  
+     *  <code>touchable</code> property of the object and its parents is enabled. There 
+     *  is no "InteractiveObject" class in Starling.</p>
+     *  
+     *  <strong>How to work with individual touches</strong>
+     *  
+     *  <p>The event contains a list of all touches that are currently present. Each individual
+     *  touch is stored in an object of type "Touch". Since you are normally only interested in 
+     *  the touches that occurred on top of certain objects, you can query the event for touches
+     *  with a specific target:</p>
+     * 
+     *  <code>var touches:Vector.&lt;Touch&gt; = touchEvent.getTouches(this);</code>
+     *  
+     *  <p>This will return all touches of "this" or one of its children. When you are not using 
+     *  multitouch, you can also access the touch object directly, like this:</p>
+     * 
+     *  <code>var touch:Touch = touchEvent.getTouch(this);</code>
+     *  
+     *  @see Touch
+     *  @see TouchPhase
+     */
+
 using namespace starling::core;
 using namespace starling::display;
+using namespace starling::events;
 
-namespace starling
-{
-    namespace events
-    {
+namespace starling {
+namespace events {
 
 
         /** Event type for touch or mouse input. */
         const std::string TouchEvent::TOUCH="touch";
 
+                    
+                    
+                    
+                    
+
         /** Helper object. */
-        std::vector<Touch *> *TouchEvent::sTouches=new<Touch *>[];
+         std::vector<Touch*> TouchEvent::sTouches=new<Touch*>[];
 
         /** Creates a new TouchEvent instance. */
-        TouchEvent::TouchEvent(std::string type, std::vector<Touch *> *touches, bool shiftKey,
-                               bool ctrlKey, bool bubbles)
+        TouchEvent::TouchEvent(std::string type, std::vector<Touch*> touches, bool shiftKey,
+                                   bool ctrlKey, bool bubbles)
         {
             super(type, bubbles, touches);
 
@@ -80,58 +87,58 @@ namespace starling
             mTimestamp = -1.0;
             mVisitedObjects.clear();
 
-            int numTouches=touches->length;
+             int numTouches=touches.size();
             for ( int i=0; i<numTouches; ++i)
-                if (touches[i]->timestamp> mTimestamp)
-                    mTimestamp = touches[i]->timestamp;
+                if (touches[i]->timestamp() > mTimestamp)
+                    mTimestamp = touches[i]->timestamp();
         }
 
         /** Returns a list of touches that originated over a certain target. If you pass a
-         *  'result' vector, the touches will be added to this vector instead of creating a new
+         *  'result' vector, the touches will be added to this vector instead of creating a new 
          *  object. */
-        std::vector<Touch *> *TouchEvent::getTouches(DisplayObject *target, std::string phase,
-                std::vector<Touch *> *result)
+        std::vector<Touch*> TouchEvent::getTouches(DisplayObject* target, std::string phase,
+                                   std::vector<Touch*> result)
         {
-            if (result == NULL) result = new <Touch *>[];
-            std::vector<Touch *> *allTouches=static_cast<std::vector>(data);
-            int numTouches= allTouches.length;
+            if (result.empty()) result.clear();
+             std::vector<Touch*> allTouches=dynamic_cast<std::vector>(data)        ;
+             int numTouches = allTouches.size();
 
             for ( int i=0; i<numTouches; ++i)
             {
-                Touch *touch=allTouches[i];
-                bool correctTarget   = touch->isTouching(target);
-                bool correctPhase   = (phase == NULL || phase == touch->phase);
+                 Touch* touch= allTouches[i];
+                 bool correctTarget    = touch->isTouching(target);
+                 bool correctPhase    = (phase == NULL || phase == touch->phase);
 
                 if (correctTarget && correctPhase)
-                    result->push(touch);
+                    result.push_back(touch);
             }
             return result;
         }
 
         /** Returns a touch that originated over a certain target. */
-        Touch *TouchEvent::getTouch(DisplayObject *target, std::string phase)
+        Touch* TouchEvent::getTouch(DisplayObject* target, std::string phase)
         {
             getTouches(target, phase, sTouches);
-            if (sTouches.length)
+            if (sTouches.size())
             {
-                Touch *touch=sTouches[0];
-                sTouches.clear()
+                 Touch* touch= sTouches[0];
+                sTouches.clear()    ;
                 return touch;
             }
             else return NULL;
         }
 
         /** Indicates if a target is currently being touched or hovered over. */
-        bool TouchEvent::interactsWith(DisplayObject *target)
+        bool TouchEvent::interactsWith(DisplayObject* target)
         {
             if (getTouch(target) == NULL)
                 return false;
             else
             {
-                std::vector<Touch *> *touches=getTouches(target);
+                 std::vector<Touch*> touches=getTouches(target);
 
-                for ( int i=touches.length-1; i>=0; --i)
-                    if (touches[i]->phase!= TouchPhase->ENDED)
+                for ( int i=touches.size()-1; i>=0; --i)
+                    if (touches[i]->phase() != TouchPhase()->ENDED())
                         return true;
 
                 return false;
@@ -143,20 +150,20 @@ namespace starling
         /** @private
          *  Dispatches the event along a custom bubble chain. During the lifetime of the event,
          *  each object is visited only once. */
-        void TouchEvent::dispatch(std::vector<EventDispatcher *> *chain)
+        void TouchEvent::dispatch(std::vector<EventDispatcher*> chain)
         {
-            if (chain && chain->length)
+            if (chain && chain.size())
             {
-                int chainLength= bubbles ? chain->length: 1;
-                EventDispatcher *previousTarget=target;
-                setTarget(static_cast<EventDispatcher>(chain[0]));
+                 int chainLength = bubbles ? chain.size() : 1;
+                 EventDispatcher* previousTarget= target;
+                setTarget(dynamic_cast<EventDispatcher*>(chain[0]));
 
                 for ( int i=0; i<chainLength; ++i)
                 {
-                    EventDispatcher *chainElement=static_cast<EventDispatcher>(chain[i]);
+                     EventDispatcher* chainElement= dynamic_cast<EventDispatcher*>(chain[i]);
                     if (mVisitedObjects.indexOf(chainElement) == -1)
                     {
-                        bool stopPropagation   = chainElement->invokeEvent(this);
+                         bool stopPropagation    = chainElement->invokeEvent(this);
                         mVisitedObjects.push_back(chainElement);
                         if (stopPropagation) break;
                     }
@@ -169,28 +176,16 @@ namespace starling
         // properties
 
         /** The time the event occurred (in seconds since application launch). */
-        float TouchEvent::timestamp()
-        {
-            return mTimestamp;
-        }
+        float TouchEvent::timestamp()        { return mTimestamp; }
 
         /** All touches that are currently available. */
-        std::vector<Touch *> *TouchEvent::touches()
-        {
-            return (static_cast<std::vector>(data)        )->concat();
-        }
+        std::vector<Touch*> TouchEvent::touches()                { return (dynamic_cast<std::vector>(data)        )->concat(); }
 
         /** Indicates if the shift key was pressed when the event occurred. */
-        bool TouchEvent::shiftKey()
-        {
-            return mShiftKey;
-        }
+        bool TouchEvent::shiftKey()         { return mShiftKey; }
 
         /** Indicates if the ctrl key was pressed when the event occurred. (Mac OS: Cmd or Ctrl) */
-        bool TouchEvent::ctrlKey()
-        {
-            return mCtrlKey;
-        }
-    }
+        bool TouchEvent::ctrlKey()         { return mCtrlKey; }
+}
 }
 

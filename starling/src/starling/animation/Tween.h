@@ -1,3 +1,4 @@
+#if 0
 #if !defined(__STARLING_SRC_STARLING_ANIMATION_TWEEN_AS)
 #define __STARLING_SRC_STARLING_ANIMATION_TWEEN_AS
 #if defined(__cplusplus)
@@ -14,14 +15,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace core
@@ -37,7 +31,14 @@ namespace starling
     }
 }
 #include "starling/events/EventDispatcher.h"
-class Transitions;
+namespace starling
+{
+    namespace animation
+    {
+        class Transitions;
+    }
+}
+#include "starling/animation/IAnimatable.h"
 
 /** A Tween animates numeric properties of objects. It uses different transition functions
  *  to give the animations various styles.
@@ -64,15 +65,16 @@ class Transitions;
  *  @see Juggler
  *  @see Transitions
  */
+
+using namespace starling::animation;
 using namespace starling::core;
-using namespace starling::events;
 using namespace starling::events;
 
 namespace starling
 {
     namespace animation
     {
-        class Tween: public EventDispatcher, public IAnimatable
+        class Tween : public starling::events::EventDispatcher, public starling::animation::IAnimatable
         {
         private:
             Object *mTarget;
@@ -82,11 +84,11 @@ namespace starling
             std::string mTransitionName;
 
         private:
-            std::vector<std::string> *mProperties;
+            std::vector<std::string> mProperties;
         private:
-            std::vector<float> *mStartValues;
+            std::vector<float> mStartValues;
         private:
-            std::vector<float> *mEndValues;
+            std::vector<float> mEndValues;
 
         private:
             Function *mOnStart;
@@ -134,11 +136,11 @@ namespace starling
              *         Transitions class) or a function. Look up the 'Transitions' class for a
              *         documentation about the required function signature. */
         public:
-            Tween(Object *target, float time, Object *transition="linear");
+            Tween(Object *target, float time, Object *transition=(Object *)"linear");
 
             /** Resets the tween to its default values. Useful for pooling tweens. */
         public:
-            Tween   *reset(Object *target, float time, Object *transition="linear");
+            Tween   *reset(Object *target, float time, Object *transition=(Object *)"linear");
 
             /** Animates the property of the target to a certain value. You can call this method multiple
              *  times on one tween. */
@@ -289,11 +291,11 @@ namespace starling
             // tween pooling
 
         private:
-            static  std::vector<Tween *> *sTweenPool;
+            static std::vector<Tween *> sTweenPool;
 
             /** @private */
             static Tween   *fromPool(Object *target, float time,
-                                     Object *transition="linear");
+                                     Object *transition=(Object *)"linear");
 
             /** @private */
             static void     toPool(Tween *tween);
@@ -303,4 +305,5 @@ namespace starling
 
 #endif // __STARLING_SRC_STARLING_ANIMATION_TWEEN_AS
 #endif // __cplusplus
+#endif
 

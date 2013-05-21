@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -63,8 +56,7 @@ namespace starling
  *  A blur filter can also be set up as a drop shadow or glow filter. Use the respective
  *  static methods to create such a filter.
  */
-using namespace flash::display3D;
-using namespace flash::display3D;
+
 using namespace flash::display3D;
 using namespace starling::textures;
 using namespace starling::utils;
@@ -73,7 +65,7 @@ namespace starling
 {
     namespace filters
     {
-        class BlurFilter: public FragmentFilter
+        class BlurFilter : public FragmentFilter
         {
         private:
             const float MAX_SIGMA;
@@ -84,11 +76,11 @@ namespace starling
             Program3D *mTintedProgram;
 
         private:
-            std::vector<float> *mOffsets;
+            std::vector<float> mOffsets;
         private:
-            std::vector<float> *mWeights;
+            std::vector<float> mWeights;
         private:
-            std::vector<float> *mColor;
+            std::vector<float> mColor;
 
         private:
             float mBlurX;
@@ -99,7 +91,7 @@ namespace starling
 
             /** helper object */
         private:
-            std::vector<float> *sTmpWeights;
+            std::vector<float> sTmpWeights;
 
             /** Create a new BlurFilter. For each blur direction, the number of required passes is
              *  <code>Math.ceil(blur)</code>.

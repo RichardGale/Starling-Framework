@@ -13,20 +13,16 @@
 #include "VAlign.h"
 #include "starling/errors/AbstractClassError.h"
 
-/** A class that provides constant values for vertical alignment of objects. */
+    /** A class that provides constant values for vertical alignment of objects. */
+
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace utils
-    {
+namespace starling {
+namespace utils {
 
 
         /** @private */
-        VAlign::VAlign()
-        {
-            throw new AbstractClassError();
-        }
+        VAlign::VAlign() { throw new AbstractClassError(); }
 
         /** Top alignment. */
         const std::string VAlign::TOP="top";
@@ -42,6 +38,6 @@ namespace starling
         {
             return vAlign == TOP || vAlign == CENTER || vAlign == BOTTOM;
         }
-    }
+}
 }
 

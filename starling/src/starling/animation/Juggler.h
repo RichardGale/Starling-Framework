@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace core
@@ -40,6 +33,21 @@ namespace starling
     namespace events
     {
         class EventDispatcher;
+    }
+}
+#include "starling/animation/IAnimatable.h"
+namespace starling
+{
+    namespace animation
+    {
+        class DelayedCall;
+    }
+}
+namespace starling
+{
+    namespace animation
+    {
+        class Tween;
     }
 }
 
@@ -73,18 +81,19 @@ namespace starling
  *  @see Tween
  *  @see DelayedCall
  */
+
+using namespace starling::animation;
 using namespace starling::core;
-using namespace starling::events;
 using namespace starling::events;
 
 namespace starling
 {
     namespace animation
     {
-        class Juggler: public IAnimatable
+        class Juggler : public starling::animation::IAnimatable
         {
         private:
-            std::vector<IAnimatable *> *mObjects;
+            std::vector<IAnimatable *> mObjects;
         private:
             float mElapsedTime;
 
@@ -142,14 +151,14 @@ namespace starling
             void     tween(Object *target, float time, Object *properties);
 
         private:
-            void     onPooledTweenComplete(Event *event);
+            void     onPooledTweenComplete(flash::events::Event *event);
 
             /** Advances all objects by a certain time (in seconds). */
         public:
-            void     advanceTime(float time);    // there is a high probability that the "advanceTime" function modifies the list
+            void     advanceTime(float time);    // there is a high probability that the "advanceTime" function modifies the list // of animatables. we must not process new objects right now (they will be processed// in the next frame), and we need to clean up any empty slots in the list.
 
         private:
-            void     onRemove(Event *event);
+            void     onRemove(flash::events::Event *event);
 
             /** The total life time of the juggler. */
         public:

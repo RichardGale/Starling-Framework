@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -196,30 +189,15 @@ namespace starling
  *  <p>If you load files from disk, the following types are supported:
  *  <code>png, jpg, atf, mp3, xml, fnt</code></p>
  */
+
 using namespace flash::display;
-using namespace flash::display;
-using namespace flash::events;
-using namespace flash::events;
 using namespace flash::events;
 using namespace flash::media;
-using namespace flash::media;
-using namespace flash::media;
-using namespace flash::net;
-using namespace flash::net;
-using namespace flash::net;
 using namespace flash::net;
 using namespace flash::system;
-using namespace flash::system;
-using namespace flash::utils;
-using namespace flash::utils;
-using namespace flash::utils;
-using namespace flash::utils;
-using namespace flash::utils;
 using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::text;
-using namespace starling::text;
-using namespace starling::textures;
 using namespace starling::textures;
 
 namespace starling
@@ -229,7 +207,7 @@ namespace starling
         class AssetManager
         {
         private:
-            const std::vector<std::string> *SUPPORTED_EXTENSIONS;
+            const std::vector<std::string> SUPPORTED_EXTENSIONS;
 
         private:
             float mScaleFactor;
@@ -251,7 +229,7 @@ namespace starling
 
             /** helper objects */
         private:
-            std::vector<std::string> *sNames;
+            std::vector<std::string> sNames;
 
             /** Create a new AssetManager. The 'scaleFactor' and 'useMipmaps' parameters define
              *  how enqueued bitmaps will be converted to textures. */
@@ -273,11 +251,11 @@ namespace starling
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
         public:
-            std::vector<Texture *> *getTextures(std::string prefix="", std::vector<Texture *> *result=NULL);
+            std::vector<Texture *> getTextures(std::string prefix="", std::vector<Texture *> result=std::vector<void *>());
 
             /** Returns all texture names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getTextureNames(std::string prefix="", std::vector<std::string> *result=NULL);
+            std::vector<std::string> getTextureNames(std::string prefix="", std::vector<std::string> result=std::vector<std::string>());
 
             /** Returns a texture atlas with a certain name, or null if it's not found. */
         public:
@@ -289,7 +267,7 @@ namespace starling
 
             /** Returns all sound names that start with a certain string, sorted alphabetically. */
         public:
-            std::vector<std::string> *getSoundNames(std::string prefix="");
+            std::vector<std::string> getSoundNames(std::string prefix="");
 
             /** Generates a new SoundChannel object to play back the sound. This method returns a
              *  SoundChannel object, which you can access to stop the sound and to control volume. */
@@ -355,7 +333,7 @@ namespace starling
              *  If you don't pass a name, it's attempted to generate it automatically.
              *  @returns the name under which the asset was registered. */
         public:
-            std::string enqueueWithName(Object *asset, std::string name=NULL);
+            std::string enqueueWithName(Object *asset, std::string name="");
 
             /** Loads all enqueued assets asynchronously. The 'onProgress' function will be called
              *  with a 'ratio' between '0.0' and '1.0', with '1.0' meaning that it's complete.
@@ -366,7 +344,7 @@ namespace starling
             void     loadQueue(Function *onProgress);
 
         private:
-            void     loadRawAsset(std::string name, Object *rawAsset, std::vector<XML *> *xmls,
+            void     loadRawAsset(std::string name, Object *rawAsset, std::vector<XML *> xmls,
                                   Function *onProgress, Function *onComplete);
 
             // helpers

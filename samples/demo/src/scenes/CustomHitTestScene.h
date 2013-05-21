@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace text
@@ -40,12 +33,11 @@ namespace utils
 
 using namespace starling::text;
 using namespace starling::utils;
-using namespace starling::utils;
 using namespace utils;
 
 namespace scenes
 {
-    class CustomHitTestScene: public Scene
+    class CustomHitTestScene : public Scene
     {
     public:
         CustomHitTestScene();

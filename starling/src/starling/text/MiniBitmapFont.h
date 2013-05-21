@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -58,6 +51,7 @@ namespace starling
  *  <p>The font is based on "uni05_53.ttf" from Craig Kroeger (http://www.miniml.com) and was
  *  converted to a Bitmap Font with "GlyphDesigner" from 71squared (http://www.71squared.com).
  *  </p> */
+
 using namespace flash::display;
 using namespace flash::geom;
 using namespace flash::utils;
@@ -77,209 +71,11 @@ namespace starling
             static const std::vector<void *> BITMAP_DATA;
 
         private:
-            static const XML *XML_DATA
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        static const XML *XML_DATApublic:
+            static Texture     *texture();
 
         public:
-            static Texture *texture();
-
-        public:
-            static XML  *xml();
+            static XML         *xml();
         };
     }
 }

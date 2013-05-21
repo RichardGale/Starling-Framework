@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -69,8 +62,8 @@ namespace starling
 }
 
 /** A ConcreteTexture wraps a Stage3D texture object, storing the properties of the texture. */
+
 using namespace flash::display;
-using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace flash::display3D::textures;
 using namespace starling::core;
@@ -80,7 +73,7 @@ namespace starling
 {
     namespace textures
     {
-        class ConcreteTexture: public Texture
+        class ConcreteTexture : public Texture
         {
         private:
             TextureBase *mBase;

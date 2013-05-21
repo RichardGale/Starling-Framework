@@ -9,80 +9,82 @@
 #include "starling/text/TextField.h"
 
 using namespace starling::display;
-using namespace starling::display;
 using namespace starling::events;
-using namespace starling::filters;
 using namespace starling::filters;
 using namespace starling::text;
 
-namespace scenes
-{
+namespace scenes {
 
 
-    FilterScene::FilterScene()
-    {
-        initFilters();
+                    
+                    
+                    
+                    
 
-        mButton = new Button(Game->assets->getTexture("button_normal"),"Switch Filter");
-        mButton->x= int(Constants->CenterX- mButton->width/ 2);
-        mButton->y= 15;
-        mButton->addEventListener(Event::TRIGGERED,onButtonTriggered);
-        addChild(mButton);
+        FilterScene::FilterScene()
+        {
+            initFilters();
 
-        mImage = new Image(Game->assets->getTexture("starling_rocket"));
-        mImage->x= int(Constants->CenterX- mImage->width/ 2);
-        mImage->y= 170;
-        addChild(mImage);
+            mButton = new Button(Game()->assets()->getTexture("button_normal"), "Switch Filter");
+            mButton->x ( int(Constants()->CenterX() - mButton->width() / 2));
+            mButton->y ( 15);
+            mButton->addEventListener(Event::TRIGGERED, onButtonTriggered);
+            addChild(mButton);
 
-        mInfoText = new TextField(300, 32, "", "Verdana", 19);
-        mInfoText->x= 10;
-        mInfoText->y= 330;
-        addChild(mInfoText);
+            mImage = new Image(Game()->assets()->getTexture("starling_rocket"));
+            mImage->x ( int(Constants()->CenterX() - mImage->width() / 2));
+            mImage->y ( 170);
+            addChild(mImage);
 
-        onButtonTriggered();
-    }
+            mInfoText = new TextField(300, 32, "", "Verdana", 19);
+            mInfoText->x ( 10);
+            mInfoText->y ( 330);
+            addChild(mInfoText);
 
-    void FilterScene::onButtonTriggered()
-    {
-        std::vector<void *> filterInfo=mFilterInfos->shift()asArray;
-        mFilterInfos->push(filterInfo);
+            onButtonTriggered();
+        }
 
-        mInfoText->text= filterInfo[0];
-        mImage->filter = filterInfo[1];
-    }
+        void FilterScene::onButtonTriggered()
+        {
+             std::vector<void*> filterInfo=mFilterInfos.shift()asArray;
+            mFilterInfos.push(filterInfo);
 
-    void FilterScene::initFilters()
-    {
-        mFilterInfos = [
-                           ["Identity", new ColorMatrixFilter()],
-                           ["Blur", new BlurFilter()],
-                           ["Drop Shadow", BlurFilter::createDropShadow()],
-                           ["Glow", BlurFilter::createGlow()]
-                       ];
+            mInfoText->text ( filterInfo[0]);
+            mImage->filter  ( filterInfo[1]);
+        }
 
-        ColorMatrixFilter *invertFilter=new ColorMatrixFilter();
-        invertFilter->invert();
-        mFilterInfos->push(["Invert",invertFilter]);
+        void FilterScene::initFilters()
+        {
+            mFilterInfos = [
+                ["Identity", new ColorMatrixFilter()],
+                ["Blur", new BlurFilter()],
+                ["Drop Shadow", BlurFilter::createDropShadow()],
+                ["Glow", BlurFilter::createGlow()]
+            ];
 
-        ColorMatrixFilter *grayscaleFilter=new ColorMatrixFilter();
-        grayscaleFilter->adjustSaturation(-1);
-        mFilterInfos->push(["Grayscale",grayscaleFilter]);
+             ColorMatrixFilter* invertFilter= new ColorMatrixFilter();
+            invertFilter->invert();
+            mFilterInfos.push(["Invert", invertFilter]);
 
-        ColorMatrixFilter *saturationFilter=new ColorMatrixFilter();
-        saturationFilter->adjustSaturation(1);
-        mFilterInfos->push(["Saturation",saturationFilter]);
+             ColorMatrixFilter* grayscaleFilter= new ColorMatrixFilter();
+            grayscaleFilter->adjustSaturation(-1);
+            mFilterInfos.push(["Grayscale", grayscaleFilter]);
 
-        ColorMatrixFilter *contrastFilter=new ColorMatrixFilter();
-        contrastFilter->adjustContrast(0.75);
-        mFilterInfos->push(["Contrast",contrastFilter]);
+             ColorMatrixFilter* saturationFilter= new ColorMatrixFilter();
+            saturationFilter->adjustSaturation(1);
+            mFilterInfos.push(["Saturation", saturationFilter]);
 
-        ColorMatrixFilter *brightnessFilter=new ColorMatrixFilter();
-        brightnessFilter->adjustBrightness(-0.25);
-        mFilterInfos->push(["Brightness",brightnessFilter]);
+             ColorMatrixFilter* contrastFilter= new ColorMatrixFilter();
+            contrastFilter->adjustContrast(0.75);
+            mFilterInfos.push(["Contrast", contrastFilter]);
 
-        ColorMatrixFilter *hueFilter=new ColorMatrixFilter();
-        hueFilter->adjustHue(1);
-        mFilterInfos->push(["Hue",hueFilter]);
-    }
+             ColorMatrixFilter* brightnessFilter= new ColorMatrixFilter();
+            brightnessFilter->adjustBrightness(-0.25);
+            mFilterInfos.push(["Brightness", brightnessFilter]);
+
+             ColorMatrixFilter* hueFilter= new ColorMatrixFilter();
+            hueFilter->adjustHue(1);
+            mFilterInfos.push(["Hue", hueFilter]);
+        }
 }
 

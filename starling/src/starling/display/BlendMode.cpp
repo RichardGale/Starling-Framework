@@ -15,63 +15,59 @@
 
 #include "starling/errors/AbstractClassError.h"
 
-/** A class that provides constant values for visual blend mode effects.
- *
- *  <p>A blend mode is always defined by two 'Context3DBlendFactor' values. A blend factor
- *  represents a particular four-value vector that is multiplied with the source or destination
- *  color in the blending formula. The blending formula is:</p>
- *
- *  <pre>result = source    sourceFactor + destination    destinationFactor</pre>
- *
- *  <p>In the formula, the source color is the output color of the pixel shader program. The
- *  destination color is the color that currently exists in the color buffer, as set by
- *  previous clear and draw operations.</p>
- *
- *  <p>Beware that blending factors produce different output depending on the texture type.
- *  Textures may contain 'premultiplied alpha' (pma), which means that their RGB values were
- *  multiplied with their alpha value (to save processing time). Textures based on 'BitmapData'
- *  objects have premultiplied alpha values, while ATF textures haven't. For this reason,
- *  a blending mode may have different factors depending on the pma value.</p>
- *
- *  @see flash.display3D.Context3DBlendFactor
- */
+    /** A class that provides constant values for visual blend mode effects. 
+     *   
+     *  <p>A blend mode is always defined by two 'Context3DBlendFactor' values. A blend factor 
+     *  represents a particular four-value vector that is multiplied with the source or destination
+     *  color in the blending formula. The blending formula is:</p>
+     * 
+     *  <pre>result = source    sourceFactor + destination    destinationFactor</pre>
+     * 
+     *  <p>In the formula, the source color is the output color of the pixel shader program. The 
+     *  destination color is the color that currently exists in the color buffer, as set by 
+     *  previous clear and draw operations.</p>
+     *  
+     *  <p>Beware that blending factors produce different output depending on the texture type.
+     *  Textures may contain 'premultiplied alpha' (pma), which means that their RGB values were 
+     *  multiplied with their alpha value (to save processing time). Textures based on 'BitmapData'
+     *  objects have premultiplied alpha values, while ATF textures haven't. For this reason, 
+     *  a blending mode may have different factors depending on the pma value.</p>
+     *  
+     *  @see flash.display3D.Context3DBlendFactor
+     */
+
 using namespace flash::display3D;
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace display
-    {
+namespace starling {
+namespace display {
 
 
-        std::vector<void *> BlendMode::sBlendFactors=[
-                    // no premultiplied alpha
-        {
-"none"     : [ Context3DBlendFactor::ONE,Context3DBlendFactor::ZERO],
-"normal"   : [ Context3DBlendFactor::SOURCE_ALPHA,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA],
-"add"      : [ Context3DBlendFactor::SOURCE_ALPHA,Context3DBlendFactor::DESTINATION_ALPHA],
-"multiply" : [ Context3DBlendFactor::DESTINATION_COLOR,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA],
-"screen"   : [ Context3DBlendFactor::SOURCE_ALPHA,Context3DBlendFactor::ONE],
-"erase"    : [ Context3DBlendFactor::ZERO,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA]
-        },
-        // premultiplied alpha
-        {
-"none"     : [ Context3DBlendFactor::ONE,Context3DBlendFactor::ZERO],
-"normal"   : [ Context3DBlendFactor::ONE,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA],
-"add"      : [ Context3DBlendFactor::ONE,Context3DBlendFactor::ONE],
-"multiply" : [ Context3DBlendFactor::DESTINATION_COLOR,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA],
-"screen"   : [ Context3DBlendFactor::ONE,Context3DBlendFactor::ONE_MINUS_SOURCE_COLOR],
-"erase"    : [ Context3DBlendFactor::ZERO,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA]
-        }
-                ];
+         std::vector<void*> BlendMode::sBlendFactors=[
+            // no premultiplied alpha
+            {
+                "none"     : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ZERO ],
+                "normal"   : [ Context3DBlendFactor::SOURCE_ALPHA, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ],
+                "add"      : [ Context3DBlendFactor::SOURCE_ALPHA, Context3DBlendFactor::DESTINATION_ALPHA ],
+                "multiply" : [ Context3DBlendFactor::DESTINATION_COLOR, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ],
+                "screen"   : [ Context3DBlendFactor::SOURCE_ALPHA, Context3DBlendFactor::ONE ],
+                "erase"    : [ Context3DBlendFactor::ZERO, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ]
+            },
+            // premultiplied alpha
+            {
+                "none"     : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ZERO ],
+                "normal"   : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ],
+                "add"      : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ONE ],
+                "multiply" : [ Context3DBlendFactor::DESTINATION_COLOR, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ],
+                "screen"   : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ONE_MINUS_SOURCE_COLOR ],
+                "erase"    : [ Context3DBlendFactor::ZERO, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA ]
+            }
+        ];
 
         // predifined modes
 
         /** @private */
-        BlendMode::BlendMode()
-        {
-            throw new AbstractClassError();
-        }
+        BlendMode::BlendMode() { throw new AbstractClassError(); }
 
         /** Inherits the blend mode from this display object's parent. */
         const std::string BlendMode::AUTO="auto";
@@ -88,7 +84,7 @@ namespace starling
         /** Multiplies the values of the display object colors with the the background color. */
         const std::string BlendMode::MULTIPLY="multiply";
 
-        /** Multiplies the complement (inverse) of the display object color with the complement of
+        /** Multiplies the complement (inverse) of the display object color with the complement of 
           * the background color, resulting in a bleaching effect. */
         const std::string BlendMode::SCREEN="screen";
 
@@ -99,9 +95,9 @@ namespace starling
 
         /** Returns the blend factors that correspond with a certain mode and premultiplied alpha
          *  value. Throws an ArgumentError if the mode does not exist. */
-        std::vector<void *> BlendMode::getBlendFactors(std::string mode, bool premultipliedAlpha)
+        std::vector<void*> BlendMode::getBlendFactors(std::string mode, bool premultipliedAlpha)
         {
-            Object *modes=sBlendFactors[int(premultipliedAlpha)];
+             Object* modes= sBlendFactors[int(premultipliedAlpha)];
             if (mode in modes) return modes[mode];
             else throw new ArgumentError("Invalid blend mode");
         }
@@ -110,14 +106,14 @@ namespace starling
          *  (pma) value. If the mode for the other pma value was not yet registered, the factors are
          *  used for both pma settings. */
         void BlendMode::REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
-                                 bool premultipliedAlpha)
+                                        bool premultipliedAlpha)
         {
-            Object *modes=sBlendFactors[int(premultipliedAlpha)];
+             Object* modes= sBlendFactors[int(premultipliedAlpha)];
             modes[name] = [sourceFactor, destFactor];
 
-            Object *otherModes=sBlendFactors[int(!premultipliedAlpha)];
+             Object* otherModes= sBlendFactors[int(!premultipliedAlpha)];
             if (!(name in otherModes)) otherModes[name] = [sourceFactor, destFactor];
         }
-    }
+}
 }
 

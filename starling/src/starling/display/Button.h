@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -103,46 +96,30 @@ namespace starling
 /** Dispatched when the user triggers the button. Bubbles. */
 //[Event(name="triggered",type="starling.events.Event")]
 
-
-
-
-
-
-
-
-
-
-
-
-
 using namespace flash::geom;
 using namespace flash::ui;
-using namespace flash::ui;
-using namespace starling::events;
-using namespace starling::events;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
 {
     namespace display
     {
-        class/** A simple button composed of an image and, optionally, text.
-     *
-     *  <p>You can pass a texture for up- and downstate of the button. If you do not provide a down
-     *  state, the button is simply scaled a little when it is touched.
-     *  In addition, you can overlay a text on the button. To customize the text, almost the
-     *  same options as those of text fields are provided. In addition, you can move the text to a
-     *  certain position with the help of the <code>textBounds</code> property.</p>
-     *
-     *  <p>To react on touches on a button, there is special <code>triggered</code>-event type. Use
-     *  this event instead of normal touch events - that way, users can cancel button activation
-     *  by moving the mouse/finger away from the button before releasing.</p>
-     */          Button: public DisplayObjectContainer
+        /** A simple button composed of an image and, optionally, text.
+         *
+         *  <p>You can pass a texture for up- and downstate of the button. If you do not provide a down
+         *  state, the button is simply scaled a little when it is touched.
+         *  In addition, you can overlay a text on the button. To customize the text, almost the
+         *  same options as those of text fields are provided. In addition, you can move the text to a
+         *  certain position with the help of the <code>textBounds</code> property.</p>
+         *
+         *  <p>To react on touches on a button, there is special <code>triggered</code>-event type. Use
+         *  this event instead of normal touch events - that way, users can cancel button activation
+         *  by moving the mouse/finger away from the button before releasing.</p>
+         */
+        class Button : public DisplayObjectContainer
         {
         private:
             static const float MAX_DRAG_DIST;

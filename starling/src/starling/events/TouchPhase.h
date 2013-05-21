@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace errors
@@ -45,6 +38,7 @@ namespace starling
  *  the equivalent of a <code>MouseOver</code> event in Flash when the mouse button is
  *  <em>not</em> pressed.</p>
  */
+
 using namespace starling::errors;
 
 namespace starling

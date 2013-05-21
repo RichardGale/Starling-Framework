@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -69,8 +62,7 @@ namespace flash
  *  values should be handled via the <code>premultipliedAlpha</code> property.</p>
  *
  */
-using namespace flash::geom;
-using namespace flash::geom;
+
 using namespace flash::geom;
 
 namespace starling
@@ -96,7 +88,7 @@ namespace starling
             static const int TEXCOORD_OFFSET;
 
         private:
-            std::vector<float> *mRawData;
+            std::vector<float> mRawData;
         private:
             bool mPremultipliedAlpha;
         private:
@@ -104,7 +96,7 @@ namespace starling
 
             /** Helper object. */
         private:
-            static  Point *sHelperPoint;
+            static Point *sHelperPoint;
 
             /** Create a new VertexData object with a specified number of vertices. */
         public:
@@ -216,7 +208,7 @@ namespace starling
 
             /** The raw vertex data; not a copy! */
         public:
-            std::vector<float> *rawData();
+            std::vector<float> rawData();
         };
     }
 }

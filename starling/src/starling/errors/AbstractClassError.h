@@ -13,24 +13,18 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 #include "Error.h"
 
 /** An AbstractClassError is thrown when you attempt to create an instance of an abstract
  *  class. */
 
+
 namespace starling
 {
     namespace errors
     {
-        class AbstractClassError: public Error
+        class AbstractClassError : public Error
         {
             /** Creates a new AbstractClassError object. */
         public:

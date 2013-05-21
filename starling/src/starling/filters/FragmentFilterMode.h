@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace errors
@@ -32,6 +25,7 @@ namespace starling
 /** A class that provides constant values for filter modes. The values are used in the
  *  FragmentFilter.mode property and define how a filter result is combined with the
  *  original object. */
+
 using namespace starling::errors;
 
 namespace starling

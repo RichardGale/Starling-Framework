@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace com
 {
     namespace adobe
@@ -187,8 +180,22 @@ namespace starling
         class VertexData;
     }
 }
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Quad;
+    }
+}
 
-//use starling_internal        ;
+//use namespace starling_internal;
 
 /** Optimizes rendering of a number of quads with an identical state.
  *
@@ -216,35 +223,24 @@ namespace starling
  *
  *  @see Sprite
  */
+
 using namespace com::adobe::utils;
 using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::geom;
-using namespace flash::geom;
 using namespace flash::geom;
 using namespace flash::utils;
-using namespace flash::utils;
 using namespace starling::core;
-using namespace starling::core;
-using namespace starling::core;
+using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::events;
 using namespace starling::filters;
-using namespace starling::filters;
 using namespace starling::textures;
-using namespace starling::textures;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
 {
     namespace display
     {
-        class QuadBatch: public DisplayObject
+        class QuadBatch : public DisplayObject
         {
         private:
             static const std::string QUAD_PROGRAM_NAME;
@@ -257,7 +253,7 @@ namespace starling
         private:
             bool mTinted;
         private:
-            Texture *mTexture;
+            starling::textures::Texture *mTexture;
         private:
             std::string mSmoothing;
 
@@ -266,19 +262,19 @@ namespace starling
         private:
             VertexBuffer3D *mVertexBuffer;
         private:
-            std::vector<unsigned int> *mIndexData;
+            std::vector<unsigned int> mIndexData;
         private:
             IndexBuffer3D *mIndexBuffer;
 
             /** Helper objects. */
         private:
-            static  Matrix *sHelperMatrix;
+            static Matrix *sHelperMatrix;
         private:
-            static  std::vector<float> *sRenderAlpha;
+            static std::vector<float> sRenderAlpha;
         private:
-            static  Matrix3D *sRenderMatrix;
+            static Matrix3D *sRenderMatrix;
         private:
-            static  std::map<std::string, void *> sProgramNameCache;
+            static std::map<std::string, void *> sProgramNameCache;
 
             /** Creates a new QuadBatch instance with empty batch data. */
         public:
@@ -310,7 +306,7 @@ namespace starling
              *  display list. */
         public:
             void     renderCustom(Matrix *mvpMatrix, float parentAlpha =1.0,
-                                  std::string blendMode=NULL);
+                                  std::string blendMode="");
 
             /** Resets the batch. The vertex- and index-buffers remain their size, so that they
              *  can be reused quickly. */
@@ -321,29 +317,29 @@ namespace starling
              *  parameters for 'texture' and 'smoothing'. */
         public:
             void     addImage(Image *image, float parentAlpha =1.0, Matrix *modelViewMatrix=NULL,
-                              std::string blendMode=NULL);
+                              std::string blendMode="");
 
             /** Adds a quad to the batch. The first quad determines the state of the batch,
              *  i.e. the values for texture, smoothing and blendmode. When you add additional quads,
              *  make sure they share that state (e.g. with the 'isStageChange' method), or reset
              *  the batch. */
         public:
-            void     addQuad(Quad *quad, float parentAlpha =1.0, Texture *texture=NULL,
-                             std::string smoothing=NULL, Matrix *modelViewMatrix=NULL,
-                             std::string blendMode=NULL);
+            void     addQuad(Quad *quad, float parentAlpha =1.0, starling::textures::Texture *texture=NULL,
+                             std::string smoothing="", Matrix *modelViewMatrix=NULL,
+                             std::string blendMode="");
 
             /** Adds another QuadBatch to this batch. Just like the 'addQuad' method, you have to
              *  make sure that you only add batches with an equal state. */
         public:
             void     addQuadBatch(QuadBatch *quadBatch, float parentAlpha =1.0,
-                                  Matrix *modelViewMatrix=NULL, std::string blendMode=NULL);
+                                  Matrix *modelViewMatrix=NULL, std::string blendMode="");
 
             /** Indicates if specific quads can be added to the batch without causing a state change.
              *  A state change occurs if the quad uses a different base texture, has a different
              *  'tinted', 'smoothing', 'repeat' or 'blendMode' setting, or if the batch is full
              *  (one batch can contain up to 8192 quads). */
         public:
-            bool     isStateChange(bool tinted, float parentAlpha, Texture *texture,
+            bool     isStateChange(bool tinted, float parentAlpha, starling::textures::Texture *texture,
                                    std::string smoothing, std::string blendMode, int numQuads=1);
 
             // display object methods
@@ -363,17 +359,17 @@ namespace starling
              *  used to render the container very efficiently. The 'flatten'-method of the Sprite
              *  class uses this method internally. */
         public:
-            static void compile(DisplayObject *object,
-                                std::vector<QuadBatch *> *quadBatches);
+            static void     compile(DisplayObject *object,
+                                    std::vector<QuadBatch *> quadBatches);
 
         private:
-            static int compileObject(DisplayObject *object,
-                                     std::vector<QuadBatch *> *quadBatches,
-                                     int quadBatchID,
-                                     Matrix *transformationMatrix,
-                                     float alpha =1.0,
-                                     std::string blendMode=NULL,
-                                     bool ignoreCurrentFilter   =false);
+            static int      compileObject(DisplayObject *object,
+                                          std::vector<QuadBatch *> quadBatches,
+                                          int quadBatchID,
+                                          Matrix *transformationMatrix,
+                                          float alpha =1.0,
+                                          std::string blendMode="",
+                                          bool ignoreCurrentFilter   =false);
 
             // properties
 
@@ -382,7 +378,7 @@ namespace starling
         public:
             bool         tinted();
         public:
-            Texture     *texture();
+            starling::textures::Texture *texture();
         public:
             std::string  smoothing();
         public:
@@ -394,7 +390,7 @@ namespace starling
             // program management
 
         private:
-            static void registerPrograms();                              // use explicit string for compatibility
+            static void     registerPrograms();                              // use explicit string for compatibility
 
         private:
             static std::string getImageProgramName(bool tinted, bool mipMap   =true,

@@ -13,35 +13,31 @@
 
 
 
+#include "flex11.6.h"
+#include "starling/events/Event.h"
 
+/** A KeyboardEvent is dispatched in response to user input through a keyboard.
+ *
+ *  <p>This is Starling's version of the Flash KeyboardEvent class. It contains the same
+ *  properties as the Flash equivalent.</p>
+ *
+ *  <p>To be notified of keyboard events, add an event listener to the Starling stage. Children
+ *  of the stage won't be notified of keybaord input. Starling has no concept of a "Focus"
+ *  like native Flash.</p>
+ *
+ *  @see starling.display.Stage
+ */
 
-
-
-
-
-
-
-
-
-
+using namespace starling::events;
 
 namespace starling
 {
     namespace events
     {
-        class/** A KeyboardEvent is dispatched in response to user input through a keyboard.
-     *
-     *  <p>This is Starling's version of the Flash KeyboardEvent class. It contains the same
-     *  properties as the Flash equivalent.</p>
-     *
-     *  <p>To be notified of keyboard events, add an event listener to the Starling stage. Children
-     *  of the stage won't be notified of keybaord input. Starling has no concept of a "Focus"
-     *  like native Flash.</p>
-     *
-     *  @see starling.display.Stage
-     */          KeyboardEvent: public Event
+        class KeyboardEvent : public starling::events::Event
         {
-        /** Event type for a key that was released. */public:
+            /** Event type for a key that was released. */
+        public:
             static const std::string KEY_UP;
 
             /** Event type for a key that was pressed. */

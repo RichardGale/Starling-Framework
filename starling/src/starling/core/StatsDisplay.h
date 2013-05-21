@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace system
@@ -89,22 +82,18 @@ namespace starling
 
 /** A small, lightweight box that displays the current framerate, memory consumption and
  *  the number of draw calls per frame. The display is updated automatically once per frame. */
+
 using namespace flash::system;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::text;
-using namespace starling::text;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
 {
     namespace core
     {
-        class StatsDisplay: public Sprite
+        class StatsDisplay : public starling::display::Sprite
         {
         private:
             Quad *mBackground;

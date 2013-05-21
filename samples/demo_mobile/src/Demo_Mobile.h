@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace desktop
@@ -106,8 +99,8 @@ namespace starling
 }
 
 //[SWF(width="320",height="480",frameRate="30", backgroundColor="#000000")]
+
 using namespace flash::desktop;
-using namespace flash::display;
 using namespace flash::display;
 using namespace flash::events;
 using namespace flash::filesystem;
@@ -117,21 +110,18 @@ using namespace starling::core;
 using namespace starling::events;
 using namespace starling::textures;
 using namespace starling::utils;
-using namespace starling::utils;
-using namespace starling::utils;
-using namespace starling::utils;
 
-class Demo_Mobile: public Sprite
+class Demo_Mobile : public flash::display::Sprite
 {
     // Startup image for SD screens
 
 private:
-    static  ////[Embed(source="../../demo/system/startup.jpg")]Class* Background;
+    static Class *Background;
 
     // Startup image for HD screens
 
 private:
-    static  ////[Embed(source="../../demo/system/startupHD.jpg")]Class* BackgroundHD;
+    static Class *BackgroundHD;
 
 private:
     Starling *mStarling;

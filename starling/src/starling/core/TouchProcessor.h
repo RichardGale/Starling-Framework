@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -72,17 +65,24 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+namespace starling
+{
+    namespace core
+    {
+        class TouchMarker;
+    }
+}
+
+//use namespace starling_internal;
 
 /** @private
  *  The TouchProcessor is used internally to convert mouse and touch events of the conventional
  *  Flash stage to Starling's TouchEvents. */
+
 using namespace flash::geom;
 using namespace flash::utils;
+using namespace starling::core;
 using namespace starling::display;
-using namespace starling::events;
-using namespace starling::events;
-using namespace starling::events;
 using namespace starling::events;
 
 namespace starling
@@ -104,11 +104,11 @@ namespace starling
             TouchMarker *mTouchMarker;
 
         private:
-            std::vector<Touch *> *mCurrentTouches;
+            std::vector<Touch *> mCurrentTouches;
         private:
-            std::vector<std::vector<void *>> *mQueue;
+            std::vector<std::vector<void *>> mQueue;
         private:
-            std::vector<Touch *> *mLastTaps;
+            std::vector<Touch *> mLastTaps;
 
         private:
             bool mShiftDown;
@@ -117,9 +117,9 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static  std::vector<int> *sProcessedTouchIDs;
+            static std::vector<int> sProcessedTouchIDs;
         private:
-            static  std::vector<Object *> *sHoveringTouchData;
+            static std::vector<Object *> sHoveringTouchData;
 
         public:
             TouchProcessor(Stage *stage);
@@ -135,7 +135,7 @@ namespace starling
                              float pressure =1.0, float width =1.0, float height =1.0);
 
         public:
-            void     enqueueMouseLeftStage();    // On OS X, we get mouse events from outside the stage; on Windows, we do not.
+            void     enqueueMouseLeftStage();    // On OS X, we get mouse events from outside the stage; on Windows, we do not.// This method enqueues an artifial hover point that is just outside the stage.// That way, objects listening for HOVERs over them will get notified everywhere.
 
         private:
             void     processTouch(int touchID, std::string phase, float globalX, float globalY,

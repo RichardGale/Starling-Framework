@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -57,6 +50,7 @@ namespace starling
         class VertexData;
     }
 }
+#include "starling/display/DisplayObject.h"
 
 /** A Quad represents a rectangle with a uniform color or a color gradient.
  *
@@ -74,17 +68,17 @@ namespace starling
  *
  *  @see Image
  */
-using namespace flash::geom;
-using namespace flash::geom;
+
 using namespace flash::geom;
 using namespace starling::core;
+using namespace starling::display;
 using namespace starling::utils;
 
 namespace starling
 {
     namespace display
     {
-        class Quad: public DisplayObject
+        class Quad : public starling::display::DisplayObject
         {
         private:
             bool mTinted;
@@ -95,9 +89,9 @@ namespace starling
 
             /** Helper objects. */
         private:
-            static  Point *sHelperPoint;
+            static Point *sHelperPoint;
         private:
-            static  Matrix *sHelperMatrix;
+            static Matrix *sHelperMatrix;
 
             /** Creates a quad with a certain size and color. The last parameter controls if the
              *  alpha value should be premultiplied into the color values on rendering, which can

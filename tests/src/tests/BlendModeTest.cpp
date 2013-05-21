@@ -21,42 +21,41 @@ using namespace flash::display3D;
 using namespace flexunit::framework;
 using namespace starling::display;
 
-namespace tests
-{
+namespace tests {
 
 
 
-    void BlendModeTest::                testRegisterBlendMode()
-    {
-        std::string name="test";
+        void BlendModeTest::                testRegisterBlendMode()
+        {
+             std::string name="test";
 
-        // register for pma = true; should set factors for both pma possibilities.
+            // register for pma = true; should set factors for both pma possibilities.
 
-        BlendMode::REGISTER(name,Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,
-                            Context3DBlendFactor::DESTINATION_COLOR,true);
+            BlendMode::REGISTER(name, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,
+                                     Context3DBlendFactor::DESTINATION_COLOR, true);
 
-        std::vector<void *> modesPma=BlendMode::getBlendFactors(name,true);
-        std::vector<void *> modesNoPma=BlendMode::getBlendFactors(name,false);
+             std::vector<void*> modesPma=BlendMode::getBlendFactors(name,true);
+             std::vector<void*> modesNoPma=BlendMode::getBlendFactors(name,false);
 
-        Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,modesPma[0]);
-        Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR,modesPma[1]);
+            Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA, modesPma[0]);
+            Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR, modesPma[1]);
 
-        Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,modesNoPma[0]);
-        Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR,modesNoPma[1]);
+            Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA, modesNoPma[0]);
+            Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR, modesNoPma[1]);
 
-        // now overwrite for pma = false; should not change pma = true factors.
+            // now overwrite for pma = false; should not change pma = true factors.
 
-        BlendMode::REGISTER(name,Context3DBlendFactor::ONE,Context3DBlendFactor::ZERO,
-                            false);
+            BlendMode::REGISTER(name, Context3DBlendFactor::ONE, Context3DBlendFactor::ZERO,
+                               false);
 
-        modesPma = BlendMode::getBlendFactors(name,true);
-        modesNoPma = BlendMode::getBlendFactors(name,false);
+            modesPma = BlendMode::getBlendFactors(name, true);
+            modesNoPma = BlendMode::getBlendFactors(name, false);
 
-        Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,modesPma[0]);
-        Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR,modesPma[1]);
+            Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA, modesPma[0]);
+            Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR, modesPma[1]);
 
-        Assert::assertEquals(Context3DBlendFactor::ONE,modesNoPma[0]);
-        Assert::assertEquals(Context3DBlendFactor::ZERO,modesNoPma[1]);
-    }
+            Assert::assertEquals(Context3DBlendFactor::ONE, modesNoPma[0]);
+            Assert::assertEquals(Context3DBlendFactor::ZERO, modesNoPma[1]);
+        }
 }
 

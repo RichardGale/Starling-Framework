@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace core
@@ -35,8 +28,16 @@ namespace starling
         class DisplayObject;
     }
 }
+#include "starling/events/Event.h"
+namespace starling
+{
+    namespace events
+    {
+        class Touch;
+    }
+}
 
-//use starling_internal        ;
+//use namespace starling_internal;
 
 /** A TouchEvent is triggered either by touch or mouse input.
  *
@@ -76,14 +77,16 @@ namespace starling
  *  @see Touch
  *  @see TouchPhase
  */
+
 using namespace starling::core;
 using namespace starling::display;
+using namespace starling::events;
 
 namespace starling
 {
     namespace events
     {
-        class TouchEvent: public Event
+        class TouchEvent : public starling::events::Event
         {
             /** Event type for touch or mouse input. */
         public:
@@ -96,27 +99,27 @@ namespace starling
         private:
             float mTimestamp;
         private:
-            std::vector<EventDispatcher *> *mVisitedObjects;
+            std::vector<EventDispatcher *> mVisitedObjects;
 
             /** Helper object. */
         private:
-            static  std::vector<Touch *> *sTouches;
+            static std::vector<Touch *> sTouches;
 
             /** Creates a new TouchEvent instance. */
         public:
-            TouchEvent(std::string type, std::vector<Touch *> *touches, bool shiftKey   =false,
+            TouchEvent(std::string type, std::vector<Touch *> touches, bool shiftKey   =false,
                        bool ctrlKey   =false, bool bubbles   =true);
 
             /** Returns a list of touches that originated over a certain target. If you pass a
              *  'result' vector, the touches will be added to this vector instead of creating a new
              *  object. */
         public:
-            std::vector<Touch *> *getTouches(DisplayObject *target, std::string phase=NULL,
-                                             std::vector<Touch *> *result=NULL);
+            std::vector<Touch *> getTouches(DisplayObject *target, std::string phase="",
+                                            std::vector<Touch *> result=std::vector<void *>());
 
             /** Returns a touch that originated over a certain target. */
         public:
-            Touch   *getTouch(DisplayObject *target, std::string phase=NULL);
+            Touch   *getTouch(DisplayObject *target, std::string phase="");
 
             /** Indicates if a target is currently being touched or hovered over. */
         public:
@@ -127,7 +130,7 @@ namespace starling
             /** @private
              *  Dispatches the event along a custom bubble chain. During the lifetime of the event,
              *  each object is visited only once. */
-            void dispatch(std::vector<EventDispatcher *> *chain);
+            void     dispatch(std::vector<EventDispatcher *> chain);
 
             // properties
 
@@ -137,7 +140,7 @@ namespace starling
 
             /** All touches that are currently available. */
         public:
-            std::vector<Touch *> *touches();
+            std::vector<Touch *> touches();
 
             /** Indicates if the shift key was pressed when the event occurred. */
         public:

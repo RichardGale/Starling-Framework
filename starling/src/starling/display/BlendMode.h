@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -57,6 +50,7 @@ namespace starling
  *
  *  @see flash.display3D.Context3DBlendFactor
  */
+
 using namespace flash::display3D;
 using namespace starling::errors;
 
@@ -67,7 +61,7 @@ namespace starling
         class BlendMode
         {
         private:
-            static  std::vector<void *> sBlendFactors;
+            static std::vector<void *> sBlendFactors;
 
             // predifined modes
 
@@ -115,8 +109,8 @@ namespace starling
              *  (pma) value. If the mode for the other pma value was not yet registered, the factors are
              *  used for both pma settings. */
         public:
-            static void REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
-                                 bool premultipliedAlpha   =true);
+            static void     REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
+                                     bool premultipliedAlpha   =true);
         };
     }
 }

@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace utils
@@ -124,27 +117,14 @@ namespace starling
 
 using namespace flash::utils;
 using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::utils;
 
-class MainMenu: public Sprite
+class MainMenu : public starling::display::Sprite
 {
 public:
     MainMenu();

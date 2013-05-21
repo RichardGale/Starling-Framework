@@ -10,25 +10,25 @@
 
 
 
+#include "EnterFrameEvent.h"
+#include "starling/events/Event.h"
+
+    /** An EnterFrameEvent is triggered once per frame and is dispatched to all objects in the
+     *  display tree.
+     *
+     *  It contains information about the time that has passed since the last frame. That way, you 
+     *  can easily make animations that are independent of the frame rate, taking the passed time
+     *  into account.
+     */
+
+using namespace starling::events;
+
+namespace starling {
+namespace events {
 
 
-
-
-
-
-
-
-namespace starling
-{
-    namespace events
-    {
-        /** An EnterFrameEvent is triggered once per frame and is dispatched to all objects in the
-         *  display tree.
-         *
-         *  It contains information about the time that has passed since the last frame. That way, you
-         *  can easily make animations that are independent of the frame rate, taking the passed time
-         *  into account.
-         */ /** Event type for a display object that is entering a new frame. */const std::string EnterFrameEvent::ENTER_FRAME="enterFrame";
+        /** Event type for a display object that is entering a new frame. */
+        const std::string EnterFrameEvent::ENTER_FRAME="enterFrame";
 
         /** Creates an enter frame event with the passed time. */
         EnterFrameEvent::EnterFrameEvent(std::string type, float passedTime, bool bubbles)
@@ -37,10 +37,7 @@ namespace starling
         }
 
         /** The time that has passed since the last frame (in seconds). */
-        float EnterFrameEvent::passedTime()
-        {
-            return static_cast<float>(data);
-        }
-    }
+        float EnterFrameEvent::passedTime()        { return dynamic_cast<float>(data); }
+}
 }
 

@@ -21,33 +21,33 @@ class EmbeddedAssets
 
 
 public:
-    static const ////[Embed(source="/textures/1x/atlas.xml",mimeType="application/octet-stream")]Class* atlas_xml;
+    static const Class *atlas_xml;
 
 
 public:
-    static const ////[Embed(source="/textures/1x/atlas.png")]Class* atlas;
+    static const Class *atlas;
 
     // Compressed textures
 
 
 public:
-    static const ////[Embed(source="/textures/1x/compressed_texture.atf",mimeType="application/octet-stream")]Class* compressed_texture;
+    static const Class *compressed_texture;
 
     // Bitmap Fonts
 
 
 public:
-    static const ////[Embed(source="/fonts/1x/desyrel.fnt",mimeType="application/octet-stream")]Class* desyrel_fnt;
+    static const Class *desyrel_fnt;
 
 
 public:
-    static const ////[Embed(source="/fonts/1x/desyrel.png")]Class* desyrel;
+    static const Class *desyrel;
 
     // Sounds
 
 
 public:
-    static const ////[Embed(source="/audio/wing_flap.mp3")]Class* wing_flap;
+    static const Class *wing_flap;
 };
 
 #endif // __SAMPLES_DEMO_WEB_SRC_EMBEDDEDASSETS_AS

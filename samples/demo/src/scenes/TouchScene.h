@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace display
@@ -45,7 +38,7 @@ using namespace utils;
 
 namespace scenes
 {
-    class TouchScene: public Scene
+    class TouchScene : public Scene
     {
     public:
         TouchScene();

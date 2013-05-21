@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -91,20 +84,15 @@ namespace starling
 }
 
 using namespace flash::geom;
-using namespace flash::geom;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::filters;
 using namespace starling::text;
 
 namespace scenes
 {
-    class MaskScene: public Scene
+    class MaskScene : public Scene
     {
     private:
         Sprite *mContents;

@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace utils
@@ -52,7 +45,7 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+//use namespace starling_internal;
 
 /** Event objects are passed as parameters to event listeners when an event occurs.
  *  This is Starling's version of the Flash Event class.
@@ -72,10 +65,11 @@ namespace starling
  *
  *  @see EventDispatcher
  */
+
 using namespace flash::utils;
 using namespace starling::core;
-using namespace starling::utils;
 using namespace starling::events;
+using namespace starling::utils;
 
 namespace starling
 {
@@ -140,7 +134,7 @@ namespace starling
             static const std::string SELECT;
 
         private:
-            static  std::vector<Event *> *sEventPool;
+            static std::vector<Event *> sEventPool;
 
         private:
             EventDispatcher *mTarget;
@@ -196,19 +190,19 @@ namespace starling
             // properties for internal use
 
             /** @private */
-            void setTarget(EventDispatcher *value);
+            void     setTarget(EventDispatcher *value);
 
             /** @private */
-            void setCurrentTarget(EventDispatcher *value);
+            void     setCurrentTarget(EventDispatcher *value);
 
             /** @private */
-            void setData(Object *value);
+            void     setData(Object *value);
 
             /** @private */
-            bool stopsPropagation();
+            bool         stopsPropagation();
 
             /** @private */
-            bool stopsImmediatePropagation();
+            bool         stopsImmediatePropagation();
 
             // event pooling
 
@@ -219,7 +213,7 @@ namespace starling
             static void     toPool(Event *event);
 
             /** @private */
-            Event *reset(std::string type, bool bubbles   =false, Object *data=NULL);
+            Event   *reset(std::string type, bool bubbles   =false, Object *data=NULL);
         };
     }
 }

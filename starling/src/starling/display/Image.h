@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -71,6 +64,7 @@ namespace starling
         class VertexData;
     }
 }
+#include "starling/display/Quad.h"
 
 /** An Image is a quad with a texture mapped onto it.
  *
@@ -88,11 +82,11 @@ namespace starling
  *  @see starling.textures.Texture
  *  @see Quad
  */
+
 using namespace flash::display;
 using namespace flash::geom;
-using namespace flash::geom;
 using namespace starling::core;
-using namespace starling::textures;
+using namespace starling::display;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -100,7 +94,7 @@ namespace starling
 {
     namespace display
     {
-        class Image: public Quad
+        class Image : public starling::display::Quad
         {
         private:
             Texture *mTexture;
@@ -118,8 +112,8 @@ namespace starling
 
             /** Creates an Image with a texture that is created from a bitmap object. */
         public:
-            static Image *fromBitmap(Bitmap *bitmap, bool generateMipMaps   =true,
-                                     float scale =1);
+            static Image   *fromBitmap(Bitmap *bitmap, bool generateMipMaps   =true,
+                                       float scale =1);
 
             /** @inheritDoc */
         protected:

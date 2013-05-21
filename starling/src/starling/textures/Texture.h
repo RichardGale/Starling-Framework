@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -55,7 +48,27 @@ namespace flash
     {
         namespace textures
         {
+            class Texture;
+        }
+    }
+}
+namespace flash
+{
+    namespace display3D
+    {
+        namespace textures
+        {
             class TextureBase;
+        }
+    }
+}
+namespace flash
+{
+    namespace display3D
+    {
+        namespace textures
+        {
+            class ConcreteTexture;
         }
     }
 }
@@ -198,22 +211,16 @@ namespace starling
  *  @see starling.display.Image
  *  @see TextureAtlas
  */
+
 using namespace flash::display;
-using namespace flash::display;
-using namespace flash::display3D;
 using namespace flash::display3D;
 using namespace flash::display3D::textures;
 using namespace flash::events;
 using namespace flash::geom;
-using namespace flash::geom;
-using namespace flash::geom;
 using namespace flash::system;
-using namespace flash::utils;
 using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::errors;
-using namespace starling::errors;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
@@ -229,7 +236,7 @@ namespace starling
 
             /** helper object */
         private:
-            static  Point *sOrigin;
+            static Point *sOrigin;
 
             /** @private */
         public:

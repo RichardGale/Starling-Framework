@@ -13,14 +13,13 @@
 #include "Color.h"
 #include "starling/errors/AbstractClassError.h"
 
-/** A utility class containing predefined colors and methods converting between different
- *  color representations. */
+    /** A utility class containing predefined colors and methods converting between different
+     *  color representations. */
+
 using namespace starling::errors;
 
-namespace starling
-{
-    namespace utils
-    {
+namespace starling {
+namespace utils {
 
 
         const unsigned int Color::WHITE=0xffffff;
@@ -41,28 +40,16 @@ namespace starling
         const unsigned int Color::PURPLE=0x800080;
 
         /** Returns the alpha part of an ARGB color (0 - 255). */
-        int Color::getAlpha(unsigned int color)
-        {
-            return (color >> 24) & 0xff;
-        }
+        int Color::getAlpha(unsigned int color)     { return (color >> 24) & 0xff; }
 
         /** Returns the red part of an (A)RGB color (0 - 255). */
-        int Color::getRed(unsigned int color)
-        {
-            return (color >> 16) & 0xff;
-        }
+        int Color::getRed(unsigned int color)       { return (color >> 16) & 0xff; }
 
         /** Returns the green part of an (A)RGB color (0 - 255). */
-        int Color::getGreen(unsigned int color)
-        {
-            return (color >>  8) & 0xff;
-        }
+        int Color::getGreen(unsigned int color)     { return (color >>  8) & 0xff; }
 
         /** Returns the blue part of an (A)RGB color (0 - 255). */
-        int Color::getBlue(unsigned int color)
-        {
-            return  color        & 0xff;
-        }
+        int Color::getBlue(unsigned int color)      { return  color        & 0xff; }
 
         /** Creates an RGB color, stored in an unsigned integer. Channels are expected
          *  in the range 0 - 255. */
@@ -79,10 +66,7 @@ namespace starling
         }
 
         /** @private */
-        Color::Color()
-        {
-            throw new AbstractClassError();
-        }
-    }
+        Color::Color() { throw new AbstractClassError(); }
+}
 }
 

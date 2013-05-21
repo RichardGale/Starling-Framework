@@ -27,21 +27,8 @@
 
 using namespace flash::utils;
 using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
-using namespace scenes;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
@@ -49,64 +36,64 @@ using namespace starling::utils;
 
 
 
-MainMenu::MainMenu()
-{
-    init();
-}
+        MainMenu::MainMenu()
+        {
+            init();
+        }
 
-void MainMenu::init()
-{
-    Image *logo=new Image(Game->assets->getTexture("logo"));
-    addChild(logo);
+        void MainMenu::init()
+        {
+             Image* logo= new Image(Game()->assets()->getTexture("logo"));
+            addChild(logo);
 
-    std::vector<void *> scenesToCreate=[
-                                           ["Textures", TextureScene],
-                                           ["Multitouch", TouchScene],
-                                           ["TextFields", TextScene],
-                                           ["Animations", AnimationScene],
-                                           ["Custom hit-test", CustomHitTestScene],
-                                           ["Movie Clip", MovieScene],
-                                           ["Filters", FilterScene],
-                                           ["Blend Modes", BlendModeScene],
-                                           ["Render Texture", RenderTextureScene],
-                                           ["Benchmark", BenchmarkScene],
-                                           ["Clipping", MaskScene]
-                                       ];
+             std::vector<void*> scenesToCreate=[
+                ["Textures", TextureScene],
+                ["Multitouch", TouchScene],
+                ["TextFields", TextScene],
+                ["Animations", AnimationScene],
+                ["Custom hit-test", CustomHitTestScene],
+                ["Movie Clip", MovieScene],
+                ["Filters", FilterScene],
+                ["Blend Modes", BlendModeScene],
+                ["Render Texture", RenderTextureScene],
+                ["Benchmark", BenchmarkScene],
+                ["Clipping", MaskScene]
+            ];
 
-    Texture *buttonTexture=Game->assets->getTexture("button_medium");
-    int count= 0;
+             Texture* buttonTexture= Game()->assets()->getTexture("button_medium");
+             int count = 0;
 
-    for each (var std::vector<void *> sceneToCreateinscenesToCreate)
-    {
-        std::string sceneTitle=sceneToCreate[0];
-        Class *sceneClass= sceneToCreate[1];
+            for each (var std::vector<void*> sceneToCreateinscenesToCreate)
+            {
+                 std::string sceneTitle=sceneToCreate[0];
+                 Class* sceneClass = sceneToCreate[1];
 
-        Button *button=new Button(buttonTexture, sceneTitle);
-        button->x= count % 2 == 0 ? 28 : 167;
-        button->y= 155 + int(count / 2) * 46;
-        button->name= getQualifiedClassName(sceneClass);
-        addChild(button);
+                 Button* button= new Button(buttonTexture, sceneTitle);
+                button->x ( count % 2 == 0 ? 28 : 167);
+                button->y ( 155 + int(count / 2) * 46);
+                button->name ( getQualifiedClassName(sceneClass));
+                addChild(button);
 
-        if (scenesToCreate->length% 2 != 0 && count % 2 == 1)
-            button->y+= 24;
+                if (scenesToCreate.length % 2 != 0 && count % 2 == 1)
+                    button->y() += 24;
 
-        ++count;
-    }
+                ++count;
+            }
 
-    // show information about rendering method (hardware/software)
+            // show information about rendering method (hardware/software)
 
-    std::string driverInfo=Starling::context->driverInfo;
-    TextField *infoText=new TextField(310, 64, driverInfo, "Verdana", 10);
-    infoText->x= 5;
-    infoText->y= 475 - infoText->height;
-    infoText->vAlign= VAlign::BOTTOM;
-    infoText->addEventListener(TouchEvent::TOUCH,onInfoTextTouched);
-    addChildAt(infoText, 0);
-}
+             std::string driverInfo=Starling::context()->driverInfo;
+             TextField* infoText= new TextField(310, 64, driverInfo, "Verdana", 10);
+            infoText->x ( 5);
+            infoText->y ( 475 - infoText->height());
+            infoText->vAlign ( VAlign::BOTTOM);
+            infoText->addEventListener(TouchEvent::TOUCH, onInfoTextTouched);
+            addChildAt(infoText, 0);
+        }
 
-void MainMenu::onInfoTextTouched(TouchEvent *event)
-{
-    if (event->getTouch(this,TouchPhase::ENDED))
-        Starling::current->showStats=!Starling::current->showStats;
-}
+        void MainMenu::onInfoTextTouched(TouchEvent* event)
+        {
+            if (event->getTouch(this, TouchPhase::ENDED))
+                Starling::current()->showStats ( !Starling::current()->showStats());
+        }
 

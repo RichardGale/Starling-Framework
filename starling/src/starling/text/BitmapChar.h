@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace utils
@@ -48,6 +41,7 @@ namespace starling
  *  <em>You don't have to use this class directly in most cases.
  *  The TextField class contains methods that handle bitmap fonts for you.</em>
  */
+
 using namespace flash::utils;
 using namespace starling::display;
 using namespace starling::textures;

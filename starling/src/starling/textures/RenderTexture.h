@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -128,13 +121,11 @@ namespace starling
  *  </p>
  *
  */
+
 using namespace flash::display3D;
 using namespace flash::display3D::textures;
 using namespace flash::geom;
-using namespace flash::geom;
 using namespace starling::core;
-using namespace starling::core;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::utils;
@@ -143,7 +134,7 @@ namespace starling
 {
     namespace textures
     {
-        class RenderTexture: public SubTexture
+        class RenderTexture : public SubTexture
         {
         private:
             const bool PMA;
@@ -163,7 +154,7 @@ namespace starling
 
             /** helper object */
         private:
-            static  Rectangle *sClipRect;
+            static Rectangle *sClipRect;
 
             /** Creates a new RenderTexture with a certain size. If the texture is persistent, the
              *  contents of the texture remains intact after each draw call, allowing you to use the

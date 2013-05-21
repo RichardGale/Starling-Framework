@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace errors
@@ -31,6 +24,7 @@ namespace starling
 
 /** A utility class containing predefined colors and methods converting between different
  *  color representations. */
+
 using namespace starling::errors;
 
 namespace starling
@@ -74,19 +68,19 @@ namespace starling
 
             /** Returns the alpha part of an ARGB color (0 - 255). */
         public:
-            static int getAlpha(unsigned int color);
+            static int      getAlpha(unsigned int color);
 
             /** Returns the red part of an (A)RGB color (0 - 255). */
         public:
-            static int getRed(unsigned int color);
+            static int      getRed(unsigned int color);
 
             /** Returns the green part of an (A)RGB color (0 - 255). */
         public:
-            static int getGreen(unsigned int color);
+            static int      getGreen(unsigned int color);
 
             /** Returns the blue part of an (A)RGB color (0 - 255). */
         public:
-            static int getBlue(unsigned int color);
+            static int      getBlue(unsigned int color);
 
             /** Creates an RGB color, stored in an unsigned integer. Channels are expected
              *  in the range 0 - 255. */

@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace display
@@ -21,11 +14,10 @@ namespace starling
 #include "starling/display/Sprite.h"
 
 using namespace starling::display;
-using namespace starling::display;
 
 namespace scenes
 {
-    class Scene: public Sprite
+    class Scene : public starling::display::Sprite
     {
     private:
         Button *mBackButton;

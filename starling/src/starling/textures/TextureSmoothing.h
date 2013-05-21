@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace errors
@@ -30,6 +23,7 @@ namespace starling
 }
 
 /** A class that provides constant values for the possible smoothing algorithms of a texture. */
+
 using namespace starling::errors;
 
 namespace starling
@@ -56,7 +50,7 @@ namespace starling
 
             /** Determines whether a smoothing value is valid. */
         public:
-            static bool isValid(std::string smoothing);
+            static bool     isValid(std::string smoothing);
         };
     }
 }

@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -108,11 +101,9 @@ using namespace flash::display3D;
 using namespace flexunit::framework;
 using namespace org::flexunit;
 using namespace org::flexunit::asserts;
-using namespace org::flexunit::asserts;
 using namespace org::hamcrest::number;
 using namespace starling::display;
 using namespace starling::events;
-using namespace starling::textures;
 using namespace starling::textures;
 
 namespace tests
@@ -168,7 +159,7 @@ namespace tests
         ////[Test]      testStopMovieInCompleteHandler();
 
     private:
-        std::vector<Texture *> *createFrames(int count);
+        std::vector<Texture *> createFrames(int count);
     };
 }
 

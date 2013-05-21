@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace com
 {
     namespace adobe
@@ -152,22 +145,13 @@ namespace starling
  *  It allows manipulation of the current transformation matrix (similar to the matrix
  *  manipulation methods of OpenGL 1.x) and other helper methods.
  */
+
 using namespace com::adobe::utils;
 using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
 using namespace flash::geom;
-using namespace flash::geom;
-using namespace flash::geom;
-using namespace flash::geom;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::textures;
-using namespace starling::utils;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
@@ -187,7 +171,7 @@ namespace starling
         private:
             Matrix3D *mMvpMatrix3D;
         private:
-            std::vector<Matrix *> *mMatrixStack;
+            std::vector<Matrix *> mMatrixStack;
         private:
             int mMatrixStackSize;
 
@@ -197,29 +181,29 @@ namespace starling
             std::string mBlendMode;
 
         private:
-            Texture *mRenderTarget;
+            starling::textures::Texture *mRenderTarget;
         private:
             int mBackBufferWidth;
         private:
             int mBackBufferHeight;
 
         private:
-            std::vector<Rectangle *> *mClipRectStack;
+            std::vector<Rectangle *> mClipRectStack;
         private:
             int mClipRectStackSize;
 
         private:
-            std::vector<QuadBatch *> *mQuadBatches;
+            std::vector<QuadBatch *> mQuadBatches;
         private:
             int mCurrentQuadBatchID;
 
             /** helper objects */
         private:
-            static  Point *sPoint;
+            static Point *sPoint;
         private:
-            static  Rectangle *sRectangle;
+            static Rectangle *sRectangle;
         private:
-            static  AGALMiniAssembler *sAssembler;
+            static AGALMiniAssembler *sAssembler;
 
             // construction
 
@@ -259,7 +243,7 @@ namespace starling
 
             /** Prepends translation, scale and rotation of an object to the modelview matrix. */
         public:
-            void     transformMatrix(DisplayObject *object);
+            void     transformMatrix(starling::display::DisplayObject *object);
 
             /** Pushes the current modelview matrix to a stack from which it can be restored later. */
         public:
@@ -275,7 +259,7 @@ namespace starling
 
             /** Prepends translation, scale and rotation of an object to a custom matrix. */
         public:
-            static void transformMatrixForObject(Matrix *matrix, DisplayObject *object);
+            static void     transformMatrixForObject(Matrix *matrix, DisplayObject *object);
 
             /** Calculates the product of modelview and projection matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
@@ -376,7 +360,7 @@ namespace starling
              *  all previous quads are rendered at once, and the batch is reset. */
         public:
             void     batchQuad(Quad *quad, float parentAlpha,
-                               Texture *texture=NULL, std::string smoothing=NULL);
+                               Texture *texture=NULL, std::string smoothing="");
 
             /** Renders the current quad batch and resets it. */
         public:
@@ -390,15 +374,15 @@ namespace starling
 
             /** Deprecated. Call 'setBlendFactors' instead. */
         public:
-            static void setDefaultBlendFactors(bool premultipliedAlpha);
+            static void     setDefaultBlendFactors(bool premultipliedAlpha);
 
             /** Sets up the blending factors that correspond with a certain blend mode. */
         public:
-            static void setBlendFactors(bool premultipliedAlpha, std::string blendMode="normal");
+            static void     setBlendFactors(bool premultipliedAlpha, std::string blendMode="normal");
 
             /** Clears the render context with a certain color and alpha value. */
         public:
-            static void clear(unsigned int rgb=0, float alpha =0.0);
+            static void     clear(unsigned int rgb=0, float alpha =0.0);
 
             /** Clears the render context with a certain color and alpha value. */
         public:

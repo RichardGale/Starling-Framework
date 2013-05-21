@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -37,6 +30,7 @@ namespace flash
 }
 
 /** A parser for the ATF data format. */
+
 using namespace flash::display3D;
 using namespace flash::utils;
 

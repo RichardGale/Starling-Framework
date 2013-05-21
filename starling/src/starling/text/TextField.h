@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -187,32 +180,22 @@ namespace starling
  *        They support Starling natively.</li>
  *  </ul>
  */
-using namespace flash::display;
+
 using namespace flash::display;
 using namespace flash::geom;
-using namespace flash::geom;
-using namespace flash::text;
-using namespace flash::text;
 using namespace flash::text;
 using namespace flash::utils;
 using namespace starling::core;
-using namespace starling::core;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::events;
 using namespace starling::textures;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
 {
     namespace text
     {
-        class TextField: public DisplayObjectContainer
+        class TextField : public starling::display::DisplayObjectContainer
         {
             // the name container with the registered bitmap fonts
         private:
@@ -263,7 +246,7 @@ namespace starling
 
             // this object will be used for text rendering
         private:
-            static  flash::text::TextField *sNativeTextField;
+            static flash::text::TextField *sNativeTextField;
 
             /** Create a new text field with the given properties. */
         public:
@@ -425,11 +408,11 @@ namespace starling
              *  Per default, the <code>name</code> property of the bitmap font will be used, but you
              *  can pass a custom name, as well. @returns the name of the font. */
         public:
-            static std::string registerBitmapFont(BitmapFont *bitmapFont, std::string name=NULL);
+            static std::string registerBitmapFont(BitmapFont *bitmapFont, std::string name="");
 
             /** Unregisters the bitmap font and, optionally, disposes it. */
         public:
-            static void unregisterBitmapFont(std::string name, bool dispose   =true);
+            static void     unregisterBitmapFont(std::string name, bool dispose   =true);
 
             /** Returns a registered bitmap font (or null, if the font has not been registered). */
         public:

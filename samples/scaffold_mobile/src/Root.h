@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace core
@@ -58,18 +51,18 @@ namespace utils
  *  switching between game and menu. For this, it listens to "START_GAME" and "GAME_OVER"
  *  events fired by the Menu and Game classes. Keep this class rather lightweight: it
  *  controls the high level behaviour of your game. */
+
 using namespace starling::core;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::events;
 using namespace starling::textures;
 using namespace starling::utils;
 using namespace utils;
 
-class Root: public Sprite
+class Root : public starling::display::Sprite
 {
 private:
-    static  AssetManager *sAssets;
+    static AssetManager *sAssets;
 
 private:
     Sprite *mActiveScene;

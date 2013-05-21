@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -38,6 +31,7 @@ namespace starling
 }
 
 /** A utility class containing methods related to the Rectangle class. */
+
 using namespace flash::geom;
 using namespace starling::errors;
 
@@ -74,7 +68,7 @@ namespace starling
 
             /** Calculates the next whole-number multiplier or divisor, moving either up or down. */
         private:
-            static float nextSuitableScaleFactor(float factor, bool up);
+            static float    nextSuitableScaleFactor(float factor, bool up);
         };
     }
 }

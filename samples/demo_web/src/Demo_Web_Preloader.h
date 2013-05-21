@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -68,16 +61,13 @@ namespace starling
 // compiler argument: '-frame StartupFrame Demo_Web'
 
 //[SWF(width="320",height="480",frameRate="60", backgroundColor="#222222")]
-using namespace flash::display;
-using namespace flash::display;
-using namespace flash::display;
-using namespace flash::display;
+
 using namespace flash::display;
 using namespace flash::events;
 using namespace flash::utils;
 using namespace starling::utils;
 
-class Demo_Web_Preloader: public MovieClip
+class Demo_Web_Preloader : public flash::display::MovieClip
 {
 private:
     const std::string STARTUP_CLASS;

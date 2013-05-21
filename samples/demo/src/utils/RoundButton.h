@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -43,14 +36,12 @@ namespace starling
 }
 
 using namespace flash::geom;
-using namespace flash::geom;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::textures;
 
 namespace utils
 {
-    class RoundButton: public Button
+    class RoundButton : public starling::display::Button
     {
     public:
         RoundButton(Texture *upState, std::string text="", Texture *downState=NULL);

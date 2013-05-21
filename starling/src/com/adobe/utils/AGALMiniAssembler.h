@@ -37,14 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ===========================================================================
 //  Imports
 // ---------------------------------------------------------------------------
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -66,11 +59,25 @@ namespace flash
         class ByteArray;
     }
 }
+namespace flash
+{
+    namespace utils
+    {
+        class Endian;
+    }
+}
+namespace flash
+{
+    namespace utils
+    {
+        class getTimer;
+    }
+}
 
 // ===========================================================================
 //  Class
 // ---------------------------------------------------------------------------
-using namespace flash::display3D;
+
 using namespace flash::display3D;
 using namespace flash::utils;
 
@@ -101,13 +108,13 @@ namespace com
                 bool debugEnabled;
 
             private:
-                static  bool initialized;
+                static bool initialized;
             public:
                 bool verbose;
 
                 // ======================================================================
-
-
+                //  Getters
+                // ----------------------------------------------------------------------
             public:
                 std::string  error();
             public:
@@ -132,7 +139,7 @@ namespace com
                 void     initregmap( unsigned int version, bool ignorelimits);
 
             private:
-                static void init();
+                static         void     init();
 
                 // ======================================================================
                 //  Constants
@@ -351,133 +358,132 @@ namespace com
 }
 // ================================================================================//  Helper Classes
 // --------------------------------------------------------------------------------
+
+// ===========================================================================
+//  Class
+// ---------------------------------------------------------------------------
+class OpCode
 {
+    // ======================================================================
+    //  Properties
+    // ----------------------------------------------------------------------
+private:
+    unsigned int _emitCode;
+private:
+    unsigned int _flags;
+private:
+    std::string _name;
+private:
+    unsigned int _numRegister;
 
+    // ======================================================================
+    //  Getters
+    // ----------------------------------------------------------------------
+public:
+    unsigned int emitCode();
+public:
+    unsigned int flags();
+public:
+    std::string  name();
+public:
+    unsigned int numRegister();
 
+    // ======================================================================
+    //  Constructor
+    // ----------------------------------------------------------------------
+public:
+    OpCode( std::string name, unsigned int numRegister, unsigned int emitCode, unsigned int flags);
 
-    class// ===========================================================================//  Class// ---------------------------------------------------------------------------OpCode
-    {
-        // ======================================================================
-        //  Properties
-        // ----------------------------------------------------------------------
-    private:
-        unsigned int _emitCode;
-    private:
-        unsigned int _flags;
-    private:
-        std::string _name;
-    private:
-        unsigned int _numRegister;
+    // ======================================================================
+    //  Methods
+    // ----------------------------------------------------------------------
+public:
+    std::string toString();
+};
 
-        // ======================================================================
+// ===========================================================================
+//  Class
+// ---------------------------------------------------------------------------
+class Register
+{
+    // ======================================================================
+    //  Properties
+    // ----------------------------------------------------------------------
+private:
+    unsigned int _emitCode;
+private:
+    std::string _name;
+private:
+    std::string _longName;
+private:
+    unsigned int _flags;
+private:
+    unsigned int _range;
 
+    // ======================================================================
+    //  Getters
+    // ----------------------------------------------------------------------
+public:
+    unsigned int emitCode();
+public:
+    std::string  longName();
+public:
+    std::string  name();
+public:
+    unsigned int flags();
+public:
+    unsigned int range();
 
-    public:
-        unsigned int emitCode();
-    public:
-        unsigned int flags();
-    public:
-        std::string  name();
-    public:
-        unsigned int numRegister();
+    // ======================================================================
+    //  Constructor
+    // ----------------------------------------------------------------------
+public:
+    Register( std::string name, std::string longName, unsigned int emitCode, unsigned int range, unsigned int flags);
 
-        // ======================================================================
-        //  Constructor
-        // ----------------------------------------------------------------------
-    public:
-        OpCode( std::string name, unsigned int numRegister, unsigned int emitCode, unsigned int flags);
+    // ======================================================================
+    //  Methods
+    // ----------------------------------------------------------------------
+public:
+    std::string toString();
+};
 
-        // ======================================================================
-        //  Methods
-        // ----------------------------------------------------------------------
-    public:
-        std::string toString();
-    };
+// ===========================================================================
+//  Class
+// ---------------------------------------------------------------------------
+class Sampler
+{
+    // ======================================================================
+    //  Properties
+    // ----------------------------------------------------------------------
+private:
+    unsigned int _flag;
+private:
+    unsigned int _mask;
+private:
+    std::string _name;
 
-    // ===========================================================================
-    //  Class
-    // ---------------------------------------------------------------------------
-    class Register
-    {
-        // ======================================================================
-        //  Properties
-        // ----------------------------------------------------------------------
-    private:
-        unsigned int _emitCode;
-    private:
-        std::string _name;
-    private:
-        std::string _longName;
-    private:
-        unsigned int _flags;
-    private:
-        unsigned int _range;
+    // ======================================================================
+    //  Getters
+    // ----------------------------------------------------------------------
+public:
+    unsigned int flag();
+public:
+    unsigned int mask();
+public:
+    std::string  name();
 
-        // ======================================================================
+    // ======================================================================
+    //  Constructor
+    // ----------------------------------------------------------------------
+public:
+    Sampler( std::string name, unsigned int flag, unsigned int mask);
 
-
-    public:
-        unsigned int emitCode();
-    public:
-        std::string  longName();
-    public:
-        std::string  name();
-    public:
-        unsigned int flags();
-    public:
-        unsigned int range();
-
-        // ======================================================================
-        //  Constructor
-        // ----------------------------------------------------------------------
-    public:
-        Register( std::string name, std::string longName, unsigned int emitCode, unsigned int range, unsigned int flags);
-
-        // ======================================================================
-        //  Methods
-        // ----------------------------------------------------------------------
-    public:
-        std::string toString();
-    };
-
-    // ===========================================================================
-    //  Class
-    // ---------------------------------------------------------------------------
-    class Sampler
-    {
-        // ======================================================================
-        //  Properties
-        // ----------------------------------------------------------------------
-    private:
-        unsigned int _flag;
-    private:
-        unsigned int _mask;
-    private:
-        std::string _name;
-
-        // ======================================================================
-
-
-    public:
-        unsigned int flag();
-    public:
-        unsigned int mask();
-    public:
-        std::string  name();
-
-        // ======================================================================
-        //  Constructor
-        // ----------------------------------------------------------------------
-    public:
-        Sampler( std::string name, unsigned int flag, unsigned int mask);
-
-        // ======================================================================
-        //  Methods
-        // ----------------------------------------------------------------------
-    public:
-        std::string toString();
-    };
-}
+    // ======================================================================
+    //  Methods
+    // ----------------------------------------------------------------------
+public:
+    std::string toString();
+};
 #endif // __STARLING_SRC_COM_ADOBE_UTILS_AGALMINIASSEMBLER_AS
 #endif // __cplusplus
 

@@ -13,22 +13,15 @@
 
 
 
-
-
-
-
-
-
-
-
-namespace starling_internal/**
-     *  This namespace is used for undocumented APIs -- usually implementation
-     *  details -- which can't be private because they need to visible
-     *  to other classes.
-     *
-     *  APIs in this namespace are completely unsupported and are likely to
-     *  change in future versions of Starling.
-     */public:                         ;
+/**
+ *  This namespace is used for undocumented APIs -- usually implementation
+ *  details -- which can't be private because they need to visible
+ *  to other classes.
+ *
+ *  APIs in this namespace are completely unsupported and are likely to
+ *  change in future versions of Starling.
+ */
+namespace starling_internal {};
 #endif // __STARLING_SRC_STARLING_CORE_STARLING_INTERNAL_AS
 #endif // __cplusplus
 

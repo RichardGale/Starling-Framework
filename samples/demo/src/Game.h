@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace ui
@@ -92,20 +85,17 @@ using namespace flash::utils;
 using namespace scenes;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::textures;
 using namespace starling::utils;
 using namespace utils;
 
-class Game: public Sprite
+class Game : public starling::display::Sprite
 {
     // Embed the Ubuntu Font. Beware: the 'embedAsCFF'-part IS REQUIRED!!!
 
 private:
-    static const ////[Embed(source="../../demo/assets/fonts/Ubuntu-R.ttf",embedAsCFF="false",fontFamily="Ubuntu")]Class* UbuntuRegular;
+    static const Class *UbuntuRegular;
 
 private:
     ProgressBar *mLoadingProgress;
@@ -115,7 +105,7 @@ private:
     Scene *mCurrentScene;
 
 private:
-    static  AssetManager *sAssets;
+    static AssetManager *sAssets;
 
 public:
     Game();

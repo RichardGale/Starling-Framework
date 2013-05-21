@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 #include "flash/display/Sprite.h"
 namespace flash
 {
@@ -53,6 +46,7 @@ namespace starling
 // To use a preloader, see 'Demo_Web_Preloader.as'.
 
 //[SWF(width="320",height="480",frameRate="60", backgroundColor="#222222")]
+
 using namespace flash::display;
 using namespace flash::system;
 using namespace starling::core;
@@ -60,10 +54,11 @@ using namespace starling::events;
 using namespace starling::textures;
 using namespace starling::utils;
 
-class Demo_Web: public Sprite
+class Demo_Web : public flash::display::Sprite
 {
 
-private:  ////[Embed(source="/startup.jpg")]Class* Background;
+private:
+    Class *Background;
 
 private:
     Starling *mStarling;

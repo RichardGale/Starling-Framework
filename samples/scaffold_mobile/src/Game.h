@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace animation
@@ -57,15 +50,14 @@ namespace starling
 
 /** The Game class represents the actual game. In this scaffold, it just displays a
  *  Starling that moves around fast. When the user touches the Starling, the game ends. */
+
 using namespace starling::animation;
 using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::events;
 using namespace starling::events;
 using namespace starling::utils;
 
-class Game: public Sprite
+class Game : public starling::display::Sprite
 {
 public:
     static const std::string GAME_OVER;

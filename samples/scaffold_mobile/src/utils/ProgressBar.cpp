@@ -11,60 +11,56 @@
 #include "starling/textures/Texture.h"
 
 using namespace flash::display;
-using namespace flash::display;
 using namespace starling::core;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::textures;
 
-namespace utils
-{
+namespace utils {
 
 
-    ProgressBar::ProgressBar(int width, int height)
-    {
-        init(width, height);
-    }
+                    
+                    
 
-    void ProgressBar::init(int width, int height)
-    {
-        float scale = Starling::contentScaleFactor;
-        float padding = height * 0.2;
-        float cornerRadius = padding * scale * 2;
+        ProgressBar::ProgressBar(int width, int height)
+        {
+            init(width, height);
+        }
 
-        // create black rounded box for background
+        void ProgressBar::init(int width, int height)
+        {
+             float scale  = Starling::contentScaleFactor;
+             float padding  = height * 0.2;
+             float cornerRadius  = padding * scale * 2;
 
-        Shape *bgShape=new Shape();
-        bgShape->graphics->beginFill(0x0,0.6);
-        bgShape->graphics->drawRoundRect(0,0,width*scale, height*scale, cornerRadius, cornerRadius);
-        bgShape->graphics->endFill();
+            // create black rounded box for background
 
-        BitmapData *bgBitmapData=new BitmapData(width*scale, height*scale, true, 0x0);
-        bgBitmapData->draw(bgShape);
-        Texture *bgTexture=Texture::fromBitmapData(bgBitmapData,false, false, scale);
+             Shape* bgShape= new Shape();
+            bgShape->graphics()->beginFill(0x0, 0.6);
+            bgShape->graphics()->drawRoundRect(0, 0, width*scale, height*scale, cornerRadius, cornerRadius);
+            bgShape->graphics()->endFill();
 
-        mBackground = new Image(bgTexture);
-        addChild(mBackground);
+             BitmapData* bgBitmapData= new BitmapData(width*scale, height*scale, true, 0x0);
+            bgBitmapData->draw(bgShape);
+             Texture* bgTexture= Texture::fromBitmapData(bgBitmapData, false, false, scale);
 
-        // create progress bar quad
+            mBackground = new Image(bgTexture);
+            addChild(mBackground);
 
-        mBar = new Quad(width - 2*padding, height - 2*padding, 0xeeeeee);
-        mBar->setVertexColor(2,0xaaaaaa);
-        mBar->setVertexColor(3,0xaaaaaa);
-        mBar->x= padding;
-        mBar->y= padding;
-        mBar->scaleX= 0;
-        addChild(mBar);
-    }
+            // create progress bar quad
 
-    float ProgressBar::ratio()
-    {
-        return mBar->scaleX;
-    }
-    void ProgressBar::ratio(float value)
-    {
-        mBar->scaleX= Math::max(0.0,Math::min(1.0,value));
-    }
+            mBar = new Quad(width - 2*padding, height - 2*padding, 0xeeeeee);
+            mBar->setVertexColor(2, 0xaaaaaa);
+            mBar->setVertexColor(3, 0xaaaaaa);
+            mBar->x ( padding);
+            mBar->y ( padding);
+            mBar->scaleX ( 0);
+            addChild(mBar);
+        }
+
+        float ProgressBar::ratio()        { return mBar->scaleX(); }
+        void ProgressBar::ratio(float value)
+        {
+            mBar->scaleX ( Math::max(0.0, Math::min(1.0, value)));
+        }
 }
 

@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -66,12 +59,11 @@ namespace starling
     }
 }
 
-//use starling_internal        ;
+//use namespace starling_internal;
 
 using namespace flash::geom;
 using namespace flexunit::framework;
 using namespace starling::core;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::utils;
 

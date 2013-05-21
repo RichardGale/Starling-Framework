@@ -13,17 +13,18 @@
 
 
 
+/** An AbstractMethodError is thrown when you attempt to call an abstract method. */
 
 
 namespace starling
 {
     namespace errors
     {
-        class/** An AbstractMethodError is thrown when you attempt to call an abstract method. */AbstractMethodError: public Error
+        class AbstractMethodError : public Error
         {
             /** Creates a new AbstractMethodError object. */
         public:
-            AbstractMethodError(void *message="", void *id=0);
+            AbstractMethodError(void *message=(void *)"", void *id=0);
         };
     }
 }

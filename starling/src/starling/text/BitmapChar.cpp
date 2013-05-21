@@ -16,23 +16,29 @@
 #include "starling/display/Image.h"
 #include "starling/textures/Texture.h"
 
-/** A BitmapChar contains the information about one char of a bitmap font.
- *  <em>You don't have to use this class directly in most cases.
- *  The TextField class contains methods that handle bitmap fonts for you.</em>
- */
+    /** A BitmapChar contains the information about one char of a bitmap font.  
+     *  <em>You don't have to use this class directly in most cases. 
+     *  The TextField class contains methods that handle bitmap fonts for you.</em>    
+     */
+
 using namespace flash::utils;
 using namespace starling::display;
 using namespace starling::textures;
 
-namespace starling
-{
-    namespace text
-    {
+namespace starling {
+namespace text {
 
+
+                    
+                    
+                    
+                    
+                    
+                    
 
         /** Creates a char with a texture and its properties. */
-        BitmapChar::BitmapChar(int id, Texture *texture,
-                               float xOffset, float yOffset, float xAdvance)
+        BitmapChar::BitmapChar(int id, Texture* texture,
+                                   float xOffset, float yOffset, float xAdvance)
         {
             mCharID = id;
             mTexture = texture;
@@ -59,52 +65,31 @@ namespace starling
         }
 
         /** Creates an image of the char. */
-        Image *BitmapChar::createImage()
+        Image* BitmapChar::createImage()
         {
             return new Image(mTexture);
         }
 
         /** The unicode ID of the char. */
-        int BitmapChar::charID()
-        {
-            return mCharID;
-        }
+        int BitmapChar::charID()     { return mCharID; }
 
         /** The number of points to move the char in x direction on character arrangement. */
-        float BitmapChar::xOffset()
-        {
-            return mXOffset;
-        }
+        float BitmapChar::xOffset()        { return mXOffset; }
 
         /** The number of points to move the char in y direction on character arrangement. */
-        float BitmapChar::yOffset()
-        {
-            return mYOffset;
-        }
+        float BitmapChar::yOffset()        { return mYOffset; }
 
         /** The number of points the cursor has to be moved to the right for the next char. */
-        float BitmapChar::xAdvance()
-        {
-            return mXAdvance;
-        }
+        float BitmapChar::xAdvance()        { return mXAdvance; }
 
         /** The texture of the character. */
-        Texture *BitmapChar::texture()
-        {
-            return mTexture;
-        }
+        Texture* BitmapChar::texture()         { return mTexture; }
 
         /** The width of the character in points. */
-        float BitmapChar::width()
-        {
-            return mTexture->width;
-        }
+        float BitmapChar::width()        { return mTexture->width(); }
 
         /** The height of the character in points. */
-        float BitmapChar::height()
-        {
-            return mTexture->height;
-        }
-    }
+        float BitmapChar::height()        { return mTexture->height(); }
+}
 }
 

@@ -16,14 +16,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -74,8 +67,7 @@ namespace starling
  *  the matrix after each step, or use an identical adjustment value for each step; the
  *  changes will add up.</p>
  */
-using namespace flash::display3D;
-using namespace flash::display3D;
+
 using namespace flash::display3D;
 using namespace starling::textures;
 
@@ -83,18 +75,18 @@ namespace starling
 {
     namespace filters
     {
-        class ColorMatrixFilter: public FragmentFilter
+        class ColorMatrixFilter : public FragmentFilter
         {
         private:
             Program3D *mShaderProgram;
 
         private:
-            std::vector<float> *mUserMatrix;   // offset in range 0-255
+            std::vector<float> mUserMatrix;   // offset in range 0-255
         private:
-            std::vector<float> *mShaderMatrix; // offset in range 0-1, changed order
+            std::vector<float> mShaderMatrix; // offset in range 0-1, changed order
 
         private:
-            static const std::vector<float> *MIN_COLOR;
+            static const std::vector<float> MIN_COLOR;
         private:
             static const std::vector<void *> IDENTITY;
         private:
@@ -106,15 +98,15 @@ namespace starling
 
             /** helper objects */
         private:
-            static  std::vector<float> *sTmpMatrix1;
+            static std::vector<float> sTmpMatrix1;
         private:
-            static  std::vector<float> *sTmpMatrix2;
+            static std::vector<float> sTmpMatrix2;
 
             /** Creates a new ColorMatrixFilter instance with the specified matrix.
              *  @param matrix: a vector of 20 items arranged as a 4x5 matrix.
              */
         public:
-            ColorMatrixFilter(std::vector<float> *matrix=NULL);
+            ColorMatrixFilter(std::vector<float> matrix=std::vector<float>());
 
             /** @inheritDoc */
         public:
@@ -162,7 +154,7 @@ namespace starling
 
             /** Concatenates the current matrix with another one. */
         public:
-            void     concat(std::vector<float> *matrix);
+            void     concat(std::vector<float> matrix);
 
             /** Concatenates the current matrix with another one, passing its contents directly. */
         private:
@@ -172,7 +164,7 @@ namespace starling
                                   float m15, float m16, float m17, float m18, float m19);
 
         private:
-            void     copyMatrix(std::vector<float> *from, std::vector<float> *to);
+            void     copyMatrix(std::vector<float> from, std::vector<float> to);
 
         private:
             void     updateShaderMatrix();
@@ -181,9 +173,9 @@ namespace starling
 
             /** A vector of 20 items arranged as a 4x5 matrix. */
         public:
-            std::vector<float> *matrix();
+            std::vector<float> matrix();
         public:
-            void         matrix(std::vector<float> *value);
+            void         matrix(std::vector<float> value);
         };
     }
 }

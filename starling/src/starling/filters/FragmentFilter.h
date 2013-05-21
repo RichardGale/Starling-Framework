@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display3D
@@ -237,32 +230,17 @@ namespace starling
  *  will get slower and require more resources; and caching will lead to undefined
  *  results.</p>
  */
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
-using namespace flash::display3D;
+
 using namespace flash::display3D;
 using namespace flash::errors;
-using namespace flash::geom;
 using namespace flash::geom;
 using namespace flash::system;
 using namespace flash::utils;
 using namespace starling::core;
-using namespace starling::core;
-using namespace starling::core;
 using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::display;
-using namespace starling::errors;
 using namespace starling::errors;
 using namespace starling::events;
 using namespace starling::textures;
-using namespace starling::utils;
-using namespace starling::utils;
-using namespace starling::utils;
 using namespace starling::utils;
 
 namespace starling
@@ -296,7 +274,7 @@ namespace starling
         private:
             int mNumPasses;
         private:
-            std::vector<Texture *> *mPassTextures;
+            std::vector<Texture *> mPassTextures;
 
         private:
             std::string mMode;
@@ -316,7 +294,7 @@ namespace starling
         private:
             VertexBuffer3D *mVertexBuffer;
         private:
-            std::vector<unsigned int> *mIndexData;
+            std::vector<unsigned int> mIndexData;
         private:
             IndexBuffer3D *mIndexBuffer;
 
@@ -329,11 +307,11 @@ namespace starling
         private:
             Matrix *mProjMatrix;
         private:
-            static  Rectangle *sBounds;
+            static Rectangle *sBounds;
         private:
-            static  Rectangle *sStageBounds;
+            static Rectangle *sStageBounds;
         private:
-            static  Matrix *sTransformationMatrix;
+            static Matrix *sTransformationMatrix;
 
             /** Creates a new Fragment filter with the specified number of passes and resolution.
              *  This constructor may only be called by the constructor of a subclass. */
@@ -416,7 +394,7 @@ namespace starling
              *  If any argument is  null, it is replaced by the class constants STD_FRAGMENT_SHADER or
              *  STD_VERTEX_SHADER, respectively. */
         protected:
-            Program3D *assembleAgal(std::string fragmentShader=NULL, std::string vertexShader=NULL);
+            Program3D *assembleAgal(std::string fragmentShader="", std::string vertexShader="");
 
             // cache
 
@@ -493,27 +471,27 @@ namespace starling
 
             /** The ID of the vertex buffer attribute that stores the vertex position. */
         protected:
-            int vertexPosAtID();
+            int          vertexPosAtID();
         protected:
-            void vertexPosAtID(int value);
+            void         vertexPosAtID(int value);
 
             /** The ID of the vertex buffer attribute that stores the texture coordinates. */
         protected:
-            int texCoordsAtID();
+            int          texCoordsAtID();
         protected:
-            void texCoordsAtID(int value);
+            void         texCoordsAtID(int value);
 
             /** The ID (sampler) of the input texture (containing the output of the previous pass). */
         protected:
-            int baseTextureID();
+            int          baseTextureID();
         protected:
-            void baseTextureID(int value);
+            void         baseTextureID(int value);
 
             /** The ID of the first register of the modelview-projection constant (a 4x4 matrix). */
         protected:
-            int mvpConstantID();
+            int          mvpConstantID();
         protected:
-            void mvpConstantID(int value);
+            void         mvpConstantID(int value);
         };
     }
 }

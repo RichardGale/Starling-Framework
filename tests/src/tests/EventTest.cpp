@@ -20,311 +20,285 @@
 using namespace flexunit::framework;
 using namespace starling::display;
 using namespace starling::events;
-using namespace starling::events;
 
-namespace tests
-{
+namespace tests {
 
 
 
-    void EventTest::                testBubbling()
-    {
-        const std::string eventType="test";
-
-        Sprite *grandParent=new Sprite();
-        Sprite *parent=new Sprite();
-        Sprite *child=new Sprite();
-
-        grandParent->addChild(parent);
-        parent->addChild(child);
-
-        bool grandParentEventHandlerHit   = false;
-        bool parentEventHandlerHit   = false;
-        bool childEventHandlerHit   = false;
-        int hitCount= 0;
-
-        // bubble up
-
-        grandParent->addEventListener(eventType,onGrandParentEvent);
-        parent->addEventListener(eventType,onParentEvent);
-        child->addEventListener(eventType,onChildEvent);
-
-        Event *event=new Event(eventType, true);
-        child->dispatchEvent(event);
-
-        Assert::assertTrue(grandParentEventHandlerHit);
-        Assert::assertTrue(parentEventHandlerHit);
-        Assert::assertTrue(childEventHandlerHit);
-
-        Assert::assertEquals(3,hitCount);
-
-        // remove event handler
-
-        parentEventHandlerHit = false;
-        parent->removeEventListener(eventType,onParentEvent);
-        child->dispatchEvent(event);
-
-        Assert::assertFalse(parentEventHandlerHit);
-        Assert::assertEquals(5,hitCount);
-
-        // don't bubble
-
-        event = new Event(eventType);
-
-        grandParentEventHandlerHit = parentEventHandlerHit = childEventHandlerHit = false;
-        parent->addEventListener(eventType,onParentEvent);
-        child->dispatchEvent(event);
-
-        Assert::assertEquals(6,hitCount);
-        Assert::assertTrue(childEventHandlerHit);
-        Assert::assertFalse(parentEventHandlerHit);
-        Assert::assertFalse(grandParentEventHandlerHit);
-
-        void EventTest::(Event* event)
+        void EventTest::                testBubbling()
         {
-            grandParentEventHandlerHit = true;
-            Assert::assertEquals(child,event->target);
-            Assert::assertEquals(grandParent,event->currentTarget);
-            hitCount++;
+            const std::string eventType="test";
+
+             Sprite* grandParent= new Sprite();
+             Sprite* parent= new Sprite();
+             Sprite* child= new Sprite();
+
+            grandParent->addChild(parent);
+            parent->addChild(child);
+
+             bool grandParentEventHandlerHit    = false;
+             bool parentEventHandlerHit    = false;
+             bool childEventHandlerHit    = false;
+             int hitCount = 0;
+
+            // bubble up
+
+            grandParent->addEventListener(eventType, onGrandParentEvent);
+            parent->addEventListener(eventType, onParentEvent);
+            child->addEventListener(eventType, onChildEvent);
+
+             Event* event= new Event(eventType, true);
+            child->dispatchEvent(event);
+
+            Assert::assertTrue(grandParentEventHandlerHit);
+            Assert::assertTrue(parentEventHandlerHit);
+            Assert::assertTrue(childEventHandlerHit);
+
+            Assert::assertEquals(3, hitCount);
+
+            // remove event handler
+
+            parentEventHandlerHit = false;
+            parent->removeEventListener(eventType, onParentEvent);
+            child->dispatchEvent(event);
+
+            Assert::assertFalse(parentEventHandlerHit);
+            Assert::assertEquals(5, hitCount);
+
+            // don't bubble
+
+            event = new Event(eventType);
+
+            grandParentEventHandlerHit = parentEventHandlerHit = childEventHandlerHit = false;
+            parent->addEventListener(eventType, onParentEvent);
+            child->dispatchEvent(event);
+
+            Assert::assertEquals(6, hitCount);
+            Assert::assertTrue(childEventHandlerHit);
+            Assert::assertFalse(parentEventHandlerHit);
+            Assert::assertFalse(grandParentEventHandlerHit);void EventTest::(Event* event)
+            {
+                grandParentEventHandlerHit = true;
+                Assert::assertEquals(child, event->target());
+                Assert::assertEquals(grandParent, event->currentTarget());
+                hitCount++;
+            }void EventTest::(Event* event)
+            {
+                parentEventHandlerHit = true;
+                Assert::assertEquals(child, event->target());
+                Assert::assertEquals(parent, event->currentTarget());
+                hitCount++;
+            }void EventTest::(Event* event)
+            {
+                childEventHandlerHit = true;
+                Assert::assertEquals(child, event->target());
+                Assert::assertEquals(child, event->currentTarget());
+                hitCount++;
+            }
         }
 
-        void EventTest::(Event* event)
+
+        void EventTest::                testStopPropagation()
         {
-            parentEventHandlerHit = true;
-            Assert::assertEquals(child,event->target);
-            Assert::assertEquals(parent,event->currentTarget);
-            hitCount++;
+            const std::string eventType="test";
+
+             Sprite* grandParent= new Sprite();
+             Sprite* parent= new Sprite();
+             Sprite* child= new Sprite();
+
+            grandParent->addChild(parent);
+            parent->addChild(child);
+
+             int hitCount = 0;
+
+            // stop propagation at parent
+
+            child->addEventListener(eventType, onEvent);
+            parent->addEventListener(eventType, onEvent_StopPropagation);
+            parent->addEventListener(eventType, onEvent);
+            grandParent->addEventListener(eventType, onEvent);
+
+            child->dispatchEvent(new Event(eventType, true));
+
+            Assert::assertEquals(3, hitCount);
+
+            // stop immediate propagation at parent
+
+            parent->removeEventListener(eventType, onEvent_StopPropagation);
+            parent->removeEventListener(eventType, onEvent);
+
+            parent->addEventListener(eventType, onEvent_StopImmediatePropagation);
+            parent->addEventListener(eventType, onEvent);
+
+            child->dispatchEvent(new Event(eventType, true));
+
+            Assert::assertEquals(5, hitCount);void EventTest::(Event* event)
+            {
+                hitCount++;
+            }void EventTest::(Event* event)
+            {
+                event->stopPropagation();
+                hitCount++;
+            }void EventTest::(Event* event)
+            {
+                event->stopImmediatePropagation();
+                hitCount++;
+            }
         }
 
-        void EventTest::(Event* event)
+
+        void EventTest::                testRemoveEventListeners()
         {
-            childEventHandlerHit = true;
-            Assert::assertEquals(child,event->target);
-            Assert::assertEquals(child,event->currentTarget);
-            hitCount++;
-        }
-    }
+             int hitCount = 0;
+             EventDispatcher* dispatcher= new EventDispatcher();
 
+            dispatcher->addEventListener("Type1", onEvent);
+            dispatcher->addEventListener("Type2", onEvent);
+            dispatcher->addEventListener("Type3", onEvent);
 
-    void EventTest::                testStopPropagation()
-    {
-        const std::string eventType="test";
+            hitCount = 0;
+            dispatcher->dispatchEvent(new Event("Type1"));
+            Assert::assertEquals(1, hitCount);
 
-        Sprite *grandParent=new Sprite();
-        Sprite *parent=new Sprite();
-        Sprite *child=new Sprite();
+            dispatcher->dispatchEvent(new Event("Type2"));
+            Assert::assertEquals(2, hitCount);
 
-        grandParent->addChild(parent);
-        parent->addChild(child);
+            dispatcher->dispatchEvent(new Event("Type3"));
+            Assert::assertEquals(3, hitCount);
 
-        int hitCount= 0;
+            hitCount = 0;
+            dispatcher->removeEventListener("Type1", onEvent);
+            dispatcher->dispatchEvent(new Event("Type1"));
+            Assert::assertEquals(0, hitCount);
 
-        // stop propagation at parent
+            dispatcher->dispatchEvent(new Event("Type3"));
+            Assert::assertEquals(1, hitCount);
 
-        child->addEventListener(eventType,onEvent);
-        parent->addEventListener(eventType,onEvent_StopPropagation);
-        parent->addEventListener(eventType,onEvent);
-        grandParent->addEventListener(eventType,onEvent);
-
-        child->dispatchEvent(newEvent(eventType, true));
-
-        Assert::assertEquals(3,hitCount);
-
-        // stop immediate propagation at parent
-
-        parent->removeEventListener(eventType,onEvent_StopPropagation);
-        parent->removeEventListener(eventType,onEvent);
-
-        parent->addEventListener(eventType,onEvent_StopImmediatePropagation);
-        parent->addEventListener(eventType,onEvent);
-
-        child->dispatchEvent(newEvent(eventType, true));
-
-        Assert::assertEquals(5,hitCount);
-
-        void EventTest::(Event* event)
-        {
-            hitCount++;
+            hitCount = 0;
+            dispatcher->removeEventListeners();
+            dispatcher->dispatchEvent(new Event("Type1"));
+            dispatcher->dispatchEvent(new Event("Type2"));
+            dispatcher->dispatchEvent(new Event("Type3"));
+            Assert::assertEquals(0, hitCount);void EventTest::(Event* event)
+            {
+                ++hitCount;
+            }
         }
 
-        void EventTest::(Event* event)
+
+        void EventTest::                testBlankEventDispatcher()
         {
-            event->stopPropagation();
-            hitCount++;
+             EventDispatcher* dispatcher= new EventDispatcher();
+
+            Helpers()->assertDoesNotThrow(function()void
+            {
+                dispatcher->removeEventListener("Test", NULL);
+            });
+
+            Helpers()->assertDoesNotThrow(function()void
+            {
+                dispatcher->removeEventListeners("Test");
+            });
         }
 
-        void EventTest::(Event* event)
+
+        void EventTest::                testDuplicateEventHandler()
         {
-            event->stopImmediatePropagation();
-            hitCount++;
-        }
-    }
+             EventDispatcher* dispatcher= new EventDispatcher();
+             int callCount = 0;
 
+            dispatcher->addEventListener("test", onEvent);
+            dispatcher->addEventListener("test", onEvent);
 
-    void EventTest::                testRemoveEventListeners()
-    {
-        int hitCount= 0;
-        EventDispatcher *dispatcher=new EventDispatcher();
-
-        dispatcher->addEventListener("Type1",onEvent);
-        dispatcher->addEventListener("Type2",onEvent);
-        dispatcher->addEventListener("Type3",onEvent);
-
-        hitCount = 0;
-        dispatcher->dispatchEvent(newEvent("Type1"));
-        Assert::assertEquals(1,hitCount);
-
-        dispatcher->dispatchEvent(newEvent("Type2"));
-        Assert::assertEquals(2,hitCount);
-
-        dispatcher->dispatchEvent(newEvent("Type3"));
-        Assert::assertEquals(3,hitCount);
-
-        hitCount = 0;
-        dispatcher->removeEventListener("Type1",onEvent);
-        dispatcher->dispatchEvent(newEvent("Type1"));
-        Assert::assertEquals(0,hitCount);
-
-        dispatcher->dispatchEvent(newEvent("Type3"));
-        Assert::assertEquals(1,hitCount);
-
-        hitCount = 0;
-        dispatcher->removeEventListeners();
-        dispatcher->dispatchEvent(newEvent("Type1"));
-        dispatcher->dispatchEvent(newEvent("Type2"));
-        dispatcher->dispatchEvent(newEvent("Type3"));
-        Assert::assertEquals(0,hitCount);
-
-        void EventTest::(Event* event)
-        {
-            ++hitCount;
-        }
-    }
-
-
-    void EventTest::                testBlankEventDispatcher()
-    {
-        EventDispatcher *dispatcher=new EventDispatcher();
-
-        Helpers->assertDoesNotThrow(function()void
-        {
-            dispatcher->removeEventListener("Test",NULL);
-        });
-
-        Helpers->assertDoesNotThrow(function()void
-        {
-            dispatcher->removeEventListeners("Test");
-        });
-    }
-
-
-    void EventTest::                testDuplicateEventHandler()
-    {
-        EventDispatcher *dispatcher=new EventDispatcher();
-        int callCount= 0;
-
-        dispatcher->addEventListener("test",onEvent);
-        dispatcher->addEventListener("test",onEvent);
-
-        dispatcher->dispatchEvent(newEvent("test"));
-        Assert::assertEquals(1,callCount);
-
-        void EventTest::(Event* event)
-        {
-            callCount++;
-        }
-    }
-
-
-    void EventTest::                testBubbleWithModifiedChain()
-    {
-        const std::string eventType="test";
-
-        Sprite *grandParent=new Sprite();
-        Sprite *parent=new Sprite();
-        Sprite *child=new Sprite();
-
-        grandParent->addChild(parent);
-        parent->addChild(child);
-
-        int hitCount= 0;
-
-        // listener on 'child' changes display list; bubbling must not be affected.
-
-        grandParent->addEventListener(eventType,onEvent);
-        parent->addEventListener(eventType,onEvent);
-        child->addEventListener(eventType,onEvent);
-        child->addEventListener(eventType,onEvent_removeFromParent);
-
-        child->dispatchEvent(newEvent(eventType, true));
-
-        Assert::assertNull(parent->parent);
-        Assert::assertEquals(3,hitCount);
-
-        void EventTest::()
-        {
-            hitCount++;
+            dispatcher->dispatchEvent(new Event("test"));
+            Assert::assertEquals(1, callCount);void EventTest::(Event* event)
+            {
+                callCount++;
+            }
         }
 
-        void EventTest::()
+
+        void EventTest::                testBubbleWithModifiedChain()
         {
-            parent->removeFromParent();
-        }
-    }
+            const std::string eventType="test";
 
+             Sprite* grandParent= new Sprite();
+             Sprite* parent= new Sprite();
+             Sprite* child= new Sprite();
 
-    void EventTest::                testRedispatch()
-    {
-        const std::string eventType="test";
+            grandParent->addChild(parent);
+            parent->addChild(child);
 
-        Sprite *grandParent=new Sprite();
-        Sprite *parent=new Sprite();
-        Sprite *child=new Sprite();
+             int hitCount = 0;
 
-        grandParent->addChild(parent);
-        parent->addChild(child);
+            // listener on 'child' changes display list; bubbling must not be affected.
 
-        grandParent->addEventListener(eventType,onEvent);
-        parent->addEventListener(eventType,onEvent);
-        child->addEventListener(eventType,onEvent);
-        parent->addEventListener(eventType,onEvent_redispatch);
+            grandParent->addEventListener(eventType, onEvent);
+            parent->addEventListener(eventType, onEvent);
+            child->addEventListener(eventType, onEvent);
+            child->addEventListener(eventType, onEvent_removeFromParent);
 
-        std::vector<void *> targets=[];
-        std::vector<void *> currentTargets=[];
+            child->dispatchEvent(new Event(eventType, true));
 
-        child->dispatchEventWith(eventType,true);
-
-        // main bubble
-        Assert::assertEquals(targets[0],child);
-        Assert::assertEquals(currentTargets[0],child);
-
-        // main bubble
-        Assert::assertEquals(targets[1],child);
-        Assert::assertEquals(currentTargets[1],parent);
-
-        // inner bubble
-        Assert::assertEquals(targets[2],parent);
-        Assert::assertEquals(currentTargets[2],parent);
-
-        // inner bubble
-        Assert::assertEquals(targets[3],parent);
-        Assert::assertEquals(currentTargets[3],grandParent);
-
-        // main bubble
-        Assert::assertEquals(targets[4],child);
-        Assert::assertEquals(currentTargets[4],grandParent);
-
-        void EventTest::(Event* event)
-        {
-            targets->push(event->target);
-            currentTargets->push(event->currentTarget);
+            Assert::assertNull(parent->parent);
+            Assert::assertEquals(3, hitCount);void EventTest::()
+            {
+                hitCount++;
+            }void EventTest::()
+            {
+                parent->removeFromParent();
+            }
         }
 
-        void EventTest::(Event* event)
+
+        void EventTest::                testRedispatch()
         {
-            parent->removeEventListener(eventType,onEvent_redispatch);
-            parent->dispatchEvent(event);
+            const std::string eventType="test";
+
+             Sprite* grandParent= new Sprite();
+             Sprite* parent= new Sprite();
+             Sprite* child= new Sprite();
+
+            grandParent->addChild(parent);
+            parent->addChild(child);
+
+            grandParent->addEventListener(eventType, onEvent);
+            parent->addEventListener(eventType, onEvent);
+            child->addEventListener(eventType, onEvent);
+            parent->addEventListener(eventType, onEvent_redispatch);
+
+             std::vector<void*> targets ;
+             std::vector<void*> currentTargets ;
+
+            child->dispatchEventWith(eventType, true);
+
+            // main bubble
+            Assert::assertEquals(targets[0], child);
+            Assert::assertEquals(currentTargets[0], child);
+
+            // main bubble
+            Assert::assertEquals(targets[1], child);
+            Assert::assertEquals(currentTargets[1], parent);
+
+            // inner bubble
+            Assert::assertEquals(targets[2], parent);
+            Assert::assertEquals(currentTargets[2], parent);
+
+            // inner bubble
+            Assert::assertEquals(targets[3], parent);
+            Assert::assertEquals(currentTargets[3], grandParent);
+
+            // main bubble
+            Assert::assertEquals(targets[4], child);
+            Assert::assertEquals(currentTargets[4], grandParent);void EventTest::(Event* event)
+            {
+                targets.push(event->target());
+                currentTargets.push(event->currentTarget());
+            }void EventTest::(Event* event)
+            {
+                parent->removeEventListener(eventType, onEvent_redispatch);
+                parent->dispatchEvent(event);
+            }
         }
-    }
 }
 

@@ -1,3 +1,4 @@
+#if 0
 #if !defined(__TESTS_SRC_TESTS_TWEENTEST_AS)
 #define __TESTS_SRC_TESTS_TWEENTEST_AS
 #if defined(__cplusplus)
@@ -13,14 +14,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flexunit
 {
     namespace framework
@@ -109,11 +103,7 @@ namespace starling
 using namespace flexunit::framework;
 using namespace org::flexunit;
 using namespace org::flexunit::asserts;
-using namespace org::flexunit::asserts;
-using namespace org::flexunit::asserts;
 using namespace org::hamcrest::number;
-using namespace starling::animation;
-using namespace starling::animation;
 using namespace starling::animation;
 using namespace starling::display;
 
@@ -196,4 +186,5 @@ namespace tests
 
 #endif // __TESTS_SRC_TESTS_TWEENTEST_AS
 #endif // __cplusplus
+#endif
 

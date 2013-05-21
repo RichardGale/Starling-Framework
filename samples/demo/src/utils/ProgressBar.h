@@ -3,14 +3,7 @@
 #if defined(__cplusplus)
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace display
@@ -57,16 +50,13 @@ namespace starling
 }
 
 using namespace flash::display;
-using namespace flash::display;
 using namespace starling::core;
-using namespace starling::display;
-using namespace starling::display;
 using namespace starling::display;
 using namespace starling::textures;
 
 namespace utils
 {
-    class ProgressBar: public Sprite
+    class ProgressBar : public starling::display::Sprite
     {
     private:
         Quad *mBar;

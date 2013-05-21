@@ -1,3 +1,4 @@
+#if 0
 #if !defined(__STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS)
 #define __STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS
 #if defined(__cplusplus)
@@ -13,14 +14,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace events
@@ -42,15 +36,15 @@ namespace starling
  *
  *  @see Juggler
  */
-using namespace starling::events;
-using namespace starling::events;
+
 using namespace starling::animation;
+using namespace starling::events;
 
 namespace starling
 {
     namespace animation
     {
-        class DelayedCall: public EventDispatcher, public IAnimatable
+        class DelayedCall : public starling::events::EventDispatcher, public starling::animation::IAnimatable
         {
         private:
             float mCurrentTime;
@@ -65,11 +59,11 @@ namespace starling
 
             /** Creates a delayed call. */
         public:
-            DelayedCall(Function *call, float delay, std::vector<void *> args=NULL);
+            DelayedCall(Function *call, float delay, std::vector<void *> args=std::vector<void *>());
 
             /** Resets the delayed call to its default values, which is useful for pooling. */
         public:
-            DelayedCall *reset(Function *call, float delay, std::vector<void *> args=NULL);
+            DelayedCall *reset(Function *call, float delay, std::vector<void *> args=std::vector<void *>());
 
             /** @inheritDoc */
         public:
@@ -99,4 +93,5 @@ namespace starling
 
 #endif // __STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS
 #endif // __cplusplus
+#endif
 

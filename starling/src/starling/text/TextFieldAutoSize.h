@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace starling
 {
     namespace errors
@@ -31,6 +24,7 @@ namespace starling
 
 /** This class is an enumeration of constant values used in setting the
  *  autoSize property of the TextField class. */
+
 using namespace starling::errors;
 
 namespace starling

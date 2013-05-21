@@ -13,14 +13,7 @@
 
 
 
-#include <map>
-#include <string>
-#include <vector>
-#include "Object.h"
-#include "Function.h"
-#include "Math.h"
-#include "Class.h"
-#include "RegExp.h"
+#include "flex11.6.h"
 namespace flash
 {
     namespace geom
@@ -28,6 +21,7 @@ namespace flash
         class Point;
     }
 }
+#include "starling/events/Event.h"
 
 /** A ResizeEvent is dispatched by the stage when the size of the Flash container changes.
  *  Use it to update the Starling viewport and the stage size.
@@ -41,13 +35,15 @@ namespace flash
  *  @see starling.display.Stage
  *  @see starling.core.Starling
  */
+
 using namespace flash::geom;
+using namespace starling::events;
 
 namespace starling
 {
     namespace events
     {
-        class ResizeEvent: public Event
+        class ResizeEvent : public starling::events::Event
         {
             /** Event type for a resized Flash player. */
         public:

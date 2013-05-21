@@ -12,26 +12,25 @@ using namespace starling::text;
 using namespace starling::utils;
 using namespace utils;
 
-namespace scenes
-{
+namespace scenes {
 
 
-    TouchScene::TouchScene()
-    {
-        std::string description="[use Ctrl/Cmd & Shift to simulate multi-touch]";
+        TouchScene::TouchScene()
+        {
+             std::string description="[use Ctrl//Cmd & Shift to simulate multi-touch]";
 
-        TextField *infoText=new TextField(300, 25, description);
-        infoText->x= infoText->y= 10;
-        addChild(infoText);
+             TextField* infoText= new TextField(300, 25, description);
+            infoText->x ( infoText->y ( 10));
+            addChild(infoText);
 
-        // to find out how to react to touch events have a look at the TouchSheet class!
-        // It's part of the demo.
+            // to find out how to react to touch events have a look at the TouchSheet class! 
+            // It's part of the demo.
 
-        TouchSheet *sheet=new TouchSheet(new Image(Game->assets->getTexture("starling_sheet")));
-        sheet->x= Constants->CenterX;
-        sheet->y= Constants->CenterY;
-        sheet->rotation= deg2rad(10);
-        addChild(sheet);
-    }
+             TouchSheet* sheet= new TouchSheet(new Image(Game()->assets()->getTexture("starling_sheet")));
+            sheet->x ( Constants()->CenterX());
+            sheet->y ( Constants()->CenterY());
+            sheet->rotation ( deg2rad(10));
+            addChild(sheet);
+        }
 }
 
