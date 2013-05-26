@@ -1,5 +1,5 @@
-#if 0
-// =================================================================================================//
+// =================================================================================================
+//
 //  Starling Framework
 //  Copyright 2012 Gamua OG. All Rights Reserved.
 //
@@ -29,8 +29,8 @@ namespace tests {
 
         void DelayedCallTest::                testSimple()
         {
-             int sum = 0;
-             DelayedCall* dc= new DelayedCall(raiseSum, 1.0, [5]);
+            int sum = 0;
+            DelayedCall* dc = new DelayedCall(raiseSum, 1.0, [5]);
 
             dc->advanceTime(0.5);
             assertEquals(0, sum);
@@ -51,8 +51,8 @@ namespace tests {
 
         void DelayedCallTest::                testRepeated()
         {
-             int sum = 0;
-             DelayedCall* dc= new DelayedCall(raiseSum, 1.0, [5]);
+            int sum = 0;
+            DelayedCall* dc = new DelayedCall(raiseSum, 1.0, [5]);
             dc->repeatCount ( 3);
 
             dc->advanceTime(0.5);
@@ -81,8 +81,8 @@ namespace tests {
 
         void DelayedCallTest::                testIndefinitive()
         {
-             int sum = 0;
-             DelayedCall* dc= new DelayedCall(raiseSum, 1.0, [5]);
+            int sum = 0;
+            DelayedCall* dc = new DelayedCall(raiseSum, 1.0, [5]);
             dc->repeatCount ( 0);
 
             dc->advanceTime(1.5);
@@ -97,5 +97,4 @@ namespace tests {
             }
         }
 }
-#endif
 

@@ -30,17 +30,17 @@ using namespace starling::utils;
 namespace tests {
 
 
-        const float VertexDataTest::E  = 0.001;
+        const float VertexDataTest::E = 0.001;
 
 
         void VertexDataTest::                testInit()
         {
-             int numVertices = 3;
-             VertexData* vd= new VertexData(numVertices);
-             Point* position= new Point();
-             Point* texCoords= new Point();
+            int numVertices = 3;
+            VertexData* vd = new VertexData(numVertices);
+            Point* position = new Point();
+            Point* texCoords = new Point();
 
-            for ( int i=0; i<numVertices; ++i)
+            for (int i=0; i<numVertices; ++i)
             {
                 vd->getPosition(i, position);
                 vd->getTexCoords(i, texCoords);
@@ -55,32 +55,32 @@ namespace tests {
 
         void VertexDataTest::                testGetNumVertices()
         {
-             VertexData* vd= new VertexData(4);
+            VertexData* vd = new VertexData(4);
             Assert::assertEquals(4, vd->numVertices());
         }
 
 
         void VertexDataTest::                testBoundsLow()
         {
-             VertexData* vd= new VertexData(3);
+            VertexData* vd = new VertexData(3);
             vd->getColor(-1);
         }
 
 
         void VertexDataTest::                testBoundsHigh()
         {
-             VertexData* vd= new VertexData(3);
+            VertexData* vd = new VertexData(3);
             vd->getColor(3);
         }
 
 
         void VertexDataTest::                testPosition()
         {
-             VertexData* vd= new VertexData(4);
+            VertexData* vd = new VertexData(4);
             vd->setPosition(0, 1, 2);
             vd->setPosition(1, 4, 5);
 
-             Point* position= new Point();
+            Point* position = new Point();
 
             vd->getPosition(0, position);
             Assert::assertEquals(1, position->x());
@@ -94,7 +94,7 @@ namespace tests {
 
         void VertexDataTest::                testColor()
         {
-             VertexData* vd= new VertexData(3, true);
+            VertexData* vd = new VertexData(3, true);
             Assert::assertEquals(3, vd->numVertices());
             Assert::assertTrue(vd->premultipliedAlpha());
 
@@ -107,7 +107,7 @@ namespace tests {
 
             // check premultiplied alpha
 
-             float alpha  = 0.5;
+            float alpha = 0.5;
 
             vd->setColor(2, 0x445566);
             vd->setAlpha(2, alpha);
@@ -115,11 +115,11 @@ namespace tests {
             Assert::assertEquals(1.0, vd->getAlpha(1));
             Assert::assertEquals(alpha, vd->getAlpha(2));
 
-             std::vector<float> data=vd->rawData();
-             float red    = 0x44 / 255.0;
-             float green  = 0x55 / 255.0;
-             float blue   = 0x66 / 255.0;
-             int offset = VertexData::ELEMENTS_PER_VERTEX * 2 + VertexData::COLOR_OFFSET;
+            std::vector<float> data=vd->rawData();
+            float red   = 0x44 / 255.0;
+            float green = 0x55 / 255.0;
+            float blue  = 0x66 / 255.0;
+            int offset = VertexData::ELEMENTS_PER_VERTEX * 2 + VertexData::COLOR_OFFSET;
 
             assertThat(data[offset  ], closeTo(red * alpha, E));
             assertThat(data[offset+1], closeTo(green * alpha, E));
@@ -147,11 +147,11 @@ namespace tests {
 
         void VertexDataTest::                testTexCoords()
         {
-             VertexData* vd= new VertexData(2);
+            VertexData* vd = new VertexData(2);
             vd->setTexCoords(0, 0.25, 0.75);
             vd->setTexCoords(1, 0.33, 0.66);
 
-             Point* texCoords= new Point();
+            Point* texCoords = new Point();
 
             vd->getTexCoords(0, texCoords);
             Assert::assertEquals(0.25, texCoords->x());

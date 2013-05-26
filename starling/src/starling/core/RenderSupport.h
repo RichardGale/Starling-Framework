@@ -139,6 +139,14 @@ namespace starling
     }
 }
 
+namespace starling
+{
+    namespace core
+    {
+        class Starling;
+    }
+}
+
 /** A class that contains helper methods simplifying Stage3D rendering.
  *
  *  A RenderSupport instance is passed to any "render" method of display objects.
@@ -149,6 +157,7 @@ namespace starling
 using namespace com::adobe::utils;
 using namespace flash::display3D;
 using namespace flash::geom;
+using namespace starling::core;
 using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::textures;
@@ -264,22 +273,22 @@ namespace starling
             /** Calculates the product of modelview and projection matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
         public:
-            Matrix      *mvpMatrix();
+            Matrix       *mvpMatrix();
 
             /** Calculates the product of modelview and projection matrix and saves it in a 3D matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
         public:
-            Matrix3D    *mvpMatrix3D();
+            Matrix3D     *mvpMatrix3D();
 
             /** Returns the current modelview matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
         public:
-            Matrix      *modelViewMatrix();
+            Matrix       *modelViewMatrix();
 
             /** Returns the current projection matrix.
              *  CAUTION: Use with care! Each call returns the same instance. */
         public:
-            Matrix      *projectionMatrix();
+            Matrix       *projectionMatrix();
         public:
             void         projectionMatrix(Matrix *value);
 
@@ -292,7 +301,7 @@ namespace starling
             /** The blend mode to be used on rendering. To apply the factor, you have to manually call
              *  'applyBlendMode' (because the actual blend factors depend on the PMA mode). */
         public:
-            std::string  blendMode();
+            std::string       blendMode();
         public:
             void         blendMode(std::string value);
 
@@ -301,9 +310,9 @@ namespace starling
             /** The texture that is currently being rendered into, or 'null' to render into the
              *  back buffer. If you set a new target, it is immediately activated. */
         public:
-            Texture     *renderTarget();
+            starling::textures::Texture *renderTarget();
         public:
-            void         renderTarget(Texture *target);
+            void         renderTarget(starling::textures::Texture *target);
 
             /** Configures the back buffer on the current context3D. By using this method, Starling
              *  can store the size of the back buffer and utilize this information in other methods
@@ -312,7 +321,7 @@ namespace starling
         public:
             void     configureBackBuffer(int width, int height, int antiAlias,
                                          bool enableDepthAndStencil,
-                                         bool wantsBestResolution   =false);
+                                         bool wantsBestResolution=false);
 
             /** The width of the back buffer, as it was configured in the last call to
              *  'RenderSupport.configureBackBuffer()'. Beware: changing this value does not actually
@@ -382,11 +391,7 @@ namespace starling
 
             /** Clears the render context with a certain color and alpha value. */
         public:
-            static void     clear(unsigned int rgb=0, float alpha =0.0);
-
-            /** Clears the render context with a certain color and alpha value. */
-        public:
-            void     clear(unsigned int rgb=0, float alpha =0.0);
+            static void     clear(unsigned int rgb=0, float alpha=0.0);
 
             /** Assembles fragment- and vertex-shaders, passed as Strings, to a Program3D. If you
              *  pass a 'resultProgram', it will be uploaded to that program; otherwise, a new program

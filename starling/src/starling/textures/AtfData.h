@@ -56,7 +56,7 @@ namespace starling
             AtfData(ByteArray *data);
 
         public:
-            std::string  format();
+            std::string       format();
         public:
             int          width();
         public:
@@ -64,7 +64,7 @@ namespace starling
         public:
             int          numTextures();
         public:
-            ByteArray   *data();
+            ByteArray    *data();
         };
     }
 }

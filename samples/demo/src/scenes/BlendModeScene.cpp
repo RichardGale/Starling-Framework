@@ -50,8 +50,8 @@ namespace scenes {
 
         void BlendModeScene::onButtonTriggered()
         {
-             std::string blendMode=mBlendModes.shift()asString;
-            mBlendModes.push(blendMode);
+            std::string blendMode = mBlendModes.shift() as String;
+            mBlendModes.push_back(blendMode);
 
             mInfoText->text ( blendMode);
             mImage->blendMode ( blendMode);

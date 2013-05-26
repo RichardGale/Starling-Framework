@@ -18,7 +18,7 @@
 /** Formats a String in .Net-style, with curly braces ("{0}"). Does not support any
  *  number formatting options yet. */
 public:
-std::string formatString(std::string format, ...);
+std::string   formatString(std::string format, ...);
 #endif // __STARLING_SRC_STARLING_UTILS_FORMATSTRING_AS
 #endif // __cplusplus
 

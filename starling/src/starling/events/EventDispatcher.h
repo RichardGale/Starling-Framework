@@ -112,7 +112,7 @@ namespace starling
              *  Invokes an event on the current object. This method does not do any bubbling, nor
              *  does it back-up and restore the previous target on the event. The 'dispatchEvent'
              *  method uses this method internally. */// no need to do anything// we save the current target and restore it later;// this allows users to re-dispatch events without creating a clone.
-            bool     invokeEvent(Event *event);
+            bool  invokeEvent(Event *event);
 
             /** @private */
             void     bubbleEvent(Event *event);
@@ -121,11 +121,11 @@ namespace starling
              *  listeners for the given type. The method uses an internal pool of event objects to
              *  avoid allocations. */
         public:
-            void     dispatchEventWith(std::string type, bool bubbles   =false, Object *data=NULL);
+            void     dispatchEventWith(std::string type, bool bubbles=false, Object *data=NULL);
 
             /** Returns if there are listeners registered for a certain event type. */
         public:
-            bool     hasEventListener(std::string type);
+            bool  hasEventListener(std::string type);
         };
     }
 }

@@ -75,10 +75,10 @@ namespace core {
 
 
         /** The version of the Starling framework. */
-        const std::string Starling::VERSION="1.3";
+        const std::string Starling::VERSION = "1.3";
 
         /** The key for the shader programs stored in 'contextData' */
-        const std::string Starling::PROGRAM_DATA_NAME="Starling.programs";
+        const std::string Starling::PROGRAM_DATA_NAME = "Starling.programs";
 
         // members
 
@@ -109,9 +109,9 @@ namespace core {
                     
                     
 
-         Starling* Starling::sCurrent;
-         bool Starling::sHandleLostContext   ;
-         std::map<std::string, void*> Starling::sContextData=newDictionary(true);
+        Starling* Starling::sCurrent;
+        bool Starling::sHandleLostContext;
+        std::map<std::string, void*> Starling::sContextData   std::map<std::string, void*>()                    ;
 
         // construction
 
@@ -159,15 +159,15 @@ namespace core {
             mSupport  = new RenderSupport();
 
             // for context data, we actually reference by stage3D, since it survives a context loss
-            sContextData[stage3D] = new Dictionary();
-            sContextData[stage3D][PROGRAM_DATA_NAME] = new Dictionary();
+            sContextData[stage3D] = new std::map<std::string, void*>();
+            sContextData[stage3D][PROGRAM_DATA_NAME] = new std::map<std::string, void*>();
 
             // all other modes are problematic in Starling, so we force those here
             stage->scaleMode ( StageScaleMode::NO_SCALE);
             stage->align ( StageAlign::TOP_LEFT);
 
             // register touch/mouse event handlers            
-            for each (var std::string touchEventTypeintouchEventTypes)
+            for (std::vector<std::string>::iterator touchEventType = touchEventTypes.begin(); touchEventType != touchEventTypes.end(); ++touchEventType)
                 stage->addEventListener(touchEventType, onTouch, false, 0, true);
 
             // register other event handlers
@@ -195,7 +195,7 @@ namespace core {
                     // "Context3DProfile" is only available starting with Flash Player 11.4/AIR 3.4.
                     // to stay compatible with older versions, we check if the parameter is available.
 
-                     Function* requestContext3D= mStage3D->requestContext3D;
+                    Function* requestContext3D = mStage3D->requestContext3D;
                     if (requestContext3D->length() == 1) requestContext3D(renderMode);
                     else requestContext3D(renderMode, profile);
                 }
@@ -222,7 +222,7 @@ namespace core {
             mStage3D->removeEventListener(Event::CONTEXT3D_CREATE, onContextCreated, false);
             mStage3D->removeEventListener(ErrorEvent::ERROR, onStage3DError, false);
 
-            for each (var std::string touchEventTypeintouchEventTypes)
+            for (std::vector<std::string>::iterator touchEventType = touchEventTypes.begin(); touchEventType != touchEventTypes.end(); ++touchEventType)
                 mNativeStage->removeEventListener(touchEventType, onTouch, false);
 
             if (mStage) mStage->dispose();
@@ -234,7 +234,7 @@ namespace core {
                 // Per default, the context is recreated as long as there are listeners on it.
                 // Beginning with AIR 3.6, we can avoid that with an additional parameter.
 
-                 Function* disposeContext3D= mContext->dispose();
+                Function* disposeContext3D = mContext->dispose();
                 if (disposeContext3D->length() == 1) disposeContext3D(false);
                 else disposeContext3D();
             }
@@ -257,7 +257,7 @@ namespace core {
         {
             mContext = mStage3D->context3D();
             mContext->enableErrorChecking ( mEnableErrorChecking);
-            contextData[PROGRAM_DATA_NAME] = new Dictionary();
+            contextData[PROGRAM_DATA_NAME] = new std::map<std::string, void*>();
 
             updateViewPort(true);
 
@@ -283,8 +283,8 @@ namespace core {
          *  and <code>render()</code>. */
         void Starling::nextFrame()
         {
-             float now  = getTimer() / 1000.0;
-             float passedTime  = now - mLastFrameTimestamp;
+            float now = getTimer() / 1000.0;
+            float passedTime = now - mLastFrameTimestamp;
             mLastFrameTimestamp = now;
 
             advanceTime(passedTime);
@@ -317,8 +317,8 @@ namespace core {
             if (!mShareContext)
                 RenderSupport::clear(mStage->color(), 1.0);
 
-             float scaleX  = mViewPort->width()  / mStage->stageWidth();
-             float scaleY  = mViewPort->height() / mStage->stageHeight();
+            float scaleX = mViewPort->width()  / mStage->stageWidth();
+            float scaleY = mViewPort->height() / mStage->stageHeight();
 
             mContext->setDepthTest(false, Context3DCompareMode::ALWAYS);
             mContext->setCulling(Context3DTriangleFace::NONE);
@@ -396,8 +396,8 @@ namespace core {
 
         void Starling::showFatalError(std::string message)
         {
-             TextField* textField= new TextField();
-             TextFormat* textFormat= new TextFormat("Verdana", 12, 0xFFFFFF);
+            TextField* textField = new TextField();
+            TextFormat* textFormat = new TextFormat("Verdana", 12, 0xFFFFFF);
             textFormat->align ( TextFormatAlign::CENTER);
             textField->defaultTextFormat ( textFormat);
             textField->wordWrap ( true);
@@ -441,7 +441,7 @@ namespace core {
         {
             if (event->errorID() == 3702)
             {
-                 std::string mode=Capabilities::playerType=="Desktop"? "renderMode" : "wmode";
+                std::string mode = Capabilities::playerType == "Desktop" ? "renderMode" : "wmode";
                 showFatalError("Context3D not available! Possible reasons: wrong " + mode +
                                " or missing device support.");
             }
@@ -489,7 +489,7 @@ namespace core {
 
         void Starling::onResize(flash::events::Event* event)
         {
-             flash::display::Stage* stage=event->targetas flash()->display()->Stage;
+            flash::display::Stage* stage = event->target as flash()->display()->Stage;
             mStage->dispatchEvent(new ResizeEvent(Event::RESIZE, stage->stageWidth(), stage->stageHeight()));
         }
 
@@ -502,18 +502,18 @@ namespace core {
         {
             if (!mStarted) return;
 
-             float globalX ;
-             float globalY ;
-             int touchID;
-             std::string phase;
-             float pressure  = 1.0;
-             float width  = 1.0;
-             float height  = 1.0;
+            float globalX;
+            float globalY;
+            int touchID;
+            std::string phase;
+            float pressure = 1.0;
+            float width = 1.0;
+            float height = 1.0;
 
             // figure out general touch properties
             if (dynamic_cast<MouseEvent*>(event))
             {
-                 MouseEvent* mouseEvent= dynamic_cast<MouseEvent*>(event);
+                MouseEvent* mouseEvent = dynamic_cast<MouseEvent*>(event);
                 globalX = mouseEvent->stageX();
                 globalY = mouseEvent->stageY();
                 touchID = 0;
@@ -526,7 +526,7 @@ namespace core {
             }
             else
             {
-                 TouchEvent* touchEvent= dynamic_cast<TouchEvent*>(event);
+                TouchEvent* touchEvent = dynamic_cast<TouchEvent*>(event);
                 globalX = touchEvent->stageX();
                 globalY = touchEvent->stageY();
                 touchID = touchEvent->touchPointID();
@@ -571,7 +571,7 @@ namespace core {
         {
             deleteProgram(name);
 
-             Program3D* program= mContext->createProgram();
+            Program3D* program = mContext->createProgram();
             program->upload(vertexProgram, fragmentProgram);
             programs[name] = program;
 
@@ -581,7 +581,7 @@ namespace core {
         /** Deletes the vertex- and fragment-programs of a certain name. */
         void Starling::deleteProgram(std::string name)
         {
-             Program3D* program= getProgram(name);
+            Program3D* program = getProgram(name);
             if (program)
             {
                 program->dispose();
@@ -613,12 +613,6 @@ namespace core {
 
         /** Indicates if this Starling instance is started. */
         bool Starling::isStarted()         { return mStarted; }
-
-        /** The default juggler of this instance. Will be advanced once per frame. */
-        Juggler* Starling::juggler()         { return mJuggler; }
-
-        /** The render context of this instance. */
-        Context3D* Starling::context()           { return mContext; }
 
         /** A dictionary that can be used to save custom data related to the current context. 
          *  If you need to share data that is bound to a specific stage3D instance
@@ -705,8 +699,8 @@ namespace core {
                     mStage->addChild(mStatsDisplay);
                 }
 
-                 int stageWidth  = mStage->stageWidth;
-                 int stageHeight = mStage->stageHeight;
+                int stageWidth  = mStage->stageWidth;
+                int stageHeight = mStage->stageHeight;
 
                 mStatsDisplay->scaleX ( mStatsDisplay->scaleY ( scale));
 

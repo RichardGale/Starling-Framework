@@ -107,7 +107,7 @@ namespace starling
 
             /** Determines if an object has been added to the juggler. */
         public:
-            bool     contains(IAnimatable *object);
+            bool  contains(IAnimatable *object);
 
             /** Removes an object from the juggler. */
         public:
@@ -119,7 +119,7 @@ namespace starling
 
             /** Figures out if the juggler contains one or more tweens with a certain target. */
         public:
-            bool     containsTweens(Object *target);
+            bool  containsTweens(Object *target);
 
             /** Removes all objects at once. */
         public:
@@ -162,7 +162,7 @@ namespace starling
 
             /** The total life time of the juggler. */
         public:
-            float        elapsedTime();
+            float       elapsedTime();
         };
     }
 }

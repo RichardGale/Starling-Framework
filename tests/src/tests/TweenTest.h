@@ -1,4 +1,3 @@
-#if 0
 #if !defined(__TESTS_SRC_TESTS_TWEENTEST_AS)
 #define __TESTS_SRC_TESTS_TWEENTEST_AS
 #if defined(__cplusplus)
@@ -186,5 +185,4 @@ namespace tests
 
 #endif // __TESTS_SRC_TESTS_TWEENTEST_AS
 #endif // __cplusplus
-#endif
 

@@ -18,7 +18,7 @@ using namespace starling::text;
 
 
 
-        const std::string Menu::START_GAME="startGame";
+        const std::string Menu::START_GAME = "startGame";
 
         Menu::Menu()
         {
@@ -27,13 +27,13 @@ using namespace starling::text;
 
         void Menu::init()
         {
-             TextField* textField= new TextField(250, 50, "Game Scaffold",
+            TextField* textField = new TextField(250, 50, "Game Scaffold",
                 "Desyrel", BitmapFont::NATIVE_SIZE, 0xffffff);
             textField->x ( (Constants()->STAGE_WIDTH() - textField->width()) / 2);
             textField->y ( 50);
             addChild(textField);
 
-             Button* button= new Button(Root()->assets()->getTexture("button_normal"), "Start");
+            Button* button = new Button(Root()->assets()->getTexture("button_normal"), "Start");
             button->fontName ( "Ubuntu");
             button->fontSize ( 16);
             button->x ( int((Constants()->STAGE_WIDTH() - button->width()) / 2));

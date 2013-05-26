@@ -55,7 +55,7 @@ namespace utils {
             // ======================================================================
         //  Constants
         // ----------------------------------------------------------------------               
-        const RegExp* AGALMiniAssembler::REGEXP_OUTER_SPACES      = new RegExp("//^\\s+|\\s+$//g");
+        const RegExp* AGALMiniAssembler::REGEXP_OUTER_SPACES       = new RegExp("//^\\s+|\\s+$//g");
 
         // ======================================================================
         //  Properties
@@ -66,7 +66,7 @@ namespace utils {
 
                     
 
-         bool AGALMiniAssembler::initialized                     = false;
+        bool AGALMiniAssembler::initialized                  = false;
                    
 
         // ======================================================================
@@ -90,21 +90,21 @@ namespace utils {
 
         Program3D* AGALMiniAssembler::assemble2( Context3D* ctx3d, unsigned int version, std::string vertexsrc, std::string fragmentsrc)
         {
-             ByteArray* agalvertex  = assemble ( VERTEX, vertexsrc, version );
-             ByteArray* agalfragment  = assemble ( FRAGMENT, fragmentsrc, version );
-             Program3D* prog  = ctx3d->createProgram();
+            ByteArray* agalvertex   = assemble ( VERTEX, vertexsrc, version );
+            ByteArray* agalfragment   = assemble ( FRAGMENT, fragmentsrc, version );
+            Program3D* prog   = ctx3d->createProgram();
             prog->upload(agalvertex,agalfragment);
             return prog;
         }
 
         ByteArray* AGALMiniAssembler::assemble( std::string mode, std::string source, unsigned int version, bool ignorelimits)
         {
-             unsigned int start=getTimer();
+            unsigned int start = getTimer();
 
             _agalcode                           = new ByteArray();
             _error = "";
 
-             bool isFrag    = false;
+            bool isFrag = false;
 
             if ( mode == FRAGMENT )
                 isFrag = true;
@@ -119,25 +119,25 @@ namespace utils {
 
             initregmap(version, ignorelimits);
 
-             std::vector<void*> lines=source.replace("//[\\f\\n\\r\\v]+//g","\\n")->split("\\n");
-             int nest = 0;
-             int nops = 0;
-             int i;
-             int lng = lines.size();
+            std::vector<void*> lines = source.replace( "//[\\f\\n\\r\\v]+//g", "\\n" )->split( "\\n" );
+            int nest = 0;
+            int nops = 0;
+            int i;
+            int lng = lines.size();
 
             for ( i = 0; i < lng && _error == ""; i++ )
             {
-                 std::string line=newString(lines[i]);
+                std::string line = ""                      ;
                 line = line.replace( REGEXP_OUTER_SPACES, "" );
 
                 // remove comments
-                 int startcomment = line.search( "////" );
+                int startcomment = line.search( "////" );
                 if ( startcomment != -1 )
                     line = line.slice( 0, startcomment );
 
                 // grab options
-                 int optsi = line.search( "//<.*>//g" );
-                 std::vector<void*> opts;
+                int optsi = line.search( "//<.*>//g" );
+                std::vector<void*> opts;
                 if ( optsi != -1 )
                 {
                     opts = line.slice( optsi )->match( "//([\\w\\.\\-\\+]+)//gi" );
@@ -145,14 +145,14 @@ namespace utils {
                 }
 
                 // find opcode
-                 std::vector<void*> opCode=line.match("//^\\w{3}//ig");
+                std::vector<void*> opCode = line.match( "//^\\w{3}//ig" );
                 if ( !!opCode.empty() )
                 {
                     if ( line.length() >= 3 )
                         trace( "warning: bad line "+i+": "+lines[i] );
                     continue;
                 }
-                 OpCode* opFound= OPMAP[ opCode[0] ];
+                OpCode* opFound = OPMAP[ opCode[0] ];
 
                 // if debug is enabled, output the opcodes
                 if ( debugEnabled )
@@ -197,7 +197,7 @@ namespace utils {
                 }
 
                 // get operands, use regexp
-                 std::vector<void*> regs;
+                std::vector<void*> regs;
 
                 // will match both syntax
                 regs = line.match( "//vc\\[([vof][acostdip]?)(\\d*)?(\\.[xyzw](\\+\\d{1,3})?)?\\](\\.[xyzw]{1,4})?|([vof][acostdip]?)(\\d*)?(\\.[xyzw]{1,4})?//gi" );
@@ -208,14 +208,14 @@ namespace utils {
                     break;
                 }
 
-                 bool badreg     = false;
-                 unsigned int pad= 64 + 64 + 32;
-                 unsigned int regLength=regs.size();
+                bool badreg  = false;
+                unsigned int pad        = 64 + 64 + 32;
+                unsigned int regLength  = regs.size();
 
-                for (  int j = 0; j < regLength; j++ )
+                for ( int j = 0; j < regLength; j++ )
                 {
-                     bool isRelative    = false;
-                     std::vector<void*> relreg=regs[j]->match("//\\[.*\\]//ig");
+                    bool isRelative = false;
+                    std::vector<void*> relreg = regs[ j ]->match( "//\\[.*\\]//ig" );
                     if ( relreg && relreg.size() > 0 )
                     {
                         regs[ j ] = regs[ j ]->replace( relreg[ 0 ], "0" );
@@ -225,14 +225,14 @@ namespace utils {
                         isRelative = true;
                     }
 
-                     std::vector<void*> res=regs[j]->match("//^\\b[A-Za-z]{1,2}//ig");
+                    std::vector<void*> res = regs[j]->match( "//^\\b[A-Za-z]{1,2}//ig" );
                     if ( !!res.empty() )
                     {
                         _error = "error: could not parse operand "+j+" ("+regs[j]+").";
                         badreg = true;
                         break;
                     }
-                     Register* regFound= REGMAP[ res[ 0 ] ];
+                    Register* regFound = REGMAP[ res[ 0 ] ];
 
                     // if debug is enabled, output the registers
                     if ( debugEnabled )
@@ -272,11 +272,11 @@ namespace utils {
 
                     regs[j] = regs[j]->slice( regs[j]->search( regFound->name() ) + regFound->name()->length() );
                     //trace( "REGNUM: " +regs[j] );
-                     std::vector<void*> idxmatch=isRelative?relreg[0]->match("//\\d+//"):regs[j]->match("//\\d+//");
-                     unsigned int regidx=0;
+                    std::vector<void*> idxmatch = isRelative ? relreg[0]->match( "//\\d+//" ) : regs[j]->match( "//\\d+//" );
+                    unsigned int regidx = 0;
 
                     if ( idxmatch )
-                        regidx = uint( idxmatch[0] );
+                        regidx = unsigned int( idxmatch[0] );
 
                     if ( regFound->range() < regidx )
                     {
@@ -285,13 +285,13 @@ namespace utils {
                         break;
                     }
 
-                     unsigned int regmask= 0;
-                     std::vector<void*> maskmatch=regs[j]->match("//(\\.[xyzw]{1,4})//");
-                     bool isDest         = ( j == 0 && !( opFound->flags() & OP_NO_DEST ) );
-                     bool isSampler      = ( j == 2 && ( opFound->flags() & OP_SPECIAL_TEX ) );
-                     unsigned int reltype= 0;
-                     unsigned int relsel = 0;
-                     int reloffset       = 0;
+                    unsigned int regmask        = 0;
+                    std::vector<void*> maskmatch     = regs[j]->match( "//(\\.[xyzw]{1,4})//" );
+                    bool isDest      = ( j == 0 && !( opFound->flags() & OP_NO_DEST ) );
+                    bool isSampler   = ( j == 2 && ( opFound->flags() & OP_SPECIAL_TEX ) );
+                    unsigned int reltype        = 0;
+                    unsigned int relsel         = 0;
+                    int reloffset       = 0;
 
                     if ( isDest && isRelative )
                     {
@@ -303,9 +303,9 @@ namespace utils {
                     if ( maskmatch )
                     {
                         regmask = 0;
-                         unsigned int cv;
-                         unsigned int maskLength=maskmatch[0]->length();
-                        for (  int k = 1; k < maskLength; k++ )
+                        unsigned int cv;
+                        unsigned int maskLength = maskmatch[0]->length();
+                        for ( int k = 1; k < maskLength; k++ )
                         {
                             cv = maskmatch[0]->charCodeAt(k) - "x"()->charCodeAt(0);
                             if ( cv > 2 )
@@ -326,8 +326,8 @@ namespace utils {
 
                     if ( isRelative )
                     {
-                         std::vector<void*> relname=relreg[0]->match("//[A-Za-z]{1,2}//ig");
-                         Register* regFoundRel= REGMAP[ relname[0]];
+                        std::vector<void*> relname = relreg[0]->match( "//[A-Za-z]{1,2}//ig" );
+                        Register* regFoundRel = REGMAP[ relname[0]];
                         if ( regFoundRel == NULL )
                         {
                             _error = "error: bad index register";
@@ -335,7 +335,7 @@ namespace utils {
                             break;
                         }
                         reltype = regFoundRel->emitCode();
-                         std::vector<void*> selmatch=relreg[0]->match("//(\\.[xyzw]{1,1})//");
+                        std::vector<void*> selmatch = relreg[0]->match( "//(\\.[xyzw]{1,1})//" );
                         if ( selmatch.size()==0 )
                         {
                             _error = "error: bad index register select";
@@ -345,7 +345,7 @@ namespace utils {
                         relsel = selmatch[0]->charCodeAt(1) - "x"()->charCodeAt(0);
                         if ( relsel > 2 )
                             relsel = 3;
-                         std::vector<void*> relofs=relreg[0]->match("//\\+\\d{1,3}//ig");
+                        std::vector<void*> relofs = relreg[0]->match( "//\\+\\d{1,3}//ig" );
                         if ( relofs.size() > 0 )
                             reloffset = relofs[0];
                         if ( reloffset < 0 || reloffset > 255 )
@@ -372,19 +372,19 @@ namespace utils {
                         {
                             if ( verbose )
                                 trace( "  emit sampler" );
-                             unsigned int samplerbits=5;// type 5 
-                             unsigned int optsLength=opts.empty() ? 0 : opts.size();
-                             float bias  = 0;
+                            unsigned int samplerbits = 5; // type 5 
+                            unsigned int optsLength = opts.empty() ? 0 : opts.size();
+                            float bias = 0;
                             for ( k = 0; k<optsLength; k++ )
                             {
                                 if ( verbose )
                                     trace( "    opt: "+opts[k] );
-                                 Sampler* optfound= SAMPLEMAP [opts[k]];
+                                Sampler* optfound = SAMPLEMAP [opts[k]];
                                 if ( optfound == NULL )
                                 {
                                     // todo check that it's a number...
                                     //trace( "Warning, unknown sampler option: "+opts[k] );
-                                    bias = Number(opts[k]);
+                                    bias = float(opts[k]);
                                     if ( verbose )
                                         trace( "    bias: " + bias );
                                 }
@@ -392,7 +392,7 @@ namespace utils {
                                 {
                                     if ( optfound->flag() != SAMPLER_SPECIAL_SHIFT )
                                         samplerbits &= ~( 0xf << optfound->flag() );
-                                    samplerbits |= uint( optfound->mask() ) << uint( optfound->flag() );
+                                    samplerbits |= unsigned int( optfound->mask() ) << unsigned int( optfound->flag() );
                                 }
                             }
                             agalcode()->writeShort( regidx );
@@ -441,16 +441,16 @@ namespace utils {
             // trace the bytecode bytes if debugging is enabled
             if ( debugEnabled )
             {
-                 std::string dbgLine="generated bytecode:";
-                 unsigned int agalLength=agalcode()->length();
-                for (  unsigned int index=0;index<agalLength;index++)
+                std::string dbgLine = "generated bytecode:";
+                unsigned int agalLength = agalcode()->length();
+                for ( unsigned int index = 0; index < agalLength; index++ )
                 {
                     if ( !( index % 16 ) )
                         dbgLine += "\\n";
                     if ( !( index % 4 ) )
                         dbgLine += " ";
 
-                     std::string byteStr=agalcode[index]->toString(16 );
+                    std::string byteStr = agalcode[ index ]->toString( 16 );
                     if ( byteStr.length() < 2 )
                         byteStr = "0" + byteStr;
 
@@ -561,117 +561,117 @@ namespace utils {
         // ======================================================================
         //  Constants
         // ----------------------------------------------------------------------
-        const std::map<std::string, void*> AGALMiniAssembler::OPMAP = new Dictionary();
-        const std::map<std::string, void*> AGALMiniAssembler::REGMAP= new Dictionary();
-        const std::map<std::string, void*> AGALMiniAssembler::SAMPLEMAP=newDictionary();
+        const std::map<std::string, void*> AGALMiniAssembler::OPMAP                     std::map<std::string, void*>()                ;
+        const std::map<std::string, void*> AGALMiniAssembler::REGMAP                    std::map<std::string, void*>()                ;
+        const std::map<std::string, void*> AGALMiniAssembler::SAMPLEMAP                 std::map<std::string, void*>()                ;
 
         const int AGALMiniAssembler::MAX_NESTING                    = 4;
         const int AGALMiniAssembler::MAX_OPCODES                    = 2048;
 
-        const std::string AGALMiniAssembler::FRAGMENT               = "fragment";
-        const std::string AGALMiniAssembler::VERTEX                 = "vertex";
+        const std::string AGALMiniAssembler::FRAGMENT                    = "fragment";
+        const std::string AGALMiniAssembler::VERTEX                      = "vertex";
 
         // masks and shifts
-        const unsigned int AGALMiniAssembler::SAMPLER_TYPE_SHIFT    = 8;
-        const unsigned int AGALMiniAssembler::SAMPLER_DIM_SHIFT     = 12;
-        const unsigned int AGALMiniAssembler::SAMPLER_SPECIAL_SHIFT = 16;
-        const unsigned int AGALMiniAssembler::SAMPLER_REPEAT_SHIFT  = 20;
-        const unsigned int AGALMiniAssembler::SAMPLER_MIPMAP_SHIFT  = 24;
-        const unsigned int AGALMiniAssembler::SAMPLER_FILTER_SHIFT  = 28;
+        const unsigned int AGALMiniAssembler::SAMPLER_TYPE_SHIFT            = 8;
+        const unsigned int AGALMiniAssembler::SAMPLER_DIM_SHIFT             = 12;
+        const unsigned int AGALMiniAssembler::SAMPLER_SPECIAL_SHIFT         = 16;
+        const unsigned int AGALMiniAssembler::SAMPLER_REPEAT_SHIFT          = 20;
+        const unsigned int AGALMiniAssembler::SAMPLER_MIPMAP_SHIFT          = 24;
+        const unsigned int AGALMiniAssembler::SAMPLER_FILTER_SHIFT          = 28;
 
         // regmap flags
-        const unsigned int AGALMiniAssembler::REG_WRITE             = 0x1;
-        const unsigned int AGALMiniAssembler::REG_READ              = 0x2;
-        const unsigned int AGALMiniAssembler::REG_FRAG              = 0x20;
-        const unsigned int AGALMiniAssembler::REG_VERT              = 0x40;
+        const unsigned int AGALMiniAssembler::REG_WRITE                     = 0x1;
+        const unsigned int AGALMiniAssembler::REG_READ                      = 0x2;
+        const unsigned int AGALMiniAssembler::REG_FRAG                      = 0x20;
+        const unsigned int AGALMiniAssembler::REG_VERT                      = 0x40;
 
         // opmap flags
-        const unsigned int AGALMiniAssembler::OP_SCALAR             = 0x1;
-        const unsigned int AGALMiniAssembler::OP_SPECIAL_TEX        = 0x8;
-        const unsigned int AGALMiniAssembler::OP_SPECIAL_MATRIX     = 0x10;
-        const unsigned int AGALMiniAssembler::OP_FRAG_ONLY          = 0x20;
-        const unsigned int AGALMiniAssembler::OP_VERT_ONLY          = 0x40;
-        const unsigned int AGALMiniAssembler::OP_NO_DEST            = 0x80;
-        const unsigned int AGALMiniAssembler::OP_VERSION2           = 0x100;
-        const unsigned int AGALMiniAssembler::OP_INCNEST            = 0x200;
-        const unsigned int AGALMiniAssembler::OP_DECNEST            = 0x400;
+        const unsigned int AGALMiniAssembler::OP_SCALAR                     = 0x1;
+        const unsigned int AGALMiniAssembler::OP_SPECIAL_TEX                = 0x8;
+        const unsigned int AGALMiniAssembler::OP_SPECIAL_MATRIX             = 0x10;
+        const unsigned int AGALMiniAssembler::OP_FRAG_ONLY                  = 0x20;
+        const unsigned int AGALMiniAssembler::OP_VERT_ONLY                  = 0x40;
+        const unsigned int AGALMiniAssembler::OP_NO_DEST                    = 0x80;
+        const unsigned int AGALMiniAssembler::OP_VERSION2                   = 0x100;
+        const unsigned int AGALMiniAssembler::OP_INCNEST                    = 0x200;
+        const unsigned int AGALMiniAssembler::OP_DECNEST                    = 0x400;
 
         // opcodes
-        const std::string AGALMiniAssembler::MOV                    = "mov";
-        const std::string AGALMiniAssembler::ADD                    = "add";
-        const std::string AGALMiniAssembler::SUB                    = "sub";
-        const std::string AGALMiniAssembler::MUL                    = "mul";
-        const std::string AGALMiniAssembler::DIV                    = "div";
-        const std::string AGALMiniAssembler::RCP                    = "rcp";
-        const std::string AGALMiniAssembler::MIN                    = "min";
-        const std::string AGALMiniAssembler::MAX                    = "max";
-        const std::string AGALMiniAssembler::FRC                    = "frc";
-        const std::string AGALMiniAssembler::SQT                    = "sqt";
-        const std::string AGALMiniAssembler::RSQ                    = "rsq";
-        const std::string AGALMiniAssembler::POW                    = "pow";
-        const std::string AGALMiniAssembler::LOG                    = "log";
-        const std::string AGALMiniAssembler::EXP                    = "exp";
-        const std::string AGALMiniAssembler::NRM                    = "nrm";
-        const std::string AGALMiniAssembler::SIN                    = "sin";
-        const std::string AGALMiniAssembler::COS                    = "cos";
-        const std::string AGALMiniAssembler::CRS                    = "crs";
-        const std::string AGALMiniAssembler::DP3                    = "dp3";
-        const std::string AGALMiniAssembler::DP4                    = "dp4";
-        const std::string AGALMiniAssembler::ABS                    = "abs";
-        const std::string AGALMiniAssembler::NEG                    = "neg";
-        const std::string AGALMiniAssembler::SAT                    = "sat";
-        const std::string AGALMiniAssembler::M33                    = "m33";
-        const std::string AGALMiniAssembler::M44                    = "m44";
-        const std::string AGALMiniAssembler::M34                    = "m34";
-        const std::string AGALMiniAssembler::DDX                    = "ddx";
-        const std::string AGALMiniAssembler::DDY                    = "ddy";
-        const std::string AGALMiniAssembler::IFE                    = "ife";
-        const std::string AGALMiniAssembler::INE                    = "ine";
-        const std::string AGALMiniAssembler::IFG                    = "ifg";
-        const std::string AGALMiniAssembler::IFL                    = "ifl";
-        const std::string AGALMiniAssembler::ELS                    = "els";
-        const std::string AGALMiniAssembler::EIF                    = "eif";
-        const std::string AGALMiniAssembler::TED                    = "ted";
-        const std::string AGALMiniAssembler::KIL                    = "kil";
-        const std::string AGALMiniAssembler::TEX                    = "tex";
-        const std::string AGALMiniAssembler::SGE                    = "sge";
-        const std::string AGALMiniAssembler::SLT                    = "slt";
-        const std::string AGALMiniAssembler::SGN                    = "sgn";
-        const std::string AGALMiniAssembler::SEQ                    = "seq";
-        const std::string AGALMiniAssembler::SNE                    = "sne";
+        const std::string AGALMiniAssembler::MOV                         = "mov";
+        const std::string AGALMiniAssembler::ADD                         = "add";
+        const std::string AGALMiniAssembler::SUB                         = "sub";
+        const std::string AGALMiniAssembler::MUL                         = "mul";
+        const std::string AGALMiniAssembler::DIV                         = "div";
+        const std::string AGALMiniAssembler::RCP                         = "rcp";
+        const std::string AGALMiniAssembler::MIN                         = "min";
+        const std::string AGALMiniAssembler::MAX                         = "max";
+        const std::string AGALMiniAssembler::FRC                         = "frc";
+        const std::string AGALMiniAssembler::SQT                         = "sqt";
+        const std::string AGALMiniAssembler::RSQ                         = "rsq";
+        const std::string AGALMiniAssembler::POW                         = "pow";
+        const std::string AGALMiniAssembler::LOG                         = "log";
+        const std::string AGALMiniAssembler::EXP                         = "exp";
+        const std::string AGALMiniAssembler::NRM                         = "nrm";
+        const std::string AGALMiniAssembler::SIN                         = "sin";
+        const std::string AGALMiniAssembler::COS                         = "cos";
+        const std::string AGALMiniAssembler::CRS                         = "crs";
+        const std::string AGALMiniAssembler::DP3                         = "dp3";
+        const std::string AGALMiniAssembler::DP4                         = "dp4";
+        const std::string AGALMiniAssembler::ABS                         = "abs";
+        const std::string AGALMiniAssembler::NEG                         = "neg";
+        const std::string AGALMiniAssembler::SAT                         = "sat";
+        const std::string AGALMiniAssembler::M33                         = "m33";
+        const std::string AGALMiniAssembler::M44                         = "m44";
+        const std::string AGALMiniAssembler::M34                         = "m34";
+        const std::string AGALMiniAssembler::DDX                         = "ddx";
+        const std::string AGALMiniAssembler::DDY                         = "ddy";
+        const std::string AGALMiniAssembler::IFE                         = "ife";
+        const std::string AGALMiniAssembler::INE                         = "ine";
+        const std::string AGALMiniAssembler::IFG                         = "ifg";
+        const std::string AGALMiniAssembler::IFL                         = "ifl";
+        const std::string AGALMiniAssembler::ELS                         = "els";
+        const std::string AGALMiniAssembler::EIF                         = "eif";
+        const std::string AGALMiniAssembler::TED                         = "ted";
+        const std::string AGALMiniAssembler::KIL                         = "kil";
+        const std::string AGALMiniAssembler::TEX                         = "tex";
+        const std::string AGALMiniAssembler::SGE                         = "sge";
+        const std::string AGALMiniAssembler::SLT                         = "slt";
+        const std::string AGALMiniAssembler::SGN                         = "sgn";
+        const std::string AGALMiniAssembler::SEQ                         = "seq";
+        const std::string AGALMiniAssembler::SNE                         = "sne";
 
         // registers
-        const std::string AGALMiniAssembler::VA                     = "va";
-        const std::string AGALMiniAssembler::VC                     = "vc";
-        const std::string AGALMiniAssembler::VT                     = "vt";
-        const std::string AGALMiniAssembler::VO                     = "vo";
-        const std::string AGALMiniAssembler::VI                     = "vi";
-        const std::string AGALMiniAssembler::FC                     = "fc";
-        const std::string AGALMiniAssembler::FT                     = "ft";
-        const std::string AGALMiniAssembler::FS                     = "fs";
-        const std::string AGALMiniAssembler::FO                     = "fo";
-        const std::string AGALMiniAssembler::FD                     = "fd";
+        const std::string AGALMiniAssembler::VA                          = "va";
+        const std::string AGALMiniAssembler::VC                          = "vc";
+        const std::string AGALMiniAssembler::VT                          = "vt";
+        const std::string AGALMiniAssembler::VO                          = "vo";
+        const std::string AGALMiniAssembler::VI                          = "vi";
+        const std::string AGALMiniAssembler::FC                          = "fc";
+        const std::string AGALMiniAssembler::FT                          = "ft";
+        const std::string AGALMiniAssembler::FS                          = "fs";
+        const std::string AGALMiniAssembler::FO                          = "fo";
+        const std::string AGALMiniAssembler::FD                          = "fd";
 
         // samplers
-        const std::string AGALMiniAssembler::D2                     = "2d";
-        const std::string AGALMiniAssembler::D3                     = "3d";
-        const std::string AGALMiniAssembler::CUBE                   = "cube";
-        const std::string AGALMiniAssembler::MIPNEAREST             = "mipnearest";
-        const std::string AGALMiniAssembler::MIPLINEAR              = "miplinear";
-        const std::string AGALMiniAssembler::MIPNONE                = "mipnone";
-        const std::string AGALMiniAssembler::NOMIP                  = "nomip";
-        const std::string AGALMiniAssembler::NEAREST                = "nearest";
-        const std::string AGALMiniAssembler::LINEAR                 = "linear";
-        const std::string AGALMiniAssembler::CENTROID               = "centroid";
-        const std::string AGALMiniAssembler::SINGLE                 = "single";
-        const std::string AGALMiniAssembler::IGNORESAMPLER          = "ignoresampler";
-        const std::string AGALMiniAssembler::REPEAT                 = "repeat";
-        const std::string AGALMiniAssembler::WRAP                   = "wrap";
-        const std::string AGALMiniAssembler::CLAMP                  = "clamp";
-        const std::string AGALMiniAssembler::RGBA                   = "rgba";
-        const std::string AGALMiniAssembler::DXT1                   = "dxt1";
-        const std::string AGALMiniAssembler::DXT5                   = "dxt5";
-        const std::string AGALMiniAssembler::VIDEO                  = "video";
+        const std::string AGALMiniAssembler::D2                          = "2d";
+        const std::string AGALMiniAssembler::D3                          = "3d";
+        const std::string AGALMiniAssembler::CUBE                        = "cube";
+        const std::string AGALMiniAssembler::MIPNEAREST                  = "mipnearest";
+        const std::string AGALMiniAssembler::MIPLINEAR                   = "miplinear";
+        const std::string AGALMiniAssembler::MIPNONE                     = "mipnone";
+        const std::string AGALMiniAssembler::NOMIP                       = "nomip";
+        const std::string AGALMiniAssembler::NEAREST                     = "nearest";
+        const std::string AGALMiniAssembler::LINEAR                      = "linear";
+        const std::string AGALMiniAssembler::CENTROID                    = "centroid";
+        const std::string AGALMiniAssembler::SINGLE                      = "single";
+        const std::string AGALMiniAssembler::IGNORESAMPLER               = "ignoresampler";
+        const std::string AGALMiniAssembler::REPEAT                      = "repeat";
+        const std::string AGALMiniAssembler::WRAP                        = "wrap";
+        const std::string AGALMiniAssembler::CLAMP                       = "clamp";
+        const std::string AGALMiniAssembler::RGBA                        = "rgba";
+        const std::string AGALMiniAssembler::DXT1                        = "dxt1";
+        const std::string AGALMiniAssembler::DXT5                        = "dxt5";
+        const std::string AGALMiniAssembler::VIDEO                       = "video";
 }
 }
 }

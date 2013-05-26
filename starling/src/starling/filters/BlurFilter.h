@@ -51,6 +51,8 @@ namespace starling
     }
 }
 
+#include "starling/filters/FragmentFilter.h"
+
 /** The BlurFilter applies a Gaussian blur to an object. The strength of the blur can be
  *  set for x- and y-axis separately (always relative to the stage).
  *  A blur filter can also be set up as a drop shadow or glow filter. Use the respective
@@ -58,6 +60,7 @@ namespace starling
  */
 
 using namespace flash::display3D;
+using namespace starling::filters;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -65,7 +68,7 @@ namespace starling
 {
     namespace filters
     {
-        class BlurFilter : public FragmentFilter
+        class BlurFilter : public starling::filters::FragmentFilter
         {
         private:
             const float MAX_SIGMA;
@@ -108,18 +111,18 @@ namespace starling
              *  cost.</p>
              */
         public:
-            BlurFilter(float blurX =1, float blurY =1, float resolution =1);
+            BlurFilter(float blurX=1, float blurY=1, float resolution=1);
 
             /** Creates a blur filter that is set up for a drop shadow effect. */
         public:
-            static BlurFilter *createDropShadow(float distance =4.0, float angle =0.785,
-                                                unsigned int color=0x0, float alpha =0.5, float blur =1.0,
-                                                float resolution =0.5);
+            static BlurFilter *createDropShadow(float distance=4.0, float angle=0.785,
+                                                unsigned int color=0x0, float alpha=0.5, float blur=1.0,
+                                                float resolution=0.5);
 
             /** Creates a blur filter that is set up for a glow effect. */
         public:
-            static BlurFilter *createGlow(unsigned int color=0xffff00, float alpha =1.0, float blur =1.0,
-                                          float resolution =0.5);
+            static BlurFilter *createGlow(unsigned int color=0xffff00, float alpha=1.0, float blur=1.0,
+                                          float resolution=0.5);
 
             /** @inheritDoc */
         public:
@@ -146,19 +149,19 @@ namespace starling
              *  value will be multiplied with the given factor. Pass <code>false</code> as the
              *  first parameter to deactivate the uniform color. */
         public:
-            void     setUniformColor(bool enable, unsigned int color=0x0, float alpha =1.0);
+            void     setUniformColor(bool enable, unsigned int color=0x0, float alpha=1.0);
 
             /** The blur factor in x-direction (stage coordinates).
              *  The number of required passes will be <code>Math.ceil(value)</code>. */
         public:
-            float        blurX();
+            float       blurX();
         public:
             void         blurX(float value);
 
             /** The blur factor in y-direction (stage coordinates).
              *  The number of required passes will be <code>Math.ceil(value)</code>. */
         public:
-            float        blurY();
+            float       blurY();
         public:
             void         blurY(float value);
         };

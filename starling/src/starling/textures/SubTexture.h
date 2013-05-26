@@ -81,7 +81,7 @@ namespace starling
              *  when the subtexture is disposed. */
         public:
             SubTexture(Texture *parentTexture, Rectangle *region,
-                       bool ownsParent   =false);
+                       bool ownsParent=false);
 
             /** Disposes the parent texture if this texture owns it. */
         public:
@@ -96,20 +96,20 @@ namespace starling
 
             /** The texture which the subtexture is based on. */
         public:
-            Texture     *parent();
+            Texture      *parent();
 
             /** Indicates if the parent texture is disposed when this object is disposed. */
         public:
-            bool         ownsParent();
+            bool      ownsParent();
 
             /** The clipping rectangle, which is the region provided on initialization
              *  scaled into [0.0, 1.0]. */
         public:
-            Rectangle   *clipping();
+            Rectangle    *clipping();
 
             /** @inheritDoc */
         public:
-            virtual TextureBase *base();
+            virtual TextureBase  *base();
 
             /** @inheritDoc */
         public:
@@ -117,35 +117,35 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual std::string  format();
+            virtual std::string       format();
 
             /** @inheritDoc */
         public:
-            virtual float        width();
+            virtual float       width();
 
             /** @inheritDoc */
         public:
-            virtual float        height();
+            virtual float       height();
 
             /** @inheritDoc */
         public:
-            virtual float        nativeWidth();
+            virtual float       nativeWidth();
 
             /** @inheritDoc */
         public:
-            virtual float        nativeHeight();
+            virtual float       nativeHeight();
 
             /** @inheritDoc */
         public:
-            virtual bool         mipMapping();
+            virtual bool      mipMapping();
 
             /** @inheritDoc */
         public:
-            virtual bool         premultipliedAlpha();
+            virtual bool      premultipliedAlpha();
 
             /** @inheritDoc */
         public:
-            virtual float        scale();
+            virtual float       scale();
 
         };
     }

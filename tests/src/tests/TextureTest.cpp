@@ -33,7 +33,7 @@ using namespace starling::utils;
 namespace tests {
 
 
-        const float TextureTest::E  = 0.0001;
+        const float TextureTest::E = 0.0001;
 
 
         void TextureTest::                testCreateTexture()
@@ -44,14 +44,14 @@ namespace tests {
 
         void TextureTest::                testTextureCoordinates()
         {
-             int rootWidth = 256;
-             int rootHeight = 128;
-             SubTexture* subTexture;
-             SubTexture* subSubTexture;
-             VertexData* vertexData= createStandardVertexData();
-             VertexData* adjustedVertexData;
-             ConcreteTexture* texture= new ConcreteTexture(NULL, NULL, rootWidth, rootHeight, false, false);
-             Point* texCoords= new Point();
+            int rootWidth = 256;
+            int rootHeight = 128;
+            SubTexture* subTexture;
+            SubTexture* subSubTexture;
+            VertexData* vertexData = createStandardVertexData();
+            VertexData* adjustedVertexData;
+            ConcreteTexture* texture = new ConcreteTexture(NULL, NULL, rootWidth, rootHeight, false, false);
+            Point* texCoords = new Point();
 
             // test subtexture filling the whole base texture
             subTexture = new SubTexture(texture, new Rectangle(0, 0, rootWidth, rootHeight));
@@ -107,7 +107,7 @@ namespace tests {
 
         VertexData* TextureTest::createStandardVertexData()
         {
-             VertexData* vertexData= new VertexData(4);
+            VertexData* vertexData = new VertexData(4);
             vertexData->setTexCoords(0, 0.0, 0.0);
             vertexData->setTexCoords(1, 1.0, 0.0);
             vertexData->setTexCoords(2, 0.0, 1.0);
@@ -117,7 +117,7 @@ namespace tests {
 
         VertexData* TextureTest::createVertexDataWithMovedTexCoords()
         {
-             VertexData* vertexData= new VertexData(4);
+            VertexData* vertexData = new VertexData(4);
             vertexData->setTexCoords(0, 0.25, 0.25);
             vertexData->setTexCoords(1, 0.75, 0.25);
             vertexData->setTexCoords(2, 0.25, 0.75);
@@ -128,9 +128,9 @@ namespace tests {
 
         void TextureTest::                testGetRoot()
         {
-             ConcreteTexture* texture= new ConcreteTexture(NULL, NULL, 32, 32, false, false);
-             SubTexture* subTexture= new SubTexture(texture, new Rectangle(0, 0, 16, 16));
-             SubTexture* subSubTexture= new SubTexture(texture, new Rectangle(0, 0, 8, 8));
+            ConcreteTexture* texture = new ConcreteTexture(NULL, NULL, 32, 32, false, false);
+            SubTexture* subTexture = new SubTexture(texture, new Rectangle(0, 0, 16, 16));
+            SubTexture* subSubTexture = new SubTexture(texture, new Rectangle(0, 0, 8, 8));
 
             assertEquals(texture, texture->root());
             assertEquals(texture, subTexture->root());
@@ -141,8 +141,8 @@ namespace tests {
 
         void TextureTest::                testGetSize()
         {
-             ConcreteTexture* texture= new ConcreteTexture(NULL, NULL, 32, 16, false, false, false, 2);
-             SubTexture* subTexture= new SubTexture(texture, new Rectangle(0, 0, 12, 8));
+            ConcreteTexture* texture = new ConcreteTexture(NULL, NULL, 32, 16, false, false, false, 2);
+            SubTexture* subTexture = new SubTexture(texture, new Rectangle(0, 0, 12, 8));
 
             assertThat(texture->width(), closeTo(16, E));
             assertThat(texture->height(), closeTo(8, E));

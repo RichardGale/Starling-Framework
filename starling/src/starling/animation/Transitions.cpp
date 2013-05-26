@@ -1,5 +1,5 @@
-#if 0
-// =================================================================================================//
+// =================================================================================================
+//
 //  Starling Framework
 //  Copyright 2011 Gamua OG. All Rights Reserved.
 //
@@ -39,25 +39,25 @@ namespace starling {
 namespace animation {
 
 
-        const std::string Transitions::LINEAR="linear";
-        const std::string Transitions::EASE_IN="easeIn";
-        const std::string Transitions::EASE_OUT="easeOut";
-        const std::string Transitions::EASE_IN_OUT="easeInOut";
-        const std::string Transitions::EASE_OUT_IN="easeOutIn";
-        const std::string Transitions::EASE_IN_BACK="easeInBack";
-        const std::string Transitions::EASE_OUT_BACK="easeOutBack";
-        const std::string Transitions::EASE_IN_OUT_BACK="easeInOutBack";
-        const std::string Transitions::EASE_OUT_IN_BACK="easeOutInBack";
-        const std::string Transitions::EASE_IN_ELASTIC="easeInElastic";
-        const std::string Transitions::EASE_OUT_ELASTIC="easeOutElastic";
-        const std::string Transitions::EASE_IN_OUT_ELASTIC="easeInOutElastic";
-        const std::string Transitions::EASE_OUT_IN_ELASTIC="easeOutInElastic";
-        const std::string Transitions::EASE_IN_BOUNCE="easeInBounce";
-        const std::string Transitions::EASE_OUT_BOUNCE="easeOutBounce";
-        const std::string Transitions::EASE_IN_OUT_BOUNCE="easeInOutBounce";
-        const std::string Transitions::EASE_OUT_IN_BOUNCE="easeOutInBounce";
+        const std::string Transitions::LINEAR = "linear";
+        const std::string Transitions::EASE_IN = "easeIn";
+        const std::string Transitions::EASE_OUT = "easeOut";
+        const std::string Transitions::EASE_IN_OUT = "easeInOut";
+        const std::string Transitions::EASE_OUT_IN = "easeOutIn";
+        const std::string Transitions::EASE_IN_BACK = "easeInBack";
+        const std::string Transitions::EASE_OUT_BACK = "easeOutBack";
+        const std::string Transitions::EASE_IN_OUT_BACK = "easeInOutBack";
+        const std::string Transitions::EASE_OUT_IN_BACK = "easeOutInBack";
+        const std::string Transitions::EASE_IN_ELASTIC = "easeInElastic";
+        const std::string Transitions::EASE_OUT_ELASTIC = "easeOutElastic";
+        const std::string Transitions::EASE_IN_OUT_ELASTIC = "easeInOutElastic";
+        const std::string Transitions::EASE_OUT_IN_ELASTIC = "easeOutInElastic";
+        const std::string Transitions::EASE_IN_BOUNCE = "easeInBounce";
+        const std::string Transitions::EASE_OUT_BOUNCE = "easeOutBounce";
+        const std::string Transitions::EASE_IN_OUT_BOUNCE = "easeInOutBounce";
+        const std::string Transitions::EASE_OUT_IN_BOUNCE = "easeOutInBounce";
 
-         std::map<std::string, void*> Transitions::sTransitions;
+        std::map<std::string, void*> Transitions::sTransitions;
 
         /** @private */
         Transitions::Transitions() { throw new AbstractClassError(); }
@@ -113,7 +113,7 @@ namespace animation {
 
         float Transitions::easeOut(float ratio)
         {
-             float invRatio  = ratio - 1.0;
+            float invRatio = ratio - 1.0;
             return invRatio * invRatio * invRatio + 1;
         }
 
@@ -129,14 +129,14 @@ namespace animation {
 
         float Transitions::easeInBack(float ratio)
         {
-             float s  = 1.70158;
+            float s = 1.70158;
             return Math::pow(ratio, 2) * ((s + 1.0)*ratio - s);
         }
 
         float Transitions::easeOutBack(float ratio)
         {
-             float invRatio  = ratio - 1.0;
-             float s  = 1.70158;
+            float invRatio = ratio - 1.0;
+            float s = 1.70158;
             return Math::pow(invRatio, 2) * ((s + 1.0)*invRatio + s) + 1.0;
         }
 
@@ -155,9 +155,9 @@ namespace animation {
             if (ratio == 0 || ratio == 1) return ratio;
             else
             {
-                 float p  = 0.3;
-                 float s  = p/4.0;
-                 float invRatio  = ratio - 1;
+                float p = 0.3;
+                float s = p/4.0;
+                float invRatio = ratio - 1;
                 return -1.0 * Math::pow(2.0, 10.0*invRatio) * Math::sin((invRatio-s)*(2.0*Math::PI)/p);
             }
         }
@@ -167,8 +167,8 @@ namespace animation {
             if (ratio == 0 || ratio == 1) return ratio;
             else
             {
-                 float p  = 0.3;
-                 float s  = p/4.0;
+                float p = 0.3;
+                float s = p/4.0;
                 return Math::pow(2.0, -10.0*ratio) * Math::sin((ratio-s)*(2.0*Math::PI)/p) + 1;
             }
         }
@@ -190,9 +190,9 @@ namespace animation {
 
         float Transitions::easeOutBounce(float ratio)
         {
-             float s  = 7.5625;
-             float p  = 2.75;
-             float l ;
+            float s = 7.5625;
+            float p = 2.75;
+            float l;
             if (ratio < (1.0/p))
             {
                 l = s * Math::pow(ratio, 2);
@@ -238,5 +238,4 @@ namespace animation {
         }
 }
 }
-#endif
 

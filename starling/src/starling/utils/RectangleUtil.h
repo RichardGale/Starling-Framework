@@ -63,12 +63,12 @@ namespace starling
              */
         public:
             static Rectangle *fit(Rectangle *rectangle, Rectangle *into,
-                                  std::string scaleMode="showAll", bool pixelPerfect   =false,
+                                  std::string scaleMode="showAll", bool pixelPerfect=false,
                                   Rectangle *resultRect=NULL);
 
             /** Calculates the next whole-number multiplier or divisor, moving either up or down. */
         private:
-            static float    nextSuitableScaleFactor(float factor, bool up);
+            static float   nextSuitableScaleFactor(float factor, bool up);
         };
     }
 }

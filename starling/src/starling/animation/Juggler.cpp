@@ -74,7 +74,7 @@ namespace animation {
             {
                 mObjects.push_back(object);
 
-                 EventDispatcher* dispatcher= dynamic_cast<EventDispatcher*>(object);
+                EventDispatcher* dispatcher = dynamic_cast<EventDispatcher*>(object);
                 if (dispatcher) dispatcher->addEventListener(Event::REMOVE_FROM_JUGGLER, onRemove);
             }
         }
@@ -90,10 +90,10 @@ namespace animation {
         {
             if (object == NULL) return;
 
-             EventDispatcher* dispatcher= dynamic_cast<EventDispatcher*>(object);
+            EventDispatcher* dispatcher = dynamic_cast<EventDispatcher*>(object);
             if (dispatcher) dispatcher->removeEventListener(Event::REMOVE_FROM_JUGGLER, onRemove);
 
-             int index = mObjects.indexOf(object);
+            int index = mObjects.indexOf(object);
             if (index != -1) mObjects[index] = NULL;
         }
 
@@ -102,9 +102,9 @@ namespace animation {
         {
             if (target == NULL) return;
 
-            for ( int i=mObjects.size()-1; i>=0; --i)
+            for (int i=mObjects.size()-1; i>=0; --i)
             {
-                 Tween* tween= dynamic_cast<Tween*>(mObjects[i]);
+                Tween* tween = dynamic_cast<Tween*>(mObjects[i]);
                 if (tween && tween->target() == target)
                 {
                     tween->removeEventListener(Event::REMOVE_FROM_JUGGLER, onRemove);
@@ -118,9 +118,9 @@ namespace animation {
         {
             if (target == NULL) return false;
 
-            for ( int i=mObjects.size()-1; i>=0; --i)
+            for (int i=mObjects.size()-1; i>=0; --i)
             {
-                 Tween* tween= dynamic_cast<Tween*>(mObjects[i]);
+                Tween* tween = dynamic_cast<Tween*>(mObjects[i]);
                 if (tween && tween->target() == target) return true;
             }
 
@@ -135,9 +135,9 @@ namespace animation {
             // vector is filled with 'null' values. They will be cleaned up on the next call
             // to 'advanceTime'.
 
-            for ( int i=mObjects.size()-1; i>=0; --i)
+            for (int i=mObjects.size()-1; i>=0; --i)
             {
-                 EventDispatcher* dispatcher= dynamic_cast<EventDispatcher*>(mObjects[i]);
+                EventDispatcher* dispatcher = dynamic_cast<EventDispatcher*>(mObjects[i]);
                 if (dispatcher) dispatcher->removeEventListener(Event::REMOVE_FROM_JUGGLER, onRemove);
                 mObjects[i] = NULL;
             }
@@ -150,7 +150,7 @@ namespace animation {
         {
             if (call == NULL) return NULL;
 
-             DelayedCall* delayedCall= new DelayedCall(call, delay, args);
+            DelayedCall* delayedCall = new DelayedCall(call, delay, args);
             add(delayedCall);
             return delayedCall;
         }
@@ -173,11 +173,11 @@ namespace animation {
          */
         void Juggler::tween(Object* target, float time, Object* properties)
         {
-             Tween* tween= Tween::starling_internal::fromPool(target, time);
+            Tween* tween = Tween::starling_internal::fromPool(target, time);
 
-            for ( std::string propertyinproperties)
+            for(std::vector<std::string>::iterator property = properties.begin(); property != properties.end(); ++property)
             {
-                 Object* value= properties[property];
+                Object* value = properties[property];
 
                 if (tween->hasOwnProperty(property))
                     tween[property] = value;
@@ -199,9 +199,9 @@ namespace animation {
         /** Advances all objects by a certain time (in seconds). */
         void Juggler::advanceTime(float time)
         {
-             int numObjects = mObjects.size();
-             int currentIndex = 0;
-             int i;
+            int numObjects = mObjects.size();
+            int currentIndex = 0;
+            int i;
 
             mElapsedTime += time;
             if (numObjects == 0) return;
@@ -212,7 +212,7 @@ namespace animation {
 
             for (i=0; i<numObjects; ++i)
             {
-                 IAnimatable* object= mObjects[i];
+                IAnimatable* object = mObjects[i];
                 if (object)
                 {
                     // shift objects into empty slots along the way
@@ -242,7 +242,7 @@ namespace animation {
         {
             remove(event->dynamic_cast<IAnimatable*>(target));
 
-             Tween* tween= event->dynamic_cast<Tween*>(target);
+            Tween* tween = event->dynamic_cast<Tween*>(target);
             if (tween && tween->isComplete())
                 add(tween->nextTween());
         }

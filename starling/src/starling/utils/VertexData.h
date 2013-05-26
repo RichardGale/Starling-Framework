@@ -100,7 +100,7 @@ namespace starling
 
             /** Create a new VertexData object with a specified number of vertices. */
         public:
-            VertexData(int numVertices, bool premultipliedAlpha   =false);
+            VertexData(int numVertices, bool premultipliedAlpha=false);
 
             /** Creates a duplicate of either the complete vertex data object, or of a subset.
              *  To clone all vertices, set 'numVertices' to '-1'. */
@@ -133,7 +133,7 @@ namespace starling
 
             /** Returns the RGB color of a vertex (no alpha). */
         public:
-            unsigned int getColor(int vertexID);
+            unsigned int     getColor(int vertexID);
 
             /** Updates the alpha value of a vertex (range 0-1). */
         public:
@@ -141,7 +141,7 @@ namespace starling
 
             /** Returns the alpha value of a vertex in the range 0-1. */
         public:
-            float    getAlpha(int vertexID);
+            float   getAlpha(int vertexID);
 
             /** Updates the texture coordinates of a vertex (range 0-1). */
         public:
@@ -190,15 +190,15 @@ namespace starling
 
             /** Indicates if any vertices have a non-white color or are not fully opaque. */
         public:
-            bool         tinted();
+            bool      tinted();
 
             /** Changes the way alpha and color values are stored. Updates all exisiting vertices. */
         public:
-            void     setPremultipliedAlpha(bool value, bool updateData   =true);
+            void     setPremultipliedAlpha(bool value, bool updateData=true);
 
             /** Indicates if the rgb values are stored premultiplied with the alpha value. */
         public:
-            bool         premultipliedAlpha();
+            bool      premultipliedAlpha();
 
             /** The total number of vertices. */
         public:

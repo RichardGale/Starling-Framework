@@ -132,14 +132,14 @@ namespace starling
 
         public:
             void     enqueue(int touchID, std::string phase, float globalX, float globalY,
-                             float pressure =1.0, float width =1.0, float height =1.0);
+                             float pressure=1.0, float width=1.0, float height=1.0);
 
         public:
             void     enqueueMouseLeftStage();    // On OS X, we get mouse events from outside the stage; on Windows, we do not.// This method enqueues an artifial hover point that is just outside the stage.// That way, objects listening for HOVERs over them will get notified everywhere.
 
         private:
             void     processTouch(int touchID, std::string phase, float globalX, float globalY,
-                                  float pressure =1.0, float width =1.0, float height =1.0);
+                                  float pressure=1.0, float width=1.0, float height=1.0);
 
         private:
             void     onKey(KeyboardEvent *event);                                  // shift key
@@ -151,10 +151,10 @@ namespace starling
             void     addCurrentTouch(Touch *touch);
 
         private:
-            Touch   *getCurrentTouch(int touchID);
+            Touch    *getCurrentTouch(int touchID);
 
         public:
-            bool         simulateMultitouch();
+            bool      simulateMultitouch();
         public:
             void         simulateMultitouch(bool value);
 

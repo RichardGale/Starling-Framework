@@ -17,7 +17,7 @@ namespace utils {
 
         RoundButton::RoundButton(Texture* upState, std::string text, Texture* downState)
         {
-            super(upState, text, downState);
+            Button(upState, text, downState);
         }
 
         DisplayObject* RoundButton::hitTest(Point* localPoint, bool forTouch)
@@ -32,18 +32,18 @@ namespace utils {
                 return NULL;
 
             // get center of button
-             Rectangle* bounds= this()->bounds;
-             float centerX  = bounds->width() / 2;
-             float centerY  = bounds->height() / 2;
+            Rectangle* bounds = this->bounds;
+            float centerX = bounds->width() / 2;
+            float centerY = bounds->height() / 2;
 
             // calculate distance of localPoint to center. 
             // we keep it squared, since we want to avoid the 'sqrt()'-call.
-             float sqDist  = Math::pow(localPoint->x() - centerX, 2) +
+            float sqDist = Math::pow(localPoint->x() - centerX, 2) +
                                 Math::pow(localPoint->y() - centerY, 2);
 
             // when the squared distance is smaller than the squared radius, 
             // the point is inside the circle
-             float radius  = bounds->width / 2 - 8;
+            float radius = bounds->width / 2 - 8;
             if (sqDist < Math::pow(radius, 2)) return this;
             else return NULL;
         }

@@ -59,12 +59,12 @@ using namespace starling::utils;
                 mStarling->nativeStage()->frameRate ( 30);
 
             // define which resources to load
-             AssetManager* assets= new AssetManager();
+            AssetManager* assets = new AssetManager();
             assets->verbose ( Capabilities::isDebugger);
             assets->enqueue(EmbeddedAssets);
 
             // background texture is embedded, because we need it right away!
-             Texture* bgTexture= Texture::fromBitmap(new Background());
+            Texture* bgTexture = Texture::fromBitmap(new Background());
 
             // game will first load resources, then start menu
             game->start(bgTexture, assets);

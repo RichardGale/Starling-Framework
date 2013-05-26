@@ -66,7 +66,7 @@ namespace events {
 
 
         /** Event type for touch or mouse input. */
-        const std::string TouchEvent::TOUCH="touch";
+        const std::string TouchEvent::TOUCH = "touch";
 
                     
                     
@@ -74,21 +74,21 @@ namespace events {
                     
 
         /** Helper object. */
-         std::vector<Touch*> TouchEvent::sTouches=new<Touch*>[];
+        std::vector<Touch*> TouchEvent::sTouches=std::vector<void*>()           ;
 
         /** Creates a new TouchEvent instance. */
         TouchEvent::TouchEvent(std::string type, std::vector<Touch*> touches, bool shiftKey,
                                    bool ctrlKey, bool bubbles)
         {
-            super(type, bubbles, touches);
+            Event(type, bubbles, touches);
 
             mShiftKey = shiftKey;
             mCtrlKey = ctrlKey;
             mTimestamp = -1.0;
             mVisitedObjects.clear();
 
-             int numTouches=touches.size();
-            for ( int i=0; i<numTouches; ++i)
+            int numTouches=touches.size();
+            for (int i=0; i<numTouches; ++i)
                 if (touches[i]->timestamp() > mTimestamp)
                     mTimestamp = touches[i]->timestamp();
         }
@@ -100,14 +100,14 @@ namespace events {
                                    std::vector<Touch*> result)
         {
             if (result.empty()) result.clear();
-             std::vector<Touch*> allTouches=dynamic_cast<std::vector>(data)        ;
-             int numTouches = allTouches.size();
+            std::vector<Touch*> allTouches=dynamic_cast<std::vector>(data)        ;
+            int numTouches = allTouches.size();
 
-            for ( int i=0; i<numTouches; ++i)
+            for (int i=0; i<numTouches; ++i)
             {
-                 Touch* touch= allTouches[i];
-                 bool correctTarget    = touch->isTouching(target);
-                 bool correctPhase    = (phase == NULL || phase == touch->phase);
+                Touch* touch = allTouches[i];
+                bool correctTarget = touch->isTouching(target);
+                bool correctPhase = (phase == NULL || phase == touch->phase);
 
                 if (correctTarget && correctPhase)
                     result.push_back(touch);
@@ -121,7 +121,7 @@ namespace events {
             getTouches(target, phase, sTouches);
             if (sTouches.size())
             {
-                 Touch* touch= sTouches[0];
+                Touch* touch = sTouches[0];
                 sTouches.clear()    ;
                 return touch;
             }
@@ -135,9 +135,9 @@ namespace events {
                 return false;
             else
             {
-                 std::vector<Touch*> touches=getTouches(target);
+                std::vector<Touch*> touches=getTouches(target);
 
-                for ( int i=touches.size()-1; i>=0; --i)
+                for (int i=touches.size()-1; i>=0; --i)
                     if (touches[i]->phase() != TouchPhase()->ENDED())
                         return true;
 
@@ -154,16 +154,16 @@ namespace events {
         {
             if (chain && chain.size())
             {
-                 int chainLength = bubbles ? chain.size() : 1;
-                 EventDispatcher* previousTarget= target;
+                int chainLength = bubbles ? chain.size() : 1;
+                EventDispatcher* previousTarget = target;
                 setTarget(dynamic_cast<EventDispatcher*>(chain[0]));
 
-                for ( int i=0; i<chainLength; ++i)
+                for (int i=0; i<chainLength; ++i)
                 {
-                     EventDispatcher* chainElement= dynamic_cast<EventDispatcher*>(chain[i]);
+                    EventDispatcher* chainElement = dynamic_cast<EventDispatcher*>(chain[i]);
                     if (mVisitedObjects.indexOf(chainElement) == -1)
                     {
-                         bool stopPropagation    = chainElement->invokeEvent(this);
+                        bool stopPropagation = chainElement->invokeEvent(this);
                         mVisitedObjects.push_back(chainElement);
                         if (stopPropagation) break;
                     }

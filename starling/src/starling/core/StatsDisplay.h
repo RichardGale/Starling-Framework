@@ -98,7 +98,7 @@ namespace starling
         private:
             Quad *mBackground;
         private:
-            TextField *mTextField;
+            starling::text::TextField *mTextField;
 
         private:
             int mFrameCount;
@@ -137,13 +137,13 @@ namespace starling
 
             /** The current frames per second (updated once per second). */
         public:
-            float        fps();
+            float       fps();
         public:
             void         fps(float value);
 
             /** The currently required system memory in MB. */
         public:
-            float        memory();
+            float       memory();
         public:
             void         memory(float value);
         };

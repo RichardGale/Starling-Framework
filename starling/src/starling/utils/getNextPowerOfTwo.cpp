@@ -17,7 +17,7 @@
             return number;
         else
         {
-             int result = 1;
+            int result = 1;
             while (result < number) result <<= 1;
             return result;
         }

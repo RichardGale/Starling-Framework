@@ -27,19 +27,19 @@ namespace tests {
 
         void EventTest::                testBubbling()
         {
-            const std::string eventType="test";
+            const std::string eventType = "test";
 
-             Sprite* grandParent= new Sprite();
-             Sprite* parent= new Sprite();
-             Sprite* child= new Sprite();
+            Sprite* grandParent = new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child = new Sprite();
 
             grandParent->addChild(parent);
             parent->addChild(child);
 
-             bool grandParentEventHandlerHit    = false;
-             bool parentEventHandlerHit    = false;
-             bool childEventHandlerHit    = false;
-             int hitCount = 0;
+            bool grandParentEventHandlerHit = false;
+            bool parentEventHandlerHit = false;
+            bool childEventHandlerHit = false;
+            int hitCount = 0;
 
             // bubble up
 
@@ -47,7 +47,7 @@ namespace tests {
             parent->addEventListener(eventType, onParentEvent);
             child->addEventListener(eventType, onChildEvent);
 
-             Event* event= new Event(eventType, true);
+            Event* event = new Event(eventType, true);
             child->dispatchEvent(event);
 
             Assert::assertTrue(grandParentEventHandlerHit);
@@ -100,16 +100,16 @@ namespace tests {
 
         void EventTest::                testStopPropagation()
         {
-            const std::string eventType="test";
+            const std::string eventType = "test";
 
-             Sprite* grandParent= new Sprite();
-             Sprite* parent= new Sprite();
-             Sprite* child= new Sprite();
+            Sprite* grandParent = new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child = new Sprite();
 
             grandParent->addChild(parent);
             parent->addChild(child);
 
-             int hitCount = 0;
+            int hitCount = 0;
 
             // stop propagation at parent
 
@@ -149,8 +149,8 @@ namespace tests {
 
         void EventTest::                testRemoveEventListeners()
         {
-             int hitCount = 0;
-             EventDispatcher* dispatcher= new EventDispatcher();
+            int hitCount = 0;
+            EventDispatcher* dispatcher = new EventDispatcher();
 
             dispatcher->addEventListener("Type1", onEvent);
             dispatcher->addEventListener("Type2", onEvent);
@@ -188,7 +188,7 @@ namespace tests {
 
         void EventTest::                testBlankEventDispatcher()
         {
-             EventDispatcher* dispatcher= new EventDispatcher();
+            EventDispatcher* dispatcher = new EventDispatcher();
 
             Helpers()->assertDoesNotThrow(function()void
             {
@@ -204,8 +204,8 @@ namespace tests {
 
         void EventTest::                testDuplicateEventHandler()
         {
-             EventDispatcher* dispatcher= new EventDispatcher();
-             int callCount = 0;
+            EventDispatcher* dispatcher = new EventDispatcher();
+            int callCount = 0;
 
             dispatcher->addEventListener("test", onEvent);
             dispatcher->addEventListener("test", onEvent);
@@ -220,16 +220,16 @@ namespace tests {
 
         void EventTest::                testBubbleWithModifiedChain()
         {
-            const std::string eventType="test";
+            const std::string eventType = "test";
 
-             Sprite* grandParent= new Sprite();
-             Sprite* parent= new Sprite();
-             Sprite* child= new Sprite();
+            Sprite* grandParent = new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child = new Sprite();
 
             grandParent->addChild(parent);
             parent->addChild(child);
 
-             int hitCount = 0;
+            int hitCount = 0;
 
             // listener on 'child' changes display list; bubbling must not be affected.
 
@@ -253,11 +253,11 @@ namespace tests {
 
         void EventTest::                testRedispatch()
         {
-            const std::string eventType="test";
+            const std::string eventType = "test";
 
-             Sprite* grandParent= new Sprite();
-             Sprite* parent= new Sprite();
-             Sprite* child= new Sprite();
+            Sprite* grandParent = new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child = new Sprite();
 
             grandParent->addChild(parent);
             parent->addChild(child);
@@ -267,8 +267,8 @@ namespace tests {
             child->addEventListener(eventType, onEvent);
             parent->addEventListener(eventType, onEvent_redispatch);
 
-             std::vector<void*> targets ;
-             std::vector<void*> currentTargets ;
+            std::vector<void*> targets ;
+            std::vector<void*> currentTargets ;
 
             child->dispatchEventWith(eventType, true);
 
@@ -292,8 +292,8 @@ namespace tests {
             Assert::assertEquals(targets[4], child);
             Assert::assertEquals(currentTargets[4], grandParent);void EventTest::(Event* event)
             {
-                targets.push(event->target());
-                currentTargets.push(event->currentTarget());
+                targets.push_back(event->target());
+                currentTargets.push_back(event->currentTarget());
             }void EventTest::(Event* event)
             {
                 parent->removeEventListener(eventType, onEvent_redispatch);

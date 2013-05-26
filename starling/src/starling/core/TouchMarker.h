@@ -83,7 +83,7 @@ namespace starling
         private:
             Point *mCenter;
         private:
-            Texture *mTexture;
+            starling::textures::Texture *mTexture;
 
         public:
             TouchMarker();
@@ -92,28 +92,28 @@ namespace starling
             virtual void     dispose();
 
         public:
-            void     moveMarker(float x, float y, bool withCenter   =false);
+            void     moveMarker(float x, float y, bool withCenter=false);
 
         public:
             void     moveCenter(float x, float y);
 
         private:
-            Texture *createTexture();
+            starling::textures::Texture *createTexture();
 
         private:
-            Image       *realMarker();
+            Image        *realMarker();
         private:
-            Image       *mockMarker();
+            Image        *mockMarker();
 
         public:
-            float        realX();
+            float       realX();
         public:
-            float        realY();
+            float       realY();
 
         public:
-            float        mockX();
+            float       mockX();
         public:
-            float        mockY();
+            float       mockY();
         };
     }
 }

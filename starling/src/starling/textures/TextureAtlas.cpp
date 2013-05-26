@@ -90,22 +90,22 @@ namespace textures {
          *  (e.g. to support a different file format). */
         void TextureAtlas::parseAtlasXml(XML* atlasXml)
         {
-             float scale  = mAtlasTexture->scale;
+            float scale = mAtlasTexture->scale;
 
-            for each (var XML* subTexturein atlasXml->SubTexture())
+            for (std::vector<XML*>::iterator subTexture = ..begin(); subTexture != ..end(); ++subTexture)
             {
-                 std::string name   = subTexture->attribute("name");
-                 float x            = parseFloat(subTexture->attribute("x")) / scale;
-                 float y            = parseFloat(subTexture->attribute("y")) / scale;
-                 float width        = parseFloat(subTexture->attribute("width")) / scale;
-                 float height       = parseFloat(subTexture->attribute("height")) / scale;
-                 float frameX       = parseFloat(subTexture->attribute("frameX")) / scale;
-                 float frameY       = parseFloat(subTexture->attribute("frameY")) / scale;
-                 float frameWidth   = parseFloat(subTexture->attribute("frameWidth")) / scale;
-                 float frameHeight  = parseFloat(subTexture->attribute("frameHeight")) / scale;
+                std::string name        = subTexture->attribute("name");
+                float x           = parseFloat(subTexture->attribute("x")) / scale;
+                float y           = parseFloat(subTexture->attribute("y")) / scale;
+                float width       = parseFloat(subTexture->attribute("width")) / scale;
+                float height      = parseFloat(subTexture->attribute("height")) / scale;
+                float frameX      = parseFloat(subTexture->attribute("frameX")) / scale;
+                float frameY      = parseFloat(subTexture->attribute("frameY")) / scale;
+                float frameWidth  = parseFloat(subTexture->attribute("frameWidth")) / scale;
+                float frameHeight = parseFloat(subTexture->attribute("frameHeight")) / scale;
 
-                 Rectangle* region= new Rectangle(x, y, width, height);
-                 Rectangle* frame = frameWidth > 0 && frameHeight > 0 ?
+                Rectangle* region = new Rectangle(x, y, width, height);
+                Rectangle* frame  = frameWidth > 0 && frameHeight > 0 ?
                         new Rectangle(frameX, frameY, frameWidth, frameHeight) : NULL;
 
                 addRegion(name, region, frame);
@@ -115,7 +115,7 @@ namespace textures {
         /** Retrieves a subtexture by name. Returns <code>null</code> if it is not found. */
         Texture* TextureAtlas::getTexture(std::string name)
         {
-             Rectangle* region= mTextureRegions[name];
+            Rectangle* region = mTextureRegions[name];
 
             if (region == NULL) return NULL;
             else return Texture()->fromTexture(mAtlasTexture, region, mTextureFrames[name]);
@@ -127,7 +127,7 @@ namespace textures {
         {
             if (result.empty()) result.clear();
 
-            for each (var std::string nameingetNames(prefix,sNames))
+            for (std::vector<std::string>::iterator name = .begin(); name != .end(); ++name)
                 result.push_back(getTexture(name));
 
             sNames.clear()    ;
@@ -139,7 +139,7 @@ namespace textures {
         {
             if (result.empty()) result.clear();
 
-            for ( std::string nameinmTextureRegions)
+            for(std::vector<std::string>::iterator name = mTextureRegions.begin(); name != mTextureRegions.end(); ++name)
                 if (name.indexOf(prefix) == 0)
                     result.push_back(name);
 

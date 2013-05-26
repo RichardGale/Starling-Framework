@@ -37,7 +37,7 @@ using namespace utils;
                     
                     
 
-         AssetManager* Game::sAssets;
+        AssetManager* Game::sAssets;
 
         Game::Game()
         {
@@ -102,7 +102,7 @@ using namespace utils;
 
         void Game::onButtonTriggered(Event* event)
         {
-             Button* button= event->dynamic_cast<Button*>(target);
+            Button* button = event->dynamic_cast<Button*>(target);
 
             if (button->name() == "backButton")
                 closeScene();
@@ -121,7 +121,7 @@ using namespace utils;
         {
             if (mCurrentScene) return;
 
-             Class* sceneClass= getDefinitionByName(name) as Class;
+            Class* sceneClass = getDefinitionByName(name) as Class;
             mCurrentScene = new sceneClass() as Scene;
             mMainMenu->removeFromParent();
             addChild(mCurrentScene);

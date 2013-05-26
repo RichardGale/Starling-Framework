@@ -35,12 +35,12 @@ namespace events {
 
 
         /** Event type for a resized Flash player. */
-        const std::string ResizeEvent::RESIZE="resize";
+        const std::string ResizeEvent::RESIZE = "resize";
 
         /** Creates a new ResizeEvent. */
         ResizeEvent::ResizeEvent(std::string type, int width, int height, bool bubbles)
         {
-            super(type, bubbles, new Point(width, height));
+            Event(type, bubbles, new Point(width, height));
         }
 
         /** The updated width of the player. */

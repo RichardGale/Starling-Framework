@@ -42,16 +42,16 @@ namespace tests {
 
         void MovieClipTest::                testFrameManipulation()
         {
-             float fps  = 4.0;
-             float frameDuration  = 1.0 / fps;
-             std::string format=Context3DTextureFormat::BGRA;
+            float fps = 4.0;
+            float frameDuration = 1.0 / fps;
+            std::string format = Context3DTextureFormat::BGRA;
 
-             Texture* texture0= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture1= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture2= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture3= new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture0 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture1 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture2 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture3 = new ConcreteTexture(NULL, format, 16, 16, false, false);
 
-             MovieClip* movie= new MovieClip(new <Texture*>[texture0],fps);
+            MovieClip* movie = new MovieClip(new <Texture*>[texture0], fps);
 
             assertThat(movie->width(), closeTo(texture0->width(), E));
             assertThat(movie->height(), closeTo(texture0->height(), E));
@@ -111,16 +111,16 @@ namespace tests {
 
         void MovieClipTest::                testAdvanceTime()
         {
-             float fps  = 4.0;
-             float frameDuration  = 1.0 / fps;
-             std::string format=Context3DTextureFormat::BGRA;
+            float fps = 4.0;
+            float frameDuration = 1.0 / fps;
+            std::string format = Context3DTextureFormat::BGRA;
 
-             Texture* texture0= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture1= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture2= new ConcreteTexture(NULL, format, 16, 16, false, false);
-             Texture* texture3= new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture0 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture1 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture2 = new ConcreteTexture(NULL, format, 16, 16, false, false);
+            Texture* texture3 = new ConcreteTexture(NULL, format, 16, 16, false, false);
 
-             MovieClip* movie= new MovieClip(new <Texture*>[texture0],fps);
+            MovieClip* movie = new MovieClip(new <Texture*>[texture0], fps);
             movie->addFrame(texture2, NULL, 0.5);
             movie->addFrame(texture3);
             movie->addFrameAt(0, texture1);
@@ -160,8 +160,8 @@ namespace tests {
 
         void MovieClipTest::                testChangeFps()
         {
-             std::vector<Texture*> frames=createFrames(3);
-             MovieClip* movie= new MovieClip(frames, 4.0);
+            std::vector<Texture*> frames=createFrames(3);
+            MovieClip* movie = new MovieClip(frames, 4.0);
 
             assertThat(movie->fps(), closeTo(4.0, E));
 
@@ -182,12 +182,12 @@ namespace tests {
 
         void MovieClipTest::                testCompletedEvent()
         {
-             float fps  = 4.0;
-             float frameDuration  = 1.0 / fps;
-             int completedCount = 0;
+            float fps = 4.0;
+            float frameDuration = 1.0 / fps;
+            int completedCount = 0;
 
-             std::vector<Texture*> frames=createFrames(4);
-             MovieClip* movie= new MovieClip(frames, fps);
+            std::vector<Texture*> frames=createFrames(4);
+            MovieClip* movie = new MovieClip(frames, fps);
             movie->addEventListener(Event::COMPLETE, onMovieCompleted);
             movie->loop ( false);
 
@@ -237,12 +237,12 @@ namespace tests {
 
         void MovieClipTest::                testChangeCurrentFrameInCompletedEvent()
         {
-             float fps  = 4.0;
-             float frameDuration  = 1.0 / fps;
-             int completedCount = 0;
+            float fps = 4.0;
+            float frameDuration = 1.0 / fps;
+            int completedCount = 0;
 
-             std::vector<Texture*> frames=createFrames(4);
-             MovieClip* movie= new MovieClip(frames, fps);
+            std::vector<Texture*> frames=createFrames(4);
+            MovieClip* movie = new MovieClip(frames, fps);
 
             movie->loop ( true);
             movie->addEventListener(Event::COMPLETE, onMovieCompleted);
@@ -259,12 +259,12 @@ namespace tests {
 
         void MovieClipTest::                testRemoveAllFrames()
         {
-             std::vector<Texture*> frames=createFrames(2);
-             MovieClip* movie= new MovieClip(frames);
+            std::vector<Texture*> frames=createFrames(2);
+            MovieClip* movie = new MovieClip(frames);
 
             // it must not be allowed to remove the last frame 
             movie->removeFrameAt(0);
-             bool throwsError    = false;
+            bool throwsError = false;
 
             try
             {
@@ -281,9 +281,9 @@ namespace tests {
 
         void MovieClipTest::                testLastTextureInFastPlayback()
         {
-             float fps  = 20.0;
-             std::vector<Texture*> frames=createFrames(3);
-             MovieClip* movie= new MovieClip(frames, fps);
+            float fps = 20.0;
+            std::vector<Texture*> frames=createFrames(3);
+            MovieClip* movie = new MovieClip(frames, fps);
             movie->addEventListener(Event::COMPLETE, onMovieCompleted);
             movie->advanceTime(1.0);void MovieClipTest::()
             {
@@ -296,8 +296,8 @@ namespace tests {
         {
             // https://github.com/PrimaryFeather/Starling-Framework/issues/232
 
-             std::vector<Texture*> frames=createFrames(2);
-             MovieClip* movie= new MovieClip(frames, 2);
+            std::vector<Texture*> frames=createFrames(2);
+            MovieClip* movie = new MovieClip(frames, 2);
 
             movie->addEventListener(Event::COMPLETE, onComplete);
             assertEquals(frames[0], movie->texture());
@@ -315,8 +315,8 @@ namespace tests {
 
         void MovieClipTest::                testStopMovieInCompleteHandler()
         {
-             std::vector<Texture*> frames=createFrames(5);
-             MovieClip* movie= new MovieClip(frames, 5);
+            std::vector<Texture*> frames=createFrames(5);
+            MovieClip* movie = new MovieClip(frames, 5);
 
             movie->addEventListener(Event::COMPLETE, onComplete);
             movie->advanceTime(1.3);
@@ -333,11 +333,11 @@ namespace tests {
 
         std::vector<Texture*> MovieClipTest::createFrames(int count)
         {
-             std::vector<Texture*> frames=new<Texture*>[];
-             std::string format=Context3DTextureFormat::BGRA;
+            std::vector<Texture*> frames=std::vector<void*>()             ;
+            std::string format = Context3DTextureFormat::BGRA;
 
-            for ( int i=0; i<count; ++i)
-                frames.push_back(newConcreteTexture(NULL,format,16,16,false, false));
+            for (int i=0; i<count; ++i)
+                frames.push_back(new ConcreteTexture(NULL, format, 16, 16, false, false));
 
             return frames;
         }

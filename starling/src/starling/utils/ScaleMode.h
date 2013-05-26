@@ -44,7 +44,7 @@ namespace starling
 
             /** Indicates whether the given scale mode string is valid. */
         public:
-            static bool     isValid(std::string scaleMode);
+            static bool  isValid(std::string scaleMode);
         };
     }
 }

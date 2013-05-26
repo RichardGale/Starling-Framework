@@ -41,9 +41,9 @@ namespace core {
             mCenter = new Point();
             mTexture = createTexture();
 
-            for ( int i=0; i<2; ++i)
+            for (int i=0; i<2; ++i)
             {
-                 Image* marker= new Image(mTexture);
+                Image* marker = new Image(mTexture);
                 marker->pivotX ( mTexture->width() / 2);
                 marker->pivotY ( mTexture->height() / 2);
                 marker->touchable ( false);
@@ -54,7 +54,7 @@ namespace core {
         void TouchMarker::dispose()
         {
             mTexture->dispose();
-            super()->dispose();
+            Sprite::dispose();
         }
 
         void TouchMarker::moveMarker(float x, float y, bool withCenter)
@@ -78,14 +78,14 @@ namespace core {
             moveMarker(realX, realY); // reset mock position
         }
 
-        Texture* TouchMarker::createTexture()
+        starling::textures::Texture* TouchMarker::createTexture()
         {
-             float scale  = Starling()->contentScaleFactor();
-             float radius  = 12 * scale;
-             int width = 32 * scale;
-             int height = 32 * scale;
-             float thickness  = 1.5 * scale;
-             Shape* shape= new Shape();
+            float scale = Starling()->contentScaleFactor();
+            float radius = 12 * scale;
+            int width = 32 * scale;
+            int height = 32 * scale;
+            float thickness = 1.5 * scale;
+            Shape* shape = new Shape();
 
             // draw dark outline
             shape->graphics()->lineStyle(thickness, 0x0, 0.3);
@@ -97,7 +97,7 @@ namespace core {
             shape->graphics()->drawCircle(width/2, height/2, radius);
             shape->graphics()->endFill();
 
-             BitmapData* bmpData= new BitmapData(width, height, true, 0x0);
+            BitmapData* bmpData = new BitmapData(width, height, true, 0x0);
             bmpData->draw(shape);
 
             return Texture::fromBitmapData(bmpData, false, false, scale);

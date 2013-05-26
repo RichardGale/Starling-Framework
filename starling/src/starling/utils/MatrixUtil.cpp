@@ -27,8 +27,8 @@ namespace utils {
 
 
         /** Helper object. */
-         std::vector<float> MatrixUtil::sRawData=
-            new <float >[1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, 0, 0, 1];
+        std::vector<float> MatrixUtil::sRawData=
+            std::vector<float>()                                                               ;
 
         /** @private */
         MatrixUtil::MatrixUtil() { throw new AbstractClassError(); }
@@ -73,10 +73,10 @@ namespace utils {
          */
         void MatrixUtil::skew(Matrix* matrix, float skewX, float skewY)
         {
-             float sinX  = Math::sin(skewX);
-             float cosX  = Math::cos(skewX);
-             float sinY  = Math::sin(skewY);
-             float cosY  = Math::cos(skewY);
+            float sinX = Math::sin(skewX);
+            float cosX = Math::cos(skewX);
+            float sinY = Math::sin(skewY);
+            float cosY = Math::cos(skewY);
 
             matrix->setTo(matrix->a  * cosY - matrix->b()  * sinX,
                          matrix->a  * sinY + matrix->b()  * cosX,
@@ -115,8 +115,8 @@ namespace utils {
         /** Prepends an incremental rotation to a Matrix object (angle in radians). */
         void MatrixUtil::prependRotation(Matrix* matrix, float angle)
         {
-             float sin  = Math::sin(angle);
-             float cos  = Math::cos(angle);
+            float sin = Math::sin(angle);
+            float cos = Math::cos(angle);
 
             matrix->setTo(matrix->a * cos + matrix->c() * sin,  matrix->b * cos + matrix->d() * sin,
                          matrix->c * cos - matrix->a() * sin,  matrix->d * cos - matrix->b() * sin,
@@ -133,10 +133,10 @@ namespace utils {
          */
         void MatrixUtil::prependSkew(Matrix* matrix, float skewX, float skewY)
         {
-             float sinX  = Math::sin(skewX);
-             float cosX  = Math::cos(skewX);
-             float sinY  = Math::sin(skewY);
-             float cosY  = Math::cos(skewY);
+            float sinX = Math::sin(skewX);
+            float cosX = Math::cos(skewX);
+            float sinY = Math::sin(skewY);
+            float cosY = Math::cos(skewY);
 
             matrix->setTo(matrix->a * cosY + matrix->c() * sinY,
                          matrix->b * cosY + matrix->d() * sinY,

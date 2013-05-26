@@ -105,7 +105,7 @@ namespace starling
 
             /** Retrieves a subtexture by name. Returns <code>null</code> if it is not found. */
         public:
-            Texture *getTexture(std::string name);
+            Texture  *getTexture(std::string name);
 
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
@@ -136,7 +136,7 @@ namespace starling
 
             /** The base texture that makes up the atlas. */
         public:
-            Texture     *texture();
+            Texture      *texture();
         };
     }
 }

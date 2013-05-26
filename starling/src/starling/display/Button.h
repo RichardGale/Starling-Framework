@@ -93,11 +93,28 @@ namespace starling
     }
 }
 
+#include "starling/display/DisplayObjectContainer.h"
+namespace starling
+{
+    namespace display
+    {
+        class Sprite;
+    }
+}
+namespace starling
+{
+    namespace display
+    {
+        class Image;
+    }
+}
+
 /** Dispatched when the user triggers the button. Bubbles. */
 //[Event(name="triggered",type="starling.events.Event")]
 
 using namespace flash::geom;
 using namespace flash::ui;
+using namespace starling::display;
 using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
@@ -119,7 +136,7 @@ namespace starling
          *  this event instead of normal touch events - that way, users can cancel button activation
          *  by moving the mouse/finger away from the button before releasing.</p>
          */
-        class Button : public DisplayObjectContainer
+        class Button : public starling::display::DisplayObjectContainer
         {
         private:
             static const float MAX_DRAG_DIST;
@@ -165,87 +182,87 @@ namespace starling
             /** The scale factor of the button on touch. Per default, a button with a down state
               * texture won't scale. */
         public:
-            float        scaleWhenDown();
+            float       scaleWhenDown();
         public:
             void         scaleWhenDown(float value);
 
             /** The alpha value of the button when it is disabled. @default 0.5 */
         public:
-            float        alphaWhenDisabled();
+            float       alphaWhenDisabled();
         public:
             void         alphaWhenDisabled(float value);
 
             /** Indicates if the button can be triggered. */
         public:
-            bool         enabled();
+            bool      enabled();
         public:
             void         enabled(bool value);
 
             /** The text that is displayed on the button. */
         public:
-            std::string  text();
+            std::string       text();
         public:
             void         text(std::string value);
 
             /** The name of the font displayed on the button. May be a system font or a registered
               * bitmap font. */
         public:
-            std::string  fontName();
+            std::string       fontName();
         public:
             void         fontName(std::string value);
 
             /** The size of the font. */
         public:
-            float        fontSize();
+            float       fontSize();
         public:
             void         fontSize(float value);
 
             /** The color of the font. */
         public:
-            unsigned int fontColor();
+            unsigned int         fontColor();
         public:
             void         fontColor(unsigned int value);
 
             /** Indicates if the font should be bold. */
         public:
-            bool         fontBold();
+            bool      fontBold();
         public:
             void         fontBold(bool value);
 
             /** The texture that is displayed when the button is not being touched. */
         public:
-            Texture     *upState();
+            Texture      *upState();
         public:
             void         upState(Texture *value);
 
             /** The texture that is displayed while the button is touched. */
         public:
-            Texture     *downState();
+            Texture      *downState();
         public:
             void         downState(Texture *value);
 
             /** The vertical alignment of the text on the button. */
         public:
-            std::string  textVAlign();
+            std::string       textVAlign();
         public:
             void         textVAlign(std::string value);
 
             /** The horizontal alignment of the text on the button. */
         public:
-            std::string  textHAlign();
+            std::string       textHAlign();
         public:
             void         textHAlign(std::string value);
 
             /** The bounds of the textfield on the button. Allows moving the text to a custom position. */
         public:
-            Rectangle   *textBounds();
+            Rectangle    *textBounds();
         public:
             void         textBounds(Rectangle *value);
 
             /** Indicates if the mouse cursor should transform into a hand while it's over the button.
              *  @default true */
         public:
-            virtual bool         useHandCursor();
+            virtual bool      useHandCursor();
         public:
             virtual void         useHandCursor(bool value);
         };

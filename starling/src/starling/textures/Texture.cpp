@@ -105,7 +105,7 @@ namespace textures {
                     
 
         /** helper object */
-         Point* Texture::sOrigin= new Point();
+        Point* Texture::sOrigin = new Point();
 
         /** @private */
         Texture::Texture()
@@ -143,16 +143,16 @@ namespace textures {
                                               bool optimizeForRenderToTexture,
                                               float scale)
         {
-             int origWidth   = data->width();
-             int origHeight  = data->height();
-             int legalWidth  = getNextPowerOfTwo(origWidth);
-             int legalHeight = getNextPowerOfTwo(origHeight);
-             Context3D* context= Starling::context;
-             BitmapData* potData;
+            int origWidth   = data->width();
+            int origHeight  = data->height();
+            int legalWidth  = getNextPowerOfTwo(origWidth);
+            int legalHeight = getNextPowerOfTwo(origHeight);
+            Context3D* context = Starling::context;
+            BitmapData* potData;
 
             if (context == NULL) throw new MissingContextError();
 
-             flash::display3D::textures::Texture* nativeTexture=context->createTexture(
+            flash::display3D::textures::Texture* nativeTexture = context->createTexture(
                 legalWidth, legalHeight, Context3DTextureFormat::BGRA, optimizeForRenderToTexture);
 
             if (legalWidth > origWidth || legalHeight > origHeight)
@@ -164,7 +164,7 @@ namespace textures {
 
             uploadBitmapData(nativeTexture, data, generateMipMaps);
 
-             ConcreteTexture* concreteTexture= new ConcreteTexture(
+            ConcreteTexture* concreteTexture = new ConcreteTexture(
                 nativeTexture, Context3DTextureFormat::BGRA, legalWidth, legalHeight,
                 generateMipMaps, true, optimizeForRenderToTexture, scale);
 
@@ -192,19 +192,19 @@ namespace textures {
         Texture* Texture::fromAtfData(ByteArray* data, float scale, bool useMipMaps,
                                            Function* loadAsync)
         {
-            const std::string eventType="textureReady";// defined here for backwards compatibility
+            const std::string eventType = "textureReady"; // defined here for backwards compatibility
 
-             Context3D* context= Starling::context;
+            Context3D* context = Starling::context;
             if (context == NULL) throw new MissingContextError();
 
-             bool async    = loadAsync != NULL;
-             AtfData* atfData= new AtfData(data);
-             flash::display3D::textures::Texture* nativeTexture=context->createTexture(
+            bool async = loadAsync != NULL;
+            AtfData* atfData = new AtfData(data);
+            flash::display3D::textures::Texture* nativeTexture = context->createTexture(
                     atfData->width(), atfData->height(), atfData->format(), false);
 
             uploadAtfData(nativeTexture, data, 0, async);
 
-             ConcreteTexture* concreteTexture= new ConcreteTexture(nativeTexture, atfData->format(),
+            ConcreteTexture* concreteTexture = new ConcreteTexture(nativeTexture, atfData->format(),
                 atfData->width(), atfData->height(), useMipMaps && atfData->numTextures() > 1,
                 false, false, scale);
 
@@ -236,8 +236,8 @@ namespace textures {
         {
             if (scale <= 0) scale = Starling::contentScaleFactor;
 
-             BitmapData* bitmapData= new BitmapData(width*scale, height*scale, true, color);
-             Texture* texture= fromBitmapData(bitmapData, false, optimizeForRenderToTexture, scale);
+            BitmapData* bitmapData = new BitmapData(width*scale, height*scale, true, color);
+            Texture* texture = fromBitmapData(bitmapData, false, optimizeForRenderToTexture, scale);
 
             if (!Starling::handleLostContext)
                 bitmapData->dispose();
@@ -261,19 +261,19 @@ namespace textures {
         {
             if (scale <= 0) scale = Starling::contentScaleFactor;
 
-             int origWidth  = width * scale;
-             int origHeight = height * scale;
-             int legalWidth  = getNextPowerOfTwo(origWidth);
-             int legalHeight = getNextPowerOfTwo(origHeight);
-             std::string format=Context3DTextureFormat::BGRA;
-             Context3D* context= Starling::context;
+            int origWidth  = width * scale;
+            int origHeight = height * scale;
+            int legalWidth  = getNextPowerOfTwo(origWidth);
+            int legalHeight = getNextPowerOfTwo(origHeight);
+            std::string format = Context3DTextureFormat::BGRA;
+            Context3D* context = Starling::context;
 
             if (context == NULL) throw new MissingContextError();
 
-             flash::display3D::textures::Texture* nativeTexture=context->createTexture(
+            flash::display3D::textures::Texture* nativeTexture = context->createTexture(
                 legalWidth, legalHeight, Context3DTextureFormat::BGRA, optimizeForRenderToTexture);
 
-             ConcreteTexture* concreteTexture= new ConcreteTexture(nativeTexture, format,
+            ConcreteTexture* concreteTexture = new ConcreteTexture(nativeTexture, format,
                 legalWidth, legalHeight, false, premultipliedAlpha, optimizeForRenderToTexture, scale);
 
             if (origWidth == legalWidth && origHeight == legalHeight)
@@ -286,8 +286,8 @@ namespace textures {
          *  texture will reference the base texture; no data is duplicated. */
         Texture* Texture::fromTexture(Texture* texture, Rectangle* region, Rectangle* frame)
         {
-             Texture* subTexture= new SubTexture(texture, region);
-            subTexture->mFrame ( frame);
+            Texture* subTexture = new SubTexture(texture, region);
+            subTexture->mFrame = frame;
             return subTexture;
         }
 
@@ -300,8 +300,8 @@ namespace textures {
                 if (count != 4)
                     throw new ArgumentError("Textures with a frame can only be used on quads");
 
-                 float deltaRight   = mFrame->width()  + mFrame->x() - width;
-                 float deltaBottom  = mFrame->height() + mFrame->y() - height;
+                float deltaRight  = mFrame->width()  + mFrame->x() - width;
+                float deltaBottom = mFrame->height() + mFrame->y() - height;
 
                 vertexData->translateVertex(vertexID,     -mFrame->x(), -mFrame->y());
                 vertexData->translateVertex(vertexID + 1, -deltaRight, -mFrame->y());
@@ -318,12 +318,12 @@ namespace textures {
 
             if (generateMipmaps && data->width > 1 && data->height() > 1)
             {
-                 int currentWidth  = data->width()  >> 1;
-                 int currentHeight = data->height() >> 1;
-                 int level = 1;
-                 BitmapData* canvas= new BitmapData(currentWidth, currentHeight, true, 0);
-                 Matrix* transform= new Matrix(.5, 0, 0, .5);
-                 Rectangle* bounds= new Rectangle();
+                int currentWidth  = data->width()  >> 1;
+                int currentHeight = data->height() >> 1;
+                int level = 1;
+                BitmapData* canvas = new BitmapData(currentWidth, currentHeight, true, 0);
+                Matrix* transform = new Matrix(.5, 0, 0, .5);
+                Rectangle* bounds = new Rectangle();
 
                 while (currentWidth >= 1 || currentHeight >= 1)
                 {

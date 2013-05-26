@@ -107,8 +107,8 @@ namespace starling
 
             /** Creates a new TouchEvent instance. */
         public:
-            TouchEvent(std::string type, std::vector<Touch *> touches, bool shiftKey   =false,
-                       bool ctrlKey   =false, bool bubbles   =true);
+            TouchEvent(std::string type, std::vector<Touch *> touches, bool shiftKey=false,
+                       bool ctrlKey=false, bool bubbles=true);
 
             /** Returns a list of touches that originated over a certain target. If you pass a
              *  'result' vector, the touches will be added to this vector instead of creating a new
@@ -119,11 +119,11 @@ namespace starling
 
             /** Returns a touch that originated over a certain target. */
         public:
-            Touch   *getTouch(DisplayObject *target, std::string phase="");
+            Touch    *getTouch(DisplayObject *target, std::string phase="");
 
             /** Indicates if a target is currently being touched or hovered over. */
         public:
-            bool     interactsWith(DisplayObject *target);
+            bool  interactsWith(DisplayObject *target);
 
             // custom dispatching
 
@@ -136,7 +136,7 @@ namespace starling
 
             /** The time the event occurred (in seconds since application launch). */
         public:
-            float        timestamp();
+            float       timestamp();
 
             /** All touches that are currently available. */
         public:
@@ -144,11 +144,11 @@ namespace starling
 
             /** Indicates if the shift key was pressed when the event occurred. */
         public:
-            bool         shiftKey();
+            bool      shiftKey();
 
             /** Indicates if the ctrl key was pressed when the event occurred. (Mac OS: Cmd or Ctrl) */
         public:
-            bool         ctrlKey();
+            bool      ctrlKey();
         };
     }
 }

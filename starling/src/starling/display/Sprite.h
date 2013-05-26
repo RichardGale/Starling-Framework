@@ -166,14 +166,14 @@ namespace starling
 
             /** Indicates if the sprite was flattened. */
         public:
-            bool         isFlattened();
+            bool      isFlattened();
 
             /** The object's clipping rectangle in its local coordinate system.
              *  Only pixels within that rectangle will be drawn.
              *  <strong>Note:</strong> clip rects are axis aligned with the screen, so they
              *  will not be rotated or skewed if the Sprite is. */
         public:
-            Rectangle   *clipRect();
+            Rectangle    *clipRect();
         public:
             void         clipRect(Rectangle *value);
 
@@ -188,7 +188,7 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
+            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch=false);
 
             /** @inheritDoc */
         public:

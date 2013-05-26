@@ -97,7 +97,7 @@ namespace starling
         class Image : public starling::display::Quad
         {
         private:
-            Texture *mTexture;
+            starling::textures::Texture *mTexture;
         private:
             std::string mSmoothing;
 
@@ -108,12 +108,12 @@ namespace starling
 
             /** Creates a quad with a texture mapped onto it. */
         public:
-            Image(Texture *texture);
+            Image(starling::textures::Texture *texture);
 
             /** Creates an Image with a texture that is created from a bitmap object. */
         public:
-            static Image   *fromBitmap(Bitmap *bitmap, bool generateMipMaps   =true,
-                                       float scale =1);
+            static Image    *fromBitmap(Bitmap *bitmap, bool generateMipMaps=true,
+                                        float scale=1);
 
             /** @inheritDoc */
         protected:
@@ -132,7 +132,7 @@ namespace starling
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object.*/
         public:
-            Point   *getTexCoords(int vertexID, Point *resultPoint=NULL);
+            Point    *getTexCoords(int vertexID, Point *resultPoint=NULL);
 
             /** Copies the raw vertex data to a VertexData instance.
              *  The texture coordinates are already in the format required for rendering. */
@@ -141,7 +141,7 @@ namespace starling
 
             /** The texture that is displayed on the quad. */
         public:
-            Texture     *texture();
+            Texture      *texture();
         public:
             void         texture(Texture *value);
 
@@ -149,7 +149,7 @@ namespace starling
             *   @default bilinear
             *   @see starling.textures.TextureSmoothing */
         public:
-            std::string  smoothing();
+            std::string       smoothing();
         public:
             void         smoothing(std::string value);
 

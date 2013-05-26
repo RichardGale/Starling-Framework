@@ -22,11 +22,11 @@ namespace scenes {
         {
             // TrueType fonts
 
-             int offset = 10;
-             std::string ttFont="Ubuntu";
-             int ttFontSize = 19;
+            int offset = 10;
+            std::string ttFont = "Ubuntu";
+            int ttFontSize = 19;
 
-             TextField* colorTF= new TextField(300, 80,
+            TextField* colorTF = new TextField(300, 80,
                 "TextFields can have a border and a color. They can be aligned in different ways, ...",
                 ttFont, ttFontSize);
             colorTF->x ( colorTF->y ( offset));
@@ -34,7 +34,7 @@ namespace scenes {
             colorTF->color ( 0x333399);
             addChild(colorTF);
 
-             TextField* leftTF= new TextField(145, 80,
+            TextField* leftTF = new TextField(145, 80,
                 "... e.g.\\ntop-left ...", ttFont, ttFontSize);
             leftTF->x ( offset);
             leftTF->y ( colorTF->y() + colorTF->height() + offset);
@@ -44,7 +44,7 @@ namespace scenes {
             leftTF->color ( 0x993333);
             addChild(leftTF);
 
-             TextField* rightTF= new TextField(145, 80,
+            TextField* rightTF = new TextField(145, 80,
                 "... or\\nbottom right ...", ttFont, ttFontSize);
             rightTF->x ( 2*offset + leftTF->width());
             rightTF->y ( leftTF->y());
@@ -54,7 +54,7 @@ namespace scenes {
             rightTF->border ( true);
             addChild(rightTF);
 
-             TextField* fontTF= new TextField(300, 80,
+            TextField* fontTF = new TextField(300, 80,
                 "... or centered. Embedded fonts are detected automatically.",
                 ttFont, ttFontSize, 0x0, true);
             fontTF->x ( offset);
@@ -74,7 +74,7 @@ namespace scenes {
             // Look at the file "Assets.as" to see how this is done.
             // After that, you can use them just like a conventional TrueType font.
 
-             TextField* bmpFontTF= new TextField(300, 150,
+            TextField* bmpFontTF = new TextField(300, 150,
                 "It is very easy to use Bitmap fonts,\\nas well!", "Desyrel");
 
             bmpFontTF->fontSize ( BitmapFont::NATIVE_SIZE);// the native bitmap font size, no scaling

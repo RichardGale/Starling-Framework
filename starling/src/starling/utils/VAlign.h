@@ -50,7 +50,7 @@ namespace starling
 
             /** Indicates whether the given alignment string is valid. */
         public:
-            static bool     isValid(std::string vAlign);
+            static bool  isValid(std::string vAlign);
         };
     }
 }

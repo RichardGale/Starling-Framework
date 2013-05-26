@@ -71,9 +71,9 @@ namespace display {
                     
 
         /** Helper objects. */
-         std::vector<DisplayObject*> DisplayObject::sAncestors=new<DisplayObject*>[];
-         Rectangle* DisplayObject::sHelperRect= new Rectangle();
-         Matrix* DisplayObject::sHelperMatrix = new Matrix();
+        std::vector<DisplayObject*> DisplayObject::sAncestors=std::vector<void*>()                   ;
+        Rectangle* DisplayObject::sHelperRect = new Rectangle();
+        Matrix* DisplayObject::sHelperMatrix  = new Matrix();
 
         /** @private */
         DisplayObject::DisplayObject()
@@ -112,8 +112,8 @@ namespace display {
         Matrix* DisplayObject::getTransformationMatrix(DisplayObject* targetSpace,
                                                 Matrix* resultMatrix)
         {
-             DisplayObject* commonParent;
-             DisplayObject* currentObject;
+            DisplayObject* commonParent;
+            DisplayObject* currentObject;
 
             if (resultMatrix) resultMatrix->identity();
             else resultMatrix = new Matrix();
@@ -141,7 +141,7 @@ namespace display {
 
                 return resultMatrix;
             }
-            else if (targetSpace->mParent() == this)
+            else if (targetSpace->mParent == this)
             {
                 targetSpace->getTransformationMatrix(this, resultMatrix);
                 resultMatrix->invert();
@@ -262,7 +262,7 @@ namespace display {
         void DisplayObject::setParent(DisplayObjectContainer* value)
         {
             // check for a recursion
-             DisplayObject* ancestor= value;
+            DisplayObject* ancestor = value;
             while (ancestor != this && ancestor != NULL)
                 ancestor = ancestor->mParent;
 
@@ -316,14 +316,14 @@ namespace display {
                     }
                     else
                     {
-                         float cos  = Math::cos(mRotation);
-                         float sin  = Math::sin(mRotation);
-                         float a    = mScaleX *  cos;
-                         float b    = mScaleX *  sin;
-                         float c    = mScaleY * -sin;
-                         float d    = mScaleY *  cos;
-                         float tx   = mX - mPivotX * a - mPivotY * c;
-                         float ty   = mY - mPivotX * b - mPivotY * d;
+                        float cos = Math::cos(mRotation);
+                        float sin = Math::sin(mRotation);
+                        float a   = mScaleX *  cos;
+                        float b   = mScaleX *  sin;
+                        float c   = mScaleY * -sin;
+                        float d   = mScaleY *  cos;
+                        float tx  = mX - mPivotX * a - mPivotY * c;
+                        float ty  = mY - mPivotX * b - mPivotY * d;
 
                         mTransformationMatrix->setTo(a, b, c, d, tx, ty);
                     }
@@ -420,7 +420,7 @@ namespace display {
             // that way, subclasses reacting on size changes need to override only the scaleX method.
 
             scaleX = 1.0;
-             float actualWidth  = width;
+            float actualWidth = width;
             if (actualWidth != 0.0) scaleX = value / actualWidth;
         }
 
@@ -429,7 +429,7 @@ namespace display {
         void DisplayObject::height(float value)
         {
             scaleY = 1.0;
-             float actualHeight  = height;
+            float actualHeight = height;
             if (actualHeight != 0.0) scaleY = value / actualHeight;
         }
 
@@ -578,7 +578,7 @@ namespace display {
         /** The topmost object in the display tree the object is part of. */
         DisplayObject* DisplayObject::base()
         {
-             DisplayObject* currentObject= this;
+            DisplayObject* currentObject = this;
             while (currentObject->mParent) currentObject = currentObject->mParent;
             return currentObject;
         }
@@ -588,10 +588,10 @@ namespace display {
          *  to the stage. */
         DisplayObject* DisplayObject::root()
         {
-             DisplayObject* currentObject= this;
+            DisplayObject* currentObject = this;
             while (currentObject->mParent)
             {
-                if (currentObject->mParent() is Stage) return currentObject;
+                if (currentObject->dynamic_cast<Stage*>(mParent)) return currentObject;
                 else currentObject = currentObject->parent();
             }
 
@@ -600,7 +600,7 @@ namespace display {
 
         /** The stage the display object is connected to, or null if it is not connected 
          *  to the stage. */
-        Stage* DisplayObject::stage()       { return this()->dynamic_cast<Stage*>(base); }
+        Stage* DisplayObject::stage()       { return this->dynamic_cast<Stage*>(base); }
 }
 }
 

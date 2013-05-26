@@ -25,14 +25,14 @@ namespace tests {
 
         void RectangleUtilTest::                testIntersection()
         {
-             Rectangle* expectedRect;
-             Rectangle* rect= new Rectangle(-5, -10, 10, 20);
+            Rectangle* expectedRect;
+            Rectangle* rect = new Rectangle(-5, -10, 10, 20);
 
-             Rectangle* overlapRect= new Rectangle(-10, -15, 10, 10);
-             Rectangle* identRect= new Rectangle(-5, -10, 10, 20);
-             Rectangle* outsideRect= new Rectangle(10, 10, 10, 10);
-             Rectangle* touchingRect= new Rectangle(5, 0, 10, 10);
-             Rectangle* insideRect= new Rectangle(0, 0, 1, 2);
+            Rectangle* overlapRect = new Rectangle(-10, -15, 10, 10);
+            Rectangle* identRect = new Rectangle(-5, -10, 10, 20);
+            Rectangle* outsideRect = new Rectangle(10, 10, 10, 10);
+            Rectangle* touchingRect = new Rectangle(5, 0, 10, 10);
+            Rectangle* insideRect = new Rectangle(0, 0, 1, 2);
 
             expectedRect = new Rectangle(-5, -10, 5, 5);
             Helpers()->compareRectangles(expectedRect,
@@ -58,7 +58,7 @@ namespace tests {
 
         void RectangleUtilTest::                testFit()
         {
-             Rectangle* into= new Rectangle(50, 50, 200, 100);
+            Rectangle* into = new Rectangle(50, 50, 200, 100);
 
             Helpers()->compareRectangles(
                 RectangleUtil::fit(new Rectangle(0, 0, 200, 100), into),

@@ -15,6 +15,9 @@
 
 /** An AbstractMethodError is thrown when you attempt to call an abstract method. */
 
+#include "flex11.6.h"
+
+
 
 namespace starling
 {

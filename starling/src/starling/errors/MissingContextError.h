@@ -16,6 +16,9 @@
 /** A MissingContextError is thrown when a Context3D object is required but not (yet)
  *  available. */
 
+#include "flex11.6.h"
+
+
 
 namespace starling
 {

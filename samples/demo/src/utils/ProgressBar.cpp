@@ -28,20 +28,20 @@ namespace utils {
 
         void ProgressBar::init(int width, int height)
         {
-             float scale  = Starling::contentScaleFactor;
-             float padding  = height * 0.2;
-             float cornerRadius  = padding * scale * 2;
+            float scale = Starling::contentScaleFactor;
+            float padding = height * 0.2;
+            float cornerRadius = padding * scale * 2;
 
             // create black rounded box for background
 
-             Shape* bgShape= new Shape();
+            Shape* bgShape = new Shape();
             bgShape->graphics()->beginFill(0x0, 0.5);
             bgShape->graphics()->drawRoundRect(0, 0, width*scale, height*scale, cornerRadius, cornerRadius);
             bgShape->graphics()->endFill();
 
-             BitmapData* bgBitmapData= new BitmapData(width*scale, height*scale, true, 0x0);
+            BitmapData* bgBitmapData = new BitmapData(width*scale, height*scale, true, 0x0);
             bgBitmapData->draw(bgShape);
-             Texture* bgTexture= Texture::fromBitmapData(bgBitmapData, false, false, scale);
+            Texture* bgTexture = Texture::fromBitmapData(bgBitmapData, false, false, scale);
 
             mBackground = new Image(bgTexture);
             addChild(mBackground);

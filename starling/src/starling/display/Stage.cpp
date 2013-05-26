@@ -67,7 +67,7 @@ namespace display {
                 return NULL;
 
             // if nothing else is hit, the stage returns itself as target
-             DisplayObject* target= super()->hitTest(localPoint, forTouch);
+            DisplayObject* target = DisplayObjectContainer::hitTest(localPoint, forTouch);
             if (target == NULL) target = this;
             return target;
         }

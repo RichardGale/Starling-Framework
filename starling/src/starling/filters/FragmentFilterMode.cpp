@@ -27,13 +27,13 @@ namespace filters {
         FragmentFilterMode::FragmentFilterMode() { throw new AbstractClassError(); }
 
         /** The filter is displayed below the filtered object. */
-        const std::string FragmentFilterMode::BELOW="below";
+        const std::string FragmentFilterMode::BELOW = "below";
 
         /** The filter is replacing the filtered object. */
-        const std::string FragmentFilterMode::REPLACE="replace";
+        const std::string FragmentFilterMode::REPLACE = "replace";
 
         /** The filter is displayed above the filtered object. */
-        const std::string FragmentFilterMode::ABOVE="above";
+        const std::string FragmentFilterMode::ABOVE = "above";
 }
 }
 

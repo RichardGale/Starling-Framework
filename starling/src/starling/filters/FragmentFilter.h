@@ -316,7 +316,7 @@ namespace starling
             /** Creates a new Fragment filter with the specified number of passes and resolution.
              *  This constructor may only be called by the constructor of a subclass. */
         public:
-            FragmentFilter(int numPasses=1, float resolution =1.0);
+            FragmentFilter(int numPasses=1, float resolution=1.0);
 
             /** Disposes the filter (programs, buffers, textures). */
         public:
@@ -333,7 +333,7 @@ namespace starling
 
         private:
             QuadBatch *renderPasses(DisplayObject *object, RenderSupport *support,
-                                    float parentAlpha, bool intoCache   =false);
+                                    float parentAlpha, bool intoCache=false);
 
             // helper methods// final pass
 
@@ -344,7 +344,7 @@ namespace starling
             void     updatePassTextures(int width, int height, float scale);
 
         private:
-            Texture *getPassTexture(int pass);
+            Texture  *getPassTexture(int pass);
 
             /** Calculates the bounds of the filter in stage coordinates, while making sure that the
              *  according textures will have powers of two. */
@@ -418,47 +418,47 @@ namespace starling
 
             /** Indicates if the filter is cached (via the "cache" method). */
         public:
-            bool         isCached();
+            bool      isCached();
 
             /** The resolution of the filter texture. "1" means stage resolution, "0.5" half the
              *  stage resolution. A lower resolution saves memory and execution time (depending on
              *  the GPU), but results in a lower output quality. Values greater than 1 are allowed;
              *  such values might make sense for a cached filter when it is scaled up. @default 1 */
         public:
-            float        resolution();
+            float       resolution();
         public:
             void         resolution(float value);
 
             /** The filter mode, which is one of the constants defined in the "FragmentFilterMode"
              *  class. @default "replace" */
         public:
-            std::string  mode();
+            std::string       mode();
         public:
             void         mode(std::string value);
 
             /** Use the x-offset to move the filter output to the right or left. */
         public:
-            float        offsetX();
+            float       offsetX();
         public:
             void         offsetX(float value);
 
             /** Use the y-offset to move the filter output to the top or bottom. */
         public:
-            float        offsetY();
+            float       offsetY();
         public:
             void         offsetY(float value);
 
             /** The x-margin will extend the size of the filter texture along the x-axis.
              *  Useful when the filter will "grow" the rendered object. */
         protected:
-            float        marginX();
+            float       marginX();
         protected:
             void         marginX(float value);
 
             /** The y-margin will extend the size of the filter texture along the y-axis.
              *  Useful when the filter will "grow" the rendered object. */
         protected:
-            float        marginY();
+            float       marginY();
         protected:
             void         marginY(float value);
 

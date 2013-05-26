@@ -25,13 +25,13 @@ namespace utils {
         VAlign::VAlign() { throw new AbstractClassError(); }
 
         /** Top alignment. */
-        const std::string VAlign::TOP="top";
+        const std::string VAlign::TOP    = "top";
 
         /** Centered alignment. */
-        const std::string VAlign::CENTER="center";
+        const std::string VAlign::CENTER = "center";
 
         /** Bottom alignment. */
-        const std::string VAlign::BOTTOM="bottom";
+        const std::string VAlign::BOTTOM = "bottom";
 
         /** Indicates whether the given alignment string is valid. */
         bool VAlign::isValid(std::string vAlign)

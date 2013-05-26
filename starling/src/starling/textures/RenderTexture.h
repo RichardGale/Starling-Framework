@@ -162,7 +162,7 @@ namespace starling
              *  Persistancy doubles the required graphics memory! Thus, if you need the texture only
              *  for one draw (or drawBundled) call, you should deactivate it. */
         public:
-            RenderTexture(int width, int height, bool persistent   =true, float scale =-1);
+            RenderTexture(int width, int height, bool persistent=true, float scale=-1);
 
             /** @inheritDoc */
         public:
@@ -179,7 +179,7 @@ namespace starling
              *  @param antiAliasing This parameter is currently ignored by Stage3D.
              */
         public:
-            void     draw(DisplayObject *object, Matrix *matrix=NULL, float alpha =1.0,
+            void     draw(DisplayObject *object, Matrix *matrix=NULL, float alpha=1.0,
                           int antiAliasing=0);
 
             /** Bundles several calls to <code>draw</code> together in a block. This avoids buffer
@@ -193,11 +193,11 @@ namespace starling
 
             /** Indicates if the texture is persistent over multiple draw calls. */
         public:
-            bool         isPersistent();
+            bool      isPersistent();
 
             /** @inheritDoc */
         public:
-            virtual TextureBase *base();
+            virtual TextureBase  *base();
 
             /** @inheritDoc */
         public:

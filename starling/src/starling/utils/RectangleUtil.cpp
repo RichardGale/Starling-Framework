@@ -34,10 +34,10 @@ namespace utils {
         {
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             float left    = Math::max(rect1->x(), rect2->x());
-             float right   = Math::min(rect1->x() + rect1->width(), rect2->x() + rect2->width());
-             float top     = Math::max(rect1->y(), rect2->y());
-             float bottom  = Math::min(rect1->y() + rect1->height(), rect2->y() + rect2->height());
+            float left   = Math::max(rect1->x(), rect2->x());
+            float right  = Math::min(rect1->x() + rect1->width(), rect2->x() + rect2->width());
+            float top    = Math::max(rect1->y(), rect2->y());
+            float bottom = Math::min(rect1->y() + rect1->height(), rect2->y() + rect2->height());
 
             if (left > right || top > bottom)
                 resultRect->setEmpty();
@@ -64,11 +64,11 @@ namespace utils {
             if (!ScaleMode()->isValid(scaleMode)) throw new ArgumentError("Invalid scaleMode: " + scaleMode);
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             float width    = rectangle->width;
-             float height   = rectangle->height;
-             float factorX  = into->width()  / width;
-             float factorY  = into->height() / height;
-             float factor   = 1.0;
+            float width   = rectangle->width;
+            float height  = rectangle->height;
+            float factorX = into->width()  / width;
+            float factorY = into->height() / height;
+            float factor  = 1.0;
 
             if (scaleMode == ScaleMode()->SHOW_ALL())
             {
@@ -95,7 +95,7 @@ namespace utils {
         /** Calculates the next whole-number multiplier or divisor, moving either up or down. */
         float RectangleUtil::nextSuitableScaleFactor(float factor, bool up)
         {
-             float divisor  = 1.0;
+            float divisor = 1.0;
 
             if (up)
             {

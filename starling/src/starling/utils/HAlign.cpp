@@ -25,13 +25,13 @@ namespace utils {
         HAlign::HAlign() { throw new AbstractClassError(); }
 
         /** Left alignment. */
-        const std::string HAlign::LEFT="left";
+        const std::string HAlign::LEFT   = "left";
 
         /** Centered alignement. */
-        const std::string HAlign::CENTER="center";
+        const std::string HAlign::CENTER = "center";
 
         /** Right alignment. */
-        const std::string HAlign::RIGHT="right";
+        const std::string HAlign::RIGHT  = "right";
 
         /** Indicates whether the given alignment string is valid. */
         bool HAlign::isValid(std::string hAlign)

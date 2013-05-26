@@ -21,7 +21,7 @@ namespace errors {
         /** Creates a new MissingContextError object. */
         MissingContextError::MissingContextError(void* message, void* id)
         {
-            super(message, id);
+            Error(message, id);
         }
 }
 }

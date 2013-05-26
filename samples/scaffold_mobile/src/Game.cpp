@@ -20,7 +20,7 @@ using namespace starling::utils;
 
 
 
-        const std::string Game::GAME_OVER="gameOver";
+        const std::string Game::GAME_OVER = "gameOver";
 
                     
 
@@ -44,7 +44,7 @@ using namespace starling::utils;
 
         void Game::moveBird()
         {
-             float scale  = Math::random() * 0.8 + 0.2;
+            float scale = Math::random() * 0.8 + 0.2;
 
             Starling::juggler()->tween(mBird, Math::random() * 0.5 + 0.5, {
                 x: Math::random() * Constants()->STAGE_WIDTH(),

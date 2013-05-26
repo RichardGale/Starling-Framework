@@ -31,36 +31,36 @@ namespace utils {
 
         void TouchSheet::onTouch(TouchEvent* event)
         {
-             std::vector<Touch*> touches=event->getTouches(this,TouchPhase::MOVED);
+            std::vector<Touch*> touches=event->getTouches(this,TouchPhase::MOVED);
 
             if (touches.size() == 1)
             {
                 // one finger touching -> move
-                 Point* delta= touches[0]->getMovement(parent);
+                Point* delta = touches[0]->getMovement(parent);
                 x += delta->x();
                 y += delta->y();
             }
             else if (touches.size() == 2)
             {
                 // two fingers touching -> rotate and scale
-                 Touch* touchA= touches[0];
-                 Touch* touchB= touches[1];
+                Touch* touchA = touches[0];
+                Touch* touchB = touches[1];
 
-                 Point* currentPosA = touchA->getLocation(parent);
-                 Point* previousPosA= touchA->getPreviousLocation(parent);
-                 Point* currentPosB = touchB->getLocation(parent);
-                 Point* previousPosB= touchB->getPreviousLocation(parent);
+                Point* currentPosA  = touchA->getLocation(parent);
+                Point* previousPosA = touchA->getPreviousLocation(parent);
+                Point* currentPosB  = touchB->getLocation(parent);
+                Point* previousPosB = touchB->getPreviousLocation(parent);
 
-                 Point* currentVector = currentPosA->subtract(currentPosB);
-                 Point* previousVector= previousPosA->subtract(previousPosB);
+                Point* currentVector  = currentPosA->subtract(currentPosB);
+                Point* previousVector = previousPosA->subtract(previousPosB);
 
-                 float currentAngle   = Math::atan2(currentVector->y(), currentVector->x());
-                 float previousAngle  = Math::atan2(previousVector->y(), previousVector->x());
-                 float deltaAngle  = currentAngle - previousAngle;
+                float currentAngle  = Math::atan2(currentVector->y(), currentVector->x());
+                float previousAngle = Math::atan2(previousVector->y(), previousVector->x());
+                float deltaAngle = currentAngle - previousAngle;
 
                 // update pivot point based on previous center
-                 Point* previousLocalA = touchA->getPreviousLocation(this);
-                 Point* previousLocalB = touchB->getPreviousLocation(this);
+                Point* previousLocalA  = touchA->getPreviousLocation(this);
+                Point* previousLocalB  = touchB->getPreviousLocation(this);
                 pivotX = (previousLocalA->x() + previousLocalB->x()) * 0.5;
                 pivotY = (previousLocalA->y() + previousLocalB->y()) * 0.5;
 
@@ -72,12 +72,12 @@ namespace utils {
                 rotation += deltaAngle;
 
                 // scale
-                 float sizeDiff  = currentVector->length() / previousVector->length();
+                float sizeDiff = currentVector->length() / previousVector->length();
                 scaleX *= sizeDiff;
                 scaleY *= sizeDiff;
             }
 
-             Touch* touch= event->getTouch(this, TouchPhase::ENDED);
+            Touch* touch = event->getTouch(this, TouchPhase::ENDED);
 
             if (touch && touch->tapCount() == 2)
                 parent()->addChild(this); // bring self to front
@@ -90,7 +90,7 @@ namespace utils {
         void TouchSheet::dispose()
         {
             removeEventListener(TouchEvent::TOUCH, onTouch);
-            super()->dispose();
+            Sprite::dispose();
         }
 }
 

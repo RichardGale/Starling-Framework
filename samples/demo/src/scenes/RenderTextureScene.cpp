@@ -44,7 +44,7 @@ namespace scenes {
             mBrush->pivotY ( mBrush->height() / 2);
             mBrush->blendMode ( BlendMode::NORMAL);
 
-             TextField* infoText= new TextField(256, 128, "Touch the screen\\nto draw!");
+            TextField* infoText = new TextField(256, 128, "Touch the screen\\nto draw!");
             infoText->fontSize ( 24);
             infoText->x ( Constants()->CenterX() - infoText->width() / 2);
             infoText->y ( Constants()->CenterY() - infoText->height() / 2);
@@ -65,9 +65,9 @@ namespace scenes {
 
             mRenderTexture->drawBundled(function()void
             {
-                 std::vector<Touch*> touches=event->getTouches(mCanvas);
+                std::vector<Touch*> touches=event->getTouches(mCanvas);
 
-                for each (var Touch* touchin touches)
+                for (std::vector<Touch*>::iterator touch = touches.begin(); touch != touches.end(); ++touch)
                 {
                     if (touch->phase() == TouchPhase::BEGAN)
                         mColors[touch->id()] = Math::random() * uint()->MAX_VALUE();
@@ -75,7 +75,7 @@ namespace scenes {
                     if (touch->phase() == TouchPhase::HOVER() || touch->phase() == TouchPhase::ENDED)
                         continue;
 
-                     Point* location= touch->getLocation(mCanvas);
+                    Point* location = touch->getLocation(mCanvas);
                     mBrush->x ( location->x());
                     mBrush->y ( location->y());
                     mBrush->color ( mColors[touch->id()]);
@@ -103,7 +103,7 @@ namespace scenes {
         void RenderTextureScene::dispose()
         {
             mRenderTexture->dispose();
-            super()->dispose();
+            Scene::dispose();
         }
 }
 

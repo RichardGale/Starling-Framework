@@ -37,7 +37,7 @@ namespace textures {
                     
 
         /** Helper object. */
-         Point* SubTexture::sTexCoords= new Point();
+        Point* SubTexture::sTexCoords = new Point();
 
         /** Creates a new subtexture containing the specified region (in points) of a parent 
          *  texture. If 'ownsParent' is true, the parent texture will be disposed automatically
@@ -59,7 +59,7 @@ namespace textures {
         void SubTexture::dispose()
         {
             if (mOwnsParent) mParent->dispose();
-            super()->dispose();
+            Texture::dispose();
         }
 
         void SubTexture::setClipping(Rectangle* value)
@@ -67,10 +67,10 @@ namespace textures {
             mClipping = value;
             mRootClipping = value->clone();
 
-             SubTexture* parentTexture= dynamic_cast<SubTexture*>(mParent);
+            SubTexture* parentTexture = dynamic_cast<SubTexture*>(mParent);
             while (parentTexture)
             {
-                 Rectangle* parentClipping= parentTexture->mClipping;
+                Rectangle* parentClipping = parentTexture->mClipping;
                 mRootClipping->x ( parentClipping->x() + mRootClipping->x() * parentClipping->width());
                 mRootClipping->y ( parentClipping->y() + mRootClipping->y() * parentClipping->height());
                 mRootClipping->width()  *= parentClipping->width();
@@ -82,15 +82,15 @@ namespace textures {
         /** @inheritDoc */
         void SubTexture::adjustVertexData(VertexData* vertexData, int vertexID, int count)
         {
-            super()->adjustVertexData(vertexData, vertexID, count);
+            Texture::adjustVertexData(vertexData, vertexID, count);
 
-             float clipX  = mRootClipping->x();
-             float clipY  = mRootClipping->y();
-             float clipWidth   = mRootClipping->width();
-             float clipHeight  = mRootClipping->height();
-             int endIndex = vertexID + count;
+            float clipX = mRootClipping->x();
+            float clipY = mRootClipping->y();
+            float clipWidth  = mRootClipping->width();
+            float clipHeight = mRootClipping->height();
+            int endIndex = vertexID + count;
 
-            for ( int i=vertexID; i<endIndex; ++i)
+            for (int i=vertexID; i<endIndex; ++i)
             {
                 vertexData->getTexCoords(i, sTexCoords);
                 vertexData->setTexCoords(i, clipX + sTexCoords->x() * clipWidth,

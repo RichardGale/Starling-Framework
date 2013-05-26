@@ -16,16 +16,16 @@ namespace utils {
 
         /** Specifies that the rectangle is not scaled, but simply centered within the 
          *  specified area. */
-        const std::string ScaleMode::NONE="none";
+        const std::string ScaleMode::NONE = "none";
 
         /** Specifies that the rectangle fills the specified area without distortion 
          *  but possibly with some cropping, while maintaining the original aspect ratio. */
-        const std::string ScaleMode::NO_BORDER="noBorder";
+        const std::string ScaleMode::NO_BORDER = "noBorder";
 
         /** Specifies that the entire rectangle will be scaled to fit into the specified 
          *  area, while maintaining the original aspect ratio. This might leave empty bars at
          *  either the top and bottom, or left and right. */
-        const std::string ScaleMode::SHOW_ALL="showAll";
+        const std::string ScaleMode::SHOW_ALL = "showAll";
 
         /** Indicates whether the given scale mode string is valid. */
         bool ScaleMode::isValid(std::string scaleMode)

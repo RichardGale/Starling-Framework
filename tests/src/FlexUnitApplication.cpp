@@ -36,30 +36,30 @@ using namespace tests;
 
         void FlexUnitApplication::onCreationComplete()
         {
-             FlexUnitTestRunnerUIAS* testRunner=newFlexUnitTestRunnerUIAS();
+            FlexUnitTestRunnerUIAS* testRunner=new FlexUnitTestRunnerUIAS();
             testRunner->portNumber(8765);
-            this()->addChild(testRunner);
+            this->addChild(testRunner);
             testRunner->runWithFlexUnit4Runner(currentRunTestSuite(), "Starling-Tests");
         }
 
         std::vector<void*> FlexUnitApplication::currentRunTestSuite()
         {
-             std::vector<void*> testsToRun=newArray();
-            testsToRun.push(tests()->ColorTest);
-            testsToRun.push(tests()->TextureAtlasTest);
-            testsToRun.push(tests()->JugglerTest);
-            testsToRun.push(tests()->QuadTest);
-            testsToRun.push(tests()->DisplayObjectContainerTest);
-            testsToRun.push(tests()->UtilsTest);
-            testsToRun.push(tests()->DisplayObjectTest);
-            testsToRun.push(tests()->BlendModeTest);
-            testsToRun.push(tests()->MovieClipTest);
-            testsToRun.push(tests()->RectangleUtilTest);
-            testsToRun.push(tests()->VertexDataTest);
-            testsToRun.push(tests()->EventTest);
-            testsToRun.push(tests()->DelayedCallTest);
-            testsToRun.push(tests()->TweenTest);
-            testsToRun.push(tests()->TextureTest);
+            std::vector<void*> testsToRun = std::vector<void*>()           ;
+            testsToRun.push_back(tests()->ColorTest);
+            testsToRun.push_back(tests()->TextureAtlasTest);
+            testsToRun.push_back(tests()->JugglerTest);
+            testsToRun.push_back(tests()->QuadTest);
+            testsToRun.push_back(tests()->DisplayObjectContainerTest);
+            testsToRun.push_back(tests()->UtilsTest);
+            testsToRun.push_back(tests()->DisplayObjectTest);
+            testsToRun.push_back(tests()->BlendModeTest);
+            testsToRun.push_back(tests()->MovieClipTest);
+            testsToRun.push_back(tests()->RectangleUtilTest);
+            testsToRun.push_back(tests()->VertexDataTest);
+            testsToRun.push_back(tests()->EventTest);
+            testsToRun.push_back(tests()->DelayedCallTest);
+            testsToRun.push_back(tests()->TweenTest);
+            testsToRun.push_back(tests()->TextureTest);
             return testsToRun;
         }
 

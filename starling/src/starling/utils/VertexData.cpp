@@ -65,14 +65,14 @@ namespace utils {
                     
 
         /** Helper object. */
-         Point* VertexData::sHelperPoint= new Point();
+        Point* VertexData::sHelperPoint = new Point();
 
         /** Create a new VertexData object with a specified number of vertices. */
         VertexData::VertexData(int numVertices, bool premultipliedAlpha)
         {
             mRawData.clear();
             mPremultipliedAlpha = premultipliedAlpha;
-            this()->numVertices = numVertices;
+            this->numVertices = numVertices;
         }
 
         /** Creates a duplicate of either the complete vertex data object, or of a subset. 
@@ -82,10 +82,10 @@ namespace utils {
             if (numVertices < 0 || vertexID + numVertices > mNumVertices)
                 numVertices = mNumVertices - vertexID;
 
-             VertexData* clone= new VertexData(0, mPremultipliedAlpha);
-            clone->mNumVertices ( numVertices);
-            clone->mRawData ( mRawData.slice(vertexID * ELEMENTS_PER_VERTEX,
-                                            numVertices * ELEMENTS_PER_VERTEX));
+            VertexData* clone = new VertexData(0, mPremultipliedAlpha);
+            clone->mNumVertices = numVertices;
+            clone->mRawData = mRawData.slice(vertexID * ELEMENTS_PER_VERTEX,
+                                            numVertices * ELEMENTS_PER_VERTEX);
             clone->mRawData.fixed ( true);
             return clone;
         }
@@ -100,12 +100,12 @@ namespace utils {
 
             // todo: check/convert pma
 
-             std::vector<float> targetRawData=targetData->mRawData;
-             int targetIndex = targetVertexID * ELEMENTS_PER_VERTEX;
-             int sourceIndex = vertexID * ELEMENTS_PER_VERTEX;
-             int dataLength = numVertices * ELEMENTS_PER_VERTEX;
+            std::vector<float> targetRawData=targetData->mRawData;
+            int targetIndex = targetVertexID * ELEMENTS_PER_VERTEX;
+            int sourceIndex = vertexID * ELEMENTS_PER_VERTEX;
+            int dataLength = numVertices * ELEMENTS_PER_VERTEX;
 
-            for ( int i=sourceIndex; i<dataLength; ++i)
+            for (int i=sourceIndex; i<dataLength; ++i)
                 targetRawData[int(targetIndex++)] = mRawData[i];
         }
 
@@ -114,11 +114,11 @@ namespace utils {
         {
             mRawData.fixed ( false);
 
-             int targetIndex = mRawData.size();
-             std::vector<float> rawData=data->mRawData;
-             int rawDataLength = rawData.size();
+            int targetIndex = mRawData.size();
+            std::vector<float> rawData=data->mRawData;
+            int rawDataLength = rawData.size();
 
-            for ( int i=0; i<rawDataLength; ++i)
+            for (int i=0; i<rawDataLength; ++i)
                 mRawData[int(targetIndex++)] = rawData[i];
 
             mNumVertices += data->numVertices();
@@ -130,7 +130,7 @@ namespace utils {
         /** Updates the position values of a vertex. */
         void VertexData::setPosition(int vertexID, float x, float y)
         {
-             int offset = getOffset(vertexID) + POSITION_OFFSET;
+            int offset = getOffset(vertexID) + POSITION_OFFSET;
             mRawData[offset] = x;
             mRawData[int(offset+1)] = y;
         }
@@ -138,7 +138,7 @@ namespace utils {
         /** Returns the position of a vertex. */
         void VertexData::getPosition(int vertexID, Point* position)
         {
-             int offset = getOffset(vertexID) + POSITION_OFFSET;
+            int offset = getOffset(vertexID) + POSITION_OFFSET;
             position->x ( mRawData[offset]);
             position->y ( mRawData[int(offset+1)]);
         }
@@ -146,8 +146,8 @@ namespace utils {
         /** Updates the RGB color values of a vertex. */
         void VertexData::setColor(int vertexID, unsigned int color)
         {
-             int offset = getOffset(vertexID) + COLOR_OFFSET;
-             float multiplier  = mPremultipliedAlpha ? mRawData[int(offset+3)] : 1.0;
+            int offset = getOffset(vertexID) + COLOR_OFFSET;
+            float multiplier = mPremultipliedAlpha ? mRawData[int(offset+3)] : 1.0;
             mRawData[offset]        = ((color >> 16) & 0xff) / 255.0 * multiplier;
             mRawData[int(offset+1)] = ((color >>  8) & 0xff) / 255.0 * multiplier;
             mRawData[int(offset+2)] = ( color        & 0xff) / 255.0 * multiplier;
@@ -156,15 +156,15 @@ namespace utils {
         /** Returns the RGB color of a vertex (no alpha). */
         unsigned int VertexData::getColor(int vertexID)
         {
-             int offset = getOffset(vertexID) + COLOR_OFFSET;
-             float divisor  = mPremultipliedAlpha ? mRawData[int(offset+3)] : 1.0;
+            int offset = getOffset(vertexID) + COLOR_OFFSET;
+            float divisor = mPremultipliedAlpha ? mRawData[int(offset+3)] : 1.0;
 
             if (divisor == 0) return 0;
             else
             {
-                 float red    = mRawData[offset]        / divisor;
-                 float green  = mRawData[int(offset+1)] / divisor;
-                 float blue   = mRawData[int(offset+2)] / divisor;
+                float red   = mRawData[offset]        / divisor;
+                float green = mRawData[int(offset+1)] / divisor;
+                float blue  = mRawData[int(offset+2)] / divisor;
 
                 return (int(red*255) << 16) | (int(green*255) << 8) | int(blue*255);
             }
@@ -173,12 +173,12 @@ namespace utils {
         /** Updates the alpha value of a vertex (range 0-1). */
         void VertexData::setAlpha(int vertexID, float alpha)
         {
-             int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
+            int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
 
             if (mPremultipliedAlpha)
             {
                 if (alpha < 0.001) alpha = 0.001; // zero alpha would wipe out all color data
-                 unsigned int color=getColor(vertexID);
+                unsigned int color = getColor(vertexID);
                 mRawData[offset] = alpha;
                 setColor(vertexID, color);
             }
@@ -191,14 +191,14 @@ namespace utils {
         /** Returns the alpha value of a vertex in the range 0-1. */
         float VertexData::getAlpha(int vertexID)
         {
-             int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
+            int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
             return mRawData[offset];
         }
 
         /** Updates the texture coordinates of a vertex (range 0-1). */
         void VertexData::setTexCoords(int vertexID, float u, float v)
         {
-             int offset = getOffset(vertexID) + TEXCOORD_OFFSET;
+            int offset = getOffset(vertexID) + TEXCOORD_OFFSET;
             mRawData[offset]        = u;
             mRawData[int(offset+1)] = v;
         }
@@ -206,7 +206,7 @@ namespace utils {
         /** Returns the texture coordinates of a vertex in the range 0-1. */
         void VertexData::getTexCoords(int vertexID, Point* texCoords)
         {
-             int offset = getOffset(vertexID) + TEXCOORD_OFFSET;
+            int offset = getOffset(vertexID) + TEXCOORD_OFFSET;
             texCoords->x ( mRawData[offset]);
             texCoords->y ( mRawData[int(offset+1)]);
         }
@@ -216,7 +216,7 @@ namespace utils {
         /** Translate the position of a vertex by a certain offset. */
         void VertexData::translateVertex(int vertexID, float deltaX, float deltaY)
         {
-             int offset = getOffset(vertexID) + POSITION_OFFSET;
+            int offset = getOffset(vertexID) + POSITION_OFFSET;
             mRawData[offset]        += deltaX;
             mRawData[int(offset+1)] += deltaY;
         }
@@ -225,12 +225,12 @@ namespace utils {
          *  transformation matrix. */
         void VertexData::transformVertex(int vertexID, Matrix* matrix, int numVertices)
         {
-             int offset = getOffset(vertexID) + POSITION_OFFSET;
+            int offset = getOffset(vertexID) + POSITION_OFFSET;
 
-            for ( int i=0; i<numVertices; ++i)
+            for (int i=0; i<numVertices; ++i)
             {
-                 float x  = mRawData[offset];
-                 float y  = mRawData[int(offset+1)];
+                float x = mRawData[offset];
+                float y = mRawData[int(offset+1)];
 
                 mRawData[offset]        = matrix->a * x + matrix->c * y + matrix->tx();
                 mRawData[int(offset+1)] = matrix->d * y + matrix->b * x + matrix->ty();
@@ -242,14 +242,14 @@ namespace utils {
         /** Sets all vertices of the object to the same color values. */
         void VertexData::setUniformColor(unsigned int color)
         {
-            for ( int i=0; i<mNumVertices; ++i)
+            for (int i=0; i<mNumVertices; ++i)
                 setColor(i, color);
         }
 
         /** Sets all vertices of the object to the same alpha values. */
         void VertexData::setUniformAlpha(float alpha)
         {
-            for ( int i=0; i<mNumVertices; ++i)
+            for (int i=0; i<mNumVertices; ++i)
                 setAlpha(i, alpha);
         }
 
@@ -260,7 +260,7 @@ namespace utils {
             if (numVertices < 0 || vertexID + numVertices > mNumVertices)
                 numVertices = mNumVertices - vertexID;
 
-             int i;
+            int i;
 
             if (mPremultipliedAlpha)
             {
@@ -269,7 +269,7 @@ namespace utils {
             }
             else
             {
-                 int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
+                int offset = getOffset(vertexID) + COLOR_OFFSET + 3;
                 for (i=0; i<numVertices; ++i)
                     mRawData[int(offset + i*ELEMENTS_PER_VERTEX)] *= alpha;
             }
@@ -292,10 +292,10 @@ namespace utils {
             if (numVertices < 0 || vertexID + numVertices > mNumVertices)
                 numVertices = mNumVertices - vertexID;
 
-             float minX  = Number::MAX_VALUE, float maxX  = -Number::MAX_VALUE;
-             float minY  = Number::MAX_VALUE, float maxY  = -Number::MAX_VALUE;
-             int offset = getOffset(vertexID) + POSITION_OFFSET;
-             float x , float y , int i;
+            float minX = Number::MAX_VALUE, float maxX = -Number::MAX_VALUE;
+            float minY = Number::MAX_VALUE, float maxY = -Number::MAX_VALUE;
+            int offset = getOffset(vertexID) + POSITION_OFFSET;
+            float x, float y, int i;
 
             if (transformationMatrix == NULL)
             {
@@ -336,11 +336,11 @@ namespace utils {
         /** Indicates if any vertices have a non-white color or are not fully opaque. */
         bool VertexData::tinted()
         {
-             int offset = COLOR_OFFSET;
+            int offset = COLOR_OFFSET;
 
-            for ( int i=0; i<mNumVertices; ++i)
+            for (int i=0; i<mNumVertices; ++i)
             {
-                for ( int j=0; j<4; ++j)
+                for (int j=0; j<4; ++j)
                     if (mRawData[int(offset+j)] != 1.0) return true;
 
                 offset += ELEMENTS_PER_VERTEX;
@@ -356,13 +356,13 @@ namespace utils {
 
             if (updateData)
             {
-                 int dataLength = mNumVertices * ELEMENTS_PER_VERTEX;
+                int dataLength = mNumVertices * ELEMENTS_PER_VERTEX;
 
-                for ( int i=COLOR_OFFSET; i<dataLength; i += ELEMENTS_PER_VERTEX)
+                for (int i=COLOR_OFFSET; i<dataLength; i += ELEMENTS_PER_VERTEX)
                 {
-                     float alpha  = mRawData[int(i+3)];
-                     float divisor  = mPremultipliedAlpha ? alpha : 1.0;
-                     float multiplier  = value ? alpha : 1.0;
+                    float alpha = mRawData[int(i+3)];
+                    float divisor = mPremultipliedAlpha ? alpha : 1.0;
+                    float multiplier = value ? alpha : 1.0;
 
                     if (divisor != 0)
                     {
@@ -385,11 +385,11 @@ namespace utils {
         {
             mRawData.fixed ( false);
 
-             int i;
-             int delta = value - mNumVertices;
+            int i;
+            int delta = value - mNumVertices;
 
             for (i=0; i<delta; ++i)
-                mRawData.push_back(0,0,0,0,0, 1,  0, 0); // alpha should be '1' per default
+                mRawData.push_back(0, 0,  0, 0, 0, 1,  0, 0); // alpha should be '1' per default
 
             for (i=0; i<-(delta*ELEMENTS_PER_VERTEX); ++i)
                 mRawData.pop();

@@ -28,12 +28,12 @@ namespace events {
 
 
         /** Event type for a display object that is entering a new frame. */
-        const std::string EnterFrameEvent::ENTER_FRAME="enterFrame";
+        const std::string EnterFrameEvent::ENTER_FRAME = "enterFrame";
 
         /** Creates an enter frame event with the passed time. */
         EnterFrameEvent::EnterFrameEvent(std::string type, float passedTime, bool bubbles)
         {
-            super(type, bubbles, passedTime);
+            Event(type, bubbles, passedTime);
         }
 
         /** The time that has passed since the last frame (in seconds). */

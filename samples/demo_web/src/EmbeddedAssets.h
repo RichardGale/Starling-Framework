@@ -4,6 +4,10 @@
 
 
 
+#include "flex11.6.h"
+
+
+
 class EmbeddedAssets
 {
     /** ATTENTION: Naming conventions!

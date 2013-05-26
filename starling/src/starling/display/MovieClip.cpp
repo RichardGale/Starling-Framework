@@ -47,7 +47,7 @@ namespace display {
         {
             if (textures.size() > 0)
             {
-                super(textures[0]);
+                IAnimatable(textures[0]);
                 init(textures, fps);
             }
             else
@@ -59,7 +59,7 @@ namespace display {
         void MovieClip::init(std::vector<Texture*> textures, float fps)
         {
             if (fps <= 0) throw new ArgumentError("Invalid fps: " + fps);
-             int numFrames = textures.size();
+            int numFrames = textures.size();
 
             mDefaultFrameDuration = 1.0 / fps;
             mLoop = true;
@@ -71,7 +71,7 @@ namespace display {
             mDurations.clear();
             mStartTimes.clear();
 
-            for ( int i=0; i<numFrames; ++i)
+            for (int i=0; i<numFrames; ++i)
             {
                 mDurations[i] = mDefaultFrameDuration;
                 mStartTimes[i] = i * mDefaultFrameDuration;
@@ -186,12 +186,12 @@ namespace display {
 
         void MovieClip::updateStartTimes()
         {
-             int numFrames = this()->numFrames;
+            int numFrames = this->numFrames;
 
             mStartTimes.clear()    ;
             mStartTimes[0] = 0;
 
-            for ( int i=1; i<numFrames; ++i)
+            for (int i=1; i<numFrames; ++i)
                 mStartTimes[i] = mStartTimes[int(i-1)] + mDurations[int(i-1)];
         }
 
@@ -202,13 +202,13 @@ namespace display {
         {
             if (!mPlaying || passedTime <= 0.0) return;
 
-             int finalFrame;
-             int previousFrame = mCurrentFrame;
-             float restTime  = 0.0;
-             bool breakAfterFrame    = false;
-             bool hasCompleteListener    = hasEventListener(Event::COMPLETE);
-             bool dispatchCompleteEvent    = false;
-             float totalTime  = this()->totalTime;
+            int finalFrame;
+            int previousFrame = mCurrentFrame;
+            float restTime = 0.0;
+            bool breakAfterFrame = false;
+            bool hasCompleteListener = hasEventListener(Event::COMPLETE);
+            bool dispatchCompleteEvent = false;
+            float totalTime = this->totalTime;
 
             if (mLoop && mCurrentTime >= totalTime)
             {
@@ -244,7 +244,7 @@ namespace display {
                         mCurrentFrame++;
                     }
 
-                     Sound* sound= mSounds[mCurrentFrame];
+                    Sound* sound = mSounds[mCurrentFrame];
                     if (sound) sound->play();
                     if (breakAfterFrame) break;
                 }
@@ -275,7 +275,7 @@ namespace display {
         /** The total duration of the clip in seconds. */
         float MovieClip::totalTime()
         {
-             int numFrames = mTextures.size();
+            int numFrames = mTextures.size();
             return mStartTimes[int(numFrames-1)] + mDurations[int(numFrames-1)];
         }
 
@@ -296,7 +296,7 @@ namespace display {
             mCurrentFrame = value;
             mCurrentTime = 0.0;
 
-            for ( int i=0; i<value; ++i)
+            for (int i=0; i<value; ++i)
                 mCurrentTime += getFrameDuration(i);
 
             texture = mTextures[mCurrentFrame];
@@ -311,14 +311,14 @@ namespace display {
         {
             if (value <= 0) throw new ArgumentError("Invalid fps: " + value);
 
-             float newFrameDuration  = 1.0 / value;
-             float acceleration  = newFrameDuration / mDefaultFrameDuration;
+            float newFrameDuration = 1.0 / value;
+            float acceleration = newFrameDuration / mDefaultFrameDuration;
             mCurrentTime *= acceleration;
             mDefaultFrameDuration = newFrameDuration;
 
-            for ( int i=0; i<numFrames; ++i)
+            for (int i=0; i<numFrames; ++i)
             {
-                 float duration  = mDurations[i] * acceleration;
+                float duration = mDurations[i] * acceleration;
                 mDurations[i] = duration;
             }
 

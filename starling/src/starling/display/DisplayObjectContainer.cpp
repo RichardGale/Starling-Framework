@@ -84,9 +84,9 @@ namespace display {
                     
 
         /** Helper objects. */
-         Matrix* DisplayObjectContainer::sHelperMatrix= new Matrix();
-         Point* DisplayObjectContainer::sHelperPoint= new Point();
-         std::vector<DisplayObject*> DisplayObjectContainer::sBroadcastListeners=new<DisplayObject*>[];
+        Matrix* DisplayObjectContainer::sHelperMatrix = new Matrix();
+        Point* DisplayObjectContainer::sHelperPoint = new Point();
+        std::vector<DisplayObject*> DisplayObjectContainer::sBroadcastListeners=std::vector<void*>()                   ;
 
         // construction
 
@@ -105,10 +105,10 @@ namespace display {
         /** Disposes the resources of all children. */
         void DisplayObjectContainer::dispose()
         {
-            for ( int i=mChildren.size()-1; i>=0; --i)
+            for (int i=mChildren.size()-1; i>=0; --i)
                 mChildren[i]->dispose();
 
-            super()->dispose();
+            DisplayObject::dispose();
         }
 
         // child management
@@ -123,7 +123,7 @@ namespace display {
         /** Adds a child to the container at a certain index. */
         DisplayObject* DisplayObjectContainer::addChildAt(DisplayObject* child, int index)
         {
-             int numChildren = mChildren.size();
+            int numChildren = mChildren.size();
 
             if (index >= 0 && index <= numChildren)
             {
@@ -138,7 +138,7 @@ namespace display {
 
                 if (stage)
                 {
-                     DisplayObjectContainer* container= dynamic_cast<DisplayObjectContainer*>(child);
+                    DisplayObjectContainer* container = dynamic_cast<DisplayObjectContainer*>(child);
                     if (container) container->broadcastEventWith(Event::ADDED_TO_STAGE);
                     else           child->dispatchEventWith(Event::ADDED_TO_STAGE);
                 }
@@ -155,7 +155,7 @@ namespace display {
          *  If requested, the child will be disposed right away. */
         DisplayObject* DisplayObjectContainer::removeChild(DisplayObject* child, bool dispose)
         {
-             int childIndex = getChildIndex(child);
+            int childIndex = getChildIndex(child);
             if (childIndex != -1) removeChildAt(childIndex, dispose);
             return child;
         }
@@ -166,12 +166,12 @@ namespace display {
         {
             if (index >= 0 && index < numChildren)
             {
-                 DisplayObject* child= mChildren[index];
+                DisplayObject* child = mChildren[index];
                 child->dispatchEventWith(Event::REMOVED, true);
 
                 if (stage)
                 {
-                     DisplayObjectContainer* container= dynamic_cast<DisplayObjectContainer*>(child);
+                    DisplayObjectContainer* container = dynamic_cast<DisplayObjectContainer*>(child);
                     if (container) container->broadcastEventWith(Event::REMOVED_FROM_STAGE);
                     else           child->dispatchEventWith(Event::REMOVED_FROM_STAGE);
                 }
@@ -196,7 +196,7 @@ namespace display {
             if (endIndex < 0 || endIndex >= numChildren)
                 endIndex = numChildren - 1;
 
-            for ( int i=beginIndex; i<=endIndex; ++i)
+            for (int i=beginIndex; i<=endIndex; ++i)
                 removeChildAt(beginIndex, dispose);
         }
 
@@ -212,8 +212,8 @@ namespace display {
         /** Returns a child object with a certain name (non-recursively). */
         DisplayObject* DisplayObjectContainer::getChildByName(std::string name)
         {
-             int numChildren = mChildren.size();
-            for ( int i=0; i<numChildren; ++i)
+            int numChildren = mChildren.size();
+            for (int i=0; i<numChildren; ++i)
                 if (mChildren[i]->name() == name) return mChildren[i];
 
             return NULL;
@@ -228,7 +228,7 @@ namespace display {
         /** Moves a child to a certain index. Children at and after the replaced position move up.*/
         void DisplayObjectContainer::setChildIndex(DisplayObject* child, int index)
         {
-             int oldIndex = getChildIndex(child);
+            int oldIndex = getChildIndex(child);
             if (oldIndex == -1) throw new ArgumentError("Not a child of this container");
             mChildren.splice(oldIndex, 1);
             mChildren.splice(index, 0, child);
@@ -237,8 +237,8 @@ namespace display {
         /** Swaps the indexes of two children. */
         void DisplayObjectContainer::swapChildren(DisplayObject* child1, DisplayObject* child2)
         {
-             int index1 = getChildIndex(child1);
-             int index2 = getChildIndex(child2);
+            int index1 = getChildIndex(child1);
+            int index2 = getChildIndex(child2);
             if (index1 == -1 || index2 == -1) throw new ArgumentError("Not a child of this container");
             swapChildrenAt(index1, index2);
         }
@@ -246,8 +246,8 @@ namespace display {
         /** Swaps the indexes of two children. */
         void DisplayObjectContainer::swapChildrenAt(int index1, int index2)
         {
-             DisplayObject* child1= getChildAt(index1);
-             DisplayObject* child2= getChildAt(index2);
+            DisplayObject* child1 = getChildAt(index1);
+            DisplayObject* child2 = getChildAt(index2);
             mChildren[index1] = child2;
             mChildren[index2] = child1;
         }
@@ -275,7 +275,7 @@ namespace display {
         {
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             int numChildren = mChildren.size();
+            int numChildren = mChildren.size();
 
             if (numChildren == 0)
             {
@@ -289,10 +289,10 @@ namespace display {
             }
             else
             {
-                 float minX  = Number::MAX_VALUE, float maxX  = -Number::MAX_VALUE;
-                 float minY  = Number::MAX_VALUE, float maxY  = -Number::MAX_VALUE;
+                float minX = Number::MAX_VALUE, float maxX = -Number::MAX_VALUE;
+                float minY = Number::MAX_VALUE, float maxY = -Number::MAX_VALUE;
 
-                for ( int i=0; i<numChildren; ++i)
+                for (int i=0; i<numChildren; ++i)
                 {
                     mChildren[i]->getBounds(targetSpace, resultRect);
                     minX = minX < resultRect->x ? minX : resultRect->x();
@@ -313,17 +313,17 @@ namespace display {
             if (forTouch && (!visible || !touchable))
                 return NULL;
 
-             float localX  = localPoint->x();
-             float localY  = localPoint->y();
+            float localX = localPoint->x();
+            float localY = localPoint->y();
 
-             int numChildren = mChildren.size();
-            for ( int i=numChildren-1; i>=0; --i)
+            int numChildren = mChildren.size();
+            for (int i=numChildren-1; i>=0; --i)
             {
-                 DisplayObject* child= mChildren[i];
+                DisplayObject* child = mChildren[i];
                 getTransformationMatrix(child, sHelperMatrix);
 
                 MatrixUtil::transformCoords(sHelperMatrix, localX, localY, sHelperPoint);
-                 DisplayObject* target= child->hitTest(sHelperPoint, forTouch);
+                DisplayObject* target = child->hitTest(sHelperPoint, forTouch);
 
                 if (target) return target;
             }
@@ -334,17 +334,17 @@ namespace display {
         /** @inheritDoc */                           // front to back!
         void DisplayObjectContainer::render(RenderSupport* support, float parentAlpha)
         {
-             float alpha  = parentAlpha * this()->alpha;
-             int numChildren = mChildren.size();
-             std::string blendMode=support->blendMode;
+            float alpha = parentAlpha * this->alpha;
+            int numChildren = mChildren.size();
+            std::string blendMode = support->blendMode;
 
-            for ( int i=0; i<numChildren; ++i)
+            for (int i=0; i<numChildren; ++i)
             {
-                 DisplayObject* child= mChildren[i];
+                DisplayObject* child = mChildren[i];
 
                 if (child->hasVisibleArea())
                 {
-                     FragmentFilter* filter= child->filter;
+                    FragmentFilter* filter = child->filter;
 
                     support->pushMatrix();
                     support->transformMatrix(child);
@@ -370,11 +370,11 @@ namespace display {
             // And since another listener could call this method internally, we have to take 
             // care that the static helper vector does not get currupted.
 
-             int fromIndex = sBroadcastListeners.size();
+            int fromIndex = sBroadcastListeners.size();
             getChildEventListeners(this, event->type(), sBroadcastListeners);
-             int toIndex = sBroadcastListeners.size();
+            int toIndex = sBroadcastListeners.size();
 
-            for ( int i=fromIndex; i<toIndex; ++i)
+            for (int i=fromIndex; i<toIndex; ++i)
                 sBroadcastListeners[i]->dispatchEvent(event);
 
             sBroadcastListeners.size() = fromIndex;
@@ -384,7 +384,7 @@ namespace display {
          *  The method uses an internal pool of event objects to avoid allocations. */
         void DisplayObjectContainer::broadcastEventWith(std::string type, Object* data)
         {
-             Event* event= Event::fromPool(type, false, data);
+            Event* event = Event::fromPool(type, false, data);
             broadcastEvent(event);
             Event::toPool(event);
         }
@@ -392,17 +392,17 @@ namespace display {
         void DisplayObjectContainer::getChildEventListeners(DisplayObject* object, std::string eventType,
                                                 std::vector<DisplayObject*> listeners)
         {
-             DisplayObjectContainer* container= dynamic_cast<DisplayObjectContainer*>(object);
+            DisplayObjectContainer* container = dynamic_cast<DisplayObjectContainer*>(object);
 
             if (object->hasEventListener(eventType))
                 listeners.push_back(object);
 
             if (container)
             {
-                 std::vector<DisplayObject*> children=container->mChildren;
-                 int numChildren = children.size();
+                std::vector<DisplayObject*> children=container->mChildren;
+                int numChildren = children.size();
 
-                for ( int i=0; i<numChildren; ++i)
+                for (int i=0; i<numChildren; ++i)
                     getChildEventListeners(children[i], eventType, listeners);
             }
         }

@@ -22,6 +22,8 @@
 #include "starling/utils/HAlign.h"
 #include "starling/utils/VAlign.h"
 
+#include "starling/text/BitmapChar.h"
+
     /** The BitmapFont class parses bitmap font files and arranges the glyphs 
      *  in the form of a text.
      *
@@ -56,6 +58,7 @@
 using namespace flash::geom;
 using namespace flash::utils;
 using namespace starling::display;
+using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -68,7 +71,7 @@ namespace text {
         const int BitmapFont::NATIVE_SIZE = -1;
 
         /** The font name of the embedded minimal bitmap font. Use this e.g. for debug output. */
-        const std::string BitmapFont::MINI="mini";
+        const std::string BitmapFont::MINI = "mini";
 
         const int BitmapFont::CHAR_SPACE           = 32;
         const int BitmapFont::CHAR_TAB             =  9;
@@ -114,8 +117,8 @@ namespace text {
 
         void BitmapFont::parseFontXml(XML* fontXml)
         {
-             float scale  = mTexture->scale;
-             Rectangle* frame= mTexture->frame;
+            float scale = mTexture->scale;
+            Rectangle* frame = mTexture->frame;
 
             mName = fontXml->info()->attribute("face");
             mSize = parseFloat(fontXml->info()->attribute("size")) / scale;
@@ -131,29 +134,29 @@ namespace text {
                 mSize = (mSize == 0.0 ? 16.0 : mSize * -1.0);
             }
 
-            for each (var XML* charElementin fontXml->chars()->char())
+            for (std::vector<XML*>::iterator charElement = ..begin(); charElement != ..end(); ++charElement)
             {
-                 int id = parseInt(charElement->attribute("id"));
-                 float xOffset  = parseFloat(charElement->attribute("xoffset")) / scale;
-                 float yOffset  = parseFloat(charElement->attribute("yoffset")) / scale;
-                 float xAdvance  = parseFloat(charElement->attribute("xadvance")) / scale;
+                int id = parseInt(charElement->attribute("id"));
+                float xOffset = parseFloat(charElement->attribute("xoffset")) / scale;
+                float yOffset = parseFloat(charElement->attribute("yoffset")) / scale;
+                float xAdvance = parseFloat(charElement->attribute("xadvance")) / scale;
 
-                 Rectangle* region= new Rectangle();
+                Rectangle* region = new Rectangle();
                 region->x ( parseFloat(charElement->attribute("x")) / scale + frame->x());
                 region->y ( parseFloat(charElement->attribute("y")) / scale + frame->y());
                 region->width  ( parseFloat(charElement->attribute("width")) / scale);
                 region->height ( parseFloat(charElement->attribute("height")) / scale);
 
-                 Texture* texture= Texture::fromTexture(mTexture, region);
-                 BitmapChar* bitmapChar= new BitmapChar(id, texture, xOffset, yOffset, xAdvance);
+                Texture* texture = Texture::fromTexture(mTexture, region);
+                BitmapChar* bitmapChar = new BitmapChar(id, texture, xOffset, yOffset, xAdvance);
                 addChar(id, bitmapChar);
             }
 
-            for each (var XML* kerningElementin fontXml->kernings()->kerning())
+            for (std::vector<XML*>::iterator kerningElement = ..begin(); kerningElement != ..end(); ++kerningElement)
             {
-                 int first = parseInt(kerningElement->attribute("first"));
-                 int second = parseInt(kerningElement->attribute("second"));
-                 float amount  = parseFloat(kerningElement->attribute("amount")) / scale;
+                int first = parseInt(kerningElement->attribute("first"));
+                int second = parseInt(kerningElement->attribute("second"));
+                float amount = parseFloat(kerningElement->attribute("amount")) / scale;
                 if (second in !mChars.empty()) getChar(second)->addKerning(first, amount);
             }
         }
@@ -177,15 +180,15 @@ namespace text {
                                      bool autoScale,
                                      bool kerning)
         {
-             std::vector<CharLocation*> charLocations=arrangeChars(width,height,text,fontSize,
+            std::vector<CharLocation*> charLocations=arrangeChars(width,height,text, fontSize,
                                                                    hAlign, vAlign, autoScale, kerning);
-             int numChars = charLocations.size();
-             Sprite* sprite= new Sprite();
+            int numChars = charLocations.size();
+            Sprite* sprite = new Sprite();
 
-            for ( int i=0; i<numChars; ++i)
+            for (int i=0; i<numChars; ++i)
             {
-                 CharLocation* charLocation= charLocations[i];
-                 Image* char= charLocation->char->createImage();
+                CharLocation* charLocation = charLocations[i];
+                Image* char = charLocation->char->createImage();
                 char->x ( charLocation->x());
                 char->y ( charLocation->y());
                 char->scaleX ( char->scaleY ( charLocation->scale()));
@@ -203,17 +206,17 @@ namespace text {
                                       bool autoScale,
                                       bool kerning)
         {
-             std::vector<CharLocation*> charLocations=arrangeChars(width,height,text,fontSize,
+            std::vector<CharLocation*> charLocations=arrangeChars(width,height,text, fontSize,
                                                                    hAlign, vAlign, autoScale, kerning);
-             int numChars = charLocations.size();
+            int numChars = charLocations.size();
             mHelperImage->color ( color);
 
             if (numChars > 8192)
                 throw new ArgumentError("Bitmap Font text is limited to 8192 characters.");
 
-            for ( int i=0; i<numChars; ++i)
+            for (int i=0; i<numChars; ++i)
             {
-                 CharLocation* charLocation= charLocations[i];
+                CharLocation* charLocation = charLocations[i];
                 mHelperImage->texture ( charLocation->char()->texture());
                 mHelperImage->readjustSize();
                 mHelperImage->x ( charLocation->x());
@@ -232,13 +235,13 @@ namespace text {
             if (text == NULL || text.length() == 0) return new <CharLocation*>[];
             if (fontSize < 0) fontSize *= -mSize;
 
-             std::vector<std::vector<CharLocation*>> lines;
-             bool finished    = false;
-             CharLocation* charLocation;
-             int numChars;
-             float containerWidth ;
-             float containerHeight ;
-             float scale ;
+            std::vector<std::vector<CharLocation*>> lines;
+            bool finished = false;
+            CharLocation* charLocation;
+            int numChars;
+            float containerWidth;
+            float containerHeight;
+            float scale;
 
             while (!finished)
             {
@@ -250,18 +253,18 @@ namespace text {
 
                 if (mLineHeight <= containerHeight)
                 {
-                     int lastWhiteSpace = -1;
-                     int lastCharID = -1;
-                     float currentX  = 0;
-                     float currentY  = 0;
-                     std::vector<CharLocation*> currentLine=new<CharLocation*>[];
+                    int lastWhiteSpace = -1;
+                    int lastCharID = -1;
+                    float currentX = 0;
+                    float currentY = 0;
+                    std::vector<CharLocation*> currentLine=std::vector<void*>()                  ;
 
                     numChars = text.length();
-                    for ( int i=0; i<numChars; ++i)
+                    for (int i=0; i<numChars; ++i)
                     {
-                         bool lineFull    = false;
-                         int charID = text.charCodeAt(i);
-                         BitmapChar* char= getChar(charID);
+                        bool lineFull = false;
+                        int charID = text.charCodeAt(i);
+                        BitmapChar* char = getChar(charID);
 
                         if (charID == CHAR_NEWLINE || charID == CHAR_CARRIAGE_RETURN)
                         {
@@ -293,8 +296,8 @@ namespace text {
                             if (charLocation->x() + char->width() > containerWidth)
                             {
                                 // remove characters and add them again to next line
-                                 int numCharsToRemove = lastWhiteSpace == -1 ? 1 : i - lastWhiteSpace;
-                                 int removeIndex = currentLine.size() - numCharsToRemove;
+                                int numCharsToRemove = lastWhiteSpace == -1 ? 1 : i - lastWhiteSpace;
+                                int removeIndex = currentLine.size() - numCharsToRemove;
 
                                 currentLine.splice(removeIndex, numCharsToRemove);
 
@@ -345,30 +348,30 @@ namespace text {
                 }
             } // while (!finished)
 
-             std::vector<CharLocation*> finalLocations=new<CharLocation*>[];
-             int numLines = lines.size();
-             float bottom  = currentY + mLineHeight;
-             int yOffset = 0;
+            std::vector<CharLocation*> finalLocations=std::vector<void*>()                  ;
+            int numLines = lines.size();
+            float bottom = currentY + mLineHeight;
+            int yOffset = 0;
 
             if (vAlign == VAlign::BOTTOM)      yOffset =  containerHeight - bottom;
             else if (vAlign == VAlign::CENTER) yOffset = (containerHeight - bottom) / 2;
 
-            for ( int lineID=0; lineID<numLines; ++lineID)
+            for (int lineID=0; lineID<numLines; ++lineID)
             {
-                 std::vector<CharLocation*> line=lines[lineID];
+                std::vector<CharLocation*> line=lines[lineID];
                 numChars = line.size();
 
                 if (numChars == 0) continue;
 
-                 int xOffset = 0;
-                 CharLocation* lastLocation= line[line.size()-1];
-                 float right  = lastLocation->x() - lastLocation->char->xOffset()
+                int xOffset = 0;
+                CharLocation* lastLocation = line[line.size()-1];
+                float right = lastLocation->x() - lastLocation->char->xOffset()
                                                   + lastLocation->char->xAdvance();
 
                 if (hAlign == HAlign::RIGHT)       xOffset =  containerWidth - right;
                 else if (hAlign == HAlign::CENTER) xOffset = (containerWidth - right) / 2;
 
-                for ( int c=0; c<numChars; ++c)
+                for (int c=0; c<numChars; ++c)
                 {
                     charLocation = line[c];
                     charLocation->x ( scale * (charLocation->x() + xOffset));
@@ -416,5 +419,5 @@ namespace text {
 
     CharLocation::CharLocation(BitmapChar* char)
     {
-        this()->char = char;
+        this->char = char;
     }

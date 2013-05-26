@@ -37,14 +37,14 @@ using namespace starling::utils;
 namespace tests {
 
 
-        const float DisplayObjectTest::E  = 0.0001;
+        const float DisplayObjectTest::E = 0.0001;
 
 
         void DisplayObjectTest::                testBase()
         {
-             Sprite* object1= new Sprite();
-             Sprite* object2= new Sprite();
-             Sprite* object3= new Sprite();
+            Sprite* object1 = new Sprite();
+            Sprite* object2 = new Sprite();
+            Sprite* object3 = new Sprite();
 
             object1->addChild(object2);
             object2->addChild(object3);
@@ -53,16 +53,16 @@ namespace tests {
             Assert::assertEquals(object1, object2->base());
             Assert::assertEquals(object1, object3->base());
 
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             Assert::assertEquals(quad, quad->base());
         }
 
 
         void DisplayObjectTest::                testRootAndStage()
         {
-             Sprite* object1= new Sprite();
-             Sprite* object2= new Sprite();
-             Sprite* object3= new Sprite();
+            Sprite* object1 = new Sprite();
+            Sprite* object2 = new Sprite();
+            Sprite* object3 = new Sprite();
 
             object1->addChild(object2);
             object2->addChild(object3);
@@ -74,7 +74,7 @@ namespace tests {
             Assert::assertEquals(NULL, object2->stage());
             Assert::assertEquals(NULL, object3->stage());
 
-             Stage* stage= new Stage(100, 100);
+            Stage* stage = new Stage(100, 100);
             stage->addChild(object1);
 
             Assert::assertEquals(object1, object1->root());
@@ -88,8 +88,8 @@ namespace tests {
 
         void DisplayObjectTest::                testGetTransformationMatrix()
         {
-             Sprite* sprite= new Sprite();
-             Sprite* child= new Sprite();
+            Sprite* sprite = new Sprite();
+            Sprite* child = new Sprite();
             child->x ( 30);
             child->y ( 20);
             child->scaleX ( 1.2);
@@ -97,8 +97,8 @@ namespace tests {
             child->rotation ( Math::PI() / 4.0);
             sprite->addChild(child);
 
-             Matrix* matrix= sprite->getTransformationMatrix(child);
-             Matrix* expectedMatrix= child->transformationMatrix();
+            Matrix* matrix = sprite->getTransformationMatrix(child);
+            Matrix* expectedMatrix = child->transformationMatrix();
             expectedMatrix->invert();
             Helpers()->compareMatrices(expectedMatrix, matrix);
 
@@ -111,8 +111,8 @@ namespace tests {
 
         void DisplayObjectTest::                testSetTransformationMatrix()
         {
-             Sprite* sprite= new Sprite();
-             Matrix* matrix= new Matrix();
+            Sprite* sprite = new Sprite();
+            Matrix* matrix = new Matrix();
             matrix->scale(1.5, 2.0);
             matrix->rotate(0.25);
             matrix->translate(10, 20);
@@ -132,11 +132,11 @@ namespace tests {
         {
             // pivot point information is redundant; instead, x/y properties will be modified.
 
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->pivotX ( 50);
             sprite->pivotY ( 20);
 
-             Matrix* matrix= sprite->transformationMatrix();
+            Matrix* matrix = sprite->transformationMatrix();
             sprite->transformationMatrix ( matrix);
 
             assertThat(sprite->x(), closeTo(-50, E));
@@ -148,12 +148,12 @@ namespace tests {
 
         void DisplayObjectTest::                testBounds()
         {
-             Quad* quad= new Quad(10, 20);
+            Quad* quad = new Quad(10, 20);
             quad->x ( -10);
             quad->y (  10);
             quad->rotation ( Math::PI() / 2);
 
-             Rectangle* bounds= quad->bounds;
+            Rectangle* bounds = quad->bounds;
             assertThat(bounds->x(), closeTo(-30, E));
             assertThat(bounds->y(), closeTo(10, E));
             assertThat(bounds->width(), closeTo(20, E));
@@ -169,7 +169,7 @@ namespace tests {
 
         void DisplayObjectTest::                testZeroSize()
         {
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             assertEquals(1.0, sprite->scaleX());
             assertEquals(1.0, sprite->scaleY());
 
@@ -183,7 +183,7 @@ namespace tests {
 
             // setting a value to zero should be no problem -- and the original size 
             // should be remembered.
-             Quad* quad= new Quad(100, 200);
+            Quad* quad = new Quad(100, 200);
             quad->scaleX ( 0.0);
             quad->scaleY ( 0.0);
             assertThat(quad->width(), closeTo(0, E));
@@ -198,19 +198,19 @@ namespace tests {
 
         void DisplayObjectTest::                testLocalToGlobal()
         {
-             Sprite* root= new Sprite();
-             Sprite* sprite= new Sprite();
+            Sprite* root = new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->x ( 10);
             sprite->y ( 20);
             root->addChild(sprite);
-             Sprite* sprite2= new Sprite();
+            Sprite* sprite2 = new Sprite();
             sprite2->x ( 150);
             sprite2->y ( 200);
             sprite->addChild(sprite2);
 
-             Point* localPoint= new Point(0, 0);
-             Point* globalPoint= sprite2->localToGlobal(localPoint);
-             Point* expectedPoint= new Point(160, 220);
+            Point* localPoint = new Point(0, 0);
+            Point* globalPoint = sprite2->localToGlobal(localPoint);
+            Point* expectedPoint = new Point(160, 220);
             Helpers()->comparePoints(expectedPoint, globalPoint);
 
             // the position of the root object should be irrelevant -- we want the coordinates
@@ -223,19 +223,19 @@ namespace tests {
 
         void DisplayObjectTest::                testGlobalToLocal()
         {
-             Sprite* root= new Sprite();
-             Sprite* sprite= new Sprite();
+            Sprite* root = new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->x ( 10);
             sprite->y ( 20);
             root->addChild(sprite);
-             Sprite* sprite2= new Sprite();
+            Sprite* sprite2 = new Sprite();
             sprite2->x ( 150);
             sprite2->y ( 200);
             sprite->addChild(sprite2);
 
-             Point* globalPoint= new Point(160, 220);
-             Point* localPoint= sprite2->globalToLocal(globalPoint);
-             Point* expectedPoint= new Point();
+            Point* globalPoint = new Point(160, 220);
+            Point* localPoint = sprite2->globalToLocal(globalPoint);
+            Point* expectedPoint = new Point();
             Helpers()->comparePoints(expectedPoint, localPoint);
 
             // the position of the root object should be irrelevant -- we want the coordinates
@@ -248,7 +248,7 @@ namespace tests {
 
         void DisplayObjectTest::                testHitTestPoint()
         {
-             Quad* quad= new Quad(25, 10);
+            Quad* quad = new Quad(25, 10);
             Assert::assertNotNull(quad->hitTest(new Point(15, 5), true));
             Assert::assertNotNull(quad->hitTest(new Point(0, 0), true));
             Assert::assertNotNull(quad->hitTest(new Point(24.99, 0), true));
@@ -272,7 +272,7 @@ namespace tests {
 
         void DisplayObjectTest::                testRotation()
         {
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             quad->rotation ( deg2rad(400));
             assertThat(quad->rotation(), closeTo(deg2rad(40), E));
             quad->rotation ( deg2rad(220));
@@ -296,16 +296,16 @@ namespace tests {
 
         void DisplayObjectTest::                testPivotPoint()
         {
-             float width  = 100.0;
-             float height  = 150.0;
+            float width = 100.0;
+            float height = 150.0;
 
             // a quad with a pivot point should behave exactly as a quad without 
             // pivot point inside a sprite
 
-             Sprite* sprite= new Sprite();
-             Quad* innerQuad= new Quad(width, height);
+            Sprite* sprite = new Sprite();
+            Quad* innerQuad = new Quad(width, height);
             sprite->addChild(innerQuad);
-             Quad* quad= new Quad(width, height);
+            Quad* quad = new Quad(width, height);
             Helpers()->compareRectangles(sprite->bounds(), quad->bounds());
 
             innerQuad->x ( -50);
@@ -329,20 +329,20 @@ namespace tests {
 
         void DisplayObjectTest::                testPivotWithSkew()
         {
-             int width = 200;
-             int height = 100;
-             float skewX  = 0.2;
-             float skewY  = 0.35;
-             float scaleY  = 0.5;
-             float rotation  = 0.5;
+            int width = 200;
+            int height = 100;
+            float skewX = 0.2;
+            float skewY = 0.35;
+            float scaleY = 0.5;
+            float rotation = 0.5;
 
             // create a scaled, rotated and skewed object from a sprite and a quad
 
-             Quad* quad= new Quad(width, height);
+            Quad* quad = new Quad(width, height);
             quad->x ( width / -2);
             quad->y ( height / -2);
 
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->x ( width / 2);
             sprite->y ( height / 2);
             sprite->skewX ( skewX);
@@ -353,7 +353,7 @@ namespace tests {
 
             // do the same without a sprite, but with a pivoted quad
 
-             Quad* pQuad= new Quad(width, height);
+            Quad* pQuad = new Quad(width, height);
             pQuad->x ( width / 2);
             pQuad->y ( height / 2);
             pQuad->pivotX ( width / 2);
@@ -371,7 +371,7 @@ namespace tests {
 
         void DisplayObjectTest::                testName()
         {
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             Assert::assertNull(sprite->name());
 
             sprite->name ( "hugo");

@@ -234,7 +234,7 @@ namespace starling
             /** Create a new AssetManager. The 'scaleFactor' and 'useMipmaps' parameters define
              *  how enqueued bitmaps will be converted to textures. */
         public:
-            AssetManager(float scaleFactor =1, bool useMipmaps   =false);
+            AssetManager(float scaleFactor=1, bool useMipmaps=false);
 
             /** Disposes all contained textures. */
         public:
@@ -246,7 +246,7 @@ namespace starling
              *  added textures; if no texture with that name is found, it scans through all
              *  texture atlases. */
         public:
-            Texture *getTexture(std::string name);
+            Texture  *getTexture(std::string name);
 
             /** Returns all textures that start with a certain string, sorted alphabetically
              *  (especially useful for "MovieClip"). */
@@ -263,7 +263,7 @@ namespace starling
 
             /** Returns a sound with a certain name. */
         public:
-            Sound   *getSound(std::string name);
+            Sound    *getSound(std::string name);
 
             /** Returns all sound names that start with a certain string, sorted alphabetically. */
         public:
@@ -272,7 +272,7 @@ namespace starling
             /** Generates a new SoundChannel object to play back the sound. This method returns a
              *  SoundChannel object, which you can access to stop the sound and to control volume. */
         public:
-            SoundChannel *playSound(std::string name, float startTime =0, int loops=0,
+            SoundChannel *playSound(std::string name, float startTime=0, int loops=0,
                                     SoundTransform *transform=NULL);
 
             // direct adding
@@ -293,11 +293,11 @@ namespace starling
 
             /** Removes a certain texture, optionally disposing it. */
         public:
-            void     removeTexture(std::string name, bool dispose   =true);
+            void     removeTexture(std::string name, bool dispose=true);
 
             /** Removes a certain texture atlas, optionally disposing it. */
         public:
-            void     removeTextureAtlas(std::string name, bool dispose   =true);
+            void     removeTextureAtlas(std::string name, bool dispose=true);
 
             /** Removes a certain sound. */
         public:
@@ -333,7 +333,7 @@ namespace starling
              *  If you don't pass a name, it's attempted to generate it automatically.
              *  @returns the name under which the asset was registered. */
         public:
-            std::string enqueueWithName(Object *asset, std::string name="");
+            std::string   enqueueWithName(Object *asset, std::string name="");
 
             /** Loads all enqueued assets asynchronously. The 'onProgress' function will be called
              *  with a 'ratio' between '0.0' and '1.0', with '1.0' meaning that it's complete.
@@ -354,7 +354,7 @@ namespace starling
              *  either a String or a FileReference. Note that this method won't be called for embedded
              *  assets. */
         protected:
-            std::string getName(Object *rawAsset);
+            std::string   getName(Object *rawAsset);
 
             /** This method is called during loading of assets when 'verbose' is activated. Per
              *  default, it traces 'message' to the console. */
@@ -370,7 +370,7 @@ namespace starling
 
             /** When activated, the class will trace information about added/enqueued assets. */
         public:
-            bool         verbose();
+            bool      verbose();
         public:
             void         verbose(bool value);
 
@@ -378,14 +378,14 @@ namespace starling
              *  are loaded; for ATF textures, it indicates if mip maps are valid and should be
              *  used. */
         public:
-            bool         useMipMaps();
+            bool      useMipMaps();
         public:
             void         useMipMaps(bool value);
 
             /** Textures that are created from Bitmaps or ATF files will have the scale factor
              *  assigned here. */
         public:
-            float        scaleFactor();
+            float       scaleFactor();
         public:
             void         scaleFactor(float value);
 
@@ -393,7 +393,7 @@ namespace starling
              *  loading an object from a remote server. More information about this topic can be found
              *  in the 'flash.system.LoaderContext' documentation. */
         public:
-            bool         checkPolicyFile();
+            bool      checkPolicyFile();
         public:
             void         checkPolicyFile(bool value);
         };

@@ -49,44 +49,44 @@ namespace events {
 
 
         /** Event type for a display object that is added to a parent. */
-        const std::string Event::ADDED="added";
+        const std::string Event::ADDED = "added";
         /** Event type for a display object that is added to the stage */
-        const std::string Event::ADDED_TO_STAGE="addedToStage";
+        const std::string Event::ADDED_TO_STAGE = "addedToStage";
         /** Event type for a display object that is entering a new frame. */
-        const std::string Event::ENTER_FRAME="enterFrame";
+        const std::string Event::ENTER_FRAME = "enterFrame";
         /** Event type for a display object that is removed from its parent. */
-        const std::string Event::REMOVED="removed";
+        const std::string Event::REMOVED = "removed";
         /** Event type for a display object that is removed from the stage. */
-        const std::string Event::REMOVED_FROM_STAGE="removedFromStage";
+        const std::string Event::REMOVED_FROM_STAGE = "removedFromStage";
         /** Event type for a triggered button. */
-        const std::string Event::TRIGGERED="triggered";
+        const std::string Event::TRIGGERED = "triggered";
         /** Event type for a display object that is being flattened. */
-        const std::string Event::FLATTEN="flatten";
+        const std::string Event::FLATTEN = "flatten";
         /** Event type for a resized Flash Player. */
-        const std::string Event::RESIZE="resize";
+        const std::string Event::RESIZE = "resize";
         /** Event type that may be used whenever something finishes. */
-        const std::string Event::COMPLETE="complete";
+        const std::string Event::COMPLETE = "complete";
         /** Event type for a (re)created stage3D rendering context. */
-        const std::string Event::CONTEXT3D_CREATE="context3DCreate";
+        const std::string Event::CONTEXT3D_CREATE = "context3DCreate";
         /** Event type that indicates that the root DisplayObject has been created. */
-        const std::string Event::ROOT_CREATED="rootCreated";
+        const std::string Event::ROOT_CREATED = "rootCreated";
         /** Event type for an animated object that requests to be removed from the juggler. */
-        const std::string Event::REMOVE_FROM_JUGGLER="removeFromJuggler";
+        const std::string Event::REMOVE_FROM_JUGGLER = "removeFromJuggler";
 
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::CHANGE="change";
+        const std::string Event::CHANGE = "change";
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::CANCEL="cancel";
+        const std::string Event::CANCEL = "cancel";
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::SCROLL="scroll";
+        const std::string Event::SCROLL = "scroll";
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::OPEN="open";
+        const std::string Event::OPEN = "open";
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::CLOSE="close";
+        const std::string Event::CLOSE = "close";
         /** An event type to be utilized in custom events. Not used by Starling right now. */
-        const std::string Event::SELECT="select";
+        const std::string Event::SELECT = "select";
 
-         std::vector<Event*> Event::sEventPool=new<Event*>[];
+        std::vector<Event*> Event::sEventPool=std::vector<void*>()           ;
 
                     
                     
@@ -167,7 +167,7 @@ namespace events {
         /** @private */
         void Event::toPool(Event* event)
         {
-            event->mData ( event->mTarget ( event->mCurrentTarget ( NULL)));
+            event->mData = event->mTarget = event->mCurrentTarget = NULL;
             sEventPool.push_back(event);
         }
 

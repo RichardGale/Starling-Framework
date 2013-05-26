@@ -87,7 +87,7 @@ private:
     void     onEnterFrame(Event *event);
 
 private:
-    Shape   *createProgressIndicator(float radius =12, int elements=8);
+    Shape    *createProgressIndicator(float radius=12, int elements=8);
 
 private:
     void     dispose();

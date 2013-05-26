@@ -50,7 +50,7 @@ namespace starling
 
             /** Determines whether a smoothing value is valid. */
         public:
-            static bool     isValid(std::string smoothing);
+            static bool  isValid(std::string smoothing);
         };
     }
 }

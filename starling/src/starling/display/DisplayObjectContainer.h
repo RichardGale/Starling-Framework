@@ -186,17 +186,17 @@ namespace starling
             /** Removes a child from the container. If the object is not a child, nothing happens.
              *  If requested, the child will be disposed right away. */
         public:
-            DisplayObject *removeChild(DisplayObject *child, bool dispose   =false);
+            DisplayObject *removeChild(DisplayObject *child, bool dispose=false);
 
             /** Removes a child at a certain index. Children above the child will move down. If
              *  requested, the child will be disposed right away. */
         public:
-            DisplayObject *removeChildAt(int index, bool dispose   =false);
+            DisplayObject *removeChildAt(int index, bool dispose=false);
 
             /** Removes a range of children from the container (endIndex included).
              *  If no arguments are given, all children will be removed. */
         public:
-            void     removeChildren(int beginIndex=0, int endIndex=-1, bool dispose   =false);
+            void     removeChildren(int beginIndex=0, int endIndex=-1, bool dispose=false);
 
             /** Returns a child object at a certain index. */
         public:
@@ -229,7 +229,7 @@ namespace starling
 
             /** Determines if a certain object is a child of the container (recursively). */
         public:
-            bool     contains(DisplayObject *child);
+            bool  contains(DisplayObject *child);
 
             /** @inheritDoc */
         public:
@@ -237,7 +237,7 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
+            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch=false);
 
             /** @inheritDoc */                           // front to back!
         public:

@@ -1,5 +1,5 @@
-#if 0
-// =================================================================================================//
+// =================================================================================================
+//
 //  Starling Framework
 //  Copyright 2011 Gamua OG. All Rights Reserved.
 //
@@ -111,9 +111,9 @@ namespace animation {
             mCurrentCycle = -1;
 
             if (dynamic_cast<std::string>(transition))
-                this()->transition = dynamic_cast<std::string>(transition);
+                this->transition = dynamic_cast<std::string>(transition);
             else if (dynamic_cast<Function*>(transition))
-                this()->transitionFunc = dynamic_cast<Function*>(transition);
+                this->transitionFunc = dynamic_cast<Function*>(transition);
             else
                 throw new ArgumentError("Transition must be either a string or a function");
 
@@ -160,10 +160,10 @@ namespace animation {
         {
             if (time == 0 || (mRepeatCount == 1 && mCurrentTime == mTotalTime)) return;
 
-             int i;
-             float previousTime  = mCurrentTime;
-             float restTime  = mTotalTime - mCurrentTime;
-             float carryOverTime  = time > restTime ? time - restTime : 0.0;
+            int i;
+            float previousTime = mCurrentTime;
+            float restTime = mTotalTime - mCurrentTime;
+            float carryOverTime = time > restTime ? time - restTime : 0.0;
 
             mCurrentTime = Math::min(mTotalTime, mCurrentTime + time);
 
@@ -175,9 +175,9 @@ namespace animation {
                 if (mOnStart != NULL) mOnStart->apply(NULL, mOnStartArgs);
             }
 
-             float ratio  = mCurrentTime / mTotalTime;
-             bool reversed    = mReverse && (mCurrentCycle % 2 == 1);
-             int numProperties = mStartValues.size();
+            float ratio = mCurrentTime / mTotalTime;
+            bool reversed = mReverse && (mCurrentCycle % 2 == 1);
+            int numProperties = mStartValues.size();
             mProgress = reversed ? mTransitionFunc(1.0 - ratio) : mTransitionFunc(ratio);
 
             for (i=0; i<numProperties; ++i)
@@ -185,10 +185,10 @@ namespace animation {
                 if (isNaN(mStartValues[i]))
                     mStartValues[i] = dynamic_cast<float>(mTarget[mProperties[i]]);
 
-                 float startValue  = mStartValues[i];
-                 float endValue  = mEndValues[i];
-                 float delta  = endValue - startValue;
-                 float currentValue  = startValue + mProgress * delta;
+                float startValue = mStartValues[i];
+                float endValue = mEndValues[i];
+                float delta = endValue - startValue;
+                float currentValue = startValue + mProgress * delta;
 
                 if (mRoundToInt) currentValue = Math::round(currentValue);
                 mTarget[mProperties[i]] = currentValue;
@@ -209,8 +209,8 @@ namespace animation {
                 else
                 {
                     // save callback & args: they might be changed through an event listener
-                     Function* onComplete= mOnComplete;
-                     std::vector<void*> onCompleteArgs=mOnCompleteArgs;
+                    Function* onComplete = mOnComplete;
+                    std::vector<void*> onCompleteArgs = mOnCompleteArgs;
 
                     // in the 'onComplete' callback, people might want to call "tween.reset" and
                     // add it to another juggler; so this event has to be dispatched *before*
@@ -228,7 +228,7 @@ namespace animation {
          *  property is not being animated. */// the delay is not over yet
         float Tween::getEndValue(std::string property)
         {
-             int index = mProperties.indexOf(property);
+            int index = mProperties.indexOf(property);
             if (index == -1) throw new ArgumentError("The property '" + property + "' is not animated");
             else return dynamic_cast<float>(mEndValues[index]);
         }
@@ -336,7 +336,7 @@ namespace animation {
 
         // tween pooling
 
-         std::vector<Tween*> Tween::sTweenPool=new<Tween*>[];
+        std::vector<Tween*> Tween::sTweenPool=std::vector<void*>()           ;
 
         /** @private */
         Tween* Tween::fromPool(Object* target, float time,
@@ -350,20 +350,19 @@ namespace animation {
         void Tween::toPool(Tween* tween)
         {
             // reset any object-references, to make sure we don't prevent any garbage collection
-            tween->mOnStart ( NULL);
-            tween->mOnUpdate ( NULL);
-            tween->mOnRepeat ( NULL);
-            tween->mOnComplete ( NULL);
-            tween->mOnStartArgs ( NULL);
-            tween->mOnUpdateArgs ( NULL);
-            tween->mOnRepeatArgs ( NULL);
-            tween->mOnCompleteArgs ( NULL);
-            tween->mTarget ( NULL);
-            tween->mTransitionFunc ( NULL);
+            tween->mOnStart = NULL;
+            tween->mOnUpdate = NULL;
+            tween->mOnRepeat = NULL;
+            tween->mOnComplete = NULL;
+            tween->mOnStartArgs = NULL;
+            tween->mOnUpdateArgs = NULL;
+            tween->mOnRepeatArgs = NULL;
+            tween->mOnCompleteArgs = NULL;
+            tween->mTarget = NULL;
+            tween->mTransitionFunc = NULL;
             tween->removeEventListeners();
             sTweenPool.push_back(tween);
         }
 }
 }
-#endif
 

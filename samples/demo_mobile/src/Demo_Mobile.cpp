@@ -32,11 +32,11 @@ using namespace starling::utils;
 
         // Startup image for SD screens
 
-         Class* Demo_Mobile::Background;
+        Class* Demo_Mobile::Background;
 
         // Startup image for HD screens
 
-         Class* Demo_Mobile::BackgroundHD;
+        Class* Demo_Mobile::BackgroundHD;
 
                     
 
@@ -49,9 +49,9 @@ using namespace starling::utils;
 
             // set general properties
 
-             int stageWidth  = 320;
-             int stageHeight = 480;
-             bool iOS    = Capabilities::manufacturer()->indexOf("iOS") != -1;
+            int stageWidth  = 320;
+            int stageHeight = 480;
+            bool iOS = Capabilities::manufacturer()->indexOf("iOS") != -1;
 
             Starling::multitouchEnabled ( true); // useful on mobile devices
             Starling::handleLostContext ( !iOS); // not necessary on iOS. Saves a lot of memory!
@@ -62,16 +62,16 @@ using namespace starling::utils;
             // then run on a device with a different resolution; for that case, we zoom the 
             // viewPort to the optimal size for any display and load the optimal textures.
 
-             Rectangle* viewPort= RectangleUtil::fit(
+            Rectangle* viewPort = RectangleUtil::fit(
                 new Rectangle(0, 0, stageWidth, stageHeight),
                 new Rectangle(0, 0, stage()->fullScreenWidth(), stage()->fullScreenHeight()),
                 ScaleMode::SHOW_ALL, iOS);
 
             // create the AssetManager, which handles all required assets for this resolution
 
-             int scaleFactor = viewPort->width < 480 ? 1 : 2; // midway between 320 and 640
-             File* appDir= File::applicationDirectory;
-             AssetManager* assets= new AssetManager(scaleFactor);
+            int scaleFactor = viewPort->width < 480 ? 1 : 2; // midway between 320 and 640
+            File* appDir = File::applicationDirectory;
+            AssetManager* assets = new AssetManager(scaleFactor);
 
             assets->verbose ( Capabilities::isDebugger);
             assets->enqueue(
@@ -91,7 +91,7 @@ using namespace starling::utils;
             // Note that we cannot embed "Default.png" (or its siblings), because any embedded
             // files will vanish from the application package, and those are picked up by the OS!
 
-             Bitmap* background= scaleFactor == 1 ? new Background() : new BackgroundHD();
+            Bitmap* background = scaleFactor == 1 ? new Background() : new BackgroundHD();
             Background = BackgroundHD = NULL; // no longer needed!
 
             background->x ( viewPort->x());
@@ -113,8 +113,8 @@ using namespace starling::utils;
             {
                 removeChild(background);
 
-                 Game* game= mStarling->dynamic_cast<Game*>(root);
-                 Texture* bgTexture= Texture::fromBitmap(background, false, false, scaleFactor);
+                Game* game = mStarling->dynamic_cast<Game*>(root);
+                Texture* bgTexture = Texture::fromBitmap(background, false, false, scaleFactor);
 
                 game->start(bgTexture, assets);
                 mStarling->start();

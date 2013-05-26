@@ -27,15 +27,15 @@ namespace tests {
 
         void BlendModeTest::                testRegisterBlendMode()
         {
-             std::string name="test";
+            std::string name = "test";
 
             // register for pma = true; should set factors for both pma possibilities.
 
             BlendMode::REGISTER(name, Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA,
                                      Context3DBlendFactor::DESTINATION_COLOR, true);
 
-             std::vector<void*> modesPma=BlendMode::getBlendFactors(name,true);
-             std::vector<void*> modesNoPma=BlendMode::getBlendFactors(name,false);
+            std::vector<void*> modesPma = BlendMode::getBlendFactors(name, true);
+            std::vector<void*> modesNoPma = BlendMode::getBlendFactors(name, false);
 
             Assert::assertEquals(Context3DBlendFactor::ONE_MINUS_SOURCE_ALPHA, modesPma[0]);
             Assert::assertEquals(Context3DBlendFactor::DESTINATION_COLOR, modesPma[1]);

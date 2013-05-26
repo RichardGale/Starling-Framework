@@ -116,15 +116,15 @@ namespace com
                 //  Getters
                 // ----------------------------------------------------------------------
             public:
-                std::string  error();
+                std::string       error();
             public:
-                ByteArray   *agalcode();
+                ByteArray    *agalcode();
 
                 // ======================================================================
                 //  Constructor
                 // ----------------------------------------------------------------------
             public:
-                AGALMiniAssembler( bool debugging    = false);
+                AGALMiniAssembler( bool debugging = false);
                 // ======================================================================
                 //  Methods
                 // ----------------------------------------------------------------------
@@ -133,7 +133,7 @@ namespace com
                 Program3D *assemble2( Context3D *ctx3d, unsigned int version, std::string vertexsrc, std::string fragmentsrc);
 
             public:
-                ByteArray *assemble( std::string mode, std::string source, unsigned int version=1, bool ignorelimits   =false);
+                ByteArray *assemble( std::string mode, std::string source, unsigned int version=1, bool ignorelimits=false);
 
             private:
                 void     initregmap( unsigned int version, bool ignorelimits);
@@ -380,13 +380,13 @@ private:
     //  Getters
     // ----------------------------------------------------------------------
 public:
-    unsigned int emitCode();
+    unsigned int         emitCode();
 public:
-    unsigned int flags();
+    unsigned int         flags();
 public:
-    std::string  name();
+    std::string       name();
 public:
-    unsigned int numRegister();
+    unsigned int         numRegister();
 
     // ======================================================================
     //  Constructor
@@ -398,7 +398,7 @@ public:
     //  Methods
     // ----------------------------------------------------------------------
 public:
-    std::string toString();
+    std::string   toString();
 };
 
 // ===========================================================================
@@ -424,15 +424,15 @@ private:
     //  Getters
     // ----------------------------------------------------------------------
 public:
-    unsigned int emitCode();
+    unsigned int         emitCode();
 public:
-    std::string  longName();
+    std::string       longName();
 public:
-    std::string  name();
+    std::string       name();
 public:
-    unsigned int flags();
+    unsigned int         flags();
 public:
-    unsigned int range();
+    unsigned int         range();
 
     // ======================================================================
     //  Constructor
@@ -444,7 +444,7 @@ public:
     //  Methods
     // ----------------------------------------------------------------------
 public:
-    std::string toString();
+    std::string   toString();
 };
 
 // ===========================================================================
@@ -466,11 +466,11 @@ private:
     //  Getters
     // ----------------------------------------------------------------------
 public:
-    unsigned int flag();
+    unsigned int         flag();
 public:
-    unsigned int mask();
+    unsigned int         mask();
 public:
-    std::string  name();
+    std::string       name();
 
     // ======================================================================
     //  Constructor
@@ -482,7 +482,7 @@ public:
     //  Methods
     // ----------------------------------------------------------------------
 public:
-    std::string toString();
+    std::string   toString();
 };
 #endif // __STARLING_SRC_COM_ADOBE_UTILS_AGALMINIASSEMBLER_AS
 #endif // __cplusplus

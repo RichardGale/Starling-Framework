@@ -44,8 +44,8 @@ using namespace starling::utils;
 
         void Demo_Web_Preloader::onEnterFrame(Event* event)
         {
-             int bytesLoaded = root()->loaderInfo()->bytesLoaded;
-             int bytesTotal  = root()->loaderInfo()->bytesTotal;
+            int bytesLoaded = root()->loaderInfo()->bytesLoaded;
+            int bytesTotal  = root()->loaderInfo()->bytesTotal;
 
             if (bytesLoaded >= bytesTotal)
             {
@@ -71,13 +71,13 @@ using namespace starling::utils;
 
         Shape* Demo_Web_Preloader::createProgressIndicator(float radius, int elements)
         {
-             Shape* shape= new Shape();
-             float angleDelta  = Math::PI() * 2 / elements;
-             float x , float y ;
-             float innerRadius  = radius / 4;
-             unsigned int color;
+            Shape* shape = new Shape();
+            float angleDelta = Math::PI() * 2 / elements;
+            float x, float y;
+            float innerRadius = radius / 4;
+            unsigned int color;
 
-            for ( int i=0; i<elements; ++i)
+            for (int i=0; i<elements; ++i)
             {
                 x = Math::cos(angleDelta * i) * radius;
                 y = Math::sin(angleDelta * i) * radius;
@@ -105,11 +105,11 @@ using namespace starling::utils;
         {
             nextFrame();
 
-             Class* startupClass= getDefinitionByName(STARTUP_CLASS) as Class;
+            Class* startupClass = getDefinitionByName(STARTUP_CLASS) as Class;
             if (startupClass == NULL)
                 throw new Error("Invalid Startup class in Preloader: " + STARTUP_CLASS);
 
-             DisplayObject* startupObject= new startupClass() as DisplayObject;
+            DisplayObject* startupObject = new startupClass() as DisplayObject;
             if (startupObject == NULL)
                 throw new Error("Startup class needs to inherit from Sprite or MovieClip.");
 

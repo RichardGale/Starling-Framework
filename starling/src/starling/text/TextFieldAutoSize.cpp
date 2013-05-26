@@ -26,18 +26,18 @@ namespace text {
         TextFieldAutoSize::TextFieldAutoSize() { throw new AbstractClassError(); }
 
         /** No auto-sizing will happen. */
-        const std::string TextFieldAutoSize::NONE="none";
+        const std::string TextFieldAutoSize::NONE = "none";
 
         /** The text field will grow to the right; no line-breaks will be added.
          *  The height of the text field remains unchanged. */
-        const std::string TextFieldAutoSize::HORIZONTAL="horizontal";
+        const std::string TextFieldAutoSize::HORIZONTAL = "horizontal";
 
         /** The text field will grow to the bottom, adding line-breaks when necessary.
           * The width of the text field remains unchanged. */
-        const std::string TextFieldAutoSize::VERTICAL="vertical";
+        const std::string TextFieldAutoSize::VERTICAL = "vertical";
 
         /** The text field will grow to the right and bottom; no line-breaks will be added. */
-        const std::string TextFieldAutoSize::BOTH_DIRECTIONS="bothDirections";
+        const std::string TextFieldAutoSize::BOTH_DIRECTIONS = "bothDirections";
 }
 }
 

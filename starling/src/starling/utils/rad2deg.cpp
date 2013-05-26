@@ -13,5 +13,5 @@
     /** Converts an angle from radions into degrees. */
     float ::rad2deg(float rad)
     {
-        return rad / Math::PI() * 180.0;
+        return rad / Math::PI * 180.0;
     }

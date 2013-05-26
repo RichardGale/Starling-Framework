@@ -51,7 +51,7 @@ namespace events {
                     
 
         /** Helper object. */
-         std::vector<void*> EventDispatcher::sBubbleChains ;
+        std::vector<void*> EventDispatcher::sBubbleChains ;
 
         /** Creates an EventDispatcher. */
         EventDispatcher::EventDispatcher()
@@ -63,7 +63,7 @@ namespace events {
             if (mEventListeners.empty())
                 mEventListeners.clear();
 
-             std::vector<Function*> listeners=dynamic_cast<std::vector>(mEventListeners[type])           ;
+            std::vector<Function*> listeners=dynamic_cast<std::vector>(mEventListeners[type])           ;
             if (listeners.empty())
                 mEventListeners[type] = new <Function*>[listener];
             else if (listeners.indexOf(listener) == -1)
@@ -75,13 +75,13 @@ namespace events {
         {
             if (mEventListeners)
             {
-                 std::vector<Function*> listeners=dynamic_cast<std::vector>(mEventListeners[type])           ;
+                std::vector<Function*> listeners=dynamic_cast<std::vector>(mEventListeners[type])           ;
                 if (listeners)
                 {
-                     int numListeners = listeners.size();
-                     std::vector<Function*> remainingListeners=new<Function*>[];
+                    int numListeners = listeners.size();
+                    std::vector<Function*> remainingListeners=std::vector<void*>()              ;
 
-                    for ( int i=0; i<numListeners; ++i)
+                    for (int i=0; i<numListeners; ++i)
                         if (listeners[i] != listener) remainingListeners.push_back(listeners[i]);
 
                     mEventListeners[type] = remainingListeners;
@@ -105,7 +105,7 @@ namespace events {
          *  stops its propagation manually. */
         void EventDispatcher::dispatchEvent(Event* event)
         {
-             bool bubbles    = event->bubbles;
+            bool bubbles = event->bubbles;
 
             if (!bubbles && (mEventListeners.empty() || !(event->type() in mEventListeners)))
                 return;
@@ -113,7 +113,7 @@ namespace events {
 
 
 
-             EventDispatcher* previousTarget= event->target();
+            EventDispatcher* previousTarget = event->target();
             event->setTarget(this);
 
             if (bubbles && dynamic_cast<DisplayObject*>(this)) bubbleEvent(event);
@@ -128,9 +128,9 @@ namespace events {
          *  method uses this method internally. */// no need to do anything// we save the current target and restore it later;// this allows users to re-dispatch events without creating a clone.
         bool EventDispatcher::invokeEvent(Event* event)
         {
-             std::vector<Function*> listeners=mEventListeners?
+            std::vector<Function*> listeners=mEventListeners?
                 dynamic_cast<std::vector>(mEventListeners[event->type()])            : NULL;
-             int numListeners = listeners.empty() ? 0 : listeners.size();
+            int numListeners = listeners.empty() ? 0 : listeners.size();
 
             if (numListeners)
             {
@@ -140,10 +140,10 @@ namespace events {
                 // when somebody modifies the list while we're looping, "addEventListener" is not
                 // problematic, and "removeEventListener" will create a new Vector, anyway.
 
-                for ( int i=0; i<numListeners; ++i)
+                for (int i=0; i<numListeners; ++i)
                 {
-                     Function* listener= dynamic_cast<Function*>(listeners[i]);
-                     int numArgs = listener->length();
+                    Function* listener = dynamic_cast<Function*>(listeners[i]);
+                    int numArgs = listener->length();
 
                     if (numArgs == 0) listener();
                     else if (numArgs == 1) listener(event);
@@ -167,9 +167,9 @@ namespace events {
             // we determine the bubble chain before starting to invoke the listeners.
             // that way, changes done by the listeners won't affect the bubble chain.
 
-             std::vector<EventDispatcher*> chain;
-             DisplayObject* element= dynamic_cast<DisplayObject*>(this);
-             int length = 1;
+            std::vector<EventDispatcher*> chain;
+            DisplayObject* element = dynamic_cast<DisplayObject*>(this);
+            int length = 1;
 
             if (sBubbleChains.size() > 0) { chain = sBubbleChains.pop(); chain[0] = element; }
             else chain.clear();
@@ -177,14 +177,14 @@ namespace events {
             while ((element = element->parent()) != NULL)
                 chain[int(length++)] = element;
 
-            for ( int i=0; i<length; ++i)
+            for (int i=0; i<length; ++i)
             {
-                 bool stopPropagation    = chain[i]->invokeEvent(event);
+                bool stopPropagation = chain[i]->invokeEvent(event);
                 if (stopPropagation) break;
             }
 
             chain.clear()    ;
-            sBubbleChains.push(chain);
+            sBubbleChains.push_back(chain);
         }
 
         /** Dispatches an event with the given parameters to all objects that have registered 
@@ -194,7 +194,7 @@ namespace events {
         {
             if (bubbles || hasEventListener(type))
             {
-                 Event* event= Event::fromPool(type, bubbles, data);
+                Event* event = Event::fromPool(type, bubbles, data);
                 dispatchEvent(event);
                 Event::toPool(event);
             }
@@ -203,7 +203,7 @@ namespace events {
         /** Returns if there are listeners registered for a certain event type. */
         bool EventDispatcher::hasEventListener(std::string type)
         {
-             std::vector<Function*> listeners=mEventListeners?
+            std::vector<Function*> listeners=mEventListeners?
                 dynamic_cast<std::vector>(mEventListeners[type])            : NULL;
             return listeners ? listeners.size() != 0 : false;
         }

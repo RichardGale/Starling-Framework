@@ -122,7 +122,7 @@ namespace starling
             /** Returns the object that is found topmost beneath a point in stage coordinates, or
              *  the stage itself if nothing else is found. */
         public:
-            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
+            virtual DisplayObject *hitTest(Point *localPoint, bool forTouch=false);
 
             /** @private */
         public:
@@ -154,7 +154,7 @@ namespace starling
 
             /** The background color of the stage. */
         public:
-            unsigned int color();
+            unsigned int         color();
         public:
             void         color(unsigned int value);
 

@@ -26,6 +26,9 @@
  *   @see Tween
  */
 
+#include "flex11.6.h"
+
+
 
 namespace starling
 {

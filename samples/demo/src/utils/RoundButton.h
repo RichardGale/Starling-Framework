@@ -47,7 +47,7 @@ namespace utils
         RoundButton(Texture *upState, std::string text="", Texture *downState=NULL);
 
     public:
-        virtual DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
+        virtual DisplayObject *hitTest(Point *localPoint, bool forTouch=false);
     };
 }
 

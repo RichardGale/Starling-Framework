@@ -34,7 +34,7 @@ namespace scenes {
 
         BenchmarkScene::BenchmarkScene()
         {
-            super();
+            Scene();
 
             // the container will hold all test objects
             mContainer = new Sprite();
@@ -58,7 +58,7 @@ namespace scenes {
         {
             removeEventListener(Event::ENTER_FRAME, onEnterFrame);
             mStartButton->removeEventListener(Event::TRIGGERED, onStartButtonTriggered);
-            super()->dispose();
+            Scene::dispose();
         }
 
         void BenchmarkScene::onEnterFrame(EnterFrameEvent* event)
@@ -70,8 +70,8 @@ namespace scenes {
 
             if (mFrameCount % mWaitFrames == 0)
             {
-                 float fps  = mWaitFrames / mElapsed;
-                 int targetFps = Starling::current()->nativeStage()->frameRate();
+                float fps = mWaitFrames / mElapsed;
+                int targetFps = Starling::current()->nativeStage()->frameRate();
 
                 if (Math::ceil(fps) >= targetFps)
                 {
@@ -93,10 +93,10 @@ namespace scenes {
                 mElapsed = mFrameCount = 0;
             }
 
-             int numObjects = mContainer->numChildren();
-             float passedTime  = event->passedTime;
+            int numObjects = mContainer->numChildren();
+            float passedTime = event->passedTime;
 
-            for ( int i=0; i<numObjects; ++i)
+            for (int i=0; i<numObjects; ++i)
                 mContainer->getChildAt(i)->rotation() += Math::PI() / 2 * passedTime;
         }
 
@@ -121,12 +121,12 @@ namespace scenes {
 
         void BenchmarkScene::addTestObjects()
         {
-             int padding = 15;
-             int numObjects = mFailCount > 20 ? 2 : 10;
+            int padding = 15;
+            int numObjects = mFailCount > 20 ? 2 : 10;
 
-            for ( int i = 0; i<numObjects; ++i)
+            for (int i = 0; i<numObjects; ++i)
             {
-                 Image* egg= new Image(Game()->assets()->getTexture("benchmark_object"));
+                Image* egg = new Image(Game()->assets()->getTexture("benchmark_object"));
                 egg->x ( padding + Math::random() * (Constants()->GameWidth() - 2 * padding));
                 egg->y ( padding + Math::random() * (Constants()->GameHeight() - 2 * padding));
                 mContainer->addChild(egg);
@@ -138,13 +138,13 @@ namespace scenes {
             mStarted = false;
             mStartButton->visible ( true);
 
-             int fps = Starling::current()->nativeStage()->frameRate();
+            int fps = Starling::current()->nativeStage()->frameRate();
 
             trace("Benchmark complete!");
             trace("FPS: " + fps);
             trace("Number of objects: " + mContainer->numChildren());
 
-             std::string resultString=formatString("Result:\\n{0} objects\\nwith {1} fps",
+            std::string resultString = formatString("Result:\\n{0} objects\\nwith {1} fps",
                                                    mContainer->numChildren(), fps);
             mResultText = new TextField(240, 200, resultString);
             mResultText->fontSize ( 30);

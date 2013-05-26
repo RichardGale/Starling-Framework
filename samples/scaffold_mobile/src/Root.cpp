@@ -25,7 +25,7 @@ using namespace utils;
 
 
 
-         AssetManager* Root::sAssets;
+        AssetManager* Root::sAssets;
 
                     
 
@@ -54,7 +54,7 @@ using namespace utils;
             // yet. This takes some time (the assets might be loaded from disk or even via the
             // network), during which we display a progress indicator. 
 
-             ProgressBar* progressBar= new ProgressBar(175, 20);
+            ProgressBar* progressBar = new ProgressBar(175, 20);
             progressBar->x ( (background->width()  - progressBar->width())  / 2);
             progressBar->y ( (background->height() - progressBar->height()) / 2);
             progressBar->y ( background->height() * 0.85);

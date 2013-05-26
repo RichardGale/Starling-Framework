@@ -76,11 +76,11 @@ namespace starling
 
             /** Retrieve kerning information relative to the given character ID. */
         public:
-            float    getKerning(int charID);
+            float   getKerning(int charID);
 
             /** Creates an image of the char. */
         public:
-            Image   *createImage();
+            Image    *createImage();
 
             /** The unicode ID of the char. */
         public:
@@ -88,27 +88,27 @@ namespace starling
 
             /** The number of points to move the char in x direction on character arrangement. */
         public:
-            float        xOffset();
+            float       xOffset();
 
             /** The number of points to move the char in y direction on character arrangement. */
         public:
-            float        yOffset();
+            float       yOffset();
 
             /** The number of points the cursor has to be moved to the right for the next char. */
         public:
-            float        xAdvance();
+            float       xAdvance();
 
             /** The texture of the character. */
         public:
-            Texture     *texture();
+            Texture      *texture();
 
             /** The width of the character in points. */
         public:
-            float        width();
+            float       width();
 
             /** The height of the character in points. */
         public:
-            float        height();
+            float       height();
         };
     }
 }

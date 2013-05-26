@@ -1,5 +1,5 @@
-#if 0
-// =================================================================================================//
+// =================================================================================================
+//
 //  Starling Framework
 //  Copyright 2011 Gamua OG. All Rights Reserved.
 //
@@ -61,7 +61,7 @@ namespace animation {
         /** @inheritDoc */
         void DelayedCall::advanceTime(float time)
         {
-             float previousTime  = mCurrentTime;
+            float previousTime = mCurrentTime;
             mCurrentTime = Math::min(mTotalTime, mCurrentTime + time);
 
             if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
@@ -99,5 +99,4 @@ namespace animation {
         void DelayedCall::repeatCount(int value)      { mRepeatCount = value; }
 }
 }
-#endif
 

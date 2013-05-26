@@ -98,7 +98,7 @@ namespace starling
              *  influence blending output. You can use the default value in most cases.  */
         public:
             Quad(float width, float height, unsigned int color=0xffffff,
-                 bool premultipliedAlpha   =true);
+                 bool premultipliedAlpha=true);
 
             /** Call this method after manually changing the contents of 'mVertexData'. */
         protected:
@@ -110,7 +110,7 @@ namespace starling
 
             /** Returns the color of a vertex at a certain index. */// optimization
         public:
-            unsigned int getVertexColor(int vertexID);
+            unsigned int     getVertexColor(int vertexID);
 
             /** Sets the color of a vertex at a certain index. */
         public:
@@ -118,7 +118,7 @@ namespace starling
 
             /** Returns the alpha value of a vertex at a certain index. */
         public:
-            float    getVertexAlpha(int vertexID);
+            float   getVertexAlpha(int vertexID);
 
             /** Sets the alpha value of a vertex at a certain index. */
         public:
@@ -126,7 +126,7 @@ namespace starling
 
             /** Returns the color of the quad, or of vertex 0 if vertices have different colors. */
         public:
-            unsigned int color();
+            unsigned int         color();
 
             /** Sets the colors of all vertices to a certain value. */
         public:
@@ -146,12 +146,12 @@ namespace starling
 
             /** Returns true if the quad (or any of its vertices) is non-white or non-opaque. */
         public:
-            bool         tinted();
+            bool      tinted();
 
             /** Indicates if the rgb values are stored premultiplied with the alpha value; this can
              *  affect the rendering. (Most developers don't have to care, though.) */
         public:
-            bool         premultipliedAlpha();
+            bool      premultipliedAlpha();
         };
     }
 }

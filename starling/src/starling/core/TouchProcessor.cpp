@@ -38,8 +38,8 @@ namespace starling {
 namespace core {
 
 
-        const float TouchProcessor::MULTITAP_TIME  = 0.3;
-        const float TouchProcessor::MULTITAP_DISTANCE  = 25;
+        const float TouchProcessor::MULTITAP_TIME = 0.3;
+        const float TouchProcessor::MULTITAP_DISTANCE = 25;
 
                     
                     
@@ -53,8 +53,8 @@ namespace core {
                     
 
         /** Helper objects. */
-         std::vector<int> TouchProcessor::sProcessedTouchIDs=new<int>[];
-         std::vector<Object*> TouchProcessor::sHoveringTouchData=new<Object*>[];
+        std::vector<int> TouchProcessor::sProcessedTouchIDs=std::vector<int>()         ;
+        std::vector<Object*> TouchProcessor::sHoveringTouchData=std::vector<void*>()            ;
 
         TouchProcessor::TouchProcessor(Stage* stage)
         {
@@ -79,9 +79,9 @@ namespace core {
 
         void TouchProcessor::advanceTime(float passedTime)
         {
-             int i;
-             int touchID;
-             Touch* touch;
+            int i;
+            int touchID;
+            Touch* touch;
 
             mElapsedTime += passedTime;
 
@@ -98,7 +98,7 @@ namespace core {
                 sProcessedTouchIDs.size() = sHoveringTouchData.clear()    ;
 
                 // set touches that were new or moving to phase 'stationary'
-                for each (touch in mCurrentTouches)
+                for (std::vector<Touch*>::iterator touch = mCurrentTouches.begin(); touch != mCurrentTouches.end(); ++touch)
                     if (touch->phase() == TouchPhase::BEGAN() || touch->phase() == TouchPhase::MOVED)
                         touch->setPhase(TouchPhase::STATIONARY);
 
@@ -106,7 +106,7 @@ namespace core {
                 while (mQueue.length > 0 &&
                     sProcessedTouchIDs.indexOf(mQueue[mQueue.size()-1][0]) == -1)
                 {
-                     std::vector<void*> touchArgs=mQueue.pop();
+                    std::vector<void*> touchArgs = mQueue.pop();
                     touchID = dynamic_cast<int>(touchArgs[0]);
                     touch = getCurrentTouch(touchID);
 
@@ -124,17 +124,17 @@ namespace core {
 
                 // the same touch event will be dispatched to all targets; 
                 // the 'dispatch' method will make sure each bubble target is visited only once.
-                 TouchEvent* touchEvent=
+                TouchEvent* touchEvent =
                     new TouchEvent(TouchEvent::TOUCH, mCurrentTouches, mShiftDown, mCtrlDown);
 
                 // if the target of a hovering touch changed, we dispatch the event to the previous
                 // target to notify it that it's no longer being hovered over.
-                for each (var Object* touchDatain sHoveringTouchData)
+                for (std::vector<Object*>::iterator touchData = sHoveringTouchData.begin(); touchData != sHoveringTouchData.end(); ++touchData)
                     if (touchData->touch->target() != touchData->target())
                         touchEvent->dispatch(touchData->bubbleChain());
 
                 // dispatch events
-                for each (touchID in sProcessedTouchIDs)
+                for (std::vector<int>::iterator touchID = sProcessedTouchIDs.begin(); touchID != sProcessedTouchIDs.end(); ++touchID)
                     getCurrentTouch(touchID)->dispatchEvent(touchEvent);
 
                 // remove ended touches
@@ -159,21 +159,21 @@ namespace core {
 
         void TouchProcessor::enqueueMouseLeftStage()
         {
-             Touch* mouse= getCurrentTouch(0);
+            Touch* mouse = getCurrentTouch(0);
             if (mouse == NULL || mouse->phase() != TouchPhase::HOVER) return;
 
 
 
 
 
-             int offset = 1;
-             float exitX  = mouse->globalX();
-             float exitY  = mouse->globalY();
-             float distLeft  = mouse->globalX();
-             float distRight  = mStage->stageWidth() - distLeft;
-             float distTop  = mouse->globalY();
-             float distBottom  = mStage->stageHeight() - distTop;
-             float minDist  = Math::min(distLeft, distRight, distTop, distBottom);
+            int offset = 1;
+            float exitX = mouse->globalX();
+            float exitY = mouse->globalY();
+            float distLeft = mouse->globalX();
+            float distRight = mStage->stageWidth() - distLeft;
+            float distTop = mouse->globalY();
+            float distBottom = mStage->stageHeight() - distTop;
+            float minDist = Math::min(distLeft, distRight, distTop, distBottom);
 
             // the new hover point should be just outside the stage, near the point where
             // the mouse point was last to be seen.
@@ -189,8 +189,8 @@ namespace core {
         void TouchProcessor::processTouch(int touchID, std::string phase, float globalX, float globalY,
                                       float pressure, float width, float height)
         {
-             Point* position= new Point(globalX, globalY);
-             Touch* touch= getCurrentTouch(touchID);
+            Point* position = new Point(globalX, globalY);
+            Touch* touch = getCurrentTouch(touchID);
 
             if (touch == NULL)
             {
@@ -215,7 +215,7 @@ namespace core {
         {
             if (event->keyCode == 17 || event->keyCode() == 15) // ctrl or cmd key
             {
-                 bool wasCtrlDown    = mCtrlDown;
+                bool wasCtrlDown = mCtrlDown;
                 mCtrlDown = event->type() == KeyboardEvent::KEY_DOWN;
 
                 if (simulateMultitouch && wasCtrlDown != mCtrlDown)
@@ -223,8 +223,8 @@ namespace core {
                     mTouchMarker->visible ( mCtrlDown);
                     mTouchMarker->moveCenter(mStage->stageWidth()/2, mStage->stageHeight()/2);
 
-                     Touch* mouseTouch= getCurrentTouch(0);
-                     Touch* mockedTouch= getCurrentTouch(1);
+                    Touch* mouseTouch = getCurrentTouch(0);
+                    Touch* mockedTouch = getCurrentTouch(1);
 
                     if (mouseTouch)
                         mTouchMarker->moveMarker(mouseTouch->globalX(), mouseTouch->globalY());
@@ -250,12 +250,12 @@ namespace core {
 
         void TouchProcessor::processTap(Touch* touch)
         {
-             Touch* nearbyTap= NULL;
-             float minSqDist  = MULTITAP_DISTANCE * MULTITAP_DISTANCE;
+            Touch* nearbyTap = NULL;
+            float minSqDist = MULTITAP_DISTANCE * MULTITAP_DISTANCE;
 
-            for each (var Touch* tapin mLastTaps)
+            for (std::vector<Touch*>::iterator tap = mLastTaps.begin(); tap != mLastTaps.end(); ++tap)
             {
-                 float sqDist  = Math::pow(tap->globalX() - touch->globalX(), 2) +
+                float sqDist = Math::pow(tap->globalX() - touch->globalX(), 2) +
                                     Math::pow(tap->globalY() - touch->globalY(), 2);
                 if (sqDist <= minSqDist)
                 {
@@ -279,7 +279,7 @@ namespace core {
 
         void TouchProcessor::addCurrentTouch(Touch* touch)
         {
-            for ( int i=mCurrentTouches.size()-1; i>=0; --i)
+            for (int i=mCurrentTouches.size()-1; i>=0; --i)
                 if (mCurrentTouches[i]->id() == touch->id())
                     mCurrentTouches.splice(i, 1);
 
@@ -288,7 +288,7 @@ namespace core {
 
         Touch* TouchProcessor::getCurrentTouch(int touchID)
         {
-            for each (var Touch* touchin mCurrentTouches)
+            for (std::vector<Touch*>::iterator touch = mCurrentTouches.begin(); touch != mCurrentTouches.end(); ++touch)
                 if (touch->id() == touchID) return touch;
             return NULL;
         }
@@ -319,23 +319,23 @@ namespace core {
 
             try
             {
-                 Object* nativeAppClass= getDefinitionByName("flash.desktop::NativeApplication");
-                 Object* nativeApp= nativeAppClass["nativeApplication"];
+                Object* nativeAppClass = getDefinitionByName("flash.desktop::NativeApplication");
+                Object* nativeApp = nativeAppClass["nativeApplication"];
 
                 if (enable)
                     nativeApp->addEventListener("deactivate", onInterruption, false, 0, true);
                 else
                     nativeApp->removeEventListener("activate", onInterruption);
             }
-            catch (e:Error*){} // we're not running in AIR
+            catch (e:Error*) {} // we're not running in AIR
         }
 
         void TouchProcessor::onInterruption(Object* event)
         {
-             Touch* touch;
+            Touch* touch;
 
             // abort touches
-            for each (touch in mCurrentTouches)
+            for (std::vector<Touch*>::iterator touch = mCurrentTouches.begin(); touch != mCurrentTouches.end(); ++touch)
             {
                 if (touch->phase() == TouchPhase::BEGAN() || touch->phase() == TouchPhase::MOVED() ||
                     touch->phase() == TouchPhase::STATIONARY)
@@ -345,10 +345,10 @@ namespace core {
             }
 
             // dispatch events
-             TouchEvent* touchEvent=
+            TouchEvent* touchEvent =
                 new TouchEvent(TouchEvent::TOUCH, mCurrentTouches, mShiftDown, mCtrlDown);
 
-            for each (touch in mCurrentTouches)
+            for (std::vector<Touch*>::iterator touch = mCurrentTouches.begin(); touch != mCurrentTouches.end(); ++touch)
                 touch->dispatchEvent(touchEvent);
 
             // purge touches

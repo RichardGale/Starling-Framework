@@ -84,10 +84,10 @@ namespace utils {
         /** Disposes all contained textures. */
         void AssetManager::dispose()
         {
-            for each (var Texture* texturein mTextures)
+            for (std::vector<Texture*>::iterator texture = mTextures.begin(); texture != mTextures.end(); ++texture)
                 texture->dispose();
 
-            for each (var TextureAtlas* atlasin mAtlases)
+            for (std::vector<TextureAtlas*>::iterator atlas = mAtlases.begin(); atlas != mAtlases.end(); ++atlas)
                 atlas->dispose();
         }
 
@@ -101,9 +101,9 @@ namespace utils {
             if (name in !mTextures.empty()) return mTextures[name];
             else
             {
-                for each (var TextureAtlas* atlasin mAtlases)
+                for (std::vector<TextureAtlas*>::iterator atlas = mAtlases.begin(); atlas != mAtlases.end(); ++atlas)
                 {
-                     Texture* texture= atlas->getTexture(name);
+                    Texture* texture = atlas->getTexture(name);
                     if (texture) return texture;
                 }
                 return NULL;
@@ -116,7 +116,7 @@ namespace utils {
         {
             if (result.empty()) result.clear();
 
-            for each (var std::string nameingetTextureNames(prefix,sNames))
+            for (std::vector<std::string>::iterator name = .begin(); name != .end(); ++name)
                 result.push_back(getTexture(name));
 
             sNames.clear()    ;
@@ -128,11 +128,11 @@ namespace utils {
         {
             if (result.empty()) result.clear();
 
-            for ( std::string nameinmTextures)
+            for(std::vector<std::string>::iterator name = mTextures.begin(); name != mTextures.end(); ++name)
                 if (name.indexOf(prefix) == 0)
                     result.push_back(name);
 
-            for each (var TextureAtlas* atlasin mAtlases)
+            for (std::vector<TextureAtlas*>::iterator atlas = mAtlases.begin(); atlas != mAtlases.end(); ++atlas)
                 atlas->getNames(prefix, result);
 
             result.sort(Array()->CASEINSENSITIVE());
@@ -154,9 +154,9 @@ namespace utils {
         /** Returns all sound names that start with a certain string, sorted alphabetically. */
         std::vector<std::string> AssetManager::getSoundNames(std::string prefix)
         {
-             std::vector<std::string> names=new<std::string>[];
+            std::vector<std::string> names=std::vector<std::string>()            ;
 
-            for ( std::string nameinmSounds)
+            for(std::vector<std::string>::iterator name = mSounds.begin(); name != mSounds.end(); ++name)
                 if (name.indexOf(prefix) == 0)
                     names.push_back(name);
 
@@ -238,10 +238,10 @@ namespace utils {
         /** Removes assets of all types and empties the queue. */
         void AssetManager::purge()
         {
-            for each (var Texture* texturein mTextures)
+            for (std::vector<Texture*>::iterator texture = mTextures.begin(); texture != mTextures.end(); ++texture)
                 texture->dispose();
 
-            for each (var TextureAtlas* atlasin mAtlases)
+            for (std::vector<TextureAtlas*>::iterator atlas = mAtlases.begin(); atlas != mAtlases.end(); ++atlas)
                 atlas->dispose();
 
             mRawAssets.clear()    ;
@@ -271,7 +271,7 @@ namespace utils {
          */
         void AssetManager::enqueue(...)
         {
-            for each (var Object* rawAssetin rawAssets)
+            for (std::vector<Object*>::iterator rawAsset = rawAssets.begin(); rawAsset != rawAssets.end(); ++rawAsset)
             {
                 if (dynamic_cast<std::vector<void*>>(rawAsset))
                 {
@@ -279,17 +279,17 @@ namespace utils {
                 }
                 else if (dynamic_cast<Class*>(rawAsset))
                 {
-                     XML* typeXml= describeType(rawAsset);
-                     XML* childNode;
+                    XML* typeXml = describeType(rawAsset);
+                    XML* childNode;
 
                     if (mVerbose)
                         log("Looking for static embedded assets in '" +
                             (typeXml->@name())->split("::")->pop() + "'");
 
-                    for each (childNode in typeXml->constant.(@type == "Class"))
+                    for (std::vector<XML*>::iterator childNode = ..begin(); childNode != ..end(); ++childNode)
                         enqueueWithName(rawAsset[childNode->@name()], childNode->@name());
 
-                    for each (childNode in typeXml->variable.(@type == "Class"))
+                    for (std::vector<XML*>::iterator childNode = ..begin(); childNode != ..end(); ++childNode)
                         enqueueWithName(rawAsset[childNode->@name()], childNode->@name());
                 }
                 else if (getQualifiedClassName(rawAsset) == "flash.filesystem::File")
@@ -304,7 +304,7 @@ namespace utils {
                             enqueue()->apply(this, rawAsset["getDirectoryListing"]());
                         else
                         {
-                             std::string extension=rawAsset["extension"]->toLowerCase();
+                            std::string extension = rawAsset["extension"]->toLowerCase();
                             if (SUPPORTED_EXTENSIONS.indexOf(extension) != -1)
                                 enqueueWithName(rawAsset["url"]);
                             else
@@ -331,7 +331,7 @@ namespace utils {
             if (name == NULL) name = getName(asset);
             log("Enqueuing '" + name + "'");
 
-            mRawAssets.push({
+            mRawAssets.push_back({
                 name: name,
                 asset: asset
             });
@@ -349,10 +349,10 @@ namespace utils {
             if (Starling::context() == NULL)
                 throw new Error("The Starling instance needs to be ready before textures can be loaded.");
 
-             std::vector<XML*> xmls=new<XML*>[];
-             int numElements = mRawAssets.size();
-             float currentRatio  = 0.0;
-             unsigned int timeoutID;
+            std::vector<XML*> xmls=std::vector<void*>()         ;
+            int numElements = mRawAssets.size();
+            float currentRatio = 0.0;
+            unsigned int timeoutID;
 
             resume();void AssetManager::()
             {
@@ -367,7 +367,7 @@ namespace utils {
                     onProgress(currentRatio);
             }void AssetManager::()
             {
-                 Object* assetInfo= mRawAssets.pop();
+                Object* assetInfo = mRawAssets.pop();
                 clearTimeout(timeoutID);
                 loadRawAsset(assetInfo->name(), assetInfo->asset(), xmls, progress, resume);
             }void AssetManager::()
@@ -380,16 +380,16 @@ namespace utils {
                     return a->localName() == "TextureAtlas" ? -1 : 1;
                 });
 
-                for each (var XML* xmlin xmls)
+                for (std::vector<XML*>::iterator xml = xmls.begin(); xml != xmls.end(); ++xml)
                 {
-                     std::string name;
-                     std::string rootNode=xml->localName();
+                    std::string name;
+                    std::string rootNode = xml->localName();
 
                     if (rootNode == "TextureAtlas")
                     {
                         name = getName(xml->@imagePath()->toString());
 
-                         Texture* atlasTexture= getTexture(name);
+                        Texture* atlasTexture = getTexture(name);
                         addTextureAtlas(name, new TextureAtlas(atlasTexture, xml));
                         removeTexture(name, false);
                     }
@@ -397,7 +397,7 @@ namespace utils {
                     {
                         name = getName(xml->pages()->page()->@file()->toString());
 
-                         Texture* fontTexture= getTexture(name);
+                        Texture* fontTexture = getTexture(name);
                         TextField::registerBitmapFont(new BitmapFont(fontTexture, xml));
                         removeTexture(name, false);
                     }
@@ -413,11 +413,11 @@ namespace utils {
         void AssetManager::loadRawAsset(std::string name, Object* rawAsset, std::vector<XML*> xmls,
                                       Function* onProgress, Function* onComplete)
         {
-             std::string extension="";
+            std::string extension = "";
 
             if (dynamic_cast<Class*>(rawAsset))
             {
-                 Object* asset= new rawAsset();
+                Object* asset = new rawAsset();
 
                 if (dynamic_cast<Sound*>(asset))
                 {
@@ -431,8 +431,8 @@ namespace utils {
                 }
                 else if (dynamic_cast<ByteArray*>(asset))
                 {
-                     ByteArray* bytes= dynamic_cast<ByteArray*>(asset);
-                     std::string signature=String()->fromCharCode(bytes[0],bytes[1],bytes[2]);
+                    ByteArray* bytes = dynamic_cast<ByteArray*>(asset);
+                    std::string signature = String()->fromCharCode(bytes[0], bytes[1], bytes[2]);
 
                     if (signature == "ATF")
                     {
@@ -441,7 +441,7 @@ namespace utils {
                     }
                     else
                     {
-                        xmls.push_back(newXML(bytes));
+                        xmls.push_back(new XML(bytes));
                         onComplete();
                     }
                 }
@@ -453,10 +453,10 @@ namespace utils {
             }
             else if (dynamic_cast<std::string>(rawAsset))
             {
-                 std::string url=dynamic_cast<std::string>(rawAsset);
+                std::string url = dynamic_cast<std::string>(rawAsset);
                 extension = url.split(".")->pop()->toLowerCase()->split("?")[0];
 
-                 URLLoader* urlLoader= new URLLoader();
+                URLLoader* urlLoader = new URLLoader();
                 urlLoader->dataFormat ( URLLoaderDataFormat::BINARY);
                 urlLoader->addEventListener(IOErrorEvent::IO_ERROR, onIoError);
                 urlLoader->addEventListener(ProgressEvent::PROGRESS, onLoadProgress);
@@ -471,9 +471,9 @@ namespace utils {
                 onProgress(event->bytesLoaded() / event->bytesTotal());
             }void AssetManager::(Event* event)
             {
-                 URLLoader* urlLoader= event->dynamic_cast<URLLoader*>(target);
-                 ByteArray* bytes= urlLoader->dynamic_cast<ByteArray*>(data);
-                 Sound* sound;
+                URLLoader* urlLoader = event->dynamic_cast<URLLoader*>(target);
+                ByteArray* bytes = urlLoader->dynamic_cast<ByteArray*>(data);
+                Sound* sound;
 
                 urlLoader->removeEventListener(IOErrorEvent::IO_ERROR, onIoError);
                 urlLoader->removeEventListener(ProgressEvent::PROGRESS, onProgress);
@@ -486,7 +486,7 @@ namespace utils {
                         break;
                     case "fnt":
                     case "xml":
-                        xmls.push_back(newXML(bytes));
+                        xmls.push_back(new XML(bytes));
                         onComplete();
                         break;
                     case "mp3":
@@ -496,8 +496,8 @@ namespace utils {
                         onComplete();
                         break;
                     default:
-                         LoaderContext* loaderContext= new LoaderContext(mCheckPolicyFile);
-                         Loader* loader= new Loader();
+                        LoaderContext* loaderContext = new LoaderContext(mCheckPolicyFile);
+                        Loader* loader = new Loader();
                         loaderContext->imageDecodingPolicy ( ImageDecodingPolicy::ON_LOAD);
                         loader->contentLoaderInfo()->addEventListener(Event::COMPLETE, onLoaderComplete);
                         loader->loadBytes(urlLoader->dynamic_cast<ByteArray*>(data), loaderContext);
@@ -506,7 +506,7 @@ namespace utils {
             }void AssetManager::(Event* event)
             {
                 event->target()->removeEventListener(Event::COMPLETE, onLoaderComplete);
-                 Object* content= event->target()->content;
+                Object* content = event->target()->content;
 
                 if (dynamic_cast<Bitmap*>(content))
                     addBitmapTexture(name, dynamic_cast<Bitmap*>(content));
@@ -525,8 +525,8 @@ namespace utils {
          *  assets. */
         std::string AssetManager::getName(Object* rawAsset)
         {
-             std::vector<void*> matches;
-             std::string name;
+            std::vector<void*> matches;
+            std::string name;
 
             if (dynamic_cast<std::string>(rawAsset) || dynamic_cast<FileReference*>(rawAsset))
             {

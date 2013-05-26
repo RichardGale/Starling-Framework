@@ -31,6 +31,8 @@
 #include "starling/utils/MatrixUtil.h"
 #include "starling/utils/RectangleUtil.h"
 
+#include "starling/core/Starling.h"
+
     /** A class that contains helper methods simplifying Stage3D rendering.
      *
      *  A RenderSupport instance is passed to any "render" method of display objects. 
@@ -41,6 +43,7 @@
 using namespace com::adobe::utils;
 using namespace flash::display3D;
 using namespace flash::geom;
+using namespace starling::core;
 using namespace starling::display;
 using namespace starling::errors;
 using namespace starling::textures;
@@ -73,9 +76,9 @@ namespace core {
                     
 
         /** helper objects */
-         Point* RenderSupport::sPoint= new Point();
-         Rectangle* RenderSupport::sRectangle= new Rectangle();
-         AGALMiniAssembler* RenderSupport::sAssembler= new AGALMiniAssembler();
+        Point* RenderSupport::sPoint = new Point();
+        Rectangle* RenderSupport::sRectangle = new Rectangle();
+        AGALMiniAssembler* RenderSupport::sAssembler = new AGALMiniAssembler();
 
         // construction
 
@@ -103,7 +106,7 @@ namespace core {
         /** Disposes all quad batches. */
         void RenderSupport::dispose()
         {
-            for each (var QuadBatch* quadBatchin mQuadBatches)
+            for (std::vector<QuadBatch*>::iterator quadBatch = mQuadBatches.begin(); quadBatch != mQuadBatches.end(); ++quadBatch)
                 quadBatch->dispose();
         }
 
@@ -158,7 +161,7 @@ namespace core {
         void RenderSupport::pushMatrix()
         {
             if (mMatrixStack.size() < mMatrixStackSize + 1)
-                mMatrixStack.push_back(newMatrix());
+                mMatrixStack.push_back(new Matrix());
 
             mMatrixStack[int(mMatrixStackSize++)]->copyFrom(mModelViewMatrix);
         }
@@ -231,14 +234,14 @@ namespace core {
 
         /** The texture that is currently being rendered into, or 'null' to render into the 
          *  back buffer. If you set a new target, it is immediately activated. */
-        Texture* RenderSupport::renderTarget()         { return mRenderTarget; }
-        void RenderSupport::renderTarget(Texture* target)
+        starling::textures::Texture* RenderSupport::renderTarget()                           { return mRenderTarget; }
+        void RenderSupport::renderTarget(starling::textures::Texture* target)
         {
             mRenderTarget = target;
             applyClipRect();
 
-            if (target) Starling()->context()->setRenderToTexture(target->base());
-            else        Starling()->context()->setRenderToBackBuffer();
+            if (target) Starling::context()->setRenderToTexture(target->base());
+            else        Starling::context()->setRenderToBackBuffer();
         }
 
         /** Configures the back buffer on the current context3D. By using this method, Starling
@@ -252,10 +255,10 @@ namespace core {
             mBackBufferWidth  = width;
             mBackBufferHeight = height;
 
-             Function* configureBackBuffer= Starling()->context()->configureBackBuffer;
-             std::vector<void*> methodArgs=[width,height,antiAlias,enableDepthAndStencil];
-            if (configureBackBuffer->length() > 4) methodArgs.push(wantsBestResolution);
-            configureBackBuffer->apply(Starling()->context(), methodArgs);
+            Function* configureBackBuffer = Starling::context()->configureBackBuffer;
+            std::vector<void*> methodArgs = [width, height, antiAlias, enableDepthAndStencil];
+            if (configureBackBuffer->length() > 4) methodArgs.push_back(wantsBestResolution);
+            configureBackBuffer->apply(Starling::context, methodArgs);
         }
 
         /** The width of the back buffer, as it was configured in the last call to 
@@ -284,7 +287,7 @@ namespace core {
         Rectangle* RenderSupport::pushClipRect(Rectangle* rectangle)
         {
             if (mClipRectStack.size() < mClipRectStackSize + 1)
-                mClipRectStack.push_back(newRectangle());
+                mClipRectStack.push_back(new Rectangle());
 
             mClipRectStack[mClipRectStackSize]->copyFrom(rectangle);
             rectangle = mClipRectStack[mClipRectStackSize];
@@ -318,16 +321,16 @@ namespace core {
         {
             finishQuadBatch();
 
-             Context3D* context= Starling()->context;
+            Context3D* context = Starling::context;
             if (context == NULL) return;
 
             if (mClipRectStackSize > 0)
             {
-                 Rectangle* rect= mClipRectStack[mClipRectStackSize-1];
+                Rectangle* rect = mClipRectStack[mClipRectStackSize-1];
                 sRectangle->setTo(rect->x(), rect->y(), rect->width(), rect->height());
 
-                 int width  = mRenderTarget ? mRenderTarget->root()->nativeWidth()  : mBackBufferWidth;
-                 int height = mRenderTarget ? mRenderTarget->root()->nativeHeight() : mBackBufferHeight;
+                int width  = mRenderTarget ? mRenderTarget->root()->nativeWidth()  : mBackBufferWidth;
+                int height = mRenderTarget ? mRenderTarget->root()->nativeHeight() : mBackBufferHeight;
 
                 // convert to pixel coordinates
                 MatrixUtil::transformCoords(mProjectionMatrix, rect->x(), rect->y(), sPoint);
@@ -371,7 +374,7 @@ namespace core {
         /** Renders the current quad batch and resets it. */
         void RenderSupport::finishQuadBatch()
         {
-             QuadBatch* currentBatch= mQuadBatches[mCurrentQuadBatchID];
+            QuadBatch* currentBatch = mQuadBatches[mCurrentQuadBatchID];
 
             if (currentBatch->numQuads() != 0)
             {
@@ -382,7 +385,7 @@ namespace core {
                 ++mDrawCount;
 
                 if (mQuadBatches.size() <= mCurrentQuadBatchID)
-                    mQuadBatches.push_back(newQuadBatch());
+                    mQuadBatches.push_back(new QuadBatch());
             }
         }
 
@@ -406,24 +409,18 @@ namespace core {
         /** Sets up the blending factors that correspond with a certain blend mode. */
         void RenderSupport::setBlendFactors(bool premultipliedAlpha, std::string blendMode)
         {
-             std::vector<void*> blendFactors=BlendMode::getBlendFactors(blendMode,premultipliedAlpha);
-            Starling()->context()->setBlendFactors(blendFactors[0], blendFactors[1]);
+            std::vector<void*> blendFactors = BlendMode::getBlendFactors(blendMode, premultipliedAlpha);
+            Starling::context()->setBlendFactors(blendFactors[0], blendFactors[1]);
         }
 
         /** Clears the render context with a certain color and alpha value. */
         void RenderSupport::clear(unsigned int rgb, float alpha)
         {
-            Starling()->context()->clear(
+            Starling::context()->clear(
                 Color::getRed(rgb)   / 255.0,
                 Color::getGreen(rgb) / 255.0,
                 Color::getBlue(rgb)  / 255.0,
                 alpha);
-        }
-
-        /** Clears the render context with a certain color and alpha value. */
-        void RenderSupport::clear(unsigned int rgb, float alpha)
-        {
-            RenderSupport()->clear(rgb, alpha);
         }
 
         /** Assembles fragment- and vertex-shaders, passed as Strings, to a Program3D. If you
@@ -434,7 +431,7 @@ namespace core {
         {
             if (resultProgram == NULL)
             {
-                 Context3D* context= Starling()->context;
+                Context3D* context = Starling::context;
                 if (context == NULL) throw new MissingContextError();
                 resultProgram = context->createProgram();
             }

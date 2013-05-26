@@ -1,5 +1,5 @@
-#if 0
-// =================================================================================================//
+// =================================================================================================
+//
 //  Starling Framework
 //  Copyright 2011 Gamua OG. All Rights Reserved.
 //
@@ -39,24 +39,24 @@ namespace tests {
 
         void TweenTest::                testBasicTween()
         {
-             float startX  = 10.0;
-             float startY  = 20.0;
-             float endX  = 100.0;
-             float endY  = 200.0;
-             float startAlpha  = 1.0;
-             float endAlpha  = 0.0;
-             float totalTime  = 2.0;
+            float startX = 10.0;
+            float startY = 20.0;
+            float endX = 100.0;
+            float endY = 200.0;
+            float startAlpha = 1.0;
+            float endAlpha = 0.0;
+            float totalTime = 2.0;
 
-             int startCount = 0;
-             int updateCount = 0;
-             int completeCount = 0;
+            int startCount = 0;
+            int updateCount = 0;
+            int completeCount = 0;
 
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             quad->x ( startX);
             quad->y ( startY);
             quad->alpha ( startAlpha);
 
-             Tween* tween= new Tween(quad, totalTime, Transitions::LINEAR);
+            Tween* tween = new Tween(quad, totalTime, Transitions::LINEAR);
             tween->moveTo(endX, endY);
             tween->animate("alpha", endAlpha);
             tween->onStart    ( function()void  { startCount++; });
@@ -94,15 +94,15 @@ namespace tests {
 
         void TweenTest::                testSequentialTweens()
         {
-             float startPos   = 0.0;
-             float targetPos  = 50.0;
-             Quad* quad= new Quad(100, 100);
+            float startPos  = 0.0;
+            float targetPos = 50.0;
+            Quad* quad = new Quad(100, 100);
 
             // 2 tweens should move object up, then down
-             Tween* tween1= new Tween(quad, 1.0);
+            Tween* tween1 = new Tween(quad, 1.0);
             tween1->animate("y", targetPos);
 
-             Tween* tween2= new Tween(quad, 1.0);
+            Tween* tween2 = new Tween(quad, 1.0);
             tween2->animate("y", startPos);
             tween2->delay ( tween1->totalTime());
 
@@ -122,10 +122,10 @@ namespace tests {
 
         void TweenTest::                testTweenFromZero()
         {
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             quad->scaleX ( 0.0);
 
-             Tween* tween= new Tween(quad, 1.0);
+            Tween* tween = new Tween(quad, 1.0);
             tween->animate("scaleX", 1.0);
 
             tween->advanceTime(0.0);
@@ -141,9 +141,9 @@ namespace tests {
 
         void TweenTest::                testResetTween()
         {
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
 
-             Tween* tween= new Tween(quad, 1.0);
+            Tween* tween = new Tween(quad, 1.0);
             tween->animate("x", 100);
 
             tween->advanceTime(0.5);
@@ -159,10 +159,10 @@ namespace tests {
 
         void TweenTest::                testResetTweenInOnComplete()
         {
-             Quad* quad= new Quad(100, 100);
-             Juggler* juggler= new Juggler();
+            Quad* quad = new Quad(100, 100);
+            Juggler* juggler = new Juggler();
 
-             Tween* tween= new Tween(quad, 1.0);
+            Tween* tween = new Tween(quad, 1.0);
             tween->animate("x", 100);
             tween->onComplete ( function()void
             {
@@ -197,8 +197,8 @@ namespace tests {
 
         void TweenTest::                testCustomTween()
         {
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0, transition);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0, transition);
             tween->animate("x", 100);
 
             tween->advanceTime(0.1);
@@ -219,12 +219,12 @@ namespace tests {
 
         void TweenTest::                testRepeatedTween()
         {
-             int startCount = 0;
-             int repeatCount = 0;
-             int completeCount = 0;
+            int startCount = 0;
+            int repeatCount = 0;
+            int completeCount = 0;
 
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
             tween->repeatCount ( 3);
             tween->onStart ( onStart);
             tween->onRepeat ( onRepeat);
@@ -258,11 +258,11 @@ namespace tests {
 
         void TweenTest::                testReverseTween()
         {
-             int startCount = 0;
-             int completeCount = 0;
+            int startCount = 0;
+            int completeCount = 0;
 
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
             tween->repeatCount ( 4);
             tween->reverse ( true);
             tween->animate("x", 100);
@@ -289,8 +289,8 @@ namespace tests {
 
         void TweenTest::                testInfiniteTween()
         {
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
             tween->animate("x", 100);
             tween->repeatCount ( 0);
 
@@ -305,8 +305,8 @@ namespace tests {
 
         void TweenTest::                testGetEndValue()
         {
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
             tween->animate("x", 100);
             tween->fadeTo(0);
             tween->scaleTo(1.5);
@@ -320,8 +320,8 @@ namespace tests {
 
         void TweenTest::                testProgress()
         {
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0, easeIn);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0, easeIn);
             Assert::assertEquals(0.0, tween->progress());
 
             tween->advanceTime(0.5);
@@ -339,13 +339,13 @@ namespace tests {
 
         void TweenTest::executeTween(float time, float advanceTime)
         {
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, time);
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, time);
             tween->animate("x", 100);
 
-             int startCount = 0;
-             int updateCount = 0;
-             int completeCount = 0;
+            int startCount = 0;
+            int updateCount = 0;
+            int completeCount = 0;
 
             tween->onStart    ( function()void  { startCount++; });
             tween->onUpdate   ( function()void  { updateCount++ });
@@ -358,5 +358,4 @@ namespace tests {
             Assert::assertEquals(advanceTime >= time ? 1 : 0, completeCount);
         }
 }
-#endif
 

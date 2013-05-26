@@ -24,7 +24,7 @@ namespace errors {
         /** Creates a new AbstractClassError object. */
         AbstractClassError::AbstractClassError(std::string message, int id)
         {
-            super(message, id);
+            Error(message, id);
         }
 }
 }

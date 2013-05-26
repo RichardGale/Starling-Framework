@@ -41,20 +41,20 @@ namespace events {
 
         /** Only available for mouse input: the cursor hovers over an object <em>without</em> a 
          *  pressed button. */
-        const std::string TouchPhase::HOVER="hover";
+        const std::string TouchPhase::HOVER = "hover";
 
         /** The finger touched the screen just now, or the mouse button was pressed. */
-        const std::string TouchPhase::BEGAN="began";
+        const std::string TouchPhase::BEGAN = "began";
 
         /** The finger moves around on the screen, or the mouse is moved while the button is 
          *  pressed. */
-        const std::string TouchPhase::MOVED="moved";
+        const std::string TouchPhase::MOVED = "moved";
 
         /** The finger or mouse (with pressed button) has not moved since the last frame. */
-        const std::string TouchPhase::STATIONARY="stationary";
+        const std::string TouchPhase::STATIONARY = "stationary";
 
         /** The finger was lifted from the screen or from the mouse button. */
-        const std::string TouchPhase::ENDED="ended";
+        const std::string TouchPhase::ENDED = "ended";
 }
 }
 

@@ -32,7 +32,7 @@ namespace textures {
         /** Create a new instance by parsing the given byte array. */
         AtfData::AtfData(ByteArray* data)
         {
-             std::string signature=String()->fromCharCode(data[0],data[1],data[2]);
+            std::string signature = String()->fromCharCode(data[0], data[1], data[2]);
             if (signature != "ATF") throw new ArgumentError("Invalid ATF data");
 
             switch (data[6])

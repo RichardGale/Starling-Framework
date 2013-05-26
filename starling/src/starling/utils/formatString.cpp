@@ -16,7 +16,7 @@
      *  number formatting options yet. */
     std::string ::formatString(std::string format, ...)
     {
-        for ( int i=0; i<args()->length(); ++i)
+        for (int i=0; i<args()->length(); ++i)
             format = format.replace(new RegExp("\\\\{"+i+"\\\\}", "g"), args[i]);
 
         return format;

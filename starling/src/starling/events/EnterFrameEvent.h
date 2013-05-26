@@ -38,11 +38,11 @@ namespace starling
 
             /** Creates an enter frame event with the passed time. */
         public:
-            EnterFrameEvent(std::string type, float passedTime, bool bubbles   =false);
+            EnterFrameEvent(std::string type, float passedTime, bool bubbles=false);
 
             /** The time that has passed since the last frame (in seconds). */
         public:
-            float        passedTime();
+            float       passedTime();
         };
     }
 }

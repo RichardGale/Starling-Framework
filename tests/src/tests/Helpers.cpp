@@ -57,7 +57,7 @@ namespace tests {
         {
             assertEquals(vector1.size(), vector2.size());
 
-            for ( int i=0; i<vector1.size(); ++i)
+            for (int i=0; i<vector1.size(); ++i)
                 assertThat(vector1[i], closeTo(vector2[i], e));
         }
 

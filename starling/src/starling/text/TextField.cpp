@@ -32,6 +32,7 @@
 #include "starling/textures/Texture.h"
 #include "starling/utils/HAlign.h"
 #include "starling/utils/VAlign.h"
+#include "starling/text/BitmapFont.h"
 
     /** A TextField displays text, either using standard true type fonts or custom bitmap fonts.
      *  
@@ -71,6 +72,7 @@ using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::display;
 using namespace starling::events;
+using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -79,7 +81,7 @@ namespace text {
 
 
         // the name container with the registered bitmap fonts
-        const std::string TextField::BITMAP_FONT_DATA_NAME="starling.display.TextField.BitmapFonts";
+        const std::string TextField::BITMAP_FONT_DATA_NAME = "starling.display.TextField.BitmapFonts";
 
                     
                     
@@ -105,7 +107,7 @@ namespace text {
                     
 
         // this object will be used for text rendering
-         flash::text::TextField* TextField::sNativeTextField=newflash()->text()->TextField();
+        flash::text::TextField* TextField::sNativeTextField = new flash()->text()->TextField();
 
         /** Create a new text field with the given properties. */
         TextField::TextField(int width, int height, std::string text, std::string fontName,
@@ -120,7 +122,7 @@ namespace text {
             mKerning = true;
             mBold = bold;
             mAutoSize = TextFieldAutoSize()->NONE();
-            this()->fontName = fontName;
+            this->fontName = fontName;
 
             mHitArea = new Quad(width, height);
             mHitArea->alpha ( 0.0);
@@ -135,7 +137,7 @@ namespace text {
             removeEventListener(Event::FLATTEN, onFlatten);
             if (mImage) mImage->texture()->dispose();
             if (mQuadBatch) mQuadBatch->dispose();
-            super()->dispose();
+            DisplayObjectContainer::dispose();
         }
 
         void TextField::onFlatten()
@@ -147,7 +149,7 @@ namespace text {
         void TextField::render(RenderSupport* support, float parentAlpha)
         {
             if (mRequiresRedraw) redraw();
-            super()->render(support, parentAlpha);
+            DisplayObjectContainer::render(support, parentAlpha);
         }
 
         /** Forces the text field to be constructed right away. Normally, 
@@ -172,11 +174,11 @@ namespace text {
                 mQuadBatch = NULL;
             }
 
-             float scale   = Starling::contentScaleFactor;
-             float width   = mHitArea->width()  * scale;
-             float height  = mHitArea->height() * scale;
-             std::string hAlign=mHAlign;
-             std::string vAlign=mVAlign;
+            float scale  = Starling::contentScaleFactor;
+            float width  = mHitArea->width()  * scale;
+            float height = mHitArea->height() * scale;
+            std::string hAlign = mHAlign;
+            std::string vAlign = mVAlign;
 
             if (isHorizontalAutoSize)
             {
@@ -189,7 +191,7 @@ namespace text {
                 vAlign = VAlign::TOP;
             }
 
-             TextFormat* textFormat= new TextFormat(mFontName,
+            TextFormat* textFormat = new TextFormat(mFontName,
                 mFontSize * scale, mColor, mBold, mItalic, mUnderline, NULL, NULL, hAlign);
             textFormat->kerning ( mKerning);
 
@@ -213,27 +215,27 @@ namespace text {
             if (mAutoScale)
                 autoScaleNativeTextField(sNativeTextField);
 
-             float textWidth   = sNativeTextField->textWidth;
-             float textHeight  = sNativeTextField->textHeight;
+            float textWidth  = sNativeTextField->textWidth;
+            float textHeight = sNativeTextField->textHeight;
 
             if (isHorizontalAutoSize)
                 sNativeTextField->width ( width = Math::ceil(textWidth + 5));
             if (isVerticalAutoSize)
                 sNativeTextField->height ( height = Math::ceil(textHeight + 4));
 
-             float xOffset  = 0.0;
+            float xOffset = 0.0;
             if (hAlign == HAlign::LEFT)        xOffset = 2; // flash adds a 2 pixel offset
             else if (hAlign == HAlign::CENTER) xOffset = (width - textWidth) / 2.0;
             else if (hAlign == HAlign::RIGHT)  xOffset =  width - textWidth - 2;
 
-             float yOffset  = 0.0;
+            float yOffset = 0.0;
             if (vAlign == VAlign::TOP)         yOffset = 2; // flash adds a 2 pixel offset
             else if (vAlign == VAlign::CENTER) yOffset = (height - textHeight) / 2.0;
             else if (vAlign == VAlign::BOTTOM) yOffset =  height - textHeight - 2;
 
-             BitmapData* bitmapData= new BitmapData(width, height, true, 0x0);
-             Matrix* drawMatrix= new Matrix(1, 0, 0, 1, 0, int(yOffset)-2);
-             Function* drawWithQualityFunc=
+            BitmapData* bitmapData = new BitmapData(width, height, true, 0x0);
+            Matrix* drawMatrix = new Matrix(1, 0, 0, 1, 0, int(yOffset)-2);
+            Function* drawWithQualityFunc =
                 "drawWithQuality" in bitmapData ? bitmapData["drawWithQuality"] : NULL;
 
             // Beginning with AIR 3.3, we can force a drawing quality. Since "LOW" produces
@@ -256,7 +258,7 @@ namespace text {
             mHitArea->width  ( width  / scale);
             mHitArea->height ( height / scale);
 
-             Texture* texture= Texture::fromBitmapData(bitmapData, false, false, scale);
+            Texture* texture = Texture::fromBitmapData(bitmapData, false, false, scale);
 
             if (mImage == NULL)
             {
@@ -281,15 +283,15 @@ namespace text {
 
         void TextField::autoScaleNativeTextField(flash::text::TextField* textField)
         {
-             float size    = Number(textField->defaultTextFormat()->size);
-             int maxHeight = textField->height() - 4;
-             int maxWidth  = textField->width() - 4;
+            float size   = float(textField->defaultTextFormat()->size);
+            int maxHeight = textField->height() - 4;
+            int maxWidth  = textField->width() - 4;
 
             while (textField->textWidth > maxWidth || textField->textHeight() > maxHeight)
             {
                 if (size <= 4) break;
 
-                 TextFormat* format= textField->defaultTextFormat();
+                TextFormat* format = textField->defaultTextFormat();
                 format->size ( size--);
                 textField->setTextFormat(format);
             }
@@ -312,13 +314,13 @@ namespace text {
             else
                 mQuadBatch->reset();
 
-             BitmapFont* bitmapFont= bitmapFonts[mFontName];
+            BitmapFont* bitmapFont = bitmapFonts[mFontName];
             if (bitmapFont == NULL) throw new Error("Bitmap font not registered: " + mFontName);
 
-             float width   = mHitArea->width;
-             float height  = mHitArea->height;
-             std::string hAlign=mHAlign;
-             std::string vAlign=mVAlign;
+            float width  = mHitArea->width;
+            float height = mHitArea->height;
+            std::string hAlign = mHAlign;
+            std::string vAlign = mVAlign;
 
             if (isHorizontalAutoSize)
             {
@@ -354,13 +356,13 @@ namespace text {
         {
             if (mBorder == NULL) return;
 
-             float width   = mHitArea->width;
-             float height  = mHitArea->height;
+            float width  = mHitArea->width;
+            float height = mHitArea->height;
 
-             Quad* topLine   = mBorder->getChildAt(0) as Quad;
-             Quad* rightLine = mBorder->getChildAt(1) as Quad;
-             Quad* bottomLine= mBorder->getChildAt(2) as Quad;
-             Quad* leftLine  = mBorder->getChildAt(3) as Quad;
+            Quad* topLine    = mBorder->getChildAt(0) as Quad;
+            Quad* rightLine  = mBorder->getChildAt(1) as Quad;
+            Quad* bottomLine = mBorder->getChildAt(2) as Quad;
+            Quad* leftLine   = mBorder->getChildAt(3) as Quad;
 
             topLine->width    ( width);topLine->height    ( 1);
             bottomLine->width ( width);bottomLine->height ( 1);
@@ -434,7 +436,7 @@ namespace text {
         {
             if (mFontName != value)
             {
-                if (value == BitmapFont()->MINI() && bitmapFonts[value] == undefined)
+                if (value == BitmapFont::MINI() && bitmapFonts[value] == undefined)
                     registerBitmapFont(new BitmapFont());
 
                 mFontName = value;
@@ -505,7 +507,7 @@ namespace text {
                 mBorder = new Sprite();
                 addChild(mBorder);
 
-                for ( int i=0; i<4; ++i)
+                for (int i=0; i<4; ++i)
                     mBorder->addChild(new Quad(1.0, 1.0));
 
                 updateBorder();
@@ -629,7 +631,7 @@ namespace text {
          *  in one Stage3D context, they are saved in Starling's 'contextData' property. */
         std::map<std::string, void*> TextField::bitmapFonts()
         {
-             std::map<std::string, void*> fonts=Starling::current()->dynamic_cast<std::map<std::string, void*>>(contextData[BITMAP_FONT_DATA_NAME]);
+            std::map<std::string, void*> fonts = Starling::current()->dynamic_cast<std::map<std::string, void*>>(contextData[BITMAP_FONT_DATA_NAME]);
 
             if (fonts.empty())
             {

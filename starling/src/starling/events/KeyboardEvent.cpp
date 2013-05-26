@@ -32,10 +32,10 @@ namespace events {
 
 
         /** Event type for a key that was released. */
-        const std::string KeyboardEvent::KEY_UP="keyUp";
+        const std::string KeyboardEvent::KEY_UP = "keyUp";
 
         /** Event type for a key that was pressed. */
-        const std::string KeyboardEvent::KEY_DOWN="keyDown";
+        const std::string KeyboardEvent::KEY_DOWN = "keyDown";
 
                     
                     
@@ -49,7 +49,7 @@ namespace events {
                                       unsigned int keyLocation, bool ctrlKey,
                                       bool altKey, bool shiftKey)
         {
-            super(type, false, keyCode);
+            Event(type, false, keyCode);
             mCharCode = charCode;
             mKeyCode = keyCode;
             mKeyLocation = keyLocation;

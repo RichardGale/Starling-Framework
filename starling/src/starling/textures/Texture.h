@@ -252,16 +252,16 @@ namespace starling
             /** Creates a texture object from a bitmap.
              *  Beware: you must not dispose 'data' if Starling should handle a lost device context. */
         public:
-            static Texture *fromBitmap(Bitmap *data, bool generateMipMaps   =true,
-                                       bool optimizeForRenderToTexture   =false,
-                                       float scale =1);
+            static Texture  *fromBitmap(Bitmap *data, bool generateMipMaps=true,
+                                        bool optimizeForRenderToTexture=false,
+                                        float scale=1);
 
             /** Creates a texture from bitmap data.
              *  Beware: you must not dispose 'data' if Starling should handle a lost device context. */
         public:
-            static Texture *fromBitmapData(BitmapData *data, bool generateMipMaps   =true,
-                                           bool optimizeForRenderToTexture   =false,
-                                           float scale =1);
+            static Texture  *fromBitmapData(BitmapData *data, bool generateMipMaps=true,
+                                            bool optimizeForRenderToTexture=false,
+                                            float scale=1);
 
             /** Creates a texture from the compressed ATF format. If you don't want to use any embedded
              *  mipmaps, you can disable them by setting "useMipMaps" to <code>false</code>.
@@ -272,8 +272,8 @@ namespace starling
              *  as the callback has been executed. This is the expected function definition:
              *  <code>function(texture:Texture):void;</code></p> */
         public:
-            static Texture *fromAtfData(ByteArray *data, float scale =1, bool useMipMaps   =true,
-                                        Function *loadAsync=NULL);
+            static Texture  *fromAtfData(ByteArray *data, float scale=1, bool useMipMaps=true,
+                                         Function *loadAsync=NULL);
 
             /** Creates a texture with a certain size and color.
              *
@@ -284,9 +284,9 @@ namespace starling
              *  @param scale:  if you omit this parameter, 'Starling.contentScaleFactor' will be used.
              */
         public:
-            static Texture *fromColor(int width, int height, unsigned int color=0xffffffff,
-                                      bool optimizeForRenderToTexture   =false,
-                                      float scale =-1);
+            static Texture  *fromColor(int width, int height, unsigned int color=0xffffffff,
+                                       bool optimizeForRenderToTexture=false,
+                                       float scale=-1);
 
             /** Creates an empty texture of a certain size. Useful mainly for render textures.
              *  Beware that the texture can only be used after you either upload some color data or
@@ -299,14 +299,14 @@ namespace starling
              *  @param scale:  if you omit this parameter, 'Starling.contentScaleFactor' will be used.
              */
         public:
-            static Texture *empty(int width=64, int height=64, bool premultipliedAlpha   =false,
-                                  bool optimizeForRenderToTexture   =true,
-                                  float scale =-1);
+            static Texture  *empty(int width=64, int height=64, bool premultipliedAlpha=false,
+                                   bool optimizeForRenderToTexture=true,
+                                   float scale=-1);
 
             /** Creates a texture that contains a region (in pixels) of another texture. The new
              *  texture will reference the base texture; no data is duplicated. */
         public:
-            static Texture *fromTexture(Texture *texture, Rectangle *region=NULL, Rectangle *frame=NULL);
+            static Texture  *fromTexture(Texture *texture, Rectangle *region=NULL, Rectangle *frame=NULL);
 
             /** Converts texture coordinates and vertex positions of raw vertex data into the format
              *  required for rendering. */
@@ -320,45 +320,45 @@ namespace starling
             /** @private Uploads ATF data from a ByteArray to a native texture. */
             static void     uploadAtfData(flash::display3D::textures::Texture *nativeTexture,
                                           ByteArray *data, int offset=0,
-                                          bool async   =false);
+                                          bool async=false);
 
             // properties
 
             /** The texture frame (see class description). */
         public:
-            Rectangle   *frame();
+            Rectangle    *frame();
 
             /** Indicates if the texture should repeat like a wallpaper or stretch the outermost pixels.
              *  Note: this only works in textures with sidelengths that are powers of two and
              *  that are not loaded from a texture atlas (i.e. no subtextures). @default false */
         public:
-            bool         repeat();
+            bool      repeat();
         public:
             void         repeat(bool value);
 
             /** The width of the texture in points. */
         public:
-            float        width();
+            float       width();
 
             /** The height of the texture in points. */
         public:
-            float        height();
+            float       height();
 
             /** The width of the texture in pixels (without scale adjustment). */
         public:
-            float        nativeWidth();
+            float       nativeWidth();
 
             /** The height of the texture in pixels (without scale adjustment). */
         public:
-            float        nativeHeight();
+            float       nativeHeight();
 
             /** The scale factor, which influences width and height properties. */
         public:
-            float        scale();
+            float       scale();
 
             /** The Stage3D texture object the texture is based on. */
         public:
-            TextureBase *base();
+            TextureBase  *base();
 
             /** The concrete (power-of-two) texture the texture is based on. */
         public:
@@ -366,15 +366,15 @@ namespace starling
 
             /** The <code>Context3DTextureFormat</code> of the underlying texture data. */
         public:
-            std::string  format();
+            std::string       format();
 
             /** Indicates if the texture contains mip maps. */
         public:
-            bool         mipMapping();
+            bool      mipMapping();
 
             /** Indicates if the alpha values are premultiplied into the RGB values. */
         public:
-            bool         premultipliedAlpha();
+            bool      premultipliedAlpha();
         };
     }
 }

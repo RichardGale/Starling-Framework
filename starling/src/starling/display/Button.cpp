@@ -24,10 +24,15 @@
 #include "starling/utils/HAlign.h"
 #include "starling/utils/VAlign.h"
 
+#include "starling/display/DisplayObjectContainer.h"
+#include "starling/display/Sprite.h"
+#include "starling/display/Image.h"
+
     /** Dispatched when the user triggers the button. Bubbles. */
 
 using namespace flash::geom;
 using namespace flash::ui;
+using namespace starling::display;
 using namespace starling::events;
 using namespace starling::text;
 using namespace starling::textures;
@@ -37,7 +42,7 @@ namespace starling {
 namespace display {
 
 
-        const float Button::MAX_DRAG_DIST  = 50;
+        const float Button::MAX_DRAG_DIST = 50;
 
                     
                     
@@ -73,7 +78,7 @@ namespace display {
             addChild(mContents);
             addEventListener(TouchEvent::TOUCH, onTouch);
 
-            if (text.length() != 0) this()->text = text;
+            if (text.length() != 0) this->text = text;
         }
 
         void Button::resetContents()
@@ -107,7 +112,7 @@ namespace display {
             Mouse::cursor ( (mUseHandCursor && mEnabled && event->interactsWith(this)) ?
                 MouseCursor::BUTTON : MouseCursor::AUTO);
 
-             Touch* touch= event->getTouch(this);
+            Touch* touch = event->getTouch(this);
             if (!mEnabled || touch == NULL) return;
 
             if (touch->phase() == TouchPhase::BEGAN() && !mIsDown)
@@ -121,7 +126,7 @@ namespace display {
             else if (touch->phase() == TouchPhase::MOVED() && mIsDown)
             {
                 // reset button when user dragged too far away after pushing
-                 Rectangle* buttonRect= getBounds(stage);
+                Rectangle* buttonRect = getBounds(stage);
                 if (touch->globalX() < buttonRect->x - MAX_DRAG_DIST ||
                     touch->globalY() < buttonRect->y - MAX_DRAG_DIST ||
                     touch->globalX() > buttonRect->x() + buttonRect->width + MAX_DRAG_DIST ||

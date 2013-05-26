@@ -40,28 +40,28 @@ namespace display {
                     
 
         /** Helper objects. */
-         Matrix* Sprite::sHelperMatrix= new Matrix();
-         Point* Sprite::sHelperPoint= new Point();
-         Rectangle* Sprite::sHelperRect= new Rectangle();
+        Matrix* Sprite::sHelperMatrix = new Matrix();
+        Point* Sprite::sHelperPoint = new Point();
+        Rectangle* Sprite::sHelperRect = new Rectangle();
 
         /** Creates an empty sprite. */
         Sprite::Sprite()
         {
-            super();
+            DisplayObjectContainer();
         }
 
         /** @inheritDoc */
         void Sprite::dispose()
         {
             disposeFlattenedContents();
-            super()->dispose();
+            DisplayObjectContainer::dispose();
         }
 
         void Sprite::disposeFlattenedContents()
         {
             if (mFlattenedContents)
             {
-                for ( int i=0, int max=mFlattenedContents.size(); i<max; ++i)
+                for (int i=0, int max=mFlattenedContents.size(); i<max; ++i)
                     mFlattenedContents[i]->dispose();
 
                 mFlattenedContents.clear();
@@ -120,15 +120,15 @@ namespace display {
             if (mClipRect == NULL) return NULL;
             if (resultRect == NULL) resultRect = new Rectangle();
 
-             float minX  =  Number::MAX_VALUE;
-             float maxX  = -Number::MAX_VALUE;
-             float minY  =  Number::MAX_VALUE;
-             float maxY  = -Number::MAX_VALUE;
+            float minX =  Number::MAX_VALUE;
+            float maxX = -Number::MAX_VALUE;
+            float minY =  Number::MAX_VALUE;
+            float maxY = -Number::MAX_VALUE;
 
-             Matrix* transMatrix= getTransformationMatrix(targetSpace, sHelperMatrix);
-             float x  = 0;
-             float y  = 0;
-            for ( int i=0; i<4; ++i)
+            Matrix* transMatrix = getTransformationMatrix(targetSpace, sHelperMatrix);
+            float x = 0;
+            float y = 0;
+            for (int i=0; i<4; ++i)
             {
                 switch(i)
                 {
@@ -137,7 +137,7 @@ namespace display {
                     case 2: x = mClipRect->right(); y = mClipRect->top();    break;
                     case 3: x = mClipRect->right(); y = mClipRect->bottom(); break;
                 }
-                 Point* transformedPoint= MatrixUtil::transformCoords(transMatrix, x, y, sHelperPoint);
+                Point* transformedPoint = MatrixUtil::transformCoords(transMatrix, x, y, sHelperPoint);
                 minX = Math::min(minX, transformedPoint->x);
                 maxX = Math::max(maxX, transformedPoint->x);
                 minY = Math::min(minY, transformedPoint->y);
@@ -151,7 +151,7 @@ namespace display {
         /** @inheritDoc */
         Rectangle* Sprite::getBounds(DisplayObject* targetSpace, Rectangle* resultRect)
         {
-             Rectangle* bounds= super()->getBounds(targetSpace, resultRect);
+            Rectangle* bounds = DisplayObjectContainer::getBounds(targetSpace, resultRect);
 
             // if we have a scissor rect, intersect it with our bounds
             if (mClipRect)
@@ -167,7 +167,7 @@ namespace display {
             if (mClipRect != NULL && !mClipRect->containsPoint(localPoint))
                 return NULL;
             else
-                return super()->hitTest(localPoint, forTouch);
+                return DisplayObjectContainer::hitTest(localPoint, forTouch);
         }
 
         /** @inheritDoc */
@@ -175,7 +175,7 @@ namespace display {
         {
             if (mClipRect)
             {
-                 Rectangle* clipRect= support->pushClipRect(getClipRect(stage, sHelperRect));
+                Rectangle* clipRect = support->pushClipRect(getClipRect(stage, sHelperRect));
                 if (clipRect->isEmpty())
                 {
                     // empty clipping bounds - no need to render children.
@@ -196,22 +196,22 @@ namespace display {
                     mFlattenRequested = false;
                 }
 
-                 float alpha  = parentAlpha * this()->alpha;
-                 int numBatches = mFlattenedContents.size();
-                 Matrix* mvpMatrix= support->mvpMatrix;
+                float alpha = parentAlpha * this->alpha;
+                int numBatches = mFlattenedContents.size();
+                Matrix* mvpMatrix = support->mvpMatrix;
 
                 support->finishQuadBatch();
                 support->raiseDrawCount(numBatches);
 
-                for ( int i=0; i<numBatches; ++i)
+                for (int i=0; i<numBatches; ++i)
                 {
-                     QuadBatch* quadBatch= mFlattenedContents[i];
-                     std::string blendMode=quadBatch->blendMode()==BlendMode()->AUTO?
+                    QuadBatch* quadBatch = mFlattenedContents[i];
+                    std::string blendMode = quadBatch->blendMode() == BlendMode()->AUTO ?
                         support->blendMode : quadBatch->blendMode;
                     quadBatch->renderCustom(mvpMatrix, alpha, blendMode);
                 }
             }
-            else super()->render(support, parentAlpha);
+            else DisplayObjectContainer::render(support, parentAlpha);
 
             if (mClipRect)
                 support->popClipRect();

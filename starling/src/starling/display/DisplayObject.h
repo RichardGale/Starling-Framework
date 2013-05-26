@@ -288,14 +288,14 @@ namespace starling
 
             /** Removes the object from its parent, if it has one. */
         public:
-            void     removeFromParent(bool dispose   =false);
+            void     removeFromParent(bool dispose=false);
 
             /** Creates a matrix that represents the transformation from the local coordinate system
              *  to another. If you pass a 'resultMatrix', the result will be stored in this matrix
              *  instead of creating a new object. */
         public:
-            Matrix  *getTransformationMatrix(DisplayObject *targetSpace,
-                                             Matrix *resultMatrix=NULL);
+            Matrix   *getTransformationMatrix(DisplayObject *targetSpace,
+                                              Matrix *resultMatrix=NULL);
 
             /** Returns a rectangle that completely encloses the object as it appears in another
              *  coordinate system. If you pass a 'resultRectangle', the result will be stored in this
@@ -307,19 +307,19 @@ namespace starling
              *  the test fails. If "forTouch" is true, untouchable and invisible objects will cause
              *  the test to fail. */
         public:
-            DisplayObject *hitTest(Point *localPoint, bool forTouch   =false);
+            DisplayObject *hitTest(Point *localPoint, bool forTouch=false);
 
             /** Transforms a point from the local coordinate system to global (stage) coordinates.
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object. */
         public:
-            Point   *localToGlobal(Point *localPoint, Point *resultPoint=NULL);
+            Point    *localToGlobal(Point *localPoint, Point *resultPoint=NULL);
 
             /** Transforms a point from global (stage) coordinates to the local coordinate system.
              *  If you pass a 'resultPoint', the result will be stored in this point instead of
              *  creating a new object. */
         public:
-            Point   *globalToLocal(Point *globalPoint, Point *resultPoint=NULL);
+            Point    *globalToLocal(Point *globalPoint, Point *resultPoint=NULL);
 
             /** Renders the display object with the help of a support object. Never call this method
              *  directly, except from within another render method.
@@ -331,7 +331,7 @@ namespace starling
             /** Indicates if an object occupies any visible area. (Which is the case when its 'alpha',
              *  'scaleX' and 'scaleY' values are not zero, and its 'visible' property is enabled.) */
         public:
-            bool         hasVisibleArea();
+            bool      hasVisibleArea();
 
             // internal methods
 
@@ -341,10 +341,10 @@ namespace starling
             // helpers
 
         private:
-            bool     isEquivalent(float a, float b, float epsilon =0.0001);
+            bool  isEquivalent(float a, float b, float epsilon=0.0001);
 
         private:
-            float    normalizeAngle(float angle);
+            float   normalizeAngle(float angle);
 
             // properties
 
@@ -358,7 +358,7 @@ namespace starling
              *
              *  @returns CAUTION: not a copy, but the actual object! */
         public:
-            Matrix      *transformationMatrix();
+            Matrix       *transformationMatrix();
 
         public:
             void         transformationMatrix(Matrix *matrix);
@@ -366,7 +366,7 @@ namespace starling
             /** Indicates if the mouse cursor should transform into a hand while it's over the sprite.
              *  @default false */
         public:
-            bool         useHandCursor();
+            bool      useHandCursor();
         public:
             void         useHandCursor(bool value);
 
@@ -375,90 +375,90 @@ namespace starling
 
             /** The bounds of the object relative to the local coordinates of the parent. */
         public:
-            Rectangle   *bounds();
+            Rectangle    *bounds();
 
             /** The width of the object in pixels. */
         public:
-            float        width();
+            float       width();
         public:
             void         width(float value);
 
             /** The height of the object in pixels. */
         public:
-            float        height();
+            float       height();
         public:
             void         height(float value);
 
             /** The x coordinate of the object relative to the local coordinates of the parent. */
         public:
-            float        x();
+            float       x();
         public:
             void         x(float value);
 
             /** The y coordinate of the object relative to the local coordinates of the parent. */
         public:
-            float        y();
+            float       y();
         public:
             void         y(float value);
 
             /** The x coordinate of the object's origin in its own coordinate space (default: 0). */
         public:
-            float        pivotX();
+            float       pivotX();
         public:
             void         pivotX(float value);
 
             /** The y coordinate of the object's origin in its own coordinate space (default: 0). */
         public:
-            float        pivotY();
+            float       pivotY();
         public:
             void         pivotY(float value);
 
             /** The horizontal scale factor. '1' means no scale, negative values flip the object. */
         public:
-            float        scaleX();
+            float       scaleX();
         public:
             void         scaleX(float value);
 
             /** The vertical scale factor. '1' means no scale, negative values flip the object. */
         public:
-            float        scaleY();
+            float       scaleY();
         public:
             void         scaleY(float value);
 
             /** The horizontal skew angle in radians. */
         public:
-            float        skewX();
+            float       skewX();
         public:
             void         skewX(float value);
 
             /** The vertical skew angle in radians. */
         public:
-            float        skewY();
+            float       skewY();
         public:
             void         skewY(float value);
 
             /** The rotation of the object in radians. (In Starling, all angles are measured
              *  in radians.) */
         public:
-            float        rotation();
+            float       rotation();
         public:
             void         rotation(float value);
 
             /** The opacity of the object. 0 = transparent, 1 = opaque. */
         public:
-            float        alpha();
+            float       alpha();
         public:
             void         alpha(float value);
 
             /** The visibility of the object. An invisible object will be untouchable. */
         public:
-            bool         visible();
+            bool      visible();
         public:
             void         visible(bool value);
 
             /** Indicates if this object (and its children) will receive touch events. */
         public:
-            bool         touchable();
+            bool      touchable();
         public:
             void         touchable(bool value);
 
@@ -466,14 +466,14 @@ namespace starling
              *   @default auto
              *   @see starling.display.BlendMode */
         public:
-            std::string  blendMode();
+            std::string       blendMode();
         public:
             void         blendMode(std::string value);
 
             /** The name of the display object (default: null). Used by 'getChildByName()' of
              *  display object containers. */
         public:
-            std::string  name();
+            std::string       name();
         public:
             void         name(std::string value);
 
@@ -503,7 +503,7 @@ namespace starling
             /** The stage the display object is connected to, or null if it is not connected
              *  to the stage. */
         public:
-            Stage       *stage();
+            Stage        *stage();
         };
     }
 }

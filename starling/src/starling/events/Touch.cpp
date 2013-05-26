@@ -18,6 +18,7 @@
 #include "starling/display/DisplayObject.h"
 #include "starling/utils/MatrixUtil.h"
 #include "starling/utils/formatString.h"
+#include "starling/events/EventDispatcher.h"
 
     //use namespace starling_internal;
 
@@ -43,6 +44,7 @@
 using namespace flash::geom;
 using namespace starling::core;
 using namespace starling::display;
+using namespace starling::events;
 using namespace starling::utils;
 
 namespace starling {
@@ -64,7 +66,7 @@ namespace events {
                     
 
         /** Helper object. */
-         Matrix* Touch::sHelperMatrix= new Matrix();
+        Matrix* Touch::sHelperMatrix = new Matrix();
 
         /** Creates a new Touch object. */
         Touch::Touch(int id, float globalX, float globalY, std::string phase, DisplayObject* target)
@@ -107,8 +109,8 @@ namespace events {
         {
             if (resultPoint == NULL) resultPoint = new Point();
             getLocation(space, resultPoint);
-             float x  = resultPoint->x;
-             float y  = resultPoint->y;
+            float x = resultPoint->x;
+            float y = resultPoint->y;
             getPreviousLocation(space, resultPoint);
             resultPoint->setTo(x - resultPoint->x, y - resultPoint->y);
             return resultPoint;
@@ -130,14 +132,14 @@ namespace events {
         /** Creates a clone of the Touch object. */
         Touch* Touch::clone()
         {
-             Touch* clone= new Touch(mID, mGlobalX, mGlobalY, mPhase, mTarget);
-            clone->mPreviousGlobalX ( mPreviousGlobalX);
-            clone->mPreviousGlobalY ( mPreviousGlobalY);
-            clone->mTapCount ( mTapCount);
-            clone->mTimestamp ( mTimestamp);
-            clone->mPressure ( mPressure);
-            clone->mWidth ( mWidth);
-            clone->mHeight ( mHeight);
+            Touch* clone = new Touch(mID, mGlobalX, mGlobalY, mPhase, mTarget);
+            clone->mPreviousGlobalX = mPreviousGlobalX;
+            clone->mPreviousGlobalY = mPreviousGlobalY;
+            clone->mTapCount = mTapCount;
+            clone->mTimestamp = mTimestamp;
+            clone->mPressure = mPressure;
+            clone->mWidth = mWidth;
+            clone->mHeight = mHeight;
             return clone;
         }
 
@@ -147,8 +149,8 @@ namespace events {
         {
             if (mTarget)
             {
-                 int length = 1;
-                 DisplayObject* element= mTarget;
+                int length = 1;
+                DisplayObject* element = mTarget;
 
                 mBubbleChain.size() = 1;
                 mBubbleChain[0] = element;

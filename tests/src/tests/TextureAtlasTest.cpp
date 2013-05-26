@@ -32,18 +32,18 @@ namespace tests {
 
         void TextureAtlasTest::                testXmlParsing()
         {
-             std::string format=Context3DTextureFormat::BGRA;
-             XML* xml=
+            std::string format = Context3DTextureFormat::BGRA;
+            XML* xml =
                 <TextureAtlas>
                     <SubTexture name='ann' x='0'   y='0'  width='55.5' height='16' />
                     <SubTexture name='bob' x='16'  y='32' width='16'   height='32' />
                 </TextureAtlas>;
 
-             Texture* texture= new ConcreteTexture(NULL, format, 64, 64, false, false);
-             TextureAtlas* atlas= new TextureAtlas(texture, xml);
+            Texture* texture = new ConcreteTexture(NULL, format, 64, 64, false, false);
+            TextureAtlas* atlas = new TextureAtlas(texture, xml);
 
-             Texture* ann= atlas->getTexture("ann");
-             Texture* bob= atlas->getTexture("bob");
+            Texture* ann = atlas->getTexture("ann");
+            Texture* bob = atlas->getTexture("bob");
 
             Assert::assertTrue(dynamic_cast<SubTexture*>(ann));
             Assert::assertTrue(dynamic_cast<SubTexture*>(bob));
@@ -53,8 +53,8 @@ namespace tests {
             Assert::assertEquals(16, bob->width());
             Assert::assertEquals(32, bob->height());
 
-             SubTexture* annST= dynamic_cast<SubTexture*>(ann);
-             SubTexture* bobST= dynamic_cast<SubTexture*>(bob);
+            SubTexture* annST = dynamic_cast<SubTexture*>(ann);
+            SubTexture* bobST = dynamic_cast<SubTexture*>(bob);
 
             Assert::assertEquals(0, annST->clipping()->x());
             Assert::assertEquals(0, annST->clipping()->y());
@@ -65,9 +65,9 @@ namespace tests {
 
         void TextureAtlasTest::                testManualCreation()
         {
-             std::string format=Context3DTextureFormat::BGRA;
-             Texture* texture= new ConcreteTexture(NULL, format, 64, 64, false, false);
-             TextureAtlas* atlas= new TextureAtlas(texture);
+            std::string format = Context3DTextureFormat::BGRA;
+            Texture* texture = new ConcreteTexture(NULL, format, 64, 64, false, false);
+            TextureAtlas* atlas = new TextureAtlas(texture);
 
             atlas->addRegion("ann", new Rectangle(0, 0, 55.5, 16));
             atlas->addRegion("bob", new Rectangle(16, 32, 16, 32));
@@ -85,9 +85,9 @@ namespace tests {
 
         void TextureAtlasTest::                testGetTextures()
         {
-             std::string format=Context3DTextureFormat::BGRA;
-             Texture* texture= new ConcreteTexture(NULL, format, 64, 64, false, false);
-             TextureAtlas* atlas= new TextureAtlas(texture);
+            std::string format = Context3DTextureFormat::BGRA;
+            Texture* texture = new ConcreteTexture(NULL, format, 64, 64, false, false);
+            TextureAtlas* atlas = new TextureAtlas(texture);
 
             Assert::assertEquals(texture, atlas->texture);
 
@@ -97,7 +97,7 @@ namespace tests {
             atlas->addRegion("bob", new Rectangle(24, 0, 8, 8));
             atlas->addRegion("prefix_2", new Rectangle(32, 0, 2, 8));
 
-             std::vector<Texture*> textures=atlas->getTextures("prefix_");
+            std::vector<Texture*> textures=atlas->getTextures("prefix_");
 
             Assert::assertEquals(3, textures.size());
             Assert::assertEquals(1, textures[0]->width());

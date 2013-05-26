@@ -34,14 +34,14 @@ namespace tests {
 
         void QuadTest::                testQuad()
         {
-             Quad* quad= new Quad(100, 200, Color::AQUA);
+            Quad* quad = new Quad(100, 200, Color::AQUA);
             Assert::assertEquals(Color::AQUA, quad->color());
         }
 
 
         void QuadTest::                testColors()
         {
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             quad->setVertexColor(0, Color::AQUA);
             quad->setVertexColor(1, Color::BLACK);
             quad->setVertexColor(2, Color::BLUE);
@@ -56,7 +56,7 @@ namespace tests {
 
         void QuadTest::                testTinted()
         {
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             Assert::assertFalse(quad->tinted());
 
             quad->setVertexColor(2, 0xffffff);
@@ -119,7 +119,7 @@ namespace tests {
         {
             // https://github.com/PrimaryFeather/Starling-Framework/issues/123
 
-             Quad* quad= new Quad(100, 100);
+            Quad* quad = new Quad(100, 100);
             quad->color ( 0xff0000);
             quad->alpha ( 0.5);
             quad->color ( 0xffffff);
@@ -129,7 +129,7 @@ namespace tests {
 
         void QuadTest::                testBounds()
         {
-             Quad* quad= new Quad(100, 200);
+            Quad* quad = new Quad(100, 200);
             Helpers()->compareRectangles(new Rectangle(0, 0, 100, 200), quad->bounds());
 
             quad->pivotX ( 50);
@@ -150,7 +150,7 @@ namespace tests {
             quad->y ( 20);
             Helpers()->compareRectangles(new Rectangle(-90, -10, 200, 100), quad->bounds());
 
-             Sprite* parent= new Sprite();
+            Sprite* parent = new Sprite();
             parent->addChild(quad);
 
             Helpers()->compareRectangles(parent->bounds(), quad->bounds());
@@ -159,7 +159,7 @@ namespace tests {
 
         void QuadTest::                testWidthAndHeight()
         {
-             Quad* quad= new Quad(100, 50);
+            Quad* quad = new Quad(100, 50);
             Assert::assertEquals(100, quad->width());
             Assert::assertEquals(50,  quad->height());
 

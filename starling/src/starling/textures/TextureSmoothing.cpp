@@ -25,13 +25,13 @@ namespace textures {
         TextureSmoothing::TextureSmoothing() { throw new AbstractClassError(); }
 
         /** No smoothing, also called "Nearest Neighbor". Pixels will scale up as big rectangles. */
-        const std::string TextureSmoothing::NONE = "none";
+        const std::string TextureSmoothing::NONE      = "none";
 
         /** Bilinear filtering. Creates smooth transitions between pixels. */
-        const std::string TextureSmoothing::BILINEAR="bilinear";
+        const std::string TextureSmoothing::BILINEAR  = "bilinear";
 
         /** Trilinear filtering. Highest quality by taking the next mip map level into account. */
-        const std::string TextureSmoothing::TRILINEAR="trilinear";
+        const std::string TextureSmoothing::TRILINEAR = "trilinear";
 
         /** Determines whether a smoothing value is valid. */
         bool TextureSmoothing::isValid(std::string smoothing)

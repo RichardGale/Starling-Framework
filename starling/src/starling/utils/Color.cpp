@@ -22,22 +22,22 @@ namespace starling {
 namespace utils {
 
 
-        const unsigned int Color::WHITE=0xffffff;
-        const unsigned int Color::SILVER=0xc0c0c0;
-        const unsigned int Color::GRAY=0x808080;
-        const unsigned int Color::BLACK=0x000000;
-        const unsigned int Color::RED=0xff0000;
-        const unsigned int Color::MAROON=0x800000;
-        const unsigned int Color::YELLOW=0xffff00;
-        const unsigned int Color::OLIVE=0x808000;
-        const unsigned int Color::LIME=0x00ff00;
-        const unsigned int Color::GREEN=0x008000;
-        const unsigned int Color::AQUA=0x00ffff;
-        const unsigned int Color::TEAL=0x008080;
-        const unsigned int Color::BLUE=0x0000ff;
-        const unsigned int Color::NAVY=0x000080;
-        const unsigned int Color::FUCHSIA=0xff00ff;
-        const unsigned int Color::PURPLE=0x800080;
+        const unsigned int Color::WHITE   = 0xffffff;
+        const unsigned int Color::SILVER  = 0xc0c0c0;
+        const unsigned int Color::GRAY    = 0x808080;
+        const unsigned int Color::BLACK   = 0x000000;
+        const unsigned int Color::RED     = 0xff0000;
+        const unsigned int Color::MAROON  = 0x800000;
+        const unsigned int Color::YELLOW  = 0xffff00;
+        const unsigned int Color::OLIVE   = 0x808000;
+        const unsigned int Color::LIME    = 0x00ff00;
+        const unsigned int Color::GREEN   = 0x008000;
+        const unsigned int Color::AQUA    = 0x00ffff;
+        const unsigned int Color::TEAL    = 0x008080;
+        const unsigned int Color::BLUE    = 0x0000ff;
+        const unsigned int Color::NAVY    = 0x000080;
+        const unsigned int Color::FUCHSIA = 0xff00ff;
+        const unsigned int Color::PURPLE  = 0x800080;
 
         /** Returns the alpha part of an ARGB color (0 - 255). */
         int Color::getAlpha(unsigned int color)     { return (color >> 24) & 0xff; }

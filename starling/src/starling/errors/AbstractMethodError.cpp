@@ -20,7 +20,7 @@ namespace errors {
         /** Creates a new AbstractMethodError object. */
         AbstractMethodError::AbstractMethodError(void* message, void* id)
         {
-            super(message, id);
+            Error(message, id);
         }
 }
 }

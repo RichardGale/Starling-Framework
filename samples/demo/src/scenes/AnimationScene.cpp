@@ -35,7 +35,7 @@ namespace scenes {
                             Transitions::EASE_OUT_BACK, Transitions::EASE_OUT_BOUNCE,
                             Transitions::EASE_OUT_ELASTIC];
 
-             Texture* buttonTexture= Game()->assets()->getTexture("button_normal");
+            Texture* buttonTexture = Game()->assets()->getTexture("button_normal");
 
             // create a button that starts the tween
             mStartButton = new Button(buttonTexture, "Start animation");
@@ -76,13 +76,13 @@ namespace scenes {
             resetEgg();
 
             // get next transition style from array and enqueue it at the end
-             std::string transition=mTransitions.shift();
-            mTransitions.push(transition);
+            std::string transition = mTransitions.shift();
+            mTransitions.push_back(transition);
 
             // to animate any numeric property of an arbitrary object (not just display objects!), 
             // you can create a 'Tween'. One tween object animates one target for a certain time, 
             // a with certain transition function.
-             Tween* tween= new Tween(mEgg, 2.0, transition);
+            Tween* tween = new Tween(mEgg, 2.0, transition);
 
             // you can animate any property as long as it's numeric (int, uint, Number). 
             // it is animated from it's current value to a target value.  
@@ -102,7 +102,7 @@ namespace scenes {
             mTransitionLabel->text ( transition);
             mTransitionLabel->alpha ( 1.0);
 
-             Tween* hideTween= new Tween(mTransitionLabel, 2.0, Transitions::EASE_IN);
+            Tween* hideTween = new Tween(mTransitionLabel, 2.0, Transitions::EASE_IN);
             hideTween->animate("alpha", 0.0);
             Starling::juggler()->add(hideTween);
         }
@@ -129,7 +129,7 @@ namespace scenes {
         {
             mStartButton->removeEventListener(Event::TRIGGERED, onStartButtonTriggered);
             mDelayButton->removeEventListener(Event::TRIGGERED, onDelayButtonTriggered);
-            super()->dispose();
+            Scene::dispose();
         }
 }
 

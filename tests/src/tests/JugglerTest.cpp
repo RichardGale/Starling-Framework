@@ -40,15 +40,15 @@ namespace tests {
 
         void JugglerTest::                testModificationWithinCallback()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
-             bool startReached    = false;
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
+            bool startReached = false;
             juggler->add(tween);
 
             tween->onComplete ( function()void
             {
-                 Tween* otherTween= new Tween(quad, 1.0);
+                Tween* otherTween = new Tween(quad, 1.0);
                 otherTween->onStart ( function()void
                 {
                     startReached = true;
@@ -67,9 +67,9 @@ namespace tests {
 
         void JugglerTest::                testContains()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
 
             Assert::assertFalse(juggler->contains(tween));
             juggler->add(tween);
@@ -79,11 +79,11 @@ namespace tests {
 
         void JugglerTest::                testPurge()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
 
-             Tween* tween1= new Tween(quad, 1.0);
-             Tween* tween2= new Tween(quad, 2.0);
+            Tween* tween1 = new Tween(quad, 1.0);
+            Tween* tween2 = new Tween(quad, 2.0);
 
             juggler->add(tween1);
             juggler->add(tween2);
@@ -108,12 +108,12 @@ namespace tests {
 
         void JugglerTest::                testPurgeFromAdvanceTime()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
 
-             Tween* tween1= new Tween(quad, 1.0);
-             Tween* tween2= new Tween(quad, 1.0);
-             Tween* tween3= new Tween(quad, 1.0);
+            Tween* tween1 = new Tween(quad, 1.0);
+            Tween* tween2 = new Tween(quad, 1.0);
+            Tween* tween3 = new Tween(quad, 1.0);
 
             juggler->add(tween1);
             juggler->add(tween2);
@@ -128,13 +128,13 @@ namespace tests {
 
         void JugglerTest::                testRemoveTweensWithTarget()
         {
-             Juggler* juggler= new Juggler();
+            Juggler* juggler = new Juggler();
 
-             Quad* quad1= new Quad(100, 100);
-             Quad* quad2= new Quad(100, 100);
+            Quad* quad1 = new Quad(100, 100);
+            Quad* quad2 = new Quad(100, 100);
 
-             Tween* tween1= new Tween(quad1, 1.0);
-             Tween* tween2= new Tween(quad2, 1.0);
+            Tween* tween1 = new Tween(quad1, 1.0);
+            Tween* tween2 = new Tween(quad2, 1.0);
 
             tween1->animate("rotation", 1.0);
             tween2->animate("rotation", 1.0);
@@ -152,10 +152,10 @@ namespace tests {
 
         void JugglerTest::                testContainsTweens()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad1= new Quad(100, 100);
-             Quad* quad2= new Quad(100, 100);
-             Tween* tween= new Tween(quad1, 1.0);
+            Juggler* juggler = new Juggler();
+            Quad* quad1 = new Quad(100, 100);
+            Quad* quad2 = new Quad(100, 100);
+            Tween* tween = new Tween(quad1, 1.0);
 
             juggler->add(tween);
 
@@ -166,9 +166,9 @@ namespace tests {
 
         void JugglerTest::                testAddTwice()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
-             Tween* tween= new Tween(quad, 1.0);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
+            Tween* tween = new Tween(quad, 1.0);
 
             juggler->add(tween);
             juggler->add(tween);
@@ -181,16 +181,16 @@ namespace tests {
 
         void JugglerTest::                testModifyJugglerInCallback()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
 
-             Tween* tween1= new Tween(quad, 1.0);
+            Tween* tween1 = new Tween(quad, 1.0);
             tween1->animate("x", 100);
 
-             Tween* tween2= new Tween(quad, 0.5);
+            Tween* tween2 = new Tween(quad, 0.5);
             tween2->animate("y", 100);
 
-             Tween* tween3= new Tween(quad, 0.5);
+            Tween* tween3 = new Tween(quad, 0.5);
             tween3->animate("scaleX", 0.5);
 
             tween2->onComplete ( function()void  {
@@ -214,11 +214,11 @@ namespace tests {
         {
             // https://github.com/PrimaryFeather/Starling-Framework/issues/155
 
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
 
-             Tween* tween1= new Tween(quad, 1.0);
-             Tween* tween2= new Tween(quad, 1.0);
+            Tween* tween1 = new Tween(quad, 1.0);
+            Tween* tween2 = new Tween(quad, 1.0);
             tween2->fadeTo(0);
 
             juggler->add(tween1);
@@ -237,11 +237,11 @@ namespace tests {
 
         void JugglerTest::                testTweenConvenienceMethod()
         {
-             Juggler* juggler= new Juggler();
-             Quad* quad= new Quad(100, 100);
+            Juggler* juggler = new Juggler();
+            Quad* quad = new Quad(100, 100);
 
-             int completeCount = 0;
-             int startCount = 0;
+            int completeCount = 0;
+            int startCount = 0;
 
             juggler->tween(quad, 1.0, {
                 x: 100,

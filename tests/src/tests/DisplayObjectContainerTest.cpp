@@ -34,7 +34,7 @@ using namespace starling::events;
 namespace tests {
 
 
-        const float DisplayObjectContainerTest::E  = 0.0001;
+        const float DisplayObjectContainerTest::E = 0.0001;
 
                     
                     
@@ -56,10 +56,10 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testChildParentHandling()
         {
-             Sprite* parent= new Sprite();
-             Sprite* child1= new Sprite();
-             Sprite* child2= new Sprite();
-             DisplayObject* returnValue;
+            Sprite* parent = new Sprite();
+            Sprite* child1 = new Sprite();
+            Sprite* child2 = new Sprite();
+            DisplayObject* returnValue;
 
             Assert::assertEquals(0, parent->numChildren());
             Assert::assertNull(child1->parent);
@@ -104,8 +104,8 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testRemoveChildren()
         {
-             Sprite* parent;
-             int numChildren = 10;
+            Sprite* parent;
+            int numChildren = 10;
 
             // removing all children
 
@@ -130,10 +130,10 @@ namespace tests {
             Assert::assertEquals(5, parent->numChildren);
             Assert::assertEquals("4", parent->getChildAt(4)->name());Sprite* DisplayObjectContainerTest::(int numChildren)
             {
-                 Sprite* sprite= new Sprite();
-                for ( int i=0; i<numChildren; ++i)
+                Sprite* sprite = new Sprite();
+                for (int i=0; i<numChildren; ++i)
                 {
-                     Sprite* child= new Sprite();
+                    Sprite* child = new Sprite();
                     child->name ( i->toString());
                     sprite->addChild(child);
                 }
@@ -144,10 +144,10 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testGetChildByName()
         {
-             Sprite* parent= new Sprite();
-             Sprite* child1= new Sprite();
-             Sprite* child2= new Sprite();
-             Sprite* child3= new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child1 = new Sprite();
+            Sprite* child2 = new Sprite();
+            Sprite* child3 = new Sprite();
 
             parent->addChild(child1);
             parent->addChild(child2);
@@ -169,10 +169,10 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testSetChildIndex()
         {
-             Sprite* parent= new Sprite();
-             Sprite* childA= new Sprite();
-             Sprite* childB= new Sprite();
-             Sprite* childC= new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* childA = new Sprite();
+            Sprite* childB = new Sprite();
+            Sprite* childC = new Sprite();
 
             parent->addChild(childA);
             parent->addChild(childB);
@@ -199,10 +199,10 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testSwapChildren()
         {
-             Sprite* parent= new Sprite();
-             Sprite* childA= new Sprite();
-             Sprite* childB= new Sprite();
-             Sprite* childC= new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* childA = new Sprite();
+            Sprite* childB = new Sprite();
+            Sprite* childC = new Sprite();
 
             parent->addChild(childA);
             parent->addChild(childB);
@@ -224,13 +224,13 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testWidthAndHeight()
         {
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
 
-             Quad* quad1= new Quad(10, 20);
+            Quad* quad1 = new Quad(10, 20);
             quad1->x ( -10);
             quad1->y ( -15);
 
-             Quad* quad2= new Quad(15, 25);
+            Quad* quad2 = new Quad(15, 25);
             quad2->x ( 30);
             quad2->y ( 25);
 
@@ -252,15 +252,15 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testBounds()
         {
-             Quad* quad= new Quad(10, 20);
+            Quad* quad = new Quad(10, 20);
             quad->x ( -10);
             quad->y ( 10);
             quad->rotation ( Math::PI() / 2);
 
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->addChild(quad);
 
-             Rectangle* bounds= sprite->bounds;
+            Rectangle* bounds = sprite->bounds;
             assertThat(bounds->x(), closeTo(-30, E));
             assertThat(bounds->y(), closeTo(10, E));
             assertThat(bounds->width(), closeTo(20, E));
@@ -276,36 +276,36 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testBoundsInSpace()
         {
-             Sprite* root= new Sprite();
+            Sprite* root = new Sprite();
 
-             Sprite* spriteA= new Sprite();
+            Sprite* spriteA = new Sprite();
             spriteA->x ( 50);
             spriteA->y ( 50);
             addQuadToSprite(spriteA);
             root->addChild(spriteA);
 
-             Sprite* spriteA1= new Sprite();
+            Sprite* spriteA1 = new Sprite();
             spriteA1->x ( 150);
             spriteA1->y ( 50);
             spriteA1->scaleX ( spriteA1->scaleY ( 0.5));
             addQuadToSprite(spriteA1);
             spriteA->addChild(spriteA1);
 
-             Sprite* spriteA11= new Sprite();
+            Sprite* spriteA11 = new Sprite();
             spriteA11->x ( 25);
             spriteA11->y ( 50);
             spriteA11->scaleX ( spriteA11->scaleY ( 0.5));
             addQuadToSprite(spriteA11);
             spriteA1->addChild(spriteA11);
 
-             Sprite* spriteA2= new Sprite();
+            Sprite* spriteA2 = new Sprite();
             spriteA2->x ( 50);
             spriteA2->y ( 150);
             spriteA2->scaleX ( spriteA2->scaleY ( 0.5));
             addQuadToSprite(spriteA2);
             spriteA->addChild(spriteA2);
 
-             Sprite* spriteA21= new Sprite();
+            Sprite* spriteA21 = new Sprite();
             spriteA21->x ( 50);
             spriteA21->y ( 25);
             spriteA21->scaleX ( spriteA21->scaleY ( 0.5));
@@ -314,8 +314,8 @@ namespace tests {
 
             // ---
 
-             Rectangle* bounds= spriteA21->getBounds(spriteA11);
-             Rectangle* expectedBounds= new Rectangle(-350, 350, 100, 100);
+            Rectangle* bounds = spriteA21->getBounds(spriteA11);
+            Rectangle* expectedBounds = new Rectangle(-350, 350, 100, 100);
             Helpers()->compareRectangles(bounds, expectedBounds);
 
             // now rotate as well
@@ -334,11 +334,11 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testBoundsOfEmptyContainer()
         {
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->x ( 100);
             sprite->y ( 200);
 
-             Rectangle* bounds= sprite->bounds;
+            Rectangle* bounds = sprite->bounds;
             assertThat(bounds->x(), closeTo(100, E));
             assertThat(bounds->y(), closeTo(200, E));
             assertThat(bounds->width(), closeTo(0, E));
@@ -348,12 +348,12 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testSize()
         {
-             Quad* quad1= new Quad(100, 100);
-             Quad* quad2= new Quad(100, 100);
+            Quad* quad1 = new Quad(100, 100);
+            Quad* quad2 = new Quad(100, 100);
             quad2->x ( quad2->y ( 100));
 
-             Sprite* sprite= new Sprite();
-             Sprite* childSprite= new Sprite();
+            Sprite* sprite = new Sprite();
+            Sprite* childSprite = new Sprite();
 
             sprite->addChild(childSprite);
             childSprite->addChild(quad1);
@@ -372,12 +372,12 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testSort()
         {
-             Sprite* s1= new Sprite(); s1->y ( 8);
-             Sprite* s2= new Sprite(); s2->y ( 3);
-             Sprite* s3= new Sprite(); s3->y ( 6);
-             Sprite* s4= new Sprite(); s4->y ( 1);
+            Sprite* s1 = new Sprite(); s1->y ( 8);
+            Sprite* s2 = new Sprite(); s2->y ( 3);
+            Sprite* s3 = new Sprite(); s3->y ( 6);
+            Sprite* s4 = new Sprite(); s4->y ( 1);
 
-             Sprite* parent= new Sprite();
+            Sprite* parent = new Sprite();
             parent->addChild(s1);
             parent->addChild(s2);
             parent->addChild(s3);
@@ -404,8 +404,8 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testAddExistingChild()
         {
-             Sprite* sprite= new Sprite();
-             Quad* quad= new Quad(100, 100);
+            Sprite* sprite = new Sprite();
+            Quad* quad = new Quad(100, 100);
             sprite->addChild(quad);
             sprite->addChild(quad);
             Assert::assertEquals(1, sprite->numChildren());
@@ -415,10 +415,10 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testRemoveWithEventHandler()
         {
-             Sprite* parent= new Sprite();
-             Sprite* child0= new Sprite();
-             Sprite* child1= new Sprite();
-             Sprite* child2= new Sprite();
+            Sprite* parent = new Sprite();
+            Sprite* child0 = new Sprite();
+            Sprite* child1 = new Sprite();
+            Sprite* child2 = new Sprite();
 
             parent->addChild(child0);
             parent->addChild(child1);
@@ -446,9 +446,9 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testIllegalRecursion()
         {
-             Sprite* sprite1= new Sprite();
-             Sprite* sprite2= new Sprite();
-             Sprite* sprite3= new Sprite();
+            Sprite* sprite1 = new Sprite();
+            Sprite* sprite2 = new Sprite();
+            Sprite* sprite3 = new Sprite();
 
             sprite1->addChild(sprite2);
             sprite2->addChild(sprite3);
@@ -460,16 +460,16 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testAddAsChildToSelf()
         {
-             Sprite* sprite= new Sprite();
+            Sprite* sprite = new Sprite();
             sprite->addChild(sprite);
         }
 
 
         void DisplayObjectContainerTest::                testDisplayListEvents()
         {
-             Stage* stage= new Stage(100, 100);
-             Sprite* sprite= new Sprite();
-             Quad* quad= new Quad(20, 20);
+            Stage* stage = new Stage(100, 100);
+            Sprite* sprite = new Sprite();
+            Quad* quad = new Quad(20, 20);
 
             quad->addEventListener(Event::ADDED, onAdded);
             quad->addEventListener(Event::ADDED_TO_STAGE, onAddedToStage);
@@ -515,8 +515,8 @@ namespace tests {
 
         void DisplayObjectContainerTest::                testRemovedFromStage()
         {
-             Stage* stage= new Stage(100, 100);
-             Sprite* sprite= new Sprite();
+            Stage* stage = new Stage(100, 100);
+            Sprite* sprite = new Sprite();
             stage->addChild(sprite);
             sprite->addEventListener(Event::REMOVED_FROM_STAGE, onSpriteRemovedFromStage);
             sprite->removeFromParent();

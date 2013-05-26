@@ -50,7 +50,7 @@ namespace core {
         StatsDisplay::StatsDisplay()
         {
             mBackground = new Quad(50, 25, 0x0);
-            mTextField = new TextField(48, 25, "", BitmapFont::MINI, BitmapFont::NATIVE_SIZE, 0xffffff);
+            mTextField = new starling()->text()->TextField(48, 25, "", BitmapFont::MINI, BitmapFont::NATIVE_SIZE, 0xffffff);
             mTextField->x ( 2);
             mTextField->hAlign ( HAlign::LEFT);
             mTextField->vAlign ( VAlign::TOP);

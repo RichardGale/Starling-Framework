@@ -57,6 +57,13 @@ namespace starling
         class formatString;
     }
 }
+namespace starling
+{
+    namespace events
+    {
+        class EventDispatcher;
+    }
+}
 
 //use namespace starling_internal;
 
@@ -82,6 +89,7 @@ namespace starling
 using namespace flash::geom;
 using namespace starling::core;
 using namespace starling::display;
+using namespace starling::events;
 using namespace starling::utils;
 
 namespace starling
@@ -129,31 +137,31 @@ namespace starling
              *  object. If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object.*/
         public:
-            Point   *getLocation(DisplayObject *space, Point *resultPoint=NULL);
+            Point    *getLocation(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Converts the previous location of a touch to the local coordinate system of a display
              *  object. If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object.*/
         public:
-            Point   *getPreviousLocation(DisplayObject *space, Point *resultPoint=NULL);
+            Point    *getPreviousLocation(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Returns the movement of the touch between the current and previous location.
              *  If you pass a 'resultPoint', the result will be stored in this point instead
              *  of creating a new object. */
         public:
-            Point   *getMovement(DisplayObject *space, Point *resultPoint=NULL);
+            Point    *getMovement(DisplayObject *space, Point *resultPoint=NULL);
 
             /** Indicates if the target or one of its children is touched. */
         public:
-            bool     isTouching(DisplayObject *target);
+            bool  isTouching(DisplayObject *target);
 
             /** Returns a description of the object. */
         public:
-            std::string toString();
+            std::string   toString();
 
             /** Creates a clone of the Touch object. */
         public:
-            Touch   *clone();
+            Touch    *clone();
 
             // helper methods
 
@@ -168,19 +176,19 @@ namespace starling
 
             /** The x-position of the touch in stage coordinates. */
         public:
-            float        globalX();
+            float       globalX();
 
             /** The y-position of the touch in stage coordinates. */
         public:
-            float        globalY();
+            float       globalY();
 
             /** The previous x-position of the touch in stage coordinates. */
         public:
-            float        previousGlobalX();
+            float       previousGlobalX();
 
             /** The previous y-position of the touch in stage coordinates. */
         public:
-            float        previousGlobalY();
+            float       previousGlobalY();
 
             /** The number of taps the finger made in a short amount of time. Use this to detect
              *  double-taps / double-clicks, etc. */
@@ -189,7 +197,7 @@ namespace starling
 
             /** The current phase the touch is in. @see TouchPhase */
         public:
-            std::string  phase();
+            std::string       phase();
 
             /** The display object at which the touch occurred. */
         public:
@@ -197,22 +205,22 @@ namespace starling
 
             /** The moment the touch occurred (in seconds since application start). */
         public:
-            float        timestamp();
+            float       timestamp();
 
             /** A value between 0.0 and 1.0 indicating force of the contact with the device.
              *  If the device does not support detecting the pressure, the value is 1.0. */
         public:
-            float        pressure();
+            float       pressure();
 
             /** Width of the contact area.
              *  If the device does not support detecting the pressure, the value is 1.0. */
         public:
-            float        width();
+            float       width();
 
             /** Height of the contact area.
              *  If the device does not support detecting the pressure, the value is 1.0. */
         public:
-            float        height();
+            float       height();
 
             // internal methods
 

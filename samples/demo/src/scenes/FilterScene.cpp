@@ -46,8 +46,8 @@ namespace scenes {
 
         void FilterScene::onButtonTriggered()
         {
-             std::vector<void*> filterInfo=mFilterInfos.shift()asArray;
-            mFilterInfos.push(filterInfo);
+            std::vector<void*> filterInfo = mFilterInfos.shift() as Array;
+            mFilterInfos.push_back(filterInfo);
 
             mInfoText->text ( filterInfo[0]);
             mImage->filter  ( filterInfo[1]);
@@ -62,29 +62,29 @@ namespace scenes {
                 ["Glow", BlurFilter::createGlow()]
             ];
 
-             ColorMatrixFilter* invertFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* invertFilter = new ColorMatrixFilter();
             invertFilter->invert();
-            mFilterInfos.push(["Invert", invertFilter]);
+            mFilterInfos.push_back(["Invert", invertFilter]);
 
-             ColorMatrixFilter* grayscaleFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* grayscaleFilter = new ColorMatrixFilter();
             grayscaleFilter->adjustSaturation(-1);
-            mFilterInfos.push(["Grayscale", grayscaleFilter]);
+            mFilterInfos.push_back(["Grayscale", grayscaleFilter]);
 
-             ColorMatrixFilter* saturationFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* saturationFilter = new ColorMatrixFilter();
             saturationFilter->adjustSaturation(1);
-            mFilterInfos.push(["Saturation", saturationFilter]);
+            mFilterInfos.push_back(["Saturation", saturationFilter]);
 
-             ColorMatrixFilter* contrastFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* contrastFilter = new ColorMatrixFilter();
             contrastFilter->adjustContrast(0.75);
-            mFilterInfos.push(["Contrast", contrastFilter]);
+            mFilterInfos.push_back(["Contrast", contrastFilter]);
 
-             ColorMatrixFilter* brightnessFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* brightnessFilter = new ColorMatrixFilter();
             brightnessFilter->adjustBrightness(-0.25);
-            mFilterInfos.push(["Brightness", brightnessFilter]);
+            mFilterInfos.push_back(["Brightness", brightnessFilter]);
 
-             ColorMatrixFilter* hueFilter= new ColorMatrixFilter();
+            ColorMatrixFilter* hueFilter = new ColorMatrixFilter();
             hueFilter->adjustHue(1);
-            mFilterInfos.push(["Hue", hueFilter]);
+            mFilterInfos.push_back(["Hue", hueFilter]);
         }
 }
 

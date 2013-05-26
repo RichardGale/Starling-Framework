@@ -63,7 +63,7 @@ namespace textures {
         {
             if (mBase) mBase->dispose();
             restoreOnLostContext(NULL); // removes event listener & data reference 
-            super()->dispose();
+            Texture::dispose();
         }
 
         // texture backup (context lost)
@@ -82,10 +82,10 @@ namespace textures {
 
         void ConcreteTexture::onContextCreated(Event* event)
         {
-             Context3D* context= Starling::context;
-             BitmapData* bitmapData= dynamic_cast<BitmapData*>(mData);
-             AtfData* atfData= dynamic_cast<AtfData*>(mData);
-             flash::display3D::textures::Texture* nativeTexture;
+            Context3D* context = Starling::context;
+            BitmapData* bitmapData = dynamic_cast<BitmapData*>(mData);
+            AtfData* atfData = dynamic_cast<AtfData*>(mData);
+            flash::display3D::textures::Texture* nativeTexture;
 
             if (bitmapData)
             {

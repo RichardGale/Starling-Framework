@@ -527,7 +527,7 @@ namespace starling
             void     render();
 
         private:
-            void     updateViewPort(bool forceUpdate   =false);
+            void     updateViewPort(bool forceUpdate=false);
 
         private:
             void     updateNativeOverlay();
@@ -576,7 +576,7 @@ namespace starling
             void     onTouch(flash::events::Event *event);
 
         private:
-            std::vector<void *> touchEventTypes();
+            std::vector<void *>        touchEventTypes();
 
             // program management
 
@@ -596,28 +596,20 @@ namespace starling
 
             /** Indicates if a set of vertex- and fragment-programs is registered under a certain name. */
         public:
-            bool     hasProgram(std::string name);
+            bool  hasProgram(std::string name);
 
         private:
-            std::map<std::string, void *> programs();
+            std::map<std::string, void *>   programs();
 
             // properties
 
             /** Indicates if a context is available and non-disposed. */
         private:
-            bool         contextValid();
+            bool      contextValid();
 
             /** Indicates if this Starling instance is started. */
         public:
-            bool         isStarted();
-
-            /** The default juggler of this instance. Will be advanced once per frame. */
-        public:
-            Juggler     *juggler();
-
-            /** The render context of this instance. */
-        public:
-            Context3D   *context();
+            bool      isStarted();
 
             /** A dictionary that can be used to save custom data related to the current context.
              *  If you need to share data that is bound to a specific stage3D instance
@@ -625,19 +617,19 @@ namespace starling
              *  The Dictionary is actually bound to the stage3D instance, thus it survives a
              *  context loss. */
         public:
-            std::map<std::string, void *> contextData();
+            std::map<std::string, void *>   contextData();
 
             /** Indicates if multitouch simulation with "Shift" and "Ctrl"/"Cmd"-keys is enabled.
              *  @default false */
         public:
-            bool         simulateMultitouch();
+            bool      simulateMultitouch();
         public:
             void         simulateMultitouch(bool value);
 
             /** Indicates if Stage3D render methods will report errors. Activate only when needed,
              *  as this has a negative impact on performance. @default false */
         public:
-            bool         enableErrorChecking();
+            bool      enableErrorChecking();
         public:
             void         enableErrorChecking(bool value);
 
@@ -649,29 +641,29 @@ namespace starling
 
             /** The viewport into which Starling contents will be rendered. */
         public:
-            Rectangle   *viewPort();
+            Rectangle    *viewPort();
         public:
             void         viewPort(Rectangle *value);
 
             /** The ratio between viewPort width and stage width. Useful for choosing a different
              *  set of textures depending on the display resolution. */
         public:
-            float        contentScaleFactor();
+            float       contentScaleFactor();
 
             /** A Flash Sprite placed directly on top of the Starling content. Use it to display native
              *  Flash components. */
         public:
-            Sprite      *nativeOverlay();
+            Sprite       *nativeOverlay();
 
             /** Indicates if a small statistics box (with FPS, memory usage and draw count) is displayed. */
         public:
-            bool         showStats();
+            bool      showStats();
         public:
             void         showStats(bool value);
 
             /** Displays the statistics box at a certain position. */
         public:
-            void     showStatsAt(std::string hAlign="left", std::string vAlign="top", float scale =1);
+            void     showStatsAt(std::string hAlign="left", std::string vAlign="top", float scale=1);
 
             /** The Starling stage object, which is the root of the display tree that is rendered. */
         public:
@@ -679,7 +671,7 @@ namespace starling
 
             /** The Flash Stage3D object Starling renders into. */
         public:
-            Stage3D     *stage3D();
+            Stage3D      *stage3D();
 
             /** The Flash (2D) stage object Starling renders beneath. */
         public:
@@ -693,21 +685,21 @@ namespace starling
             /** Indicates if the Context3D render calls are managed externally to Starling,
              *  to allow other frameworks to share the Stage3D instance. @default false */
         public:
-            bool         shareContext();
+            bool      shareContext();
         public:
             void         shareContext(bool value);
 
             /** The Context3D profile as requested in the constructor. Beware that if you are
              *  using a shared context, this might not be accurate. */
         public:
-            std::string  profile();
+            std::string       profile();
 
             /** Indicates that if the device supports HiDPI screens Starling will attempt to allocate
              *  a larger back buffer than indicated via the viewPort size. Note that this is used
              *  on Desktop only; mobile AIR apps still use the "requestedDisplayResolution" parameter
              *  the application descriptor XML. */
         public:
-            bool         supportHighResolutions();
+            bool      supportHighResolutions();
         public:
             void         supportHighResolutions(bool value);
 
@@ -715,23 +707,23 @@ namespace starling
 
             /** The currently active Starling instance. */
         public:
-            static Starling    *current();
+            static Starling     *current();
 
             /** The render context of the currently active Starling instance. */
         public:
-            static Context3D   *context();
+            static Context3D    *context();
 
             /** The default juggler of the currently active Starling instance. */
         public:
-            static Juggler     *juggler();
+            static Juggler      *juggler();
 
             /** The contentScaleFactor of the currently active Starling instance. */
         public:
-            static float        contentScaleFactor();
+            static float       contentScaleFactor();
 
             /** Indicates if multitouch input should be supported. */
         public:
-            static bool         multitouchEnabled();
+            static bool      multitouchEnabled();
 
         public:
             static void         multitouchEnabled(bool value);
@@ -743,7 +735,7 @@ namespace starling
              *  It is recommended to enable this setting on Android and Windows, but to deactivate it
              *  on iOS and Mac OS X. @default false */
         public:
-            static bool         handleLostContext();
+            static bool      handleLostContext();
         public:
             static void         handleLostContext(bool value);
         };

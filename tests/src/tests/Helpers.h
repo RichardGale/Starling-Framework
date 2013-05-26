@@ -89,20 +89,20 @@ namespace tests
     {
     public:
         static void     compareRectangles(Rectangle *rect1, Rectangle *rect2,
-                                          float e =0.0001);
+                                          float e=0.0001);
 
     public:
-        static void     comparePoints(Point *point1, Point *point2, float e =0.0001);
+        static void     comparePoints(Point *point1, Point *point2, float e=0.0001);
 
     public:
-        static void     compareVector3Ds(Vector3D *v1, Vector3D *v2, float e =0.0001);
+        static void     compareVector3Ds(Vector3D *v1, Vector3D *v2, float e=0.0001);
 
     public:
         static void     compareVectors(std::vector<float> vector1, std::vector<float> vector2,
-                                       float e =0.0001);
+                                       float e=0.0001);
 
     public:
-        static void     compareMatrices(Matrix *matrix1, Matrix *matrix2, float e =0.0001);
+        static void     compareMatrices(Matrix *matrix1, Matrix *matrix2, float e=0.0001);
 
     public:
         static void     assertDoesNotThrow(Function *block);

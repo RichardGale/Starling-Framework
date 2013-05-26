@@ -71,8 +71,8 @@ namespace starling
             /** Uses a matrix to transform 2D coordinates into a different space. If you pass a
              *  'resultPoint', the result will be stored in this point instead of creating a new object.*/
         public:
-            static Point   *transformCoords(Matrix *matrix, float x, float y,
-                                            Point *resultPoint=NULL);
+            static Point    *transformCoords(Matrix *matrix, float x, float y,
+                                             Point *resultPoint=NULL);
 
             /** Appends a skew transformation to a matrix (angles in radians). The skew matrix
              *  has the following form:

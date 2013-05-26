@@ -51,8 +51,8 @@ namespace display {
                       
 
         /** Helper objects. */
-         Point* Quad::sHelperPoint= new Point();
-         Matrix* Quad::sHelperMatrix= new Matrix();
+        Point* Quad::sHelperPoint = new Point();
+        Matrix* Quad::sHelperMatrix = new Matrix();
 
         /** Creates a quad with a certain size and color. The last parameter controls if the 
          *  alpha value should be premultiplied into the color values on rendering, which can
@@ -90,8 +90,8 @@ namespace display {
             }
             else if (targetSpace == parent && rotation == 0.0)
             {
-                 float scaleX  = this()->scaleX;
-                 float scaleY  = this()->scaleY;
+                float scaleX = this->scaleX;
+                float scaleY = this->scaleY;
                 mVertexData->getPosition(3, sHelperPoint);
                 resultRect->setTo(x - pivotX * scaleX,      y - pivotY * scaleY,
                                  sHelperPoint->x() * scaleX, sHelperPoint->y() * scaleY);
@@ -148,7 +148,7 @@ namespace display {
         /** Sets the colors of all vertices to a certain value. */
         void Quad::color(unsigned int value)
         {
-            for ( int i=0; i<4; ++i)
+            for (int i=0; i<4; ++i)
                 setVertexColor(i, value);
 
             if (value != 0xffffff || alpha != 1.0) mTinted = true;
@@ -158,7 +158,7 @@ namespace display {
         /** @inheritDoc **/
         void Quad::alpha(float value)
         {
-            super()->alpha ( value);
+            DisplayObject::alpha ( value);
 
             if (value < 1.0) mTinted = true;
             else mTinted = mVertexData->tinted();

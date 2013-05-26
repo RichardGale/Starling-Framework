@@ -104,7 +104,7 @@ namespace starling
             /** Creates a movie clip from the provided textures and with the specified default framerate.
              *  The movie will have the size of the first frame. */
         public:
-            MovieClip(std::vector<Texture *> textures, float fps =12);
+            MovieClip(std::vector<Texture *> textures, float fps=12);
 
         private:
             void     init(std::vector<Texture *> textures, float fps);
@@ -114,12 +114,12 @@ namespace starling
             /** Adds an additional frame, optionally with a sound and a custom duration. If the
              *  duration is omitted, the default framerate is used (as specified in the constructor). */
         public:
-            void     addFrame(Texture *texture, Sound *sound=NULL, float duration =-1);
+            void     addFrame(Texture *texture, Sound *sound=NULL, float duration=-1);
 
             /** Adds a frame at a certain index, optionally with a sound and a custom duration. */
         public:
             void     addFrameAt(int frameID, Texture *texture, Sound *sound=NULL,
-                                float duration =-1);
+                                float duration=-1);
 
             /** Removes the frame at a certain ID. The successors will move down. */
         public:
@@ -127,7 +127,7 @@ namespace starling
 
             /** Returns the texture of a certain frame. */
         public:
-            Texture *getFrameTexture(int frameID);
+            Texture  *getFrameTexture(int frameID);
 
             /** Sets the texture of a certain frame. */
         public:
@@ -135,7 +135,7 @@ namespace starling
 
             /** Returns the sound of a certain frame. */
         public:
-            Sound   *getFrameSound(int frameID);
+            Sound    *getFrameSound(int frameID);
 
             /** Sets the sound of a certain frame. The sound will be played whenever the frame
              *  is displayed. */
@@ -144,7 +144,7 @@ namespace starling
 
             /** Returns the duration of a certain frame (in seconds). */
         public:
-            float    getFrameDuration(int frameID);
+            float   getFrameDuration(int frameID);
 
             /** Sets the duration of a certain frame (in seconds). */
         public:
@@ -177,17 +177,17 @@ namespace starling
 
             /** Indicates if a (non-looping) movie has come to its end. */
         public:
-            bool         isComplete();
+            bool      isComplete();
 
             // properties
 
             /** The total duration of the clip in seconds. */
         public:
-            float        totalTime();
+            float       totalTime();
 
             /** The time that has passed since the clip was started (each loop starts at zero). */
         public:
-            float        currentTime();
+            float       currentTime();
 
             /** The total number of frames. */
         public:
@@ -195,7 +195,7 @@ namespace starling
 
             /** Indicates if the clip should loop. */
         public:
-            bool         loop();
+            bool      loop();
         public:
             void         loop(bool value);
 
@@ -209,14 +209,14 @@ namespace starling
              *  durations. If you change the fps, the durations of all frames will be scaled
              *  relatively to the previous value. */
         public:
-            float        fps();
+            float       fps();
         public:
             void         fps(float value);
 
             /** Indicates if the clip is still playing. Returns <code>false</code> when the end
              *  is reached. */
         public:
-            bool         isPlaying();
+            bool      isPlaying();
         };
     }
 }

@@ -21,11 +21,11 @@ namespace scenes {
 
         MovieScene::MovieScene()
         {
-             std::vector<Texture*> frames=Game()->assets()->getTextures("flight");
+            std::vector<Texture*> frames=Game()->assets()->getTextures("flight");
             mMovie = new MovieClip(frames, 15);
 
             // add sounds
-             Sound* stepSound= Game()->assets()->getSound("wing_flap");
+            Sound* stepSound = Game()->assets()->getSound("wing_flap");
             mMovie->setFrameSound(2, stepSound);
 
             // move the clip to the center and add it to the stage
@@ -53,7 +53,7 @@ namespace scenes {
         {
             removeEventListener(Event::REMOVED_FROM_STAGE, onRemovedFromStage);
             removeEventListener(Event::ADDED_TO_STAGE, onAddedToStage);
-            super()->dispose();
+            Scene::dispose();
         }
 }
 

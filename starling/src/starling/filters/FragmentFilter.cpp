@@ -120,9 +120,9 @@ namespace filters {
 
         /** helper objects. */
                     
-         Rectangle* FragmentFilter::sBounds = new Rectangle();
-         Rectangle* FragmentFilter::sStageBounds= new Rectangle();
-         Matrix* FragmentFilter::sTransformationMatrix= new Matrix();
+        Rectangle* FragmentFilter::sBounds  = new Rectangle();
+        Rectangle* FragmentFilter::sStageBounds = new Rectangle();
+        Matrix* FragmentFilter::sTransformationMatrix = new Matrix();
 
         /** Creates a new Fragment filter with the specified number of passes and resolution.
          *  This constructor may only be called by the constructor of a subclass. */
@@ -211,10 +211,10 @@ namespace filters {
         QuadBatch* FragmentFilter::renderPasses(DisplayObject* object, RenderSupport* support,
                                       float parentAlpha, bool intoCache)
         {
-             Texture* cacheTexture= NULL;
-             Stage* stage= object->stage;
-             Context3D* context= Starling::context;
-             float scale  = Starling::current()->contentScaleFactor();
+            Texture* cacheTexture = NULL;
+            Stage* stage = object->stage;
+            Context3D* context = Starling::context;
+            float scale = Starling::current()->contentScaleFactor();
 
             if (stage   == NULL) throw new Error("Filtered object must be on the stage.");
             if (context == NULL) throw new MissingContextError();
@@ -237,7 +237,7 @@ namespace filters {
 
             // save original projection matrix and render target
             mProjMatrix->copyFrom(support->projectionMatrix());
-             Texture* previousRenderTarget= support->renderTarget();
+            Texture* previousRenderTarget = support->renderTarget();
 
             if (previousRenderTarget)
                 throw new IllegalOperationError(
@@ -266,7 +266,7 @@ namespace filters {
                                       Context3DVertexBufferFormat::FLOAT_2);
 
             // draw all passes
-            for ( int i=0; i<mNumPasses; ++i)
+            for (int i=0; i<mNumPasses; ++i)
             {
                 if (i < mNumPasses - 1) // intermediate pass  
                 {
@@ -293,7 +293,7 @@ namespace filters {
                     }
                 }
 
-                 Texture* passTexture= getPassTexture(i);
+                Texture* passTexture = getPassTexture(i);
 
                 context->setProgramConstantsFromMatrix(Context3DProgramType::VERTEX, mMvpConstantID,
                                                       support->mvpMatrix3D(), true);
@@ -321,8 +321,8 @@ namespace filters {
                 // the filter output in object coordinates, we wrap it in a QuadBatch: that way,
                 // we can modify it with a transformation matrix.
 
-                 QuadBatch* quadBatch= new QuadBatch();
-                 Image* image= new Image(cacheTexture);
+                QuadBatch* quadBatch = new QuadBatch();
+                Image* image = new Image(cacheTexture);
 
                 stage->getTransformationMatrix(object, sTransformationMatrix);
                 MatrixUtil::prependTranslation(sTransformationMatrix,
@@ -355,9 +355,9 @@ namespace filters {
 
         void FragmentFilter::updatePassTextures(int width, int height, float scale)
         {
-             int numPassTextures = mNumPasses > 1 ? 2 : 1;
+            int numPassTextures = mNumPasses > 1 ? 2 : 1;
 
-             bool needsUpdate    = mPassTextures.empty() ||
+            bool needsUpdate = mPassTextures.empty() ||
                 mPassTextures.length != numPassTextures ||
                 mPassTextures[0]->width != width || mPassTextures[0]->height() != height;
 
@@ -365,7 +365,7 @@ namespace filters {
             {
                 if (mPassTextures)
                 {
-                    for each (var Texture* texturein mPassTextures)
+                    for (std::vector<Texture*>::iterator texture = mPassTextures.begin(); texture != mPassTextures.end(); ++texture)
                         texture->dispose();
 
                     mPassTextures.size() = numPassTextures;
@@ -375,7 +375,7 @@ namespace filters {
                     mPassTextures.clear();
                 }
 
-                for ( int i=0; i<numPassTextures; ++i)
+                for (int i=0; i<numPassTextures; ++i)
                     mPassTextures[i] = Texture::empty(width, height, PMA, true, scale);
             }
         }
@@ -407,7 +407,7 @@ namespace filters {
                 // the bounds are a rectangle around the object, in stage coordinates,
                 // and with an optional margin. To fit into a POT-texture, it will grow towards
                 // the right and bottom.
-                 float deltaMargin  = mResolution == 1.0 ? 0.0 : 1.0 / mResolution; // avoid hard edges
+                float deltaMargin = mResolution == 1.0 ? 0.0 : 1.0 / mResolution; // avoid hard edges
                 resultRect->x() -= mMarginX + deltaMargin;
                 resultRect->y() -= mMarginY + deltaMargin;
                 resultRect->width()  += 2 * (mMarginX + deltaMargin);
@@ -419,7 +419,7 @@ namespace filters {
 
         void FragmentFilter::disposePassTextures()
         {
-            for each (var Texture* texturein mPassTextures)
+            for (std::vector<Texture*>::iterator texture = mPassTextures.begin(); texture != mPassTextures.end(); ++texture)
                 texture->dispose();
 
             mPassTextures.clear();
@@ -511,8 +511,8 @@ namespace filters {
             if (mCache) return mCache;
             else
             {
-                 RenderSupport* renderSupport;
-                 Stage* stage= object->stage;
+                RenderSupport* renderSupport;
+                Stage* stage = object->stage;
 
                 if (stage == NULL)
                     throw new Error("Filtered object must be on the stage.");

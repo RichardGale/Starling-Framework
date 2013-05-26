@@ -43,7 +43,7 @@ namespace starling {
 namespace display {
 
 
-         std::vector<void*> BlendMode::sBlendFactors=[
+        std::vector<void*> BlendMode::sBlendFactors = [
             // no premultiplied alpha
             {
                 "none"     : [ Context3DBlendFactor::ONE, Context3DBlendFactor::ZERO ],
@@ -70,26 +70,26 @@ namespace display {
         BlendMode::BlendMode() { throw new AbstractClassError(); }
 
         /** Inherits the blend mode from this display object's parent. */
-        const std::string BlendMode::AUTO="auto";
+        const std::string BlendMode::AUTO = "auto";
 
         /** Deactivates blending, i.e. disabling any transparency. */
-        const std::string BlendMode::NONE="none";
+        const std::string BlendMode::NONE = "none";
 
         /** The display object appears in front of the background. */
-        const std::string BlendMode::NORMAL="normal";
+        const std::string BlendMode::NORMAL = "normal";
 
         /** Adds the values of the colors of the display object to the colors of its background. */
-        const std::string BlendMode::ADD="add";
+        const std::string BlendMode::ADD = "add";
 
         /** Multiplies the values of the display object colors with the the background color. */
-        const std::string BlendMode::MULTIPLY="multiply";
+        const std::string BlendMode::MULTIPLY = "multiply";
 
         /** Multiplies the complement (inverse) of the display object color with the complement of 
           * the background color, resulting in a bleaching effect. */
-        const std::string BlendMode::SCREEN="screen";
+        const std::string BlendMode::SCREEN = "screen";
 
         /** Erases the background when drawn on a RenderTexture. */
-        const std::string BlendMode::ERASE="erase";
+        const std::string BlendMode::ERASE = "erase";
 
         // accessing modes
 
@@ -97,7 +97,7 @@ namespace display {
          *  value. Throws an ArgumentError if the mode does not exist. */
         std::vector<void*> BlendMode::getBlendFactors(std::string mode, bool premultipliedAlpha)
         {
-             Object* modes= sBlendFactors[int(premultipliedAlpha)];
+            Object* modes = sBlendFactors[int(premultipliedAlpha)];
             if (mode in modes) return modes[mode];
             else throw new ArgumentError("Invalid blend mode");
         }
@@ -108,10 +108,10 @@ namespace display {
         void BlendMode::REGISTER(std::string name, std::string sourceFactor, std::string destFactor,
                                         bool premultipliedAlpha)
         {
-             Object* modes= sBlendFactors[int(premultipliedAlpha)];
+            Object* modes = sBlendFactors[int(premultipliedAlpha)];
             modes[name] = [sourceFactor, destFactor];
 
-             Object* otherModes= sBlendFactors[int(!premultipliedAlpha)];
+            Object* otherModes = sBlendFactors[int(!premultipliedAlpha)];
             if (!(name in otherModes)) otherModes[name] = [sourceFactor, destFactor];
         }
 }

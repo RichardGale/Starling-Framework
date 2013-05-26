@@ -305,7 +305,7 @@ namespace starling
              *  and blend mode. This makes it possible to render batches that are not part of the
              *  display list. */
         public:
-            void     renderCustom(Matrix *mvpMatrix, float parentAlpha =1.0,
+            void     renderCustom(Matrix *mvpMatrix, float parentAlpha=1.0,
                                   std::string blendMode="");
 
             /** Resets the batch. The vertex- and index-buffers remain their size, so that they
@@ -316,7 +316,7 @@ namespace starling
             /** Adds an image to the batch. This method internally calls 'addQuad' with the correct
              *  parameters for 'texture' and 'smoothing'. */
         public:
-            void     addImage(Image *image, float parentAlpha =1.0, Matrix *modelViewMatrix=NULL,
+            void     addImage(Image *image, float parentAlpha=1.0, Matrix *modelViewMatrix=NULL,
                               std::string blendMode="");
 
             /** Adds a quad to the batch. The first quad determines the state of the batch,
@@ -324,14 +324,14 @@ namespace starling
              *  make sure they share that state (e.g. with the 'isStageChange' method), or reset
              *  the batch. */
         public:
-            void     addQuad(Quad *quad, float parentAlpha =1.0, starling::textures::Texture *texture=NULL,
+            void     addQuad(Quad *quad, float parentAlpha=1.0, starling::textures::Texture *texture=NULL,
                              std::string smoothing="", Matrix *modelViewMatrix=NULL,
                              std::string blendMode="");
 
             /** Adds another QuadBatch to this batch. Just like the 'addQuad' method, you have to
              *  make sure that you only add batches with an equal state. */
         public:
-            void     addQuadBatch(QuadBatch *quadBatch, float parentAlpha =1.0,
+            void     addQuadBatch(QuadBatch *quadBatch, float parentAlpha=1.0,
                                   Matrix *modelViewMatrix=NULL, std::string blendMode="");
 
             /** Indicates if specific quads can be added to the batch without causing a state change.
@@ -339,8 +339,8 @@ namespace starling
              *  'tinted', 'smoothing', 'repeat' or 'blendMode' setting, or if the batch is full
              *  (one batch can contain up to 8192 quads). */
         public:
-            bool     isStateChange(bool tinted, float parentAlpha, starling::textures::Texture *texture,
-                                   std::string smoothing, std::string blendMode, int numQuads=1);
+            bool  isStateChange(bool tinted, float parentAlpha, starling::textures::Texture *texture,
+                                std::string smoothing, std::string blendMode, int numQuads=1);
 
             // display object methods
 
@@ -367,22 +367,22 @@ namespace starling
                                           std::vector<QuadBatch *> quadBatches,
                                           int quadBatchID,
                                           Matrix *transformationMatrix,
-                                          float alpha =1.0,
+                                          float alpha=1.0,
                                           std::string blendMode="",
-                                          bool ignoreCurrentFilter   =false);
+                                          bool ignoreCurrentFilter=false);
 
             // properties
 
         public:
             int          numQuads();
         public:
-            bool         tinted();
+            bool      tinted();
         public:
             starling::textures::Texture *texture();
         public:
-            std::string  smoothing();
+            std::string       smoothing();
         public:
-            bool         premultipliedAlpha();
+            bool      premultipliedAlpha();
 
         private:
             int          capacity();
@@ -393,9 +393,9 @@ namespace starling
             static void     registerPrograms();                              // use explicit string for compatibility
 
         private:
-            static std::string getImageProgramName(bool tinted, bool mipMap   =true,
-                                                   bool repeat   =false, std::string format="bgra",
-                                                   std::string smoothing="bilinear");
+            static std::string   getImageProgramName(bool tinted, bool mipMap=true,
+                    bool repeat=false, std::string format="bgra",
+                    std::string smoothing="bilinear");
         };
     }
 }

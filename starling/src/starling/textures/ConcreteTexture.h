@@ -99,8 +99,8 @@ namespace starling
         public:
             ConcreteTexture(TextureBase *base, std::string format, int width, int height,
                             bool mipMapping, bool premultipliedAlpha,
-                            bool optimizedForRenderTexture   =false,
-                            float scale =1);
+                            bool optimizedForRenderTexture=false,
+                            float scale=1);
 
             /** Disposes the TextureBase object. */
         public:
@@ -120,11 +120,11 @@ namespace starling
 
             /** Indicates if the base texture was optimized for being used in a render texture. */
         public:
-            bool         optimizedForRenderTexture();
+            bool      optimizedForRenderTexture();
 
             /** @inheritDoc */
         public:
-            virtual TextureBase *base();
+            virtual TextureBase  *base();
 
             /** @inheritDoc */
         public:
@@ -132,35 +132,35 @@ namespace starling
 
             /** @inheritDoc */
         public:
-            virtual std::string  format();
+            virtual std::string       format();
 
             /** @inheritDoc */
         public:
-            virtual float        width();
+            virtual float       width();
 
             /** @inheritDoc */
         public:
-            virtual float        height();
+            virtual float       height();
 
             /** @inheritDoc */
         public:
-            virtual float        nativeWidth();
+            virtual float       nativeWidth();
 
             /** @inheritDoc */
         public:
-            virtual float        nativeHeight();
+            virtual float       nativeHeight();
 
             /** The scale factor, which influences width and height properties. */
         public:
-            virtual float        scale();
+            virtual float       scale();
 
             /** @inheritDoc */
         public:
-            virtual bool         mipMapping();
+            virtual bool      mipMapping();
 
             /** @inheritDoc */
         public:
-            virtual bool         premultipliedAlpha();
+            virtual bool      premultipliedAlpha();
         };
     }
 }

@@ -56,16 +56,16 @@ namespace display {
                     
 
         /** Creates a quad with a texture mapped onto it. */
-        Image::Image(Texture* texture)
+        Image::Image(starling::textures::Texture* texture)
         {
             if (texture)
             {
-                 Rectangle* frame= texture->frame;
-                 float width   = frame ? frame->width  : texture->width;
-                 float height  = frame ? frame->height : texture->height;
-                 bool pma    = texture->premultipliedAlpha();
+                Rectangle* frame = texture->frame;
+                float width  = frame ? frame->width  : texture->width;
+                float height = frame ? frame->height : texture->height;
+                bool pma = texture->premultipliedAlpha();
 
-                super(width, height, 0xffffff, pma);
+                Quad(width, height, 0xffffff, pma);
 
                 mVertexData()->setTexCoords(0, 0.0, 0.0);
                 mVertexData()->setTexCoords(1, 1.0, 0.0);
@@ -100,9 +100,9 @@ namespace display {
          *  to synchronize image and texture size after assigning a texture with a different size.*/
         void Image::readjustSize()
         {
-             Rectangle* frame= texture()->frame;
-             float width   = frame ? frame->width  : texture()->width;
-             float height  = frame ? frame->height : texture()->height;
+            Rectangle* frame = texture()->frame;
+            float width  = frame ? frame->width  : texture()->width;
+            float height = frame ? frame->height : texture()->height;
 
             mVertexData()->setPosition(0, 0.0, 0.0);
             mVertexData()->setPosition(1, width, 0.0);

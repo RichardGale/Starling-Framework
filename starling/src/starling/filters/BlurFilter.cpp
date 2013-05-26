@@ -18,6 +18,8 @@
 #include "starling/textures/Texture.h"
 #include "starling/utils/Color.h"
 
+#include "starling/filters/FragmentFilter.h"
+
     /** The BlurFilter applies a Gaussian blur to an object. The strength of the blur can be
      *  set for x- and y-axis separately (always relative to the stage).
      *  A blur filter can also be set up as a drop shadow or glow filter. Use the respective
@@ -25,6 +27,7 @@
      */
 
 using namespace flash::display3D;
+using namespace starling::filters;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -64,7 +67,7 @@ namespace filters {
          */
         BlurFilter::BlurFilter(float blurX, float blurY, float resolution)
         {
-            super(1, resolution);
+            FragmentFilter(1, resolution);
             mBlurX = blurX;
             mBlurY = blurY;
             updateMarginsAndPasses();
@@ -75,10 +78,10 @@ namespace filters {
                                                 unsigned int color, float alpha, float blur,
                                                 float resolution)
         {
-             BlurFilter* dropShadow= new BlurFilter(blur, blur, resolution);
-            dropShadow->offsetX ( Math::cos(angle) * distance);
-            dropShadow->offsetY ( Math::sin(angle) * distance);
-            dropShadow->mode ( FragmentFilterMode()->BELOW());
+            BlurFilter* dropShadow = new BlurFilter(blur, blur, resolution);
+            dropShadow->offsetX = Math::cos(angle) * distance;
+            dropShadow->offsetY = Math::sin(angle) * distance;
+            dropShadow->mode = FragmentFilterMode()->BELOW();
             dropShadow->setUniformColor(true, color, alpha);
             return dropShadow;
         }
@@ -87,8 +90,8 @@ namespace filters {
         BlurFilter* BlurFilter::createGlow(unsigned int color, float alpha, float blur,
                                           float resolution)
         {
-             BlurFilter* glow= new BlurFilter(blur, blur, resolution);
-            glow->mode ( FragmentFilterMode()->BELOW());
+            BlurFilter* glow = new BlurFilter(blur, blur, resolution);
+            glow->mode = FragmentFilterMode()->BELOW();
             glow->setUniformColor(true, color, alpha);
             return glow;
         }
@@ -99,7 +102,7 @@ namespace filters {
             if (mNormalProgram) mNormalProgram->dispose();
             if (mTintedProgram) mTintedProgram->dispose();
 
-            super()->dispose();
+            FragmentFilter::dispose();
         }
 
         /** @private */
@@ -116,7 +119,7 @@ namespace filters {
             // va0   - position 
             // va1   - texture coords
 
-             std::string vertexProgramCode=
+            std::string vertexProgramCode =
                 "m44 op, va0, vc0       \\n" + // 4x4 matrix transform to output space
                 "mov v0, va1            \\n" + // pos:  0 |
                 "sub v1, va1, vc4.zwxx  \\n" + // pos: -2 |
@@ -131,7 +134,7 @@ namespace filters {
             // ft0-4 - pixel color from texture
             // ft5   - output color
 
-             std::string fragmentProgramCode=
+            std::string fragmentProgramCode =
                 "tex ft0,  v0, fs0 <2d, clamp, linear, mipnone> \\n" +  // read center pixel
                 "mul ft5, ft0, fc0.xxxx                         \\n" +  // multiply with center weight
 
@@ -196,9 +199,9 @@ namespace filters {
             // shader. By making use of linear texture sampling, we can produce similar output
             // to what would be 9 lookups.
 
-             float sigma ;
-             bool horizontal    = pass < mBlurX;
-             float pixelSize ;
+            float sigma;
+            bool horizontal = pass < mBlurX;
+            float pixelSize;
 
             if (horizontal)
             {
@@ -211,12 +214,12 @@ namespace filters {
                 pixelSize = 1.0 / textureHeight;
             }
 
-            const float twoSigmaSq  = 2 * sigma * sigma;
-            const float multiplier  = 1.0 / Math::sqrt(twoSigmaSq * Math::PI);
+            const float twoSigmaSq = 2 * sigma * sigma;
+            const float multiplier = 1.0 / Math::sqrt(twoSigmaSq * Math::PI);
 
             // get weights on the exact pixels (sTmpWeights) and calculate sums (mWeights)
 
-            for ( int i=0; i<5; ++i)
+            for (int i=0; i<5; ++i)
                 sTmpWeights[i] = multiplier * Math::exp(-i*i / twoSigmaSq);
 
             mWeights[0] = sTmpWeights[0];
@@ -225,8 +228,8 @@ namespace filters {
 
             // normalize weights so that sum equals "1.0"
 
-             float weightSum  = mWeights[0] + 2*mWeights[1] + 2*mWeights[2];
-             float invWeightSum  = 1.0 / weightSum;
+            float weightSum = mWeights[0] + 2*mWeights[1] + 2*mWeights[2];
+            float invWeightSum = 1.0 / weightSum;
 
             mWeights[0] *= invWeightSum;
             mWeights[1] *= invWeightSum;
@@ -234,8 +237,8 @@ namespace filters {
 
             // calculate intermediate offsets
 
-             float offset1  = (  pixelSize * sTmpWeights[1] + 2*pixelSize * sTmpWeights[2]) / mWeights[1];
-             float offset2  = (3*pixelSize * sTmpWeights[3] + 4*pixelSize * sTmpWeights[4]) / mWeights[2];
+            float offset1 = (  pixelSize * sTmpWeights[1] + 2*pixelSize * sTmpWeights[2]) / mWeights[1];
+            float offset2 = (3*pixelSize * sTmpWeights[3] + 4*pixelSize * sTmpWeights[4]) / mWeights[2];
 
             // depending on pass, we move in x- or y-direction
 

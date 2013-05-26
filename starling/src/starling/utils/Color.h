@@ -85,12 +85,12 @@ namespace starling
             /** Creates an RGB color, stored in an unsigned integer. Channels are expected
              *  in the range 0 - 255. */
         public:
-            static unsigned int rgb(int red, int green, int blue);
+            static unsigned int     rgb(int red, int green, int blue);
 
             /** Creates an ARGB color, stored in an unsigned integer. Channels are expected
              *  in the range 0 - 255. */
         public:
-            static unsigned int argb(int alpha, int red, int green, int blue);
+            static unsigned int     argb(int alpha, int red, int green, int blue);
 
             /** @private */
         public:

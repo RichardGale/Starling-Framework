@@ -1,4 +1,3 @@
-#if 0
 #if !defined(__STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS)
 #define __STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS
 #if defined(__cplusplus)
@@ -71,15 +70,15 @@ namespace starling
 
             /** Indicates if enough time has passed, and the call has already been executed. */
         public:
-            bool         isComplete();
+            bool      isComplete();
 
             /** The time for which calls will be delayed (in seconds). */
         public:
-            float        totalTime();
+            float       totalTime();
 
             /** The time that has already passed (in seconds). */
         public:
-            float        currentTime();
+            float       currentTime();
 
             /** The number of times the call will be repeated.
              *  Set to '0' to repeat indefinitely. @default 1 */
@@ -93,5 +92,4 @@ namespace starling
 
 #endif // __STARLING_SRC_STARLING_ANIMATION_DELAYEDCALL_AS
 #endif // __cplusplus
-#endif
 

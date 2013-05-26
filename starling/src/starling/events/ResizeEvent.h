@@ -51,7 +51,7 @@ namespace starling
 
             /** Creates a new ResizeEvent. */
         public:
-            ResizeEvent(std::string type, int width, int height, bool bubbles   =false);
+            ResizeEvent(std::string type, int width, int height, bool bubbles=false);
 
             /** The updated width of the player. */
         public:

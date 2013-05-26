@@ -90,7 +90,7 @@ private:
     void     onCreationComplete();
 
 public:
-    std::vector<void *> currentRunTestSuite();
+    std::vector<void *>    currentRunTestSuite();
 };
 
 #endif // __TESTS_SRC_FLEXUNITAPPLICATION_AS

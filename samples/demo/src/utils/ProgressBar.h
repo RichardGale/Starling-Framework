@@ -70,7 +70,7 @@ namespace utils
         void     init(int width, int height);
 
     public:
-        float        ratio();
+        float       ratio();
     public:
         void         ratio(float value);
     };

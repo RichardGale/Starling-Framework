@@ -149,6 +149,13 @@ namespace starling
         class VAlign;
     }
 }
+namespace starling
+{
+    namespace text
+    {
+        class BitmapFont;
+    }
+}
 
 /** A TextField displays text, either using standard true type fonts or custom bitmap fonts.
  *
@@ -188,6 +195,7 @@ using namespace flash::utils;
 using namespace starling::core;
 using namespace starling::display;
 using namespace starling::events;
+using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -251,7 +259,7 @@ namespace starling
             /** Create a new text field with the given properties. */
         public:
             TextField(int width, int height, std::string text, std::string fontName="Verdana",
-                      float fontSize =12, unsigned int color=0x0, bool bold   =false);
+                      float fontSize=12, unsigned int color=0x0, bool bold=false);
 
             /** Disposes the underlying texture data. */
         public:
@@ -290,14 +298,14 @@ namespace starling
             void     updateBorder();
 
         private:
-            bool         isHorizontalAutoSize();
+            bool      isHorizontalAutoSize();
 
         private:
-            bool         isVerticalAutoSize();
+            bool      isVerticalAutoSize();
 
             /** Returns the bounds of the text within the text field. */
         public:
-            Rectangle   *textBounds();
+            Rectangle    *textBounds();
 
             /** @inheritDoc */
         public:
@@ -313,77 +321,77 @@ namespace starling
 
             /** The displayed text. */
         public:
-            std::string  text();
+            std::string       text();
         public:
             void         text(std::string value);
 
             /** The name of the font (true type or bitmap font). */
         public:
-            std::string  fontName();
+            std::string       fontName();
         public:
             void         fontName(std::string value);
 
             /** The size of the font. For bitmap fonts, use <code>BitmapFont.NATIVE_SIZE</code> for
              *  the original size. */
         public:
-            float        fontSize();
+            float       fontSize();
         public:
             void         fontSize(float value);
 
             /** The color of the text. For bitmap fonts, use <code>Color.WHITE</code> to use the
              *  original, untinted color. @default black */
         public:
-            unsigned int color();
+            unsigned int         color();
         public:
             void         color(unsigned int value);
 
             /** The horizontal alignment of the text. @default center @see starling.utils.HAlign */
         public:
-            std::string  hAlign();
+            std::string       hAlign();
         public:
             void         hAlign(std::string value);
 
             /** The vertical alignment of the text. @default center @see starling.utils.VAlign */
         public:
-            std::string  vAlign();
+            std::string       vAlign();
         public:
             void         vAlign(std::string value);
 
             /** Draws a border around the edges of the text field. Useful for visual debugging.
              *  @default false */
         public:
-            bool         border();
+            bool      border();
         public:
             void         border(bool value);
 
             /** Indicates whether the text is bold. @default false */
         public:
-            bool         bold();
+            bool      bold();
         public:
             void         bold(bool value);
 
             /** Indicates whether the text is italicized. @default false */
         public:
-            bool         italic();
+            bool      italic();
         public:
             void         italic(bool value);
 
             /** Indicates whether the text is underlined. @default false */
         public:
-            bool         underline();
+            bool      underline();
         public:
             void         underline(bool value);
 
             /** Indicates whether kerning is enabled. @default true */
         public:
-            bool         kerning();
+            bool      kerning();
         public:
             void         kerning(bool value);
 
             /** Indicates whether the font size is scaled down so that the complete text fits
              *  into the text field. @default false */
         public:
-            bool         autoScale();
+            bool      autoScale();
         public:
             void         autoScale(bool value);
 
@@ -392,14 +400,14 @@ namespace starling
              *  implications on alignment: horizontally auto-sized text will always be left-,
              *  vertically auto-sized text will always be top-aligned. @default "none" */
         public:
-            std::string  autoSize();
+            std::string       autoSize();
         public:
             void         autoSize(std::string value);
 
             /** The native Flash BitmapFilters to apply to this TextField.
              *  Only available when using standard (TrueType) fonts! */
         public:
-            std::vector<void *> nativeFilters();
+            std::vector<void *>        nativeFilters();
         public:
             void         nativeFilters(std::vector<void *> value);
 
@@ -408,11 +416,11 @@ namespace starling
              *  Per default, the <code>name</code> property of the bitmap font will be used, but you
              *  can pass a custom name, as well. @returns the name of the font. */
         public:
-            static std::string registerBitmapFont(BitmapFont *bitmapFont, std::string name="");
+            static std::string   registerBitmapFont(BitmapFont *bitmapFont, std::string name="");
 
             /** Unregisters the bitmap font and, optionally, disposes it. */
         public:
-            static void     unregisterBitmapFont(std::string name, bool dispose   =true);
+            static void     unregisterBitmapFont(std::string name, bool dispose=true);
 
             /** Returns a registered bitmap font (or null, if the font has not been registered). */
         public:
@@ -421,7 +429,7 @@ namespace starling
             /** Stores the currently available bitmap fonts. Since a bitmap font will only work
              *  in one Stage3D context, they are saved in Starling's 'contextData' property. */
         private:
-            static std::map<std::string, void *> bitmapFonts();
+            static std::map<std::string, void *>   bitmapFonts();
         };
     }
 }

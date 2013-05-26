@@ -78,7 +78,7 @@ namespace textures {
                     
 
         /** helper object */
-         Rectangle* RenderTexture::sClipRect= new Rectangle();
+        Rectangle* RenderTexture::sClipRect = new Rectangle();
 
         /** Creates a new RenderTexture with a certain size. If the texture is persistent, the
          *  contents of the texture remains intact after each draw call, allowing you to use the
@@ -89,11 +89,11 @@ namespace textures {
         {
             if (scale <= 0) scale = Starling::contentScaleFactor;
 
-             int nativeWidth  = getNextPowerOfTwo(width  * scale);
-             int nativeHeight = getNextPowerOfTwo(height * scale);
+            int nativeWidth  = getNextPowerOfTwo(width  * scale);
+            int nativeHeight = getNextPowerOfTwo(height * scale);
             mActiveTexture = Texture()->empty(width, height, PMA, true, scale);
 
-            super(mActiveTexture, new Rectangle(0, 0, width, height), true);
+            SubTexture(mActiveTexture, new Rectangle(0, 0, width, height), true);
 
             mSupport = new RenderSupport();
             mSupport->setOrthographicProjection(0, 0, nativeWidth/scale, nativeHeight/scale);
@@ -118,7 +118,7 @@ namespace textures {
                 mHelperImage->dispose();
             }
 
-            super()->dispose();
+            SubTexture::dispose();
         }
 
         /** Draws an object into the texture. Note that any filters on the object will currently
@@ -155,7 +155,7 @@ namespace textures {
          *  switches and allows you to draw multiple objects into a non-persistent texture. */
         void RenderTexture::drawBundled(Function* drawingBlock, int antiAliasing)
         {
-             Context3D* context= Starling::context;
+            Context3D* context = Starling::context;
             if (context == NULL) throw new MissingContextError();
 
             // persistent drawing uses double buffering, as Molehill forces us to call 'clear'
@@ -164,7 +164,7 @@ namespace textures {
             // switch buffers
             if (isPersistent)
             {
-                 Texture* tmpTexture= mActiveTexture;
+                Texture* tmpTexture = mActiveTexture;
                 mActiveTexture = mBufferTexture;
                 mBufferTexture = tmpTexture;
                 mHelperImage->texture ( mBufferTexture);
@@ -204,7 +204,7 @@ namespace textures {
         /** Clears the texture (restoring full transparency). */
         void RenderTexture::clear()
         {
-             Context3D* context= Starling::context;
+            Context3D* context = Starling::context;
             if (context == NULL) throw new MissingContextError();
 
             mSupport->renderTarget ( mActiveTexture);

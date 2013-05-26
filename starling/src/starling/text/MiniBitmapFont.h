@@ -72,10 +72,10 @@ namespace starling
 
         private:
         static const XML *XML_DATApublic:
-            static Texture     *texture();
+            static Texture      *texture();
 
         public:
-            static XML         *xml();
+            static XML          *xml();
         };
     }
 }

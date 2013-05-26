@@ -79,6 +79,14 @@ namespace starling
     }
 }
 
+namespace starling
+{
+    namespace text
+    {
+        class BitmapChar;
+    }
+}
+
 /** The BitmapFont class parses bitmap font files and arranges the glyphs
  *  in the form of a text.
  *
@@ -113,6 +121,7 @@ namespace starling
 using namespace flash::geom;
 using namespace flash::utils;
 using namespace starling::display;
+using namespace starling::text;
 using namespace starling::textures;
 using namespace starling::utils;
 
@@ -179,50 +188,50 @@ namespace starling
 
             /** Creates a sprite that contains a certain text, made up by one image per char. */
         public:
-            Sprite  *createSprite(float width, float height, std::string text,
-                                  float fontSize =-1, unsigned int color=0xffffff,
-                                  std::string hAlign="center", std::string vAlign="center",
-                                  bool autoScale   =true,
-                                  bool kerning   =true);
+            Sprite   *createSprite(float width, float height, std::string text,
+                                   float fontSize=-1, unsigned int color=0xffffff,
+                                   std::string hAlign="center", std::string vAlign="center",
+                                   bool autoScale=true,
+                                   bool kerning=true);
 
             /** Draws text into a QuadBatch. */
         public:
             void     fillQuadBatch(QuadBatch *quadBatch, float width, float height, std::string text,
-                                   float fontSize =-1, unsigned int color=0xffffff,
+                                   float fontSize=-1, unsigned int color=0xffffff,
                                    std::string hAlign="center", std::string vAlign="center",
-                                   bool autoScale   =true,
-                                   bool kerning   =true);
+                                   bool autoScale=true,
+                                   bool kerning=true);
 
             /** Arranges the characters of a text inside a rectangle, adhering to the given settings.
              *  Returns a Vector of CharLocations. */
         private:
-            std::vector<CharLocation *> arrangeChars(float width, float height, std::string text, float fontSize =-1,
+            std::vector<CharLocation *> arrangeChars(float width, float height, std::string text, float fontSize=-1,
                     std::string hAlign="center", std::string vAlign="center",
-                    bool autoScale   =true, bool kerning   =true);
+                    bool autoScale=true, bool kerning=true);
 
             /** The name of the font as it was parsed from the font file. */
         public:
-            std::string  name();
+            std::string       name();
 
             /** The native size of the font. */
         public:
-            float        size();
+            float       size();
 
             /** The height of one line in pixels. */
         public:
-            float        lineHeight();
+            float       lineHeight();
         public:
             void         lineHeight(float value);
 
             /** The smoothing filter that is used for the texture. */
         public:
-            std::string  smoothing();
+            std::string       smoothing();
         public:
             void         smoothing(std::string value);
 
             /** The baseline of the font. */
         public:
-            float        baseline();
+            float       baseline();
         };
     }
 }
